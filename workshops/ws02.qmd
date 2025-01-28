@@ -1,0 +1,544 @@
+---
+title: "Chapter 2 Workshop"
+---
+
+# Setting up a Quarto project
+
+It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don't have to use projects, but they are very useful. 
+
+1. Open RStudio. (Optional: click on the little window symbol at the top and select "Console on Right")
+
+![](img/console_right.png)
+
+2. If you haven't already, make a directory on your computer where you want to keep your code for this course. 
+
+3. Make a new project. Select the "Project" button at the top-right of Rstudio, and select "New Project...".
+
+![](img/open_project.png)
+
+4. In the pop-up window:
+
+- Select "New Directory"
+
+![](img/new_direct.png)
+
+- Select "Quarto Project"
+
+![](img/quarto_proj.png)
+
+- Choose your directory via the "Browse", and then give the project a name like "161250_workshops"
+
+![](img/dir_name.png)
+
+- Finish by clicking on "Create Project". 
+
+The project should now be created, and you'll likely have an open \*.qmd file (something like "161250_workshops.qmd") in the top-right window of Rstudio. We want to make a \*.qmd file for this workshop. 
+
+5. Right-click on the qmd tab and select "Rename", and rename it "workshop2.qmd" or something similar. (Alternatively, just make a new file via the menus: *File > New File > Quarto Document*.)
+
+![](img/rename_qmd.png)
+
+Now you have a document for your Workshop 2 work. You can:
+
+- Write headings with lines beginning with "#". 
+- Write text in the main part of the document.
+- Make a code chunk for your R code using *Ctrl-Alt-i*. Write R code in the code chunks.
+
+Like so:
+
+![](img/chunk.png)
+
+There are lots of tutorials online covering the basics of Quarto, and we'll discuss them during our own workshops. Here are a couple for starters:
+
+<https://quarto.org/docs/get-started/hello/rstudio.html>
+
+<https://www.youtube.com/watch?v=c654j7aQjcg>
+
+There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they'll be easily accessible within your project, without having to worry about file paths. 
+
+You can easily open a recent past projects via the "Projects" button on the top-right of Rstudio. 
+
+
+# Dataset **`Prestige`**
+
+As you work through this workshop, you can copy the code and paste it into a code chunk. Write notes and observations to your self as you go. 
+
+We will be using a well-known dataset called `Prestige` from the `car`	R package. This dataset deals with prestige ratings of Canadian occupations. The `Prestige` dataset has 102 rows and 6 columns. Each row (or 'observation') is an occupation.
+
+This data frame contains the following columns:
+
+* `education` - Average education of occupational incumbents, years, in 1971.
+
+* `income` - Average income of incumbents, dollars, in 1971.
+
+* `women` - Percentage of incumbents who are women.
+
+*  `prestige` - Pineo-Porter prestige score for occupation, from a social survey conducted in the mid-1960s.
+
+* `census` - Canadian Census occupational code.
+
+*  `type` - Type of occupation. A factor with levels: bc, Blue Collar; prof, Professional, Managerial, and Technical; wc, White Collar. (includes four missing values).
+
+```{r, echo=FALSE}
+options(warn=-1) 
+```
+
+
+```{r, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(warning=FALSE, message=FALSE, comment=NA, fig.show = "hide")
+```
+
+First we'll load the data. The dataset sits in the `car` package, so you need to load the `car` package first.
+
+```{r}
+#| message: false
+library(car)
+data(Prestige)
+```
+
+
+# Exercise 2.1 {-}
+
+Draw a bar chart for `type`. These plots show the count or relative frequency of blue collar (`bc`), professional (`prof`), and white collar (`wc`) professions in the dataset. 
+
+```{r}
+library(tidyverse)
+
+p <- Prestige |> 
+  ggplot() +
+  aes(type) + 
+  geom_bar()
+
+p
+```
+
+Or with `plotly` (which works for HTML, not for PDF)
+
+```{r}
+library(plotly)
+
+ggplotly(p)
+```
+
+Or with old-style R plot
+
+```{r}
+# or
+library(car)
+barplot(table(Prestige$type))
+```
+
+
+
+# Exercise 2.2 {-}
+
+Draw a histogram of `prestige`. 
+
+Below demonstrates the flexibility of `ggplot` code. You can specify the `data` argument by piping it into `ggplot`, or by putting it as an argument to `ggplot` or a `geom_`. Likewise, the `mapping` or `aes` information, which determines which variables are used where, can be added as an extra line or specified inside the `ggplot` or `geom_` function.
+
+
+```{r}
+Prestige |> 
+  ggplot() +
+  aes(x = prestige) +
+  geom_histogram()
+```
+
+Now, this histogram, where the number of bins has been chosen for us, looks a bit "spiky" to my eye. You can control the number of bins by adding an argument `bins = 10`. 
+
+```{r}
+Prestige |> 
+  ggplot() +
+  aes(x = prestige) +
+  geom_histogram(bins=10)
+```
+
+`ggplot` is very flexible as to where you put the data and the `aes` information; all of these methods give the same result.
+
+```{r}
+
+Prestige |> 
+  ggplot() +
+  aes(x = prestige) +
+  geom_histogram(bins=10)
+
+ggplot(
+  data = Prestige,
+  mapping = aes(x = prestige)
+  ) +
+  geom_histogram(bins=10)
+
+ggplot(Prestige) +
+  aes(x = prestige) +
+  geom_histogram(bins=10) 
+
+ggplot() +
+  geom_histogram(
+    data = Prestige,
+    mapping = aes(x = prestige),
+    bins = 10
+    )
+
+
+# or
+# library(plotly)
+# p <- Prestige |> 
+#   ggplot() +
+#   aes(prestige) +
+#   geom_histogram(bins=10)
+# 
+# ggplotly(p)
+
+# or
+# hist(Prestige$prestige)
+```
+
+Now let's display the prestige scores for each profession as a dot plot.
+
+Note that I'm including the code-chunk option `#| fig-height: 12` at the beginning of my code chunk so that the plot is big enough to show all the professions without overlap. 
+
+```{r}
+#| fig-height: 12
+#| output: true
+#| fig-show: asis
+
+Prestige |>
+  ggplot() + 
+  aes(x = rownames(Prestige), y = prestige) +
+  geom_point() +
+  coord_flip()
+
+```
+
+What a mess! 
+
+We can tidy it up by ordering the professions on the plot according to `prestige`. First, we move the professions from rownames to a variable. Then, we `fct_reorder` the professions using the `prestige` scores. Then, the resulting data gets piped into `ggplot`.
+
+
+```{r}
+#| fig-height: 12
+#| fig-width: 6
+#| output: true
+#| fig-show: asis
+
+Prestige |> 
+  rownames_to_column(var = "profession") |> 
+  mutate(
+    profession = fct_reorder(profession, prestige)
+    ) |>
+  ggplot() + 
+  aes(x = profession, y = prestige, colour = type) +
+  geom_point() +
+  coord_flip()
+```
+
+
+# Exercise 2.3 {-}
+
+Obtain some summary statistics for `prestige`. There are a few options for this.
+
+```{r}
+summary(Prestige)
+
+library(psych)
+
+describe(Prestige)
+
+describeBy(education + income + women + prestige ~ type, 
+           data = Prestige)
+```
+
+
+# Exercise 2.4 {-}
+
+Make a boxplot of `prestige ~ type`:
+
+```{r}
+Prestige |> 
+  ggplot() +
+  aes(y=prestige, x=type) +
+  geom_boxplot()
+
+# or
+# library(plotly)
+# p <- Prestige |> ggplot() + 
+#   aes(y=prestige, x=type) + geom_boxplot()
+# ggplotly(p)
+
+# or
+# library(lattice)
+# bwplot(prestige ~ type, data=Prestige)
+
+# as violin plots
+Prestige |> 
+  ggplot() +
+  aes(y=prestige, x=type) +
+  geom_violin()
+
+# Or put it all together
+Prestige |> 
+  ggplot() +
+  aes(y=prestige, x=type) +
+  geom_violin() + 
+  geom_boxplot(col = 2, alpha = .2) +
+  geom_jitter(alpha = .2, width = .2, height = 0, colour = 4)
+
+```
+
+
+# Exercise 2.5 {-}
+
+Obtain the Empirical Cumulative Distribution Function (ECDF) graphs of `prestige ~ type`:
+
+```{r}
+Prestige |> 
+  ggplot() + 
+  aes(prestige, colour=type) +
+  stat_ecdf()
+
+Prestige |> 
+  ggplot() + 
+  aes(prestige) +
+  stat_ecdf() + 
+  facet_wrap(~type)
+
+```
+
+
+```{r}
+Prestige |> 
+  ggplot() + 
+  aes(
+    x = prestige, # these aes settings are used
+    col = type    # by both geoms
+    ) +
+  geom_density(
+    aes(fill = type), # the 'fill' aes goes here because 
+    alpha = .2        # geom_rug doesn't use 'fill'
+    ) +
+  geom_rug()
+
+```
+
+With which plot – the ECDF or the density plot – is it easier to compare the distributions of prestige scores among these groups?
+
+# Exercise 2.6 {-}
+
+Obtain the \{0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95\} quantiles of `prestige`:
+
+```{r, results="hide"}
+pr <- c(0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)
+
+Prestige |> 
+  summarise(
+    probs = pr,
+    quants = quantile(prestige, pr)
+    )
+
+# or simply
+quantile(Prestige$prestige, pr)
+```
+
+
+# Exercise 2.7 {-}
+
+Obtain the scatter plot (with and without marginal boxplots) **prestige vs. education **:
+
+
+```{r}
+library(ggExtra)
+
+p1 <- Prestige |> 
+  ggplot() + 
+  aes(x = education, y = prestige) +
+  geom_point() + 
+  geom_smooth(col = 2) + 
+  geom_smooth(method = "lm", se = FALSE)
+
+ggMarginal(p1, type="boxplot")
+```
+
+
+```{r}
+library(car)
+
+scatterplot(education ~ prestige, data = Prestige)
+```
+
+The later plot will show prediction interval ribbon while the first plot will show the confidence interval ribbon.
+
+# Exercise 2.8 {-}
+
+Obtain the bubble or balloon plot  **prestige vs. education vs. income** (income forming the bubble size):
+
+```{r}
+library(ggplot2)
+
+Prestige |> 
+  ggplot() + 
+  aes(x = education, y = prestige, size = income) +
+  geom_point()
+
+
+# or
+
+library(plotly)
+
+p <- Prestige |>
+  ggplot() + 
+  aes(x = education, y = prestige, size = income) +
+  geom_point()
+
+ggplotly(p)
+```
+
+
+# Exercise 2.9 {-}
+
+Obtain the contour plot  **prestige vs. education vs. income** :
+
+```{r}
+#| results: hide
+
+library(plotly)
+
+plot_ly(type = 'contour', 
+        x = Prestige$education, 
+        y = Prestige$income, 
+        z = Prestige$prestige)
+```
+
+To add axes labels and titles, try-
+
+```{r}
+#| results: hide
+
+plot_ly(
+  Prestige,
+  type = 'contour',
+  x = Prestige$education,
+  y = Prestige$income,
+  z = Prestige$prestige
+) |> layout(
+  title = 'Contour Plot of prestige scores',
+  xaxis = list(title = 'education'),
+  yaxis = list(title = 'income')
+)
+```
+
+
+We can also define our own function for the contour approximation.
+
+```{r}
+#| results: hide
+library(modelr)
+
+# make a smooth model
+y.m = loess(prestige ~ education * income, data = Prestige)
+
+# make a regular grid of all combinations of education and income
+mygrid <- Prestige |> 
+  data_grid(
+    education = seq_range(education, 50),
+    income = seq_range(income, 50)
+  ) |> 
+  # add predicted prestige using the smooth model
+  add_predictions(y.m, var = "predicted prestige")
+
+# make ggplot contour plot
+p <- mygrid |> 
+  ggplot() + 
+  aes(x = education, y = income, z = `predicted prestige`) +
+  geom_contour()
+
+p
+
+# make a plotly version
+library(plotly)
+ggplotly(p)
+
+# filled contour ggplot
+mygrid |> 
+  ggplot() + 
+  aes(x=education, y=income, z=`predicted prestige`) +
+  stat_contour_filled()
+
+# or the older-style lattice graphs 
+
+library(lattice)
+
+contourplot(`predicted prestige` ~ education * income, 
+            data = mygrid, 
+            cuts = 10, region = TRUE,
+            xlab = "education ", ylab = "income ")
+
+wireframe(`predicted prestige` ~ education * income, 
+          data = mygrid,  
+          cuts = 10, region = TRUE, 
+          xlab = "education ", ylab = "income ")
+
+levelplot(`predicted prestige` ~ education * income, 
+          data = mygrid,  
+          cuts = 10, region = TRUE, 
+          xlab = "education ", ylab = "income ")
+
+cloud(`predicted prestige` ~ income * education, 
+      data = mygrid) 
+```
+
+# Exercise 2.10 {-}
+
+Obtain an interactive 3-D plot of **prestige vs. education vs. income** using `plotly`.
+
+
+```{r}
+plot_ly(
+  data = Prestige,
+  x = ~education, 
+  y = ~income, 
+  z = ~prestige) |> 
+  add_markers() 
+
+```
+
+# Exercise 2.11 {-}
+
+Create `prestige ~ education | type` graphs.  That is, `prestige ~ education` grouped by `type` as colours and/or panels.
+
+
+```{r}
+Prestige |> 
+  ggplot() + 
+  aes(x = education, y = prestige, colour = type) +
+  geom_point() + 
+  facet_wrap(~ type)
+
+# or
+# library(plotly)
+#
+# p <- Prestige |> 
+#   ggplot() + 
+#   aes(x = education, y = prestige, color = type) +
+#   geom_point() + 
+#   facet_wrap(~ type)
+# 
+# ggplotly(p)
+```
+
+
+```{r}
+p <- Prestige |> 
+  ggplot() + 
+  aes(x = education, y = prestige, color = type) +
+  geom_point()
+
+p
+
+# OR
+#
+# library(plotly)
+# ggplotly(p)
+```
+
+
+More graphing examples are [here](../exercises/Chap2more.R) (R code file).

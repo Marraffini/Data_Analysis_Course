@@ -1,0 +1,809 @@
+---
+title: "Chapter 7:<br>Models with Multiple Predictors"
+image: img/3d.png
+format: 
+  revealjs:
+    width: 1050
+    height:	700
+    scrollable: true
+    transition: fade
+    theme: [default, myquarto.scss]
+    slide-number: c/t  
+    logo: img/L_Color.png
+    footer: "[161250 Data Analysis](https://anhsmith.github.io/161250/slides.html)"
+    styles:
+      - revealjs.dark:
+        background-color: #222
+        color: #fff
+    
+execute:
+  echo: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      echo = FALSE, 
+                      include=TRUE, 
+                      message=FALSE, 
+                      comment = NA, 
+                      warn=-1, 
+                      warn.conflicts = FALSE, 
+                      quietly=TRUE, 
+                      fig.align="center")
+```
+
+
+## Learning Objectives:
+
+-   Understand and describe a multiple linear regression, the difference from a simple linear regression, and when each are appropriate
+-   Fit and display a multiple regression
+-   Understand and interpret different types of Sums of Squares
+-   Understand and test for multicollinearity and other assumptions
+
+
+## What is a multiple Regression?
+-   In a simple regression, there is only one predictor.
+-   Multiple regression modelling involves many predictors.
+
+
+
+## When to use multiple predictors
+
+-   *Statistical control of a confound*: controlling treatment for some unwanted variability
+
+-   *Multiple causation*: multiple things are thought to cause changes in the outcome variable
+
+-   *Interactions*: we are interested in how two variables may combine to change our outcome (will cover this in the next chapter)
+
+## Multiple Regression
+Where to start:
+
+-   Question and hypothesis + domain knowledge
+
+    -   What are we interested in testing?
+    -   What data is collected? do those variables make sense?
+    -   What kind of data are my response and predictor variables?
+    
+-   Perform EDA first
+
+    -   A scatter plot matrix can show nonlinear relationships
+    -   A correlation matrix will only show the strength of pairwise
+        linear relationships
+
+-   Look for the predictors having the largest correlation with response
+
+    -   Look for inter-correlations between the predictors and choose
+        the one with high correlation with response variable but
+        uncorrelated with the rest.
+
+
+## Data example
+Basketball team summary for 2020 regular season\
+
+We have 2118 data points which equates to 1059 games (2 teams per game), 2020 was a short season
+
+
+Each team in a standard season plays 82 games. That means in total, an NBA season is comprised of 1,230 games. 
+
+
+\small
+```{r}
+teams <- read.csv("teamsNBA2020.csv", row.names = 1)
+head(teams)
+teams_forlm <- teams |> 
+  dplyr::select(-Team, -Game, -Outcome, -TOV, -PF, - MIN)
+
+```
+
+`Spread`: Point difference between winning and losing team\
+`PTS`: Total points scored by a team in a game\
+`P2p`: Percent of 2-pointers made\
+`P3p`: Percent of 3-pointers made\
+`FTp`: Percent of free-throws made\
+`OREB`: Offensive rebounds\
+`DREB`: Defensive rebounds\
+`AST`: Assists\
+`STL`: Steals\
+`BLK`: Blocks\
+
+
+
+
+## Data example
+```{r, echo = TRUE}
+options(digits=3)
+cor(teams[,c(3, 6:12, 14:15)])
+```
+
+## Inter-relationships
+
+```{r, fig.height=8}
+library(GGally)
+ggpairs(teams, columns = c(3, 6:12, 14:15))
+```
+
+## Full regression in R
+
+Places all of the predictors in the model
+
+Equivalent of throwing everything in and hoping something sticks
+
+
+```{r}
+full_reg <- lm(Spread~., data=teams_forlm)
+```
+
+
+```{r}
+summary(full_reg)
+```
+
+
+
+## Residuals
+Just like with a simple regression we examine residuals to look for patterns
+```{r}
+par(mfrow=c(2,2))
+plot(full_reg)
+```
+These look great, probably because we have a ton of data in this example. 
+
+
+## Multicollinearity {.increment}
+
+-   *Multicollinearity* is where at least two predictor variables are
+    highly correlated.
+
+-   Multicollinearity does *not* affect the residual SD very much, and
+    doesn't pose a major problem for prediction.
+
+-   The major effects of multicollinearity are:
+
+    -   It changes the estimates of the coefficients.
+    -   It inflates the variance of the estimates of the coefficients.
+        That is, it increases the uncertainty about what the slope
+        parameters are.
+    -   Therefore, it matters when testing hypotheses about the effects
+        of specific predictors.
+
+## Multicollinearity
+
+-   The impact of multicollinearity on the variance of the estimates can
+    be quantified using the Variance Inflation Factor (VIF \< 5 is
+    considered ok).
+
+-   There are several ways to deal with multicollinarity, depending on
+    context. We can discard one of highly correlated variable, perform
+    ridge regression, or think more carefully about how the variables
+    relate to each other.
+
+## Multicollinearity 
+
+In R we can examine Multicollinearity using the function `vif()`
+
+Remember our basketball regression:
+
+```{r, echo=TRUE}
+library(car)
+vif(full_reg)
+```
+
+These values are all small (VIF \< 5) so we can continue on in interpreting the regression.
+
+## Tidy summary
+
+```{r}
+library(tidyverse)
+library(broom)
+out1 <- tidy(full_reg) |> mutate_if(is.numeric, round, 3)
+
+library(kableExtra)
+kable(out1, caption = "t-tests for model parameters") |> 
+  kable_classic(full_width = F)
+```
+
+
+## Variance Explained (Review from Chapter 6)
+$R^2$ is the proportion of variance in $y$ explained by $x$ .
+
+$R^2=\frac{SS~regression}{SS~Total}$
+
+-   $R^2_{adj}$ is adjusted to remove the variation that is explained by
+    chance alone
+
+-   $R^2_{adj}=1-\frac{MS~Error}{MS~Total}$\
+$R^2_{adj}$ can also be written as: $R^2_{adj}=1-\frac{(1-R^2)*(n-1)}{(n-k-1)}$
+
+-   Now we have more sums of square to add in to our regression
+
+```{r, echo = TRUE}
+SS <- anova(full_reg) |> 
+   tidy() |> 
+  select(term:sumsq) |> 
+  janitor::adorn_totals()
+SS
+```
+
+## Additional variation explained
+
+-   Variation in $Y$ is separated into two parts SSR and SSE.
+
+    -   The shaded overlap of two circles represent the variation in $Y$
+        explained by the $X$ variables.
+
+-   The total overlap of $X_1$ and $X_2$, and $Y$ depends on
+
+    -   relationship of $Y$ with $X_1$ and $X_2$
+    -   correlation between $X_1$ and $X_2$
+
+    ![](img/5_5.png)
+
+
+
+## Sequential addition of predictors
+
+-   Addition of variables decreases SSE and increases SSR and $R^2$.
+-   $s^2$ = MSE = SSE/df decreases to a minimum and then increases since
+    addition of variable decreases SSE but adds to df.
+
+![](img/5_7.png)
+
+## Significance of Type I or Seq.SS
+
+-   The Type I SS is the SS of a predictor after adjusting for the
+    effects of the *preceding* predictors in the model. 
+    
+    -   Sometimes order matters, particularly with unequal sample sizes
+- For unbalanced data, this approach tests for a difference in the weighted marginal means. In practical terms, this means that the results are dependent on the realized sample sizes. In other words, it is testing the first factor without controlling for the other factor, which may not be the hypothesis of interest. 
+
+-   F test for the significance of the additional variation explained
+-   R function `anova()` calculates sequential or Type-I SS
+
+![](img/type1.png)
+
+## Type II 
+
+-   Type II SS is based on the principle of marginality.
+
+    -   Each variable effect is adjusted for all other appropriate
+        effects.
+        -   equivalent to the Type I SS when the variable is the last
+            predictor entered the model.
+    -   Order matters for Type I SS but not for Type II SS
+
+![](img/type2.png)
+
+## Type III SS
+-   Type III SS is the SS added to the regression SS after *ALL* other
+    predictors including an interaction term.
+    
+-   This type tests for the presence of a main effect after other main effects and interaction. This approach is therefore valid in the presence of significant interactions.
+
+-   If the interaction is significant SS for main effects should not be interpreted
+    
+## SS types in action
+
+Consider a model with terms A and B:
+
+Type 1 SS:\
+SS(A) for factor A.\
+SS(B | A) for factor B.
+
+Type 2 SS:\
+SS(A | B) for factor A.\
+SS(B | A) for factor B.
+
+Type 3 SS:\
+SS(A | B, AB) for factor A.\
+SS(B | A, AB) for factor B.
+
+-   When data are balanced and the design is simple, types I, II, and III will give the same results.  
+
+-   SS explained is not always a good criterion for selection of variables
+
+## SS types in action
+
+```{r, echo = TRUE}
+anova(full_reg)
+```
+
+```{r, echo = TRUE}
+library(car)
+Anova(full_reg,  type=2)
+```
+
+```{r, echo = TRUE}
+Anova(full_reg,  type=3)
+```
+
+## Summary so far
+-   Defined multiple regression
+-   Why we might run a multiple regression
+-   How to perform a multiple regression, examine residuals, multicollinearity
+-   Variation and R squared
+-   Sums of Squares types
+
+    
+## Learning Objectives:
+
+-   Cautionary tales: when correlation misleads us 
+-   How to make models
+-   Comparing models
+-   Principles of model selection
+
+
+
+## Does Waffle Houses cause divorce??
+
+![](img/waffleH2divorce.png)
+
+## Or is it butter?
+
+![](img/Divorce_margarine.png)
+
+And if you want more to impress your friends at a BBQ, the source is: http://www.tylervigen.com/spurious-correlations
+
+## Spurious association
+-   You've heard that before: correlation does not imply causation. BUT it doesn't discard it either
+-   Hope you are seated: causation does not imply correlation.
+-   Causation implies conditional correlation (up to linearity issues).
+-   We need more than just statistical models to answer causal questions.
+
+## How do we deal with spurious associations?
+-   Domain knowledge: you know that waffles and butter don't *cause* divorce so why might they be correlated?
+
+    -   Is there another predictor that would be better?
+-   Multiple regressions can disentangle the association between two predictors and an outcome 
+
+    -   Statistical control of a confound
+  
+![](img/waffleH2divorce.png)
+
+## Masked associations
+
+-   Association between a predictor variable and an outcome can be
+masked by another variable.
+-   You need to observe both variables to see the “true” influence of either on the
+outcome.
+-   How do we account for the masking variable (seen as a nuisance)?
+
+## Masking situations tend to arise when:
+
+- Both predictors are associated with one another.
+- Have opposite relationships with the outcome.
+
+![](img/venetian-mask.jpg)
+
+
+## Headline: Higher ice cream sales increase shark attacks!
+
+We’ll predict ice cream sales from the temperature and the number of shark attacks
+
+![](img/ice-cream-shark.jpeg)
+```{r}
+library(rethinking)
+library(brms)
+set.seed(2022)
+n <- 100
+temp <- rnorm(n)
+shark <- rnorm(n, temp)
+ice_cream <- rnorm(n, temp)
+
+spur_exp <- tibble(ice_cream, temp, shark) %>%
+  mutate(across(everything(), standardize))
+
+```
+
+## First we will consider simple regressions 
+
+```{r, fig.height=4}
+spur_exp |> ggplot(aes(x=shark, y = ice_cream))+
+  geom_point()+
+  geom_smooth(method = 'lm')+
+   labs(y="Ice Cream",
+       x= "Shark Attacks")
+```
+
+```{r, fig.height=4}
+spur_exp |> ggplot(aes(x=temp, y = ice_cream))+
+  geom_point()+
+  geom_smooth(method = 'lm')+
+   labs(y="Ice Cream",
+       x= "Temperature")
+```
+
+## Single regression
+```{r}
+mod_t <- lm(ice_cream ~ temp, data = spur_exp)
+mod_s <- lm(ice_cream ~ shark, data = spur_exp)
+mod_ts <- lm(ice_cream ~ temp + shark, data = spur_exp)
+
+outt <- tidy(mod_t) |> mutate_if(is.numeric, round, 3)
+outs <- tidy(mod_s) |> mutate_if(is.numeric, round, 3)
+outts <- tidy(mod_ts) |> mutate_if(is.numeric, round, 3)
+
+kable(outt, caption = "Temperature Only") |> 
+  kable_classic(full_width = F)
+kable(outs, caption = "Shark Only") |> 
+  kable_classic(full_width = F)
+
+```
+
+## Multiple regression
+```{r}
+kable(outt, caption = "Temperature Only") |> 
+  kable_classic(full_width = F)
+kable(outs, caption = "Shark Only") |> 
+  kable_classic(full_width = F)
+kable(outts, caption = "Temperature and Sharks") |> 
+  kable_classic(full_width = F)
+```
+
+
+
+## Masking situation
+
+Tend to arise when 
+
+- Both predictors are associated with one another.
+- Have different relationships with the outcome
+
+```{r icecream pairs, out.width="95%", out.height="50%",echo=FALSE}
+pairs(~ice_cream + 
+  temp + 
+  shark, 
+  data = spur_exp)
+```
+
+## How do we deal with this?
+
+-   Statistically there is not really an answer
+-   The answer lies in the causes and the causes are not in the data; Shark attacks dont cause ice cream sales or vice versa
+-   Remember that interpreting the (regression) parameter estimates
+always depends upon what you believe the causal model
+
+
+## Model Selection 
+
+- The first step before selection of the best subset of predictors is to study the correlation matrix
+- We then perform stepwise additions (forward) or subtractions (backward) from the model and compare them
+
+BUT...
+
+- We saw with the illustration of SS how the significance or otherwise of a variable in a multiple regression model depends on the other variables in the model
+- Therefore, we cannot fully rely on the t-test and discard a variable because its coefficient is insignificant
+
+## Selection of predictors
+
+-   Heuristic (short-cut) procedures based on criteria such as $F$,
+    $R^2_{adj}$, $AIC$, $C_p$ etc
+    -   `Forward Selection`: Add variables sequentially
+
+        -   convenient to obtain the simplest feasible model
+
+    -   `Backward Elimination`: Drop variables sequentially
+
+        -   If difference between two variables is significant but not
+            the variables themselves, forward regression would obtain
+            the wrong model since both may not enter the model.
+
+            -   Known as *suppressor* variables case (like masking variables discussed earlier)
+
+Example: (try)
+
+```{r}
+# url1 <- "http://www.massey.ac.nz/~anhsmith/data/suppressor.RData"
+# download.file(url = url1, destfile = "suppressor.RData")
+load("../data/suppressor.RData")
+summary(lm(y~x1, data=suppressor))
+summary(lm(y~x2, data=suppressor))
+summary(lm(y~x1+x2, data=suppressor))
+```
+
+## Ockham's razor
+*Nunca ponenda est pluralitas sine necesitate* \
+(Plurality should never be posited without necessity)
+
+-   Problem: fit to sample always (*multi-level models can be counter-examples) improves as we add parameters.
+-   Dangers of "stargazing": selecting variables with low p-values (aka 'lots of stars'). P-values are not designed to cope with over-/under-fitting.
+
+
+## Overfitting
+-   Overfitting learning too much from the data, where you are almost just connecting the points rather than estimating.
+-   Underfitting is the opposite, i.e. being insensitive to the data.
+-   aka Models with fewer assumptions are to be preferred.
+-   In practice, we have to choose between models that differ both in
+accuracy and simplicity. The razor is not really a useful guidance for
+this trade off. 
+
+We need tools
+
+## All possible models:
+An exhaustive screening of all possible regression models can also be done using software
+
+-   `Best Subsets`: Stop at each step and check whether predictors, in
+    the model or outside, are the best combination for that step.\
+    -   time consuming to perform when the predictor set is large
+    
+Remember permutations
+
+For example:
+
+If we fix the number of predictors as 3, then 20 regression models are possible\
+
+
+## What criteria do we use?
+Multiple options\
+- R squared\
+- Sums of squared (different types, for testing predictor significance)\
+- Information criteria (AIC, BIC etc)\
+- For prediction: MSD/MSE, MAD, MAPE\
+- $C_p$\
+
+Remember its about balance and what you are looking for (fit vs prediction, complexity vs generality)\
+
+-   **`Note`**
+
+    -   If a model stands out, it will perform well in terms of all
+        summary measures.
+    -   If a model does not stand out, summary measures will contradict.
+
+
+## When $R^2$ becomes absurd
+
+![](img/brain_homin_R2ter.png)
+
+## Model selection
+
+-   Residual SD depends on its degrees of freedom
+
+    -   So comparison of models based on Residual SD is not fully fair
+
+-  The following three measures are popular prediction modelling and similar to residual SD 
+
+-   Mean Squared Deviation (MSD): mean of the squared errors (i.e., deviations) (also called MSE)
+
+$$\frac{\sum \left({\rm observation-fit}\right)^{{\rm 2}} }{{\rm number~of~ observations}}$$
+
+-   Mean Absolute Deviation (MAD)
+
+$$\frac{\sum \left|{\rm observation-fit}\right| }{{\rm number~of~observations}}$$
+
+-   Mean Absolute Percentage Error (MAPE)
+
+$$\frac{\sum \frac{\left|{\rm observation-fit}\right|}{{\rm observation}} }{{\rm number~of~observations}} {\times100}$$
+
+## Model selection (continued)
+
+-   Avoid over-fitting.
+
+-   So place a penalty for excessive model parameters
+
+-   Akaike Information Criterion (AIC; *smaller is better*)
+
+$$AIC  =  n\log \left(\frac{SSE}{n} \right) + 2p$$
+-   Bayesian Information Criterion (BIC) places a higher penalty that depends on, the number of observations. 
+
+-   As a result BIC fares well for selecting a model that explains the relationships well while AIC fares well when selecting a model for prediction purposes.
+
+- Other variations: WAIC, AICc, etc (we will not cover them)
+
+
+## Software
+
+-   In $R$, `lm()` and `step()` function will perform the tasks
+
+    -   `leaps()` and `HH` packages contain additional functions
+    -   `dredge()` in `MuMIn` will produce all the subset models given a full model
+    -   Also `MASS`, `car`, `caret`, and `SignifReg` R packages
+
+-   R base package step-wise selection is based on $AIC$ only.
+
+
+
+
+## Cross validation (review from Chapter 6)
+In sample error vs prediction error
+
+-   For simpler models, increasing the number of parameters improves the fit to the sample.
+-   But it seems to reduce the accuracy of the out-of-sample predictions.
+-   Most accurate models trade off flexibility (complexity) and overfitting
+
+General idea:
+-   Leave out some observations.
+-   Train the model on the remaining samples; score on those left out.
+-   Average over many left-out sets to get the out-of-sample (future) accuracy.
+
+## Cross validated selection: Data example
+Consider the pinetree data set which contains the circumference measurements of pine trees at four positions (First is bottom)
+
+```{r}
+load("pinetree.RData")
+ggpairs(pinetree, columns = 2:5, aes(fill=Area))
+```
+
+## Cross validated selection
+-   Model selection can be done focusing on prediction
+    -   method = "leapForward" & method = "leapBackward" options
+```{r, echo = TRUE}
+library(caret);  library(leaps)
+set.seed(123)
+fitControl  <-  trainControl(method  =  "repeatedcv",
+                             number  =  5,  repeats  =  100)
+leapBackwardfit  <-  train(Top  ~  .,  data  =  pinetree[, -1],
+trControl  =  fitControl,  method  =  "leapBackward")
+summary(leapBackwardfit)
+```
+
+## Polynomial models
+
+-   A polynomial model includes the square, cube of predictor variables
+    as additional variables.
+-   High correlation (multicollinearity) between the predictor variables
+    may be a problem in polynomial models, but not always.
+
+## Polynomial models: Data example
+
+We can fit a simple linear regression using the Pine tree data
+
+```{r, echo=TRUE}
+pine1 <- lm(Top ~ First, data = pinetree) 
+summary(pine1)
+```
+
+```{r, fig.height=4}
+par(mfrow=c(2,2))
+plot(pine1)
+```
+
+## Look closer 
+```{r}
+library(ggfortify)
+autoplot(pine1, which=1, ncol=1)
+```
+
+Looks non-linear
+
+
+## Polynomial models: Data example
+
+```{r}
+poly.model = lm(Top~poly(First,degree=3, raw=T), data=pinetree)
+round(summary(poly.model)$coefficients,3)
+```
+
+
+    ```         
+    - For the pinetree example, all the slope coefficients are highly significant for the cubic regression
+    - Not so for the quadratic regression
+    ```
+
+\tiny
+
+```{r}
+poly.model = lm(Top~poly(First,degree=2, raw=T), data=pinetree)
+round(summary(poly.model)$coefficients,3)
+```
+
+-   Raw polynomials do not preserve the coefficient estimates but
+    orthogonal polynomials do.
+
+```{r}
+poly.model = lm(Top~poly(First,degree=2), data=pinetree)
+round(summary(poly.model)$coefficients,3)
+poly.model = lm(Top~poly(First,degree=3), data=pinetree)
+round(summary(poly.model)$coefficients,3)
+```
+
+## Residual diagnostics
+
+-   For multiple regression fits, including polynomial fits, examine the
+    residuals as usual to-
+
+    ```         
+    - Validate the model assumptions
+    - Look for model improvement clues
+    ```
+
+-   Quadratic regression for pinetree data is not satisfactory based on
+    the residual plots shown below:
+
+```{r}
+poly.model = lm(Top~poly(First,degree=2), data=pinetree)
+library(ggfortify)
+autoplot(poly.model)
+```
+
+
+## Categorical predictors
+
+-   Models can include categorical predictors such as **Area** in the
+    pinetree dataset
+
+-   Make sure that you use the *factor()* function when numerical codes
+    are assigned to categorical variables.
+
+-   Area effect on Top circumference is clear from the following plot
+
+```{r }
+ggplot(pinetree,
+       aes(x = factor(Area), y = Top, color = factor(Area))) +
+  geom_jitter(pch = 1, width = 0.15, height = 0) +
+  stat_summary(fun = "mean", geom = "point",
+               size = 2, position = position_nudge(x = 0.3)) + stat_summary(fun.data = "mean_cl_normal", geom = "errorbar",
+               size = 0.75, width = 0.075, position = position_nudge(x = 0.3))
+```
+
+## Indicator variables
+
+-   Factors are employed in a multiple regression using indicator
+    variables which are simply binary variables taking either zero or
+    one
+
+-   For for males and females, indicator variables are defined as
+    follows:
+
+    -   Indicator variable of males:
+        $~~~~~~~~\begin{array}{cccc} I_{\text {male}} & = & 1 & \text{for males}\\ & & 0& \text{for females} \end{array}$
+    -   Indicator variable of females
+        $~~~~~~~~\begin{array}{cccc} I_{\text{female}} & = & 1 & \text{for females}\\ & & 0& \text{for males} \end{array}$
+
+-   There are three different areas of the forest in the pinetree
+    dataset. So we can define three indicator variables.
+
+-   Only two indicator variables are needed because there is only 2
+    degrees of freedom for the 3 areas.
+
+## Regression output
+
+```{r}
+pinetree  |>
+  dplyr::select(Area,  Top)  |>
+  mutate(I1  =  as.numeric(Area=="1"),
+         I2  =  as.numeric(Area=="2"),
+         I3=as.numeric(Area=="3")  )  ->  pinetree1
+mdl  <-  lm(Top~I2+I3,  data=pinetree1)
+cap <- "Regression of Top Circumference on Area Indicator Variables"
+kable(tidy(mdl), caption=cap) |>
+  kable_styling(bootstrap_options = "striped", full_width = F)
+```
+
+-   The y-intercept is the mean of the response for the omitted category
+    -   `20.02` is the mean Top circumference for the first Area
+-   slopes are the difference in the mean response
+    -   `-1.96` is the drop in the mean top circumference in Area 2 when
+        compared to Area 1 (which is not a significant drop)
+    -   `-5.92` is the drop in the mean top circumference in Area 3 when
+        compared to Area 1 (which is a highly significant drop)
+
+Analysis of Covariance model employs both numerical and categorical
+predictors (covered later on).
+
+-   We specifically include the interaction between them
+
+
+## Summary
+
+-   Regression methods aim to fit a model by least squares to explain
+    the variation in the dependent variable $Y$ by fitting explanatory
+    $X$ variables.
+-   Matrix plots (EDA) and correlation coefficients provide important clues to
+    the interrelationships.
+-   For building a model, the additional variation explained is
+    important. Summary criterion such as $AIC$ is also useful.
+
+-   A model is not judged as the **best** purely on statistical grounds.
+
+
+<!-- download.file("http://www.massey.ac.nz/~kgovinda/220exer/Chap5moreexamples.R", destfile="Chap5moreexamples.R") -->
+
+<!-- download.file("https://www.massey.ac.nz/~kgovinda/220exer/chapter-5-exercises.html", destfile="chapter-5-exercises.html") -->
+
+<!-- install.packages("remotes") -->
+
+<!-- remotes::install_github("ricompute/ricomisc") -->
+
+<!-- ricomisc::rstudio_viewer("chapter-4-exercises.html", file_path = NULL) -->

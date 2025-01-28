@@ -1,0 +1,845 @@
+---
+title: "Chapter 6:<br>Models with a Single Predictor"
+image: img/reg.png
+format: 
+  revealjs:
+    width: 1050
+    height:	700
+    scrollable: true
+    transition: fade
+    theme: [default, myquarto.scss]
+    slide-number: c/t  
+    logo: img/L_Color.png
+    footer: "[161250 Data Analysis](https://anhsmith.github.io/161250/slides.html)"
+    styles:
+      - revealjs.dark:
+        background-color: #222
+        color: #fff
+    
+execute:
+  echo: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      echo = FALSE, 
+                      include=TRUE, 
+                      message=FALSE, 
+                      comment = NA, 
+                      warn=-1, 
+                      warn.conflicts = FALSE, 
+                      quietly=TRUE,
+                      fig.align="center")
+```
+
+## What is a statistical model?
+
+::: {align="center"}
+**OBSERVATION = FIT + RESIDUAL**
+:::
+
+**FIT**- to explain systematic (non-random) variation in the data
+
+**RESIDUAL** - to explain random variation in the data
+
+## Analysis of two quantitiative variables
+
+-   With paired (related) data (X,Y)
+-   Two variables: one (Y) is random (response) and the other (X) is considered fixed (predictor)
+-   Interested in the functional relationship between these two variables $Y=f(X)$ to predict Y, given X 
+-   Interested in estimates of coefficients 
+    
+      
+## Regression
+
+-   Statistical Model
+    -   Fitted Model: $\hat{Y}=a+bX$ (True Model:
+        $Y=\alpha+\beta X+\epsilon$)
+    -   residual error: $e= Y-\hat{Y}$ ($\epsilon$ is not the same as
+        $e$)
+
+        
+## Regression
+```{r, echo=FALSE}
+cirrhosis <- read.table("../data/cirrhosis.txt", header=TRUE)
+
+```
+
+```{r}
+library(tidyverse)
+ggplot(cirrhosis, aes(y=Death, x=Alcohol)) + 
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE)
+```
+       
+-   A **regression equation** is a function that indicates how the
+    **average** value of one response variable for given values of one
+    or more predictor variables varies with these predictor variables;
+    that is, $E(Y|X_1, X_2, ..., X_k)$
+
+## Simple regression
+
+-   The term simple means there is a single predictor
+
+-   The fitted model remains as: $\hat{Y}=a+bX_{i}$\
+
+    - $\hat{Y}$ is the predicted value of $y_{i}$ given $x_{i}$. Also called 'fitted' values, they are the linear funtion of X.
+    - $a$ the intercept on the y-axis; value of $\hat{Y}$ when $x_{i}=0$.
+    - $b$ the slope of the line; the change in $\hat{Y}$ with a 1-unit increase in $x_{i}$.
+
+
+## Fitting a regression
+
+-   Want a line that is as 'close' as possible to the existing data points we have
+
+
+-   The method of least squares is employed to obtain the estimates $a$
+    and $b$
+
+    -   The sum of squared residuals is minimized in the least squares
+        method.
+  
+
+## Example (Alcohol consumption data)
+
+```{r, echo=FALSE}
+print(cirrhosis, row.names=FALSE)
+```
+
+## Plot of Alcohol consumption data
+
+```{r}
+ggplot(cirrhosis, aes(y=Death, x=Alcohol)) + 
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE)
+```
+
+## Plot of Alcohol consumption data
+
+```{r}
+ggplot(cirrhosis, aes(y=Death, x=Alcohol)) + 
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE)
+```
+
+
+$min \left( \sum_{i=1}(y_{i}-\hat{y_{i}})^2 \right)$
+
+-   $i$ number of observations
+-   $y_{i}$ observed value of y
+-   $\hat{y_{i}}$ predicted value of y
+
+
+## R Base Output 
+
+
+```{r, echo=TRUE}
+mod1 <- lm(Death ~ Alcohol, data=cirrhosis)
+summary(mod1)
+```
+
+-   Let us `tidy` it.
+
+## Fitted model and testing its coefficients
+
+```{r}
+#| echo: true
+#| output-location: column
+library(broom)
+tidy(mod1) |> mutate_if(is.numeric, round, 3) -> out1
+library(kableExtra)
+kable(out1, caption = "t-tests for model parameters") %>% 
+  kable_classic(full_width = F)
+```
+
+-   Focus on the model, its coefficients
+
+    -   What is the scale of these variables? Are these coefficient estimates meaningful in the context?
+    -   What is the error around these estimates?
+
+
+## Assumptions
+
+Model forming assumptions
+
+1.  $X$ is known without error
+2.  $Y$ is linearly related to $X$ 
+3.  There is a random variability of $Y$ about this line
+
+```{r}
+library(tidyverse)
+ggplot(cirrhosis, aes(y=Death, x=Alcohol)) + 
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE)
+```
+## Assumptions
+**More** assumptions to form $t$ and $F$ statistics:
+
+1.  Variability in $Y$ about the line is constant and independent of $X$ variable.
+2.  The variability of $Y$ about the line follows normal distribution.
+3.  The distribution of $Y$ given $X = X_i$ is independent of $Y$ given
+    $X = X_j$.
+
+## Residuals and assumptions
+-   Most assumptions are on the errors (residuals)
+    -   independent
+    -   normal
+    -   random
+-   Is there a pattern in my residuals? 
+-   Do they suggest what to do?
+
+## Residuals
+```{r}
+ggplot(cirrhosis, aes(y=Death, x=Alcohol)) + 
+  geom_point() + 
+  geom_smooth(method = lm, se = FALSE)
+```
+
+## Types of residuals
+
+-   raw or ordinary residual is just (observation-fit)
+
+-   `Standardized Residual`= Residual/Std.Dev of residual
+
+-   The regression model is influenced by outliers or unusual points
+    because the slope estimate of the regression line is sensitive to
+    these outliers.
+
+-   So we define `Studentised or deleted t Residual`
+
+-   Similar to Standardized Residual without the observation under
+    consideration. That is,
+
+    -   Studentised residual = residual/std. dev of residual (after
+        omitting the particular observation).
+
+```{r}
+dfm <- cbind.data.frame(Residuals=residuals(mod1), 
+                        Std.residuals=rstandard(mod1), 
+                        Student.Residuals=rstudent(mod1), 
+                        Fitted.values=fitted.values(mod1))
+
+p1 <- ggplot(dfm, aes(x=Fitted.values, y=Residuals))+geom_point()
+p2 <- ggplot(dfm, aes(x=Fitted.values, y=Std.residuals))+geom_point()
+p3 <- ggplot(dfm, aes(x=Fitted.values, y=Student.Residuals))+geom_point()
+library(patchwork)
+p1+p2+p3 & theme_minimal()
+```
+
+## Residual plot for `Alcohol~deaths` model
+
+-   For small sample sizes, residual diagnostics is difficult
+
+```{r}
+mod1  <-  lm(Death ~ Alcohol, data=cirrhosis)
+library(tidyverse)
+cirrhosis %>% mutate(Fitted = fitted.values(mod1), Residuals = residuals(mod1)) -> cirrhosis 
+
+p1 <- ggplot(cirrhosis, aes(sample=Residuals))+stat_qq()+stat_qq_line()
+p1 <- p1+labs(title = "Normal Probability Plot \nof the Residuals")
+p2 <- ggplot(cirrhosis, aes(y=Residuals, x=Fitted))+geom_point()
+p2 <- p2+geom_hline(yintercept = 0)
+p2 <- p2+labs(title = "Residuals Vs \n Fitted Values")
+p3 <- ggplot(cirrhosis, aes(Residuals))+geom_histogram(bins=4)
+p3 <- p3+labs(title = "Histogram of the Residuals")
+p4 <- ggplot(cirrhosis, aes(y=Residuals, x=1:length(Residuals)))+geom_point()+geom_line()
+p4 <- p4+geom_hline(yintercept = 0)
+p4 <- p4+labs(title = "Residuals Vs Obs. Order")
+library(patchwork)
+p1+p2+p3+p4 & theme_minimal()
+```
+
+## Residual plot for `Alcohol~deaths` model
+
+```{r, echo=TRUE}
+par(mfrow=(c(2,2)))
+plot(mod1)
+```
+
+## Residuals showing need for transformation
+
+```{r resipattern1, echo=FALSE, fig.cap='Non-constant Residual Variation'}
+set.seed(1234)
+n <- rep(1:60,2)
+a <- 0
+b <- 1
+sigma2 <- n^1.5
+eps <- rnorm(n,mean=0,sd=sqrt(sigma2))
+y <- a+b*n + eps
+modl <- lm(y ~ n)
+residuals <- residuals(modl)
+fits <- fitted.values(modl)
+dfm <- data.frame(fits = fits, residuals = residuals)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(a) Increasing Residual Variation")
+p1 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank()) 
+p1 <- p1+labs(caption="SHRINK - Square root or Log")
+
+
+y <- a+b*n + eps
+y <- -y
+modl <- lm(y ~ n)
+residuals <- residuals(modl)
+fits <- fitted.values(modl)
+dfm <- data.frame(fits = fits, residuals = residuals)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(b) Decreasing Residual Variation")
+p2 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p2 <- p2+labs(caption="STRETCH - Square or exponentiate")
+
+p1+p2
+```
+
+## Adding more predictors
+
+```{r resipattern2, echo=FALSE}
+set.seed(1234)
+n <- rep(1:60,2)
+a <- 0
+b <- 1
+sigma2 <- 5
+eps <- rnorm(n,mean=0,sd=sqrt(sigma2))
+y <- a+b*n^1.2 + eps
+modl <- lm(y ~ n)
+residuals <- residuals(modl)
+fits <- fitted.values(modl)
+dfm <- data.frame(fits = fits, residuals = residuals)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(a) Quadratic Residual pattern")
+p1 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p1 <- p1+labs(caption="ADD - Polynomial terms")
+set.seed(324)
+
+n=50
+# library(MASS)
+## means of individual distributions
+mu1 <- 0
+mu2 <- 0
+## variance
+sigma1 <- 1
+## Correlation
+YX1 <- 0.9
+Sigma = matrix(c(sigma1, YX1,YX1, sigma1),ncol = 2, byrow = TRUE)
+dat <- MASS::mvrnorm(n, mu = c(mu1, mu2), Sigma = Sigma, empirical = TRUE)
+residuals <- dat[,1]
+fits <- dat[,2]
+dfm <- data.frame(fits = fits, residuals = residuals)
+library(ggplot2)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(b) Linear Residual pattern")+xlab("X variable NOT in the model")
+p2 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p2 <- p2+labs(caption="Include the new predictor")
+
+p1+p2
+```
+
+## Subgrouping patterns
+
+```{r resipattern3, echo=FALSE}
+set.seed(1234)
+
+residuals <- rnorm(120, 0, .2)
+fits <- rnorm(120, 0, 1)
+fits[61:120] <- fits[61:120]+15
+dfm <- data.frame(fits = fits, residuals = residuals)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(a) Spurious Residual pattern")
+p1 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p1 <- p1+labs(caption="Fit appears OK but individual models fail")
+p1 <- p1+geom_hline(yintercept = mean(residuals))
+set.seed(324)
+
+n=40
+# library(MASS)
+## means of individual distributions
+mu1 <- 0
+mu2 <- 0
+## variance
+sigma1 <- 3
+## Correlation
+YX1 <- 0.9
+Sigma = matrix(c(sigma1, YX1,YX1, sigma1),ncol = 2, byrow = TRUE)
+dat <- MASS::mvrnorm(n, mu = c(mu1, mu2), Sigma = Sigma, empirical = TRUE)
+residuals1 <- dat[,1]
+fits1 <- dat[,2]
+
+mu1 <- 10
+mu2 <- 7
+Sigma = matrix(c(sigma1, YX1,YX1, sigma1),ncol = 2, byrow = TRUE)
+dat <- MASS::mvrnorm(n, mu = c(mu1, mu2), Sigma = Sigma, empirical = TRUE)
+residuals2 <- dat[,1]
+fits2 <- dat[,2]+20
+fits <- append(fits1, fits2)
+residuals  <-  append(residuals1, residuals2)
+dfm <- data.frame(fits = fits, residuals = residuals)
+library(ggplot2)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(b) Subgrouped residual pattern")
+p2 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p2 <- p2+labs(caption="Fit appears poor but individual models will fare well")
+p2 <- p2+geom_hline(yintercept = mean(residuals))
+p1+p2
+```
+
+## Outliers
+
+```{r resipattern4, echo=FALSE}
+set.seed(453)
+
+residuals <- rnorm(100)
+fits <- 1:100
+dfm <- data.frame(fits = fits, residuals = residuals)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(a) Unrelated Outliers")
+p1 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank()) 
+p1 <- p1+labs(caption="Anamalous points")
+p1 <- p1+geom_hline(yintercept =mean(residuals))
+p1 <- p1+geom_hline(yintercept =c(-2.5,2.5))
+
+set.seed(672133)
+residuals <- rnorm(100)
+residuals[96:100] <- abs(residuals[96:100])+3
+fits <- 1:100
+dfm <- data.frame(fits = fits, residuals = residuals)
+my.plot <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_point()
+my.plot <- my.plot + ggtitle("(b) Related Outliers")
+p2 <- my.plot +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p2 <- p2+labs(caption="Model seems to fail for large Y")
+p2 <- p2+geom_hline(yintercept = mean(residuals))
+p2 <- p2+geom_hline(yintercept =c(-2.5,2.5))
+p1+p2
+```
+
+## Autocorrelation
+
+-   Neighbouring residuals depend on each other
+
+```{r resipattern5, echo=FALSE}
+set.seed(453)
+
+e<-rep(c(-1,1), each=5, length.out=30)
+residuals <- abs(rnorm(30, 20,10))*e
+fits <- 1:30
+dfm <- data.frame(fits = fits, residuals = residuals)
+p1 <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_path()+geom_point()
+p1 <- p1 + ggtitle("(b) Positive Autocorrelation")
+p1 <- p1 + geom_hline(yintercept=mean(residuals))
+p1 <- p1 +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank()) 
+
+
+e<-rep(c(-1,1), each=1, length.out=30)
+residuals <- abs(rnorm(30, 20,10))*e
+fits <- 1:30
+dfm <- data.frame(fits = fits, residuals = residuals)
+p2 <- ggplot(dfm, aes(x = fits, y = residuals)) + geom_path()+geom_point()
+p2 <- p2 + ggtitle("(b) Negative Autocorrelation")
+p2 <- p2 + geom_hline(yintercept=mean(residuals))
+p2 <- p2 +theme(
+        axis.line = element_line(),
+        axis.ticks.y = element_blank(),
+        axis.ticks.x = element_blank(),
+        axis.text.y = element_blank(),
+        axis.text.x = element_blank() ) 
+p1+p2
+```
+
+## Improving simple regression
+
+-   Use a different predictor or explanatory variable
+-   Transform the $Y$ variable
+-   Add other explanatory variables to the model (next week)
+-   Deletion of invalid (as opposed to outlier) observations
+-   Reconsider the linear relationship
+
+
+## Tests of significance
+
+```{r}
+#| echo: true
+#| output-location: column
+library(broom)
+tidy(mod1) |> mutate_if(is.numeric, round, 3) -> out1
+library(kableExtra)
+kable(out1, caption = "t-tests for model parameters") %>% 
+  kable_classic(full_width = F)
+```
+
+
+    -   $t$ tests of intercept and slope
+
+    -   $H_0=true~slope=0$; $H_0=true~intercept=0$
+
+        -   For `Alcohol~deaths` model, the slope is significant
+            but not the intercept
+
+
+## Model quality measures
+
+```{r, echo=TRUE}
+summary(mod1)
+```
+-   Model summary (or Quality) measures
+
+    -   $R^2$ is the proportion of variation explained by the fitted
+        model
+
+        -   A meaningful model must have at least 50% $R^2$
+        -   A large $R^2$ is important to explain the relationship(s)
+
+    -   Residual standard deviation (error) $S$ has to be small
+
+        -   How small? Difficult to say. Compare $S$ with the overall
+            spread in $Y$ or with the mean of $Y$
+        -   A small $S$ is important for prediction
+
+## Model quality measures
+```{r}
+#| echo: true
+#| output-location: column
+out1 <- glance(mod1) |> 
+  select(r.squared, sigma, statistic, p.value) |> 
+  mutate_if(is.numeric, round, 2)
+
+out1 |> t() |> 
+  kable(caption = "Model summary measures") |> 
+  kable_classic(full_width = T) 
+```
+
+## Variance Explained 
+$R^2$ is the proportion of variance in $y$ explained by $x$ .
+```{r, echo =FALSE}
+ols <- lm(Death~Alcohol, data=cirrhosis)
+```
+
+
+```{r, echo=TRUE}
+summary(ols)
+```
+
+## Variance Explained 
+
+$R^2=\frac{SS~regression}{SS~Total}$
+
+
+```{r, echo = TRUE}
+SS <- anova(ols) |> 
+   tidy() |> 
+  select(term:sumsq) |> 
+  janitor::adorn_totals()
+SS
+```
+
+-   $R^2_{adj}$ is adjusted to remove the variation that is explained by
+    chance alone
+
+-   $R^2_{adj}=1-\frac{MS~Error}{MS~Total}$\
+where:\
+$MS~Error$ = $frac{SSE}{n-k-1}$\
+$MS~Total$ = $frac{SST}{n-1}$\
+therefore $R^2_{adj}$ can also be written as: $R^2_{adj}=1-\frac{(1-R^2)*(n-1)}{(n-k-1)}$
+
+## ANOVA $F$-test
+```{r}
+#| echo: true
+#| output-location: column
+mod1  <-  lm(Death ~ Alcohol, data=cirrhosis)
+summary(mod1) 
+```
+```{r}
+#| echo: true
+#| output-location: column
+
+anova(mod1)
+```
+
+```{r}
+#| echo: true
+#| output-location: column
+
+mod1.aov  <-  aov(Death ~ Alcohol, data=cirrhosis)
+summary(mod1.aov) 
+```
+-   For the straight line model, the F-test is equivalent to testing the
+    hypothesis that the true slope is zero.
+
+
+## ANOVA $F$-test
+    -   Significant F ratio need not always imply that the
+        straight line is the best fit to the data.
+    -   For `Alcohol~deaths` model, the $F$ statistic is 
+        significant which means that the fitted model explains significant variation
+
+```{r, results='asis', echo=TRUE}
+#| echo: true
+#| output-location: column
+out1 <- anova(mod1) |> tidy() |> mutate_if(is.numeric, round, 2)
+
+options(knitr.kable.NA = " ")
+
+kable(out1, caption = "ANOVA table") |> 
+  kable_classic(full_width = F) 
+```
+
+## ANOVA table construction
+
+-   Each source has an associated degrees of freedom.
+
+-   For regression, DF = $1$ as there are two parameters $a$ and $b$
+    fitted in the model
+
+-   For total, DF = $n-1$ since there are n observations
+
+-   For error, DF = by subtraction = $(n-1)-1 = n-2$
+
+-   Mean Square (MS) values are obtained as MS = SS/DF
+
+-   F ratio for regression =MS(Regression)/MS(Error)
+
+-   F ratio follows the $F$ distribution with $(1, n-2)$ d.f and
+    provides the significance of the model fitted.
+
+    -   the ratio of two sample variances (or MS) follows the $F$
+        distribution (normal case)
+
+## Prediction
+
+-   The predicted response at value $x=x_0$ is obtained using the fitted
+    regression equation.
+-   Confidence & prediction intervals can also be constructed.
+-   Note that prediction intervals are for individual observations
+    whereas the confidence intervals are for the expected (mean)
+    response for a given $x_0$
+
+\scriptsize
+
+```{r, echo=TRUE}
+predict(mod1, new = data.frame(Alcohol=10), interval="confidence", level =0.95)
+predict(mod1, new = data.frame(Alcohol=10), interval="prediction", level =0.95)
+```
+
+## Outlier effect on regression
+
+```{r rangiHi, echo= FALSE, fig.cap='Scatter plot of People vs Vehicle'}
+load("../data/rangitikei.Rdata")
+ggplot(rangitikei, aes(x=vehicle, y=people)) + 
+  geom_point() + 
+  geom_smooth(method="lm") + 
+  ggtitle("Rangitikei Data") + 
+  annotate("text", label = "# 26", x = 115, y = 475, size = 4, colour = "red")
+```
+
+## Leverage and Cook's distance
+```{r}
+par(mfrow=(c(2,2)))
+plot(mod1)
+```
+
+-   A distant $x$ value has a higher ***leverage***.
+
+    -   This leverage is often measured by the $h_{ii}$ or `hi` value
+    -   Check $h_{ii}$ \> $\frac{3p}{n}$ or not
+
+-   Influence of a point on the regression is measured using the
+    **Cook's distance** $D_i$
+
+    -   related to difference between the regression coefficients with
+        and without the $i^{th}$ data point.
+    -   $D_{i} >0.7$ can be deemed as being influential (for $n>15$)
+
+## Leverage and Cook's distance
+```{r}
+par(mfrow=(c(2,2)))
+plot(mod1)
+```
+
+## Robust regression models
+
+Robust regression methods are designed to limit the effect that violations of assumptions by the underlying data-generating process have on regression estimates.
+
+For example, least squares estimates for regression models are highly sensitive to outliers: an outlier with twice the error magnitude of a typical observation contributes four (two squared) times as much to the squared error loss, and therefore has more leverage over the regression estimates.
+
+## Robust models
+
+We can fit a robust linear model using the functions `MASS::rlm()`
+`robustbase::lmrob()`.
+
+```{r}
+#| output-location: column
+library(MASS, exclude="select")
+cirrhosis |> 
+  ggplot() + 
+  aes(x = Alcohol, y = Death) + 
+  geom_point() + 
+  geom_smooth(method="rlm") + 
+  labs(title="MASS package rlm() fit")->p1
+
+library(robustbase)
+cirrhosis |> 
+  ggplot() + 
+  aes(x = Alcohol, y = Death) + 
+  geom_point() + 
+  geom_smooth(method="lmrob") +
+  labs(title="robustbase package lmrob() fit")-> p2
+
+library(patchwork)
+p1+p2
+```
+
+<!-- ```{r, echo=TRUE, results='hide'} -->
+
+<!-- summary(rlm(y~x)) -->
+
+<!-- summary(lmrob(y~x)) -->
+
+<!-- ``` -->
+## Robust Models
+
+To determine if a robust regression model offers a better fit to the data compared to the OLS model, we can calculate the residual standard error of each model.
+
+The residual standard error (RSE) is a way to measure the standard deviation of the residuals in a regression model. The lower the value for RSE, the more closely a model is able to fit the data.
+
+## Robust Models
+```{r, echo = TRUE}
+#fit least squares regression model
+ols <- lm(Death~Alcohol, data=cirrhosis)
+#find residual standard error of ols model
+summary(ols)$sigma
+
+
+#fit robust regression model
+robust <- rlm(Death~Alcohol, data=cirrhosis)
+#find residual standard error of robust model
+summary(robust)$sigma
+```
+
+
+## Cross Validation (CV) 
+
+-   A tool to avoid overfitting (more important with multiple predictors)
+-   Evaluate performance of model
+
+## Cross Validation (CV)
+-   Split the sample data randomly into (equal) k subsets (parts) by
+    resampling.
+
+-   Fit the model for $(k − 1$) subsets of the data
+
+-   Predict for the omitted subsets
+
+-   Compare prediction errors
+
+-   Repeat for each subsets of the data
+
+## Cross Validation Types
+
+-   K-fold
+-   Stratified K-fold 
+
+    - Same as K-fold but splitting data governed by criteria so that each subset has the same proportion of obervations of a given categorical value
+    
+-   Leave One Out (LOO)
+
+    - Leaves out a single data point, then uses the same process as K-fold CV
+
+-   R has many packages for cross validation
+
+## Example (Alcohol consumption data)
+
+```{r, echo=TRUE}
+# CV using Root Mean Sq Error as measure of prediction error
+library(caret);  library(MASS,  exclude  =  "select")
+set.seed(123)
+
+fitControl <- trainControl(method = "repeatedcv", number = 5, repeats = 100)
+lmfit <- train(Death ~Alcohol,  data= cirrhosis, 
+                 trControl = fitControl, method="lm")
+lm.rmses <- lmfit$resample[,1]
+rlmfit <- train(Death ~Alcohol,  data = cirrhosis, 
+                  trControl=fitControl, method = "rlm")
+rlm.rmses <- rlmfit$resample[,1]
+dfm  <-  cbind.data.frame(lm.rmses,rlm.rmses)
+library(patchwork)
+qplot(data=dfm,  lm.rmses,  geom="boxplot")  /
+qplot(data=dfm,  rlm.rmses,  geom="boxplot")
+```
+
+## Choosing the `best` model
+
+-   The `best` model is not decided purely on statistical grounds.
+-   If the main aim is to describe relationships, include all the
+    relevant variables.
+-   If the main aim is to predict, prefer the simplest feasible
+    (parsimonious) model with smaller number of predictors.\
+-   Examine the literature to discover similar examples, see how they
+    are tackled, discuss the matter with the researcher etc.
+
+## Main points
+
+Concepts and practical skills you should have at the end of this chapter:
+
+-   Understand and be able to perform a simple linear regression on bivariate related data sets
+-   Use scatter plots or other appropriate plots to visualize the data and regression line
+-   Examine residual diagnostic plots and test assumptions, then perform appropriate transformations as necessary
+-   Summarize regression results and appropriate tests of significance. Interpret these results in context of your data
+-   Use a regression line to predict new data and explain confidence and prediction intervals
+-   Understand and explain the concepts of robust regression modeling, and cross-validation.
+
+<!-- ## Exercises -->
+
+<!-- download.file("<https://www.massey.ac.nz/~kgovinda/220exer/Chap4moreexamples.R>", destfile="Chap4moreexamples.R") -->
+
+<!-- download.file("<https://www.massey.ac.nz/~kgovinda/220exer/chapter-4-exercises.html>", destfile="chapter-4-exercises.html") -->
+
+<!-- install.packages("remotes") -->
+
+<!-- remotes::install_github("ricompute/ricomisc") -->
+
+<!-- ricomisc::rstudio_viewer("Chapter-4.html", file_path = NULL) -->

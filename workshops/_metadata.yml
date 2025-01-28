@@ -1,0 +1,15 @@
+format:
+
+  html: 
+    theme: cosmo
+    code-fold: show
+    code-tools: true
+    cite-method: citeproc
+       
+  pdf: 
+    documentclass: scrreprt
+    cite-method: biblatex
+    toc: true  
+    number-sections: false
+
+bibliography: references.bib

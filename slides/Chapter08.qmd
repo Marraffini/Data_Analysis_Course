@@ -1,0 +1,1155 @@
+---
+title: "Chapter 8:<br>Analysis of Variance (ANOVA) and Analysis of Covariance (ANCOVA)"
+image: img/ano.png
+format: 
+  revealjs:
+    width: 1050
+    height:	700
+    scrollable: true
+    transition: fade
+    theme: [default, myquarto.scss]
+    slide-number: c/t  
+    logo: img/L_Color.png
+    footer: "[161250 Data Analysis](https://anhsmith.github.io/161250/slides.html)"
+    styles:
+      - revealjs.dark:
+        background-color: #222
+        color: #fff
+    
+execute:
+  echo: true
+editor: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, echo=FALSE, message=FALSE}
+knitr::opts_chunk$set(warning = FALSE, 
+                      echo = FALSE, 
+                      include=TRUE, 
+                      message=FALSE,
+                      comment = NA,
+                      warn=-1,
+                      warn.conflicts = FALSE, 
+                      quietly=TRUE,
+                      fig.align="center")
+library(tidyverse)
+theme_set(theme_minimal())
+```
+
+## Learning Objectives
+
+-   Define and understand an ANOVA
+-   Use a one-way ANOVA on example data
+-   Understand and calculate an ANOVA table
+-   Describe Tukey's post hoc tests and assumptions of ANOVAs
+-   Understand the difference between one-way and two-way ANOVAs
+
+## ANOVA
+
+-   Analysis of variance, or ANOVA, is an approach to comparing data
+    with multiple means across different groups, and allows us to see
+    patterns and trends within complex and varied data.
+
+-   Used for categorical or grouped data.
+
+-   Often data from experiments (treatments make good factors).
+
+-   EDA bar, points, or box plots are options to show differences
+    between groups.
+
+## One-way (single factor) ANOVA model
+
+-   fabric burn-time data
+
+| fabric 1 | fabric 2 | fabric 3 | fabric 4 |
+|----------|----------|----------|----------|
+| 17.8     | 11.2     | 11.8     | 14.9     |
+| 16.2     | 11.4     | 11       | 10.8     |
+| 17.5     | 15.8     | 10       | 12.8     |
+| 17.4     | 10       | 9.2      | 10.7     |
+| 15       | 10.4     | 9.2      | 10.7     |
+
+-   Can we regard the mean burn times of the four fabrics as equal?\
+    -   fabric 1 seems to take longer time to burn
+
+- Start with hypotheses and EDA to visualize groups
+
+## One-way ANOVA Hypotheses 
+
+-   $H_0$: The mean burn times are equal for the four fabrics
+-   $H_a$: The mean burn time of at least one fabric is different.
+
+## One-way ANOVA 
+
+```{r, echo = TRUE }
+fabric=read.table("../data/fabric.txt", header=TRUE, sep="\t")
+fabric |>
+  ggplot(aes(x=factor(fabric), y=burntime))+
+  geom_point()+
+  stat_summary(fun.data = "mean_cl_boot", colour = "blue", linewidth = 2, size = 3)
+
+fabric |>
+  ggplot(aes(x=factor(fabric), y=burntime))+
+  geom_point()+
+  stat_summary_bin(fun = "mean", geom = "bar", orientation = 'x')
+
+```
+
+## One-way (single factor) ANOVA model
+
+![](img/oneway.png)
+
+## ANOVA table
+
+> observation = mean + effect + error
+
+> SS Total = SS Factor + SS Error
+
+```{r, echo=TRUE}
+summary(aov(burntime ~ fabric, data = fabric))
+```
+
+-   fabric effect on burntime is highly significant.
+    -   In other words, the null hypothesis of equal mean burntime is
+        rejected.
+        -   Or alternatively the mean burntime is different for **at
+            least** one fabric
+
+## ANOVA table
+
+How are these values calculated?
+
+```{r}
+summary(aov(burntime ~ fabric, data = fabric))
+```
+
+| SS     | df  |     MeanSq      |
+|:-------|:----|:---------------:|
+| FACTOR | k-1 | FACTOR SS/(k-1) |
+| ERROR  | n-k | ERROR SS/(n-k)  |
+| TOTAL  | n-1 | TOTAL SS/(n-1)  |
+
+## ANOVA table
+
+Calculating F values of a factor:
+
+$F = \frac{MS_{Factor}}{MS_{Error}}$
+
+| SS     | df  |     MeanSq      |
+|:-------|:----|:---------------:|
+| FACTOR | k-1 | FACTOR SS/(k-1) |
+| ERROR  | n-k | ERROR SS/(n-k)  |
+| TOTAL  | n-1 | TOTAL SS/(n-1)  |
+
+## ANOVA table practice
+
+| SS     | df  | MeanSq          | F- value | P-value |
+|:-------|:----|:----------------|:---------|:-------:|
+| FACTOR | k-1 | FACTOR SS/(k-1) | MSF/MSE  |         |
+| ERROR  | n-k | ERROR SS/(n-k)  |          |         |
+| TOTAL  | n-1 | TOTAL SS/(n-1)  |          |         |
+
+|           | SS    | df  | MeanSq | F- value | P-value |
+|:----------|:------|:----|:-------|:---------|:-------:|
+| fabric    | 120.5 |     |        |          |         |
+| Residuals | 46.3  |     |        |          |         |
+|     TOTAL |       |     |        |          |         |
+
+## Reminder on P values
+In null-hypothesis significance testing, the p-value is the probability of obtaining test results at least as extreme as the result actually observed, under the assumption that the null hypothesis is correct. 
+
+A very small p-value means that such an extreme observed outcome would be very unlikely under the null hypothesis.
+
+We calculate them based on our theoretical sampling distributions (normal, $t$, $F$, $\chi^2$)
+
+## Reminder of Sampling Distributions
+
+A sampling distribution is a probabilistic model of sampling variation–it describes the behaviour of some sample statistic
+
+For a normal population, when the population parameters 
+ and are known, we can easily derive the sampling distributions of the sample mean or sample variance.
+
+When the population parameters are unknown, we have to estimate them from data.
+
+## Reminder of Sampling Distributions
+
+```{r}
+curve(dt(x, df=10), from=-4, to=4)
+```
+```{r}
+curve(df(x, df1=3, df2=16), from=0, to=8)
+```
+
+## Graphical comparison of means
+
+-   The graph below shows individual 95% confidence intervals for the
+    fabric means
+   
+
+```{r}
+ggplot(fabric) +
+  aes(x = fabric, y = burntime) + 
+  geom_jitter(mapping=aes(col=fabric), height = 0, width=.2, alpha=.4) +
+  stat_summary(fun = "mean", geom = "point") + 
+  stat_summary(fun.data = "mean_cl_normal", 
+               geom = "errorbar", width = 0.1, 
+               fun.args = list(conf.int = 0.95)) + 
+  theme(legend.position = "none") + coord_flip() 
+```
+
+## One-way ANOVA model Assumptions
+
+-   Residuals are randomly and normally distributed
+-   Residuals must be independent of means.
+
+    -   If SD increases with mean, try square root or logarithmic
+        transformation.
+-   The ANOVA model assumes equal SD for the treatments.
+-   If experimental errors are more in some subgroups, divide the
+    problem into separate ones.
+-   Positive correlation among residuals leads to under estimation of
+    error variance; negative correlation leads to overestimation.\
+
+*These assumptions are harder to validate to small experimental design
+data*
+
+## Visualize assumptions
+```{r, echo=TRUE}
+plot(aov(burntime ~ fabric, data = fabric))
+```
+
+## Visualize assumptions
+```{r}
+#| echo: FALSE
+#| label: fig-meansd
+#| fig-cap: 'SD vs mean for four fabrics'
+
+fabric |> 
+  group_by(fabric) |> 
+  summarise(
+    mean = mean(burntime),
+    sd = sd(burntime)
+  ) |> 
+  ggplot() +
+  aes(x = mean, y = sd, group = factor(1)) +
+  geom_point(size = 3) +
+  scale_y_continuous(limits = c(0,4))
+```
+-   Residuals must be independent of means.
+
+    -   If SD increases with mean, try square root or logarithmic
+        transformation.
+        
+With only four fabrics in the sample, it is difficult to make any definitive claim. 
+
+If the assumptions were valid, we would expect the four points to fall approximately along a horizontal band indicating constant standard deviations, and hence variances, regardless of the means of the groups. 
+
+This figure suggests that this is the case, so the assumption of equal variances appears to be valid.
+
+## Equal variance
+
+**Bartlett's test**:
+-   null hypothesis: equal variances
+-   but it has an assumption of its own (response variable must be normally distributed)
+
+**Levene's test** 
+-   null hypothesis: equal variances
+-   is applicable for any continuous distribution
+
+```{r, echo=TRUE, warnings=FALSE}
+bartlett.test(burntime ~ fabric, data = fabric)
+
+car::leveneTest(burntime ~ fabric, data = fabric)
+```
+
+## What if the equal variance assumption is violated?
+
+ANOVA’s are considered to be fairly robust against violations of the equal variances assumption as long as each group has the same sample size.
+
+If this assumption is violated, the most common way to deal with it is to transform the response variable using one of the three transformations:
+
+1. Log Transformation: Transform the response variable from y to log(y).
+
+2. Square Root Transformation: Transform the response variable from y to √y.
+
+3. Cube Root Transformation: Transform the response variable from y to y1/3.
+
+By performing these transformations, the problem of heteroscedasticity typically goes away.
+
+
+## Normality
+
+```{r, echo=TRUE}
+aov_fabric <- aov(burntime ~ fabric, data = fabric)
+shapiro.test(aov_fabric$residuals)
+```
+
+ANOVAs are robust to mild issues of non-normality 
+
+But if have issues with normality and unequal variance try transformations
+
+## When transformations do not help:
+
+- Weighted least squares regression: This type of regression assigns a weight to each data point based on the variance of its fitted value.
+
+    - Essentially, this gives small weights to data points that have higher variances, which shrinks their squared residuals. When the proper weights are used, this can eliminate the problem of heteroscedasticity.
+    
+- Non-parametric test: 
+
+    -  Kruskal-Wallis Test is the non-parametric version of a one-way ANOVA
+
+## Tukey HSD
+
+-   Tukey HSD (Honest Significant Differences) plot allows pairwise
+    comparison of treatment means.
+-   Which fabric types have different burn times? (remember the
+    alternative hypothesis of a one-way ANOVA is *at least* one of the
+    means are different)
+
+```{r}
+TukeyHSD(aov(burntime~fabric, data=fabric))
+```
+## Tukey HSD (Interval Plot)
+```{r}
+par(las=1, mar=c(5, 8, 4, 2))
+plot(TukeyHSD(aov(burntime~fabric, data=fabric)))
+```
+
+## Two way (two factor) ANOVA
+
+-   Two factors are present.
+
+-   A two-way ANOVA is used to estimate how the mean of a continuous
+    variable changes according to the levels of two categorical
+    variables.
+
+-   Use a two-way ANOVA when you want to know how two independent
+    variables, in combination, affect a dependent variable.
+
+-   Very similar to multiple regression but with categorical variables.
+
+## Two way (two factor) ANOVA example
+
+-   Example: We will use the built in data ToothGrowth. It contains data from a study evaluating the effect of vitamin C on tooth growth in Guinea pigs. The experiment has been performed on 60 pigs, where each animal received one of three dose levels of vitamin C (0.5, 1, and 2 mg/day) by one of two delivery methods, (orange juice or ascorbic acid (a form of vitamin C and coded as VC). Tooth length was measured and a sample of the data is shown below. 
+
+```{r}
+data(ToothGrowth)
+head(ToothGrowth)
+
+# Convert dose as a factor and recode the levels
+# as "D0.5", "D1", "D2"
+ToothGrowth$dose <- factor(ToothGrowth$dose, 
+                  levels = c(0.5, 1, 2),
+                  labels = c("D0.5", "D1", "D2"))
+```
+
+## Run a Two-way ANOVA
+```{r, echo=TRUE}
+summary(aov(len~dose+supp, data=ToothGrowth))
+```
+
+A two-way ANOVA tests two null hypotheses at the same time:
+
+-   All group means are equal at each level of the first variable
+-   All group means are equal at each level of the second variable
+
+
+
+## Two-way model fit
+
+> Model:\
+> Observation = Overall Mean + Factor 1 Effect + Factor 2 Effect + Error
+
+-   $H_0$: factor 1 means are equal; factor 2 means are equal
+
+\scriptsize
+
+```{r}
+summary(aov(len~dose+supp, data=ToothGrowth))
+```
+
+Supplement and dose effects are significant at 5% level.
+
+## Main effect plots
+
+-   Simply plot of response means for factor levels
+
+```{r}
+library(ggplot2)
+library(gridExtra)
+
+plot1 <- ToothGrowth |> ggplot() +
+  aes(x = supp, y = len) +
+  stat_summary(fun = mean, geom = "point", aes(group = 1)) +
+  stat_summary(fun = mean, geom = "line", aes(group = 1))+
+  geom_abline(intercept = mean(ToothGrowth$len), slope=0)+ 
+  ggtitle("Main effect of Supplement")
+
+plot2 = ToothGrowth |> ggplot() +
+  aes(x = dose, y = len) +
+  stat_summary(fun = mean, geom = "point", aes(group = 1)) +
+  stat_summary(fun = mean, geom = "line", aes(group = 1))+
+  geom_abline(intercept = mean(ToothGrowth$len), slope=0)+ 
+  theme_bw()+ggtitle("Main effect of Dose")
+
+library(patchwork)
+plot1+plot2
+```
+## Tukey HSD
+
+```{r, echo = TRUE}
+teeth <- aov(len~supp+dose, data=ToothGrowth)
+TukeyHSD(teeth)
+```
+
+## Summary so far
+
+-   ANOVA: 1 and 2 factor
+-   ANOVA table
+-   Assumptions
+-   Tukey's HSD
+
+## Learning Objectives: Part 2
+
+-   Understand the use of interactions in linear models
+-   Use a two-way ANOVA with interactions on example data
+-   Understand and calculate an ANOVA table when interactions are present
+-   Describe Tukey's post hoc tests and assumptions of ANOVAs with
+    interactions
+-   Understand the difference and similarities between this chapter and
+    previous linear models covered 
+-   Review non-parametric options
+
+## Interaction effect
+
+-   Whether Factor A effects are constant over Factor B  effects or Factor B effects are constant over Factor A effects?
+    -   If the answer is no, then there is an interaction between A & B.
+-   Example:
+    -   Temperature and pressure are factors affecting the yield in
+        chemical experiments.
+    -   They do `interact` in a mechanistic sense.
+
+`Interaction` may or may not have physical meaning.
+
+## Two-way ANOVA and Interaction effects
+
+A two-way ANOVA with interaction tests three null hypotheses at the same time:
+
+-   All group means are equal at each level of the first variable
+-   All group means are equal at each level of the second variable
+-   There is no interaction effect between the two variables
+
+## Interaction Plots
+
+-   In the absence of interaction, the plotted means of factor will be roughly parallel
+    -   see Plot 1. A & B do not interact.
+-   If the the plotted means of factor crossings are far from parallel,
+    then there is interaction
+    -   Plot 2 shows extreme (antagonistic) interaction between A & B.
+
+![](img/interaction.png)
+
+## Interaction Plot for Zooplankton data
+
+```{r, echo=TRUE, warning=FALSE, comment=FALSE}
+library(ggplot2)
+p1= ggplot(data = ToothGrowth, aes(x = supp, y = len, group=dose, colour=dose)) +
+  stat_summary(fun=mean, geom="point")+
+  stat_summary(fun=mean, geom="line")+
+  geom_abline(intercept = mean(ToothGrowth$len), slope=0)+ 
+  theme_bw()+ggtitle("Dose*Supplement Interaction effect")
+
+p2= ggplot(data = ToothGrowth, aes(x = dose, y = len, group=supp, colour=supp)) +stat_summary(fun=mean, geom="point")+
+  stat_summary(fun=mean, geom="line")+
+  geom_abline(intercept = mean(ToothGrowth$len), slope=0)+ 
+  theme_bw()+ggtitle("Dose*Supplement Interaction effect")
+library(patchwork)
+p1+p2
+```
+
+-   Interaction effect may be present
+
+## Two-way model fit
+
+> observation = mean + Factor A + Factor B + interaction effect + error
+
+-   The above model is known as `multiplicative` model
+
+-   If interaction effect is ignored, we deal with an `additive` model
+
+
+## Two-way model fit
+
+```{r, echo=TRUE}
+ToothGrowth |> 
+  aov(formula = len ~ supp * dose) |> 
+  summary()
+```
+
+## Residual diagnostics
+
+```{r}
+modl <- ToothGrowth |> 
+  aov(formula = len ~ supp * dose) 
+
+toothgrowth <- ToothGrowth |> 
+  mutate(Fitted = fitted.values(modl), Residuals = residuals(modl))
+
+r1 <- ggplot(toothgrowth, aes(sample=Residuals))+stat_qq()+stat_qq_line()+
+  labs(title = "Normal Probability Plot \nof the Residuals")
+
+r2 <- ggplot(toothgrowth, aes(y=Residuals, x=Fitted))+geom_point() +
+  geom_hline(yintercept = 0) + 
+  labs(title = "Residuals Vs \n Fitted Values")
+
+r3 <- ggplot(toothgrowth) +
+  aes(Residuals) + 
+  geom_histogram(bins=4) +
+  labs(title = "Histogram of the Residuals")
+
+r4 <- ggplot(toothgrowth) + 
+  aes(y=Residuals, x=1:length(Residuals)) + 
+  geom_point()+geom_line() +
+  geom_hline(yintercept = 0) +
+  labs(title = "Residuals Vs Obs. Order")
+
+
+r1+r2+r3+r4 & theme_minimal()
+```
+## Interpreting interactions
+
+-   If an interaction term is significant, the effect of Factor A **depends** on Factor B (and vice versa)
+
+-   Use interaction plots to visualize
+
+-   Posthoc tests to examine different level combinations
+
+```{r, echo=TRUE}
+TukeyHSD(modl)$`supp:dose`
+```
+## Interpreting interactions
+
+```{r}
+p1+p2
+```
+
+
+## Importance of interactions
+
+-   When you have statistically significant interaction effects, you can’t interpret the main effects without considering the interactions
+
+-   Interactions can be used to control for unhelpful variation (blocking effect in experiments)
+
+-   Interactions can be mechanistically meaningful 
+
+## ANOVA extensions and inference
+
+Linear models can theoretically be performed with an infinite amount of predictors
+
+The more predictors the more samples needed, your effect sample number is no longer your total sample size but the lowest treatment
+
+Interaction effects with more than 3 (sometimes even more than 2) become very difficult to interpret and visualize
+
+Good experimental design and causal thinking can aid in analysis design, design test then collect data, it is much harder the other way around
+
+## Indicator variables
+
+-   Indicator variables are used if the predictor is qualitative rather
+    than quantitative.
+    -   Consider gender, a categorical variable.
+        -   Let $I_1$ be an indicator variable that takes a value 1 for
+            males and 0 for females.\
+        -   Let $I_2$ takes 1 for females and 0 for males.
+        -   Note only one of $I_1$ & $I_2$ is sufficient.
+-   The minimum number of indicator variables needed is related to
+    degrees of freedom.
+
+## ANOVA through regression
+
+-   Consider the burn-time data for the four fabrics.
+    -   The four fabric types are categorical.
+    -   Define-
+        -   $I_1$ = 1 for fabric 1 and 0 otherwise
+        -   $I_2$ = 1 for fabric 2 and 0 otherwise
+        -   $I_3$ = 1 for fabric 3 and 0 otherwise
+        -   $I_4$ = 1 for fabric 4 and 0 otherwise
+-   Note that any THREE indicator variables are sufficient for the four
+    fabrics.
+    -   3 df for 4 fabrics
+
+## Regression summary
+
+-   Regress the burn-time response on the indicator variables $I_1$,$I_2$, $I_3$ & $I_4$
+
+\tiny
+
+```{r}
+fabric = read.table("../data/fabric.txt", header=TRUE, sep="\t") |> 
+  mutate(I1= as.numeric(fabric=="Fabric 1"),
+         I2= as.numeric(fabric=="Fabric 2"),
+         I3= as.numeric(fabric=="Fabric 3"),
+         I4= as.numeric(fabric=="Fabric 4")
+  )
+fabric
+```
+
+## Regression and ANOVA
+```{r}
+fabric |> lm(formula = burntime~I1+I2+I3) |> summary()
+```
+
+-   Compare with the one-way output
+
+```{r}
+fabric |> aov(formula = burntime~fabric) |> summary()
+```
+## Regression and ANOVA
+```{r, echo=TRUE}
+fabric |> lm(formula = burntime~I1+I2+I3) |> anova()
+```
+
+-   Compare with the one-way output
+
+```{r}
+fabric |> aov(formula = burntime~fabric) |> TukeyHSD()
+
+```
+
+## Analysis of Covariance (ANCOVA)
+
+Analysis of covariance (ANCOVA) is a statistical method that combines linear regression and analysis of variance (ANOVA) to evaluate the relationship between a response variable and various independent variables while controlling for covariates.
+
+
+-   Indicator variables are used as additional regressors along with a
+    quantitative predictor (covariate).
+
+
+## Data example: test anxiety
+
+Researchers investigated the effect of exercises in reducing the level of anxiety, where they measured the anxiety score of three groups of individuals practicing physical exercises at different levels (grp1: low, grp2: moderate and grp3: high).
+
+The anxiety score was measured pre- and 6-months post-exercise training programs. It is expected that any reduction in the anxiety by the exercises programs would also depend on the participant’s basal level of anxiety score.
+
+In this analysis we use the pretest anxiety score (`pretest`) as the covariate and are interested in possible differences between group with respect to the post-test anxiety scores.
+
+```{r}
+library(ggpubr)
+library(rstatix)
+library(broom)
+# Load and prepare the data
+data("anxiety", package = "datarium")
+anxiety <- anxiety %>%
+  select(id, group, t1, t3) %>%
+  rename(pretest = t1, posttest = t3)
+anxiety[14, "posttest"] <- 19
+# Inspect the data by showing one random row by groups
+set.seed(123)
+anxiety %>% sample_n_by(group, size = 1)
+```
+
+## Interaction
+Are the regression slopes the same?
+
+```{r}
+aov(posttest ~ group*pretest, data = anxiety) %>% summary()
+```
+
+Interaction term is not significant (at sig. level of 5%). 
+
+
+## Check assumptions
+
+Linearity:
+
+```{r}
+ggscatter(
+  anxiety, x = "pretest", y = "posttest",
+  color = "group", add = "reg.line"
+  )
+```
+
+Appears to be a linear relationship in each training group
+
+
+## Assumptions
+
+Residuals:
+```{r}
+# Fit the model, the covariate goes first
+model <- lm(posttest ~ pretest + group, data = anxiety) 
+
+plot(model)
+
+```
+
+## Assumptions
+
+Normality:
+```{r}
+# Assess normality of residuals using shapiro wilk test
+shapiro_test(summary(model$residuals))
+```
+The Shapiro Wilk test was not significant ($\alpha = 0.05$), so we can assume normality of residuals
+
+Equal variance:
+```{r}
+car::leveneTest(posttest ~ group, data = anxiety) 
+```
+The Levene’s test was not significant ($\alpha = 0.05$), so we can assume homogeneity of the residual variances for all groups.
+
+## ANCOVA fit
+Estimates are the slope in each treatment (`group`). Remember that R assigns the first (alphabetical) level of the treatment to `Intercept` 
+
+```{r}
+summary(model)
+```
+## ANCOVA fit
+Use ANOVA table to display
+
+```{r}
+anova(model)
+```
+Post-hoc tests to see which group is different
+
+```{r}
+TukeyHSD(aov(posttest ~ group+pretest, data = anxiety))
+```
+
+
+## Data example: fast-food resturants 
+```{r, comment=""}
+restaurant <- 
+  read.table("../data/restaurant.txt", header=TRUE, sep = "\t") |> 
+  mutate(I1 = as.numeric( Location=="Mall"),
+         I2 = as.numeric( Location=="Street")
+  )
+print(restaurant, row.names=FALSE)
+```
+
+-   Do we need three separate models?
+
+```{r}
+restaurant |> ggplot() + 
+  aes(x=Households, y=Sales, colour=Location) +
+  geom_point() + geom_smooth(method = lm, se = FALSE)
+```
+
+##  ANCOVA 
+
+```{r}
+restaurant |> ggplot() + 
+  aes(x=Households, y=Sales, colour=Location) +
+  geom_point() + geom_smooth(method = lm, se = FALSE)
+```
+
+-   In order to allow for different slopes for each location, we define
+    the product (or interaction) variables 
+ 
+
+## Data set up
+```{r}
+head(restaurant)
+```
+
+
+
+
+
+##  ANCOVA model
+
+We examine the relationship between restaurant sales (response variable, in thousands of dollars) and the number of households (H) in the restaurant's trading area and the location of the restaurant (Mall, Street, and Highway). We can use the indicator variables ($I_1$ and $I_2$) to define our three locations uniquely. 
+
+$Sales = \beta_0 + \beta_1 I_1 + \beta_2 I_2 + (\beta_3 + \beta_4 I_1 + \beta_5 I_2)Households$
+
+This model provides a separate model for each location as well as allows for the interaction between location of the restaurant and the number of households through the slope coefficient
+
+## ANCOVA model
+
+$Sales = \beta_0 + \beta_1 I_1 + \beta_2 I_2 + (\beta_3 + \beta_4 I_1 + \beta_5 I_2)Households$
+
+-   For Highway Locations: $I_1=0$ & $I_2=0$ hence our model simplifies to
+
+    $Sales = \beta_{0} + (\beta_3)Households$
+
+-   For Mall Locations: $I_1=1$ & $I_2=0$ so the model becomes
+
+    $Sales = \beta_{0} + \beta_{1} + (\beta_3 + \beta_4)Households$
+
+-   For Street Locations: $I_1=0$ & $I_2=1$ so the model becomes
+    $Sales = \beta_{0} + \beta_2 + (\beta_3 + \beta_5) Households$
+    
+    
+
+ *note* R does not *require* us to code Location as an indicator variable
+
+## ANCOVA fit 
+
+
+```{r, echo=TRUE}
+modl = lm(Sales~Households*Location, data = restaurant)
+outs <- summary(modl)$coefficients
+round(outs[, 1:4], digits = 3)
+```
+We can plug these numbers into our equations 
+$Sales = \beta_{0} + \beta_{1} I_1 + \beta_2 I_2 + (\beta_3 + \beta_4 I_1 + \beta_5 I_2)Households$
+
+$Sales = -6.2 + 39.22 + 8.04 + ( 0.909  -0.074 -0.012) Households$
+
+## ANCOVA model
+
+$Sales = -6.2 + 39.22 + 8.04 + ( 0.909  -0.074 -0.012) Households$
+
+-   For Highway Locations: $I_1=0$ & $I_2=0$ hence our model simplifies to
+
+    $Sales =  -6.2 + (0.909)Households$
+
+-   For Mall Locations: $I_1=1$ & $I_2=0$ so the model becomes
+
+    $Sales = -6.2 + 39.22 + (0.909  -0.074)Households$
+
+-   For Street Locations: $I_1=0$ & $I_2=1$ so the model becomes
+    $Sales = -6.2 + 8.04 + (0.909 -0.012) Households$
+
+## Graphing the model
+
+```{r}
+p <- restaurant |> ggplot() + 
+  aes(x=Households, y=Sales, colour = Location) +
+  geom_point() + geom_smooth(method = lm, se = FALSE) 
+p
+```
+
+
+## Summary
+
+ANOVA models study categorical predictors (factors).
+     
+    -   Interaction between factors is important. 
+    -   ANOVA models and regression models are related and fall under a general family of linear models.
+
+
+ANCOVA models employs both numerical variables (covariates) and
+qualitative factors for modelling.
+       
+    -   Interaction between factors and covariates is important.
+
+## Review of non-parametric tests
+Non-parametric tests are light on assumptions, and can be used for highly asymmetric data (as an alternative to using transformations). 
+
+Many non-parametric methods rely on replacing the observed data by their *ranks*. 
+
+
+```{r}
+#| echo: false
+tv = read_csv("https://www.massey.ac.nz/~anhsmith/data/tv.csv")
+```
+
+## Spearman's Rank Correlation
+
+
+::::{.columns}
+
+:::{.column}
+
+Rank the $X$ and $Y$ variables, and then obtain usual Pearson correlation coefficient.
+
+The plot shows non-parametric Spearman in the the upper triangle and parametric Pearson in the bottom triangle.
+
+```{r}
+#| echo: true
+library(GGally)
+
+p <- ggpairs(
+  trees, 
+  upper = list(continuous = wrap('cor', method = "spearman")),
+  lower = list(continuous = 'cor') 
+  )
+```
+
+:::
+
+:::{.column}
+
+```{r}
+#| label: fig-spear
+#| echo: false
+#| fig.cap: "Comparison of Pearsonian and Spearman's rank correlations"
+#| fig-width: 5
+#| fig-height: 5
+p
+```
+
+:::
+::::
+
+## Wilcoxon signed rank test
+
+A non-parametric alternative to the one-sample t-test
+
+$H_0: \eta=\eta_0$ where $\eta$ (Greek letter 'eta') is the population median
+
+Based on based on ranking $(|Y-\eta_0|)$, where the ranks for data with $Y<\eta_0$ are compared to the ranks for data with $Y>\eta_0$
+
+
+::::{.columns}
+
+:::{.column}
+
+```{r}
+#| echo: true
+wilcox.test(tv$TELETIME, mu=1680, conf.int=T)
+```
+
+:::
+
+:::{.column}
+
+```{r}
+#| echo: true
+t.test(tv$TELETIME, mu=1680)
+```
+
+:::
+::::
+
+
+## Non-parametric ANOVA
+
+Kruskal-Wallis test: allows to compare three or more groups
+
+Mann-Whitney test: allows to compare 2 groups under the non-normality assumption.
+
+
+## Kruskal-Wallis test
+The null and alternative hypotheses of the Kruskal-Wallis test are:
+
+H0: The 3 groups are equal in terms of the variable
+H1: At least one group is different from the other 2 groups in terms of variable
+
+Similar to an ANOVA the alternative hypothesis is not that all groups are different. The opposite of all groups being equal (H0) is that at least one group is different from the others (H1).
+
+In this sense, if the null hypothesis is rejected, it means that at least one group is different from the other 2, but not necessarily that all 3 groups are different from each other. Post-hoc tests must be performed to test whether all 3 groups differ.
+
+## Mann-Whitney test
+
+For two group comparison, pool the two group responses and then rank the
+pooled data
+
+Ranks for the first group are compared to the ranks for the second group
+
+The null hypothesis is that the two group medians are the same:     $H_0: \eta_1=\eta_2$.
+
+
+::::{.columns}
+
+:::{.column}
+
+
+```{r}
+#| echo: true
+load("../data/rangitikei.Rdata")
+wilcox.test(rangitikei$people~rangitikei$time, conf.int=T)
+```
+
+:::
+
+:::{.column}
+
+```{r}
+#| echo: true
+t.test(rangitikei$people~rangitikei$time)
+```
+
+:::
+::::
+
+## Another form of test
+
+
+::::{.columns}
+
+:::{.column}
+
+```{r}
+#| echo: true
+kruskal.test(rangitikei$people~rangitikei$time)
+```
+
+:::
+
+:::{.column}
+
+```{r}
+#| echo: true
+wilcox.test(rangitikei$people~rangitikei$time)
+```
+
+
+:::
+::::
+
+## Linear models Review
+
+Family tree
+
+T-tests, regressions, ANOVAs, and ANCOVAs are related
+
+Similarities:
+
+    -   1 continuous response variable
+    -   Assumptions: normality, equal variance, and independence of residuals
+
+Differences:
+
+    - EDA
+    - test statistics
+    - number and type of predictors
+    
+## What's the difference between a t.test and an ANOVA?
+
+A t-test is used to determine whether or not there is a statistically
+significant difference between the means of two groups
+
+         
+  -   sample group vs hypothetical population **One-sample t-test**
+  -   two independent samples **Two-sample t-test**
+        - also called independent t-test because the two samples are considered independent
+  -   samples linked in some why, not independent **Paired t-test**
+
+
+An ANOVA is used to determine whether or not there is a statistically
+significant difference between the means of three or more groups, **but not which group**
+
+      
+  -   one factor split into 3 or more groups (levels) **One-way ANOVA**
+  -   two factors split into 3 or more groups (levels) **Two-way ANOVA**
+  -   more than two factors **Three factor ANOVA** etc...
+
+
+## What's the difference between a t.test and an ANOVA?
+
+The main difference between a t-test and an ANOVA is in how the two
+tests calculate their test statistic to determine if there is a
+statistically significant difference between groups.
+
+T-test:
+       
+-   T statistic: ratio of the mean difference between two groups relative to overal standard deviation of the differences
+-   One-sample t-test: $t = \frac{x-\mu}{s/\sqrt n}$
+-   Two-sample t-test: $t = \frac{(\bar{x_{1}}-\bar{x_{2}})-d}{\frac{s_1}{\sqrt n} + \frac{s_2}{\sqrt n}}$  
+-   Paired t-test: $t=\frac{\bar{d}}{\frac{S_{d}}{\sqrt n}}$ 
+
+$s =$ sample standard deviation
+$d =$ difference
+
+ANOVA:
+
+-   F statistic: ratio of the variance between the groups relative to the variance within the groups  
+-   $F = \frac{s_b^2}{s_w^2}$ 
+Where $s_b^2$ is the between sample variance, and $s_w^2$ is the within sample variance.
+
+- MSF/MSE 
+
+## When to use a t.test or an ANOVA?
+
+In practice, when we want to compare the means of two groups, we use a t-test. When we want to compare the means of three or more groups, we use an ANOVA.
+
+Suppose we have three groups we wish to compare the means between: group A, group B, and group C.
+
+If you did the following t-tests:
+
+-   A t-test to compare the difference in means between group A and group B
+
+-   A t-test to compare the difference in means between group A and group C
+
+-   A t-test to compare the difference in means between group B and group C
+
+## What if we just did many t-tests?
+
+For each t-test there is a chance that we will commit a type I error, which is the probability that we reject the null hypothesis when it is actually true. Let's say we set this to 0.05 ($\alpha = 0.05$). This means that when we perform multiple t-tests, this error rate increases.
+
+-   The probability that we commit a type I error with one t-test is 1 – 0.95 = 0.05.
+-   The probability that we commit a type I error with two t-tests is 1 – (0.95^2) = 0.0975.
+-   The probability that we commit a type I error with three t-tests is 1 – (0.95^3) = 0.1427.
+
+The type I error just increases!
+
+We use a post-hoc (after) test to see which group is driving differences, these pairwise comparisons have a correction factor to adjust our Type I error
+
+## What's the difference between a regression and an ANOVA?
+
+A regression is used to understand the relationship between predictor variable(s) and a response variable
+         
+  -   one predictor **Simple Regression**
+  -   two or more predictors **Multiple Regression**
+
+
+An ANOVA is used to determine whether or not there is a statistically significant difference between the means of three or more groups, **but not which group**
+
+      
+  -   one factor split into 3 or more groups (levels) **One-way ANOVA**
+  -   two factors split into 3 or more groups (levels) **Two-way ANOVA**
+  -   more than two factors **Three factor ANOVA** etc...
+
+Not too much difference there
+
+## What's the difference between a regression and an ANOVA?
+
+Regression:
+       
+-   T statistic: test if each predictor's estimate is different from 0
+-   $R^2$: proportion of variance explained $\frac{SSR}{SST}$
+-   F statistic: overall F statistic for the regression model, $\frac{MS_{reg}}{MS_{error}}$
+where $MS = \frac{SS}{df}$ 
+
+ANOVA:
+
+-   F statistic: ratio of the variance between the groups relative to the variance within the groups  
+-   $F = \frac{s_b^2}{s_w^2}$ 
+
+where $s_b^2$ is the between sample variance, and $s_w^2$ is the within sample variance.
+
+-   MSF/MSE 
+
+
+The F statistic is the same, thats why you can produce an ANOVA table from your regression
+
+## When to use a regression or an ANOVA?
+
+Conventionally, a regression refers to continuous predictors and ANOVAs are used for discrete variables.
+
+BUT ...
+
+You can code discrete variable as indicator variables and then treat them as continuous and run a regression!
+
+Generally, if you have 1 continuous and 1 discrete variable you should generate indicator variables and run a multiple regression
+
+If you are using the continuous predictor as a covariate it would be called an **ANCOVA**. 
+
+
+You can code a discrete variable into continuous but if you do the reverse you lose statistical inference.
+
+## Reminder on Hypotheses
+
+T-Test: difference between the means of two groups
+
+-   Null: $\mu_{1} - \mu_{2}$ is equal to $0$ 
+        Can be $=$, $\le$, or $\ge$
+-   Alt: $\mu_{1} - \mu_{2}$ is not equal to $0$ 
+        Can be $\ne$, $<$, or $>$
+        
+Regressions: understand the relationship between predictor variable(s) and a response variable
+
+-   Null: true slope coefficient is $= 0$ (i.e. no relationship)
+-   Alt: true slope coefficient $\ne 0$ (i.e. relationship)
+
+ANOVA: difference between the means of three or more groups
+
+-   Null: group means are equal
+-   Alt: At least one mean is different
+
+## Where to go from here?
+
+Linear models form the basis of a lot more statistics tests. 
+
