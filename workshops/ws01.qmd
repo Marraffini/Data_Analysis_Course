@@ -17,37 +17,26 @@ colorize <- function(x, color) {
 ```
 
 
-In this course, we will be using R <https://www.r-project.org/>, an open-source 
-(i.e., free) software package for data analysis. This software is available for 
-essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is 
-maintained and developed by a huge community of users including many of the 
+In this course, we will be using R <https://www.r-project.org/>, an open-source (i.e., free) software package for data analysis. This software is available for essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is maintained and developed by a huge community of users including many of the 
 world's foremost statisticians.
 
-R is a programming language but you may not be required to do a lot of 
-programming for your course work. R includes functions which enables us to 
-perform a full range of statistical analyses.
+R is a programming language but you may not be required to do a lot of programming for your course work. R includes functions which enables us to perform a full range of statistical analyses.
 
 **For installing R software, please visit
 <https://cran.stat.auckland.ac.nz/> and follow the instructions.**
 
-Note that the R software will be sitting in the background in RStudio and you 
-will not be using the standalone version of R in this course. 
+Note that the R software will be sitting in the background in RStudio and you will not be using the standalone version of R in this course. 
 
-RStudio <https://www.rstudio.com/products/rstudio/> is an integrated development 
-environment (IDE) for R. It includes a console and a sophisticated code editor. 
-It also contains tools for plotting, history, debugging, and management of
-workspaces and projects. RStudio has many other features such as authoring HTML, 
-PDF, Word Documents, and slide shows. In order to download RStudio (Desktop 
-edition, open source), go to
+RStudio <https://www.rstudio.com/products/rstudio/> is an integrated development environment (IDE) for R. It includes a console and a sophisticated code editor. It also contains tools for plotting, history, debugging, and management of workspaces and projects. RStudio has many other features such as authoring HTML, 
+PDF, Word Documents, and slide shows. In order to download RStudio (Desktop edition, open source), go to
 
 <https://www.rstudio.com/products/rstudio/download/>
 
 Download the installation file and run it. 
 **Note that RStudio must be installed after installing R.**
 
-R/RStudio can also be run on a cloud platform at <https://rstudio.cloud/> 
-after creating a *free* account. Be aware though that some of the packages 
-covered in this course may not work in the cloud platform.
+
+R/RStudio can also be run on a cloud platform at <https://rstudio.cloud/> after creating a *free* account. Be aware though that some of the packages covered in this course may not work in the cloud platform and there is a maximum amount of computing time. We *do not recommend* relying on the cloud platform for this course. 
 
 If you open RStudio, you will see something similar to the screen shot shown 
 in @fig-rstud:
@@ -62,17 +51,21 @@ You can either type or copy and paste the R codes appearing in this section on t
 
 -   `R` is case sensitive, so `data` is not the same as `DATA`
 
+-   Similarly beware of spaces and punctuation, particularly in column header
+
 -   `<-` (read as "gets") is the assignment operator. That is, you use
     `<-` to assign some content to a variable. The operator `=` has a
     slightly different meaning but it can be used in the same way as `<-`. In R Studio, press `ALT` and minus key when you are in the R script mode
     (File \>\> New File \>\> R Script).
 
 -   Comments are denoted by the \# symbol. Anything after a `#` symbol
-    is ignored by `R` .
+    is ignored by `R` . This is a great way to write yourself notes.
 
 -   R coding can be hard to write from scratch. 
     `r colorize("So do not hesitate to adopt R codes written by others.", "red")`
     Search the internet for R code to do what you want to do. The usual `copy and paste` trick works!
+    
+-     Warnings vs error messages: R gives warnings typically in `r colorize("orange", "orange")` and errors in `r colorize("red", "red")`. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.
 
 *Working directory*
 

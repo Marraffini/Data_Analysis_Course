@@ -1,0 +1,172 @@
+---
+title: "Tidy data"
+---
+# Setting up a Quarto project
+
+It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don't have to use projects, but they are very useful. 
+
+1. Open RStudio. (Optional: click on the little window symbol at the top and select "Console on Right")
+
+![](img/console_right.png)
+
+2. If you haven't already, make a directory on your computer where you want to keep your code for this course. 
+
+3. Make a new project. Select the "Project" button at the top-right of Rstudio, and select "New Project...".
+
+![](img/open_project.png)
+
+4. In the pop-up window:
+
+- Select "New Directory"
+
+![](img/new_direct.png)
+
+- Select "Quarto Project"
+
+![](img/quarto_proj.png)
+
+- Choose your directory via the "Browse", and then give the project a name like "161250_workshops"
+
+![](img/dir_name.png)
+
+- Finish by clicking on "Create Project". 
+
+The project should now be created, and you'll likely have an open \*.qmd file (something like "161250_workshops.qmd") in the top-right window of Rstudio. We want to make a \*.qmd file for this workshop. 
+
+5. Right-click on the qmd tab and select "Rename", and rename it "workshop2.qmd" or something similar. (Alternatively, just make a new file via the menus: *File > New File > Quarto Document*.)
+
+![](img/rename_qmd.png)
+
+Now you have a document for your Workshop work. You can:
+
+- Write headings with lines beginning with "#". 
+- Write text in the main part of the document.
+- Make a code chunk for your R code using *Ctrl-Alt-i*. Write R code in the code chunks.
+
+Like so:
+
+![](img/chunk.png)
+
+There are lots of tutorials online covering the basics of Quarto, and we'll discuss them during our own workshops. Here are a couple for starters:
+
+<https://quarto.org/docs/get-started/hello/rstudio.html>
+
+<https://www.youtube.com/watch?v=c654j7aQjcg>
+
+There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they'll be easily accessible within your project, without having to worry about file paths. 
+
+You can easily open a recent past projects via the "Projects" button on the top-right of Rstudio. 
+
+
+# Introduction to the tidyverse
+
+We will be largely using the `tidyverse` suite of packages for data organisation, summarising, and plotting; see <https://www.tidyverse.org/>.
+
+Let's load that package now:
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+# Datset
+For this workshop we will use some tidyverse built in datasets. Each dataset shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way.
+
+```{r}
+table1
+
+
+table2
+
+
+table3
+
+```
+
+# Exercise 1.1 {-}
+
+For each of the sample tables, describe what each observation and each column represents.
+
+```{r}
+
+```
+
+# Exercise 1.2 {-}
+
+Using `table1`, compute rate of TB cases per 10,000 and the total cases per year
+
+```{r}
+table1 |>
+  mutate(rate = cases / population * 10000)
+```
+
+```{r}
+table1 |> 
+  group_by(year) |> 
+  summarize(total_cases = sum(cases))
+```
+
+# Exercise 1.3 {-}
+
+For `table2`, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. You haven’t yet learned all the functions you’d need to actually perform these operations, but you should still be able to think through the transformations you’d need.
+
+a) Extract the number of TB cases per country per year.
+
+b) Extract the matching population per country per year.
+
+c) Divide cases by population, and multiply by 10000.
+
+d) Store back in the appropriate place.
+
+
+# Dataset *diamonds*
+We will use the built in dataset on diamond price and measurements. See`?diamonds` more information.
+
+# Exercise 1.4 {-}
+
+Outliers are observations that are unusual; data points that don’t seem to fit the pattern. Sometimes outliers are data entry errors, sometimes they are simply values at the extremes that happened to be observed in this data collection, and other times they suggest important new discoveries. 
+
+Describe the distribution of the `y` variable from the diamonds dataset.
+
+```{r}
+ggplot(diamonds, aes(x = y)) + 
+  geom_histogram(binwidth = 0.5)
+```
+
+The only evidence of outliers is the unusually wide limits on the x-axis.
+
+There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you’ll spot something). We can change the `binwidth=` to help with this. We can also zoom in on the y axis using `coord_cartesian()`.
+
+```{r}
+ggplot(diamonds, aes(x = y)) + 
+  geom_histogram(binwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50)) # also has an xlim() option
+```
+
+# Exercise 1.5 {-}
+
+Make a new dataset that includes these unusual values using dplyr.
+
+```{r}
+unusual <- diamonds |> 
+  filter(y < 3 | y > 20) |> 
+  select(price, x, y, z) |>
+  arrange(y)
+unusual
+```
+
+# Exercise 1.6 {-}
+
+How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
+
+```{r}
+
+```
+
+# Exercise 1.7 {-}
+What does na.rm = TRUE do in mean() and sum()?
+
+```{r}
+
+```
+
