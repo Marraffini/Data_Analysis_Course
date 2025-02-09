@@ -45,6 +45,7 @@ website:
         - section: "Study Guide"
           href: studyguide/index.qmd
           contents:
+            - studyguide/0-R-tidyverse.qmd
             - studyguide/1-data-collection.qmd
             - studyguide/2-eda.qmd
             - studyguide/3-probability.qmd
@@ -58,6 +59,7 @@ website:
       collapse-level: 2
       contents: 
         - workshops/ws01.qmd
+        - workshops/ws01_5.qmd
         - workshops/ws02.qmd
         - workshops/ws03.qmd
         - workshops/ws04.qmd
