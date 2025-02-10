@@ -253,10 +253,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#setting-up-a-quarto-project" id="toc-setting-up-a-quarto-project" class="nav-link active" data-scroll-target="#setting-up-a-quarto-project">Setting up a Quarto project</a></li>
-  <li><a href="#introduction-to-the-tidyverse" id="toc-introduction-to-the-tidyverse" class="nav-link" data-scroll-target="#introduction-to-the-tidyverse">Introduction to the tidyverse</a></li>
+  <li><a href="#introduction-to-the-tidyverse" id="toc-introduction-to-the-tidyverse" class="nav-link active" data-scroll-target="#introduction-to-the-tidyverse">Introduction to the tidyverse</a></li>
   <li><a href="#datset" id="toc-datset" class="nav-link" data-scroll-target="#datset">Datset</a></li>
-  <li><a href="#exercise-1.1" id="toc-exercise-1.1" class="nav-link" data-scroll-target="#exercise-1.1">Exercise 1.1</a></li>
+  <li><a href="#exercise-1.1" id="toc-exercise-1.1" class="nav-link" data-scroll-target="#exercise-1.1">Exercise 1.1</a>
+  <ul class="collapse">
+  <li><a href="#piping" id="toc-piping" class="nav-link" data-scroll-target="#piping">Piping</a></li>
+  </ul></li>
   <li><a href="#exercise-1.2" id="toc-exercise-1.2" class="nav-link" data-scroll-target="#exercise-1.2">Exercise 1.2</a></li>
   <li><a href="#exercise-1.3" id="toc-exercise-1.3" class="nav-link" data-scroll-target="#exercise-1.3">Exercise 1.3</a></li>
   <li><a href="#dataset-diamonds" id="toc-dataset-diamonds" class="nav-link" data-scroll-target="#dataset-diamonds">Dataset <em>diamonds</em></a></li>
@@ -264,6 +266,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-1.5" id="toc-exercise-1.5" class="nav-link" data-scroll-target="#exercise-1.5">Exercise 1.5</a></li>
   <li><a href="#exercise-1.6" id="toc-exercise-1.6" class="nav-link" data-scroll-target="#exercise-1.6">Exercise 1.6</a></li>
   <li><a href="#exercise-1.7" id="toc-exercise-1.7" class="nav-link" data-scroll-target="#exercise-1.7">Exercise 1.7</a></li>
+  <li><a href="#tidying-data" id="toc-tidying-data" class="nav-link" data-scroll-target="#tidying-data">Tidying data</a></li>
+  <li><a href="#exercise-1.8" id="toc-exercise-1.8" class="nav-link" data-scroll-target="#exercise-1.8">Exercise 1.8</a>
+  <ul class="collapse">
+  <li><a href="#combining-datasets" id="toc-combining-datasets" class="nav-link" data-scroll-target="#combining-datasets">Combining datasets</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ws01_5.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
@@ -287,55 +294,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="setting-up-a-quarto-project" class="level1">
-<h1>Setting up a Quarto project</h1>
-<p>It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don’t have to use projects, but they are very useful.</p>
-<ol type="1">
-<li>Open RStudio. (Optional: click on the little window symbol at the top and select “Console on Right”)</li>
-</ol>
-<p><img src="img/console_right.png" class="img-fluid"></p>
-<ol start="2" type="1">
-<li><p>If you haven’t already, make a directory on your computer where you want to keep your code for this course.</p></li>
-<li><p>Make a new project. Select the “Project” button at the top-right of Rstudio, and select “New Project…”.</p></li>
-</ol>
-<p><img src="img/open_project.png" class="img-fluid"></p>
-<ol start="4" type="1">
-<li>In the pop-up window:</li>
-</ol>
-<ul>
-<li>Select “New Directory”</li>
-</ul>
-<p><img src="img/new_direct.png" class="img-fluid"></p>
-<ul>
-<li>Select “Quarto Project”</li>
-</ul>
-<p><img src="img/quarto_proj.png" class="img-fluid"></p>
-<ul>
-<li>Choose your directory via the “Browse”, and then give the project a name like “161250_workshops”</li>
-</ul>
-<p><img src="img/dir_name.png" class="img-fluid"></p>
-<ul>
-<li>Finish by clicking on “Create Project”.</li>
-</ul>
-<p>The project should now be created, and you’ll likely have an open *.qmd file (something like “161250_workshops.qmd”) in the top-right window of Rstudio. We want to make a *.qmd file for this workshop.</p>
-<ol start="5" type="1">
-<li>Right-click on the qmd tab and select “Rename”, and rename it “workshop2.qmd” or something similar. (Alternatively, just make a new file via the menus: <em>File &gt; New File &gt; Quarto Document</em>.)</li>
-</ol>
-<p><img src="img/rename_qmd.png" class="img-fluid"></p>
-<p>Now you have a document for your Workshop work. You can:</p>
-<ul>
-<li>Write headings with lines beginning with “#”.</li>
-<li>Write text in the main part of the document.</li>
-<li>Make a code chunk for your R code using <em>Ctrl-Alt-i</em>. Write R code in the code chunks.</li>
-</ul>
-<p>Like so:</p>
-<p><img src="img/chunk.png" class="img-fluid"></p>
-<p>There are lots of tutorials online covering the basics of Quarto, and we’ll discuss them during our own workshops. Here are a couple for starters:</p>
-<p><a href="https://quarto.org/docs/get-started/hello/rstudio.html" class="uri">https://quarto.org/docs/get-started/hello/rstudio.html</a></p>
-<p><a href="https://www.youtube.com/watch?v=c654j7aQjcg" class="uri">https://www.youtube.com/watch?v=c654j7aQjcg</a></p>
-<p>There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they’ll be easily accessible within your project, without having to worry about file paths.</p>
-<p>You can easily open a recent past projects via the “Projects” button on the top-right of Rstudio.</p>
-</section>
 <section id="introduction-to-the-tidyverse" class="level1">
 <h1>Introduction to the tidyverse</h1>
 <p>We will be largely using the <code>tidyverse</code> suite of packages for data organisation, summarising, and plotting; see <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>.</p>
@@ -407,6 +365,250 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-1.1" class="level1 unnumbered">
 <h1 class="unnumbered">Exercise 1.1</h1>
 <p>For each of the sample tables, describe what each observation and each column represents.</p>
+<section id="piping" class="level2">
+<h2 class="anchored" data-anchor-id="piping">Piping</h2>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>The piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.</strong></p>
+</div>
+</div>
+<p>The <code>R</code> package <code>magrittr</code> introduced the pipe operator <code>%&gt;%</code> and can be pronounced as “then”. In RStudio windows/Linux versions, press <code>Ctrl+Shift+M</code> to insert the pipe operator. On a Mac, use <code>Cmd+Shift+M</code>.</p>
+<p><code>R</code> also has its own pipe, <code>|&gt;</code>, which is an alternative to <code>%&gt;%</code>. You will see both used in this course. If you want to change the pipe inserted automatically with <code>Ctrl+Shift+M</code>, find on the menu <strong>Tools &gt; Global Options</strong>, then click on <strong>Code</strong> and check the box that says “<strong>Use Native Pipe Operator</strong>”.</p>
+<p>Try the following examples after loading the <code>rangitikei</code> dataset.</p>
+<p><code>select()</code></p>
+<p>Consider the study guide dataset <code>rangitikei.txt</code> (Recreational Use of the Rangitikei river) again. The first 10 rows of this dataset are shown below:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>   id loc time w.e cl wind temp river people vehicle
+1   1   1    2   1  1    2    2     1     37      15
+2   2   1    1   1  1    2    1     2     23       6
+3   3   1    2   1  1    2    2     3     87      31
+4   4   2    2   1  1    2    1     1     86      27
+5   5   2    1   1  1    2    2     2     19       2
+6   6   2    2   1  2    1    3     3    136      23
+7   7   1    2   2  2    2    2     3     14       8
+8   8   1    2   1  2    2    2     3     67      26
+9   9   1    1   2  1    3    1     2      4       3
+10 10   2    2   1  2    2    2     3    127      45</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>new.data <span class="ot">&lt;-</span> my.data <span class="sc">|&gt;</span> </span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, vehicle)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(new.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "people"  "vehicle"</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, vehicle) <span class="sc">|&gt;</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>people, <span class="at">y=</span>vehicle) <span class="sc">+</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ws01_5_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>We select two columns and create a scatter plot with the above commands.</p>
+<p><code>filter()</code></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wind<span class="sc">==</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, vehicle) <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>people, <span class="at">y=</span>vehicle) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ws01_5_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The above commands filter the data for the low wind days and plots vehicle against people.</p>
+<p><code>arrange()</code></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wind<span class="sc">==</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(w.e, people, vehicle)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  w.e people vehicle
+1   1    136      23
+2   1     50      22
+3   1    100      31
+4   1    470     122
+5   2     22      11</code></pre>
+</div>
+</div>
+<p><code>mutate()</code></p>
+<p>Assume that a $10 levy is collected for each vehicle. We can create this new <code>levy</code> column as follows.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">levy =</span> vehicle<span class="sc">*</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, levy) <span class="sc">|&gt;</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> people, <span class="at">y=</span>levy) <span class="sc">+</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="ws01_5_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>Note that the pipe operation was used to create a scatter plot using the newly created column.</p>
+<p><code>summarise()</code></p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), </span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(people)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  total      avg
+1    33 71.72727</code></pre>
+</div>
+</div>
+<p>We obtain the selected summary measures namely the total and the mean number of people. Try-</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wind <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), </span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(people)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  total   avg
+1     5 155.6</code></pre>
+</div>
+</div>
+<p><code>group_by()</code></p>
+<p>We obtain the wind group-wise summaries below:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind) <span class="sc">|&gt;</span> </span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total=</span><span class="fu">n</span>(), </span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg=</span><span class="fu">mean</span>(people))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 3
+   wind total   avg
+  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+1     1     5 156. 
+2     2    26  59.7
+3     3     2  19  </code></pre>
+</div>
+</div>
+<p>There are many more commands such as the <code>transmute</code> function which conserves the only the needed columns. Try</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind, w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">total=</span><span class="fu">n</span>(), </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg=</span><span class="fu">mean</span>(people))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 33 × 4
+# Groups:   wind, w.e [6]
+    wind   w.e total   avg
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+ 1     2     1    18  72.1
+ 2     2     1    18  72.1
+ 3     2     1    18  72.1
+ 4     2     1    18  72.1
+ 5     2     1    18  72.1
+ 6     1     1     4 189  
+ 7     2     2     8  31.8
+ 8     2     1    18  72.1
+ 9     3     2     1   4  
+10     2     1    18  72.1
+# ℹ 23 more rows</code></pre>
+</div>
+</div>
+<p>A simple frequency table is found using <code>count()</code>. Try-</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind, w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(temp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 4
+# Groups:   wind, w.e [6]
+    wind   w.e  temp     n
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1     1     1     1     1
+ 2     1     1     3     3
+ 3     1     2     3     1
+ 4     2     1     1     4
+ 5     2     1     2    12
+ 6     2     1     3     2
+ 7     2     2     2     6
+ 8     2     2     3     2
+ 9     3     1     2     1
+10     3     2     1     1</code></pre>
+</div>
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind, w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(temp, river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 16 × 5
+# Groups:   wind, w.e [6]
+    wind   w.e  temp river     n
+   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;
+ 1     1     1     1     1     1
+ 2     1     1     3     3     3
+ 3     1     2     3     3     1
+ 4     2     1     1     1     1
+ 5     2     1     1     2     1
+ 6     2     1     1     3     2
+ 7     2     1     2     1     3
+ 8     2     1     2     2     2
+ 9     2     1     2     3     7
+10     2     1     3     3     2
+11     2     2     2     1     2
+12     2     2     2     3     4
+13     2     2     3     2     1
+14     2     2     3     3     1
+15     3     1     2     2     1
+16     3     2     1     2     1</code></pre>
+</div>
+</div>
+<p>The <code>count()</code> is useful to check the balanced nature of the data when many subgroups are involved.</p>
+</section>
 </section>
 <section id="exercise-1.2" class="level1 unnumbered">
 <h1 class="unnumbered">Exercise 1.2</h1>
@@ -414,8 +616,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> cases <span class="sc">/</span> population <span class="sc">*</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> cases <span class="sc">/</span> population <span class="sc">*</span> <span class="dv">10000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 6 × 5
@@ -432,9 +634,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_cases =</span> <span class="fu">sum</span>(cases))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span> </span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_cases =</span> <span class="fu">sum</span>(cases))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
@@ -466,11 +668,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="ws01_5_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="ws01_5_files/figure-html/unnamed-chunk-17-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 <p>The only evidence of outliers is the unusually wide limits on the x-axis.</p>
@@ -478,12 +680,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>)) <span class="co"># also has an xlim() option</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>)) <span class="co"># also has an xlim() option</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
-<p><img src="ws01_5_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+<p><img src="ws01_5_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
@@ -493,11 +695,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>unusual <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, x, y, z) <span class="sc">|&gt;</span></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>unusual</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>unusual <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, x, y, z) <span class="sc">|&gt;</span></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y)</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>unusual</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 9 × 4
@@ -518,14 +720,159 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="exercise-1.6" class="level1 unnumbered">
 <h1 class="unnumbered">Exercise 1.6</h1>
 <p>How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 </section>
 <section id="exercise-1.7" class="level1 unnumbered">
 <h1 class="unnumbered">Exercise 1.7</h1>
-<p>What does na.rm = TRUE do in mean() and sum()?</p>
+<p>What does <code>na.rm = TRUE</code> do in mean() and sum()?</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="tidying-data" class="level1">
+<h1>Tidying data</h1>
+<p>Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.</p>
+<p>The <code>billboard</code> dataset records the billboard rank of songs in the year 2000:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>billboard</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 317 × 79
+   artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+   &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+ 2 2Ge+her    The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+ 3 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+ 4 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55    59
+ 5 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+ 6 98^0       Give… 2000-08-19      51    39    34    26    26    19     2     2
+ 7 A*Teens    Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+ 8 Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35    38
+ 9 Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16    14
+10 Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61    58
+# ℹ 307 more rows
+# ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+#   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+#   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+#   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+#   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+#   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).</p>
+</section>
+<section id="exercise-1.8" class="level1 unnumbered">
+<h1 class="unnumbered">Exercise 1.8</h1>
+<p>Use <code>pivot_longer()</code> to tidy this data</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="combining-datasets" class="level2">
+<h2 class="anchored" data-anchor-id="combining-datasets">Combining datasets</h2>
+<p>There are four types of joins, we will illustrate them using a simple example:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">y =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">a =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(df2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(x)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(x)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    
+2     2     1    NA &lt;NA&gt; </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(x)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    
+2     3    NA    10 a    </code></pre>
+</div>
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(x)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+      x     a b         y
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;int&gt;
+1     3    10 a        NA
+2     1    10 a         2</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(x)`</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    
+2     2     1    NA &lt;NA&gt; 
+3     3    NA    10 a    </code></pre>
+</div>
+</div>
 
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -825,174 +1172,315 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb16" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tidy data"</span></span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># Setting up a Quarto project</span></span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don't have to use projects, but they are very useful. </span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open RStudio. (Optional: click on the little window symbol at the top and select "Console on Right")</span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/console_right.png)</span></span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>If you haven't already, make a directory on your computer where you want to keep your code for this course. </span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Make a new project. Select the "Project" button at the top-right of Rstudio, and select "New Project...".</span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/open_project.png)</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>In the pop-up window:</span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Select "New Directory"</span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/new_direct.png)</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Select "Quarto Project"</span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/quarto_proj.png)</span></span>
-<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choose your directory via the "Browse", and then give the project a name like "161250_workshops"</span>
-<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/dir_name.png)</span></span>
-<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Finish by clicking on "Create Project". </span>
-<span id="cb16-33"><a href="#cb16-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-34"><a href="#cb16-34" aria-hidden="true" tabindex="-1"></a>The project should now be created, and you'll likely have an open <span class="sc">\*</span>.qmd file (something like "161250_workshops.qmd") in the top-right window of Rstudio. We want to make a <span class="sc">\*</span>.qmd file for this workshop. </span>
-<span id="cb16-35"><a href="#cb16-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-36"><a href="#cb16-36" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Right-click on the qmd tab and select "Rename", and rename it "workshop2.qmd" or something similar. (Alternatively, just make a new file via the menus: *File &gt; New File &gt; Quarto Document*.)</span>
-<span id="cb16-37"><a href="#cb16-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-38"><a href="#cb16-38" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/rename_qmd.png)</span></span>
-<span id="cb16-39"><a href="#cb16-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-40"><a href="#cb16-40" aria-hidden="true" tabindex="-1"></a>Now you have a document for your Workshop work. You can:</span>
-<span id="cb16-41"><a href="#cb16-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-42"><a href="#cb16-42" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Write headings with lines beginning with "#". </span>
-<span id="cb16-43"><a href="#cb16-43" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Write text in the main part of the document.</span>
-<span id="cb16-44"><a href="#cb16-44" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Make a code chunk for your R code using *Ctrl-Alt-i*. Write R code in the code chunks.</span>
-<span id="cb16-45"><a href="#cb16-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-46"><a href="#cb16-46" aria-hidden="true" tabindex="-1"></a>Like so:</span>
-<span id="cb16-47"><a href="#cb16-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-48"><a href="#cb16-48" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/chunk.png)</span></span>
-<span id="cb16-49"><a href="#cb16-49" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-50"><a href="#cb16-50" aria-hidden="true" tabindex="-1"></a>There are lots of tutorials online covering the basics of Quarto, and we'll discuss them during our own workshops. Here are a couple for starters:</span>
-<span id="cb16-51"><a href="#cb16-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-52"><a href="#cb16-52" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://quarto.org/docs/get-started/hello/rstudio.html&gt;</span></span>
-<span id="cb16-53"><a href="#cb16-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-54"><a href="#cb16-54" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://www.youtube.com/watch?v=c654j7aQjcg&gt;</span></span>
-<span id="cb16-55"><a href="#cb16-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-56"><a href="#cb16-56" aria-hidden="true" tabindex="-1"></a>There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they'll be easily accessible within your project, without having to worry about file paths. </span>
-<span id="cb16-57"><a href="#cb16-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-58"><a href="#cb16-58" aria-hidden="true" tabindex="-1"></a>You can easily open a recent past projects via the "Projects" button on the top-right of Rstudio. </span>
-<span id="cb16-59"><a href="#cb16-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-60"><a href="#cb16-60" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-61"><a href="#cb16-61" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to the tidyverse</span></span>
-<span id="cb16-62"><a href="#cb16-62" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-63"><a href="#cb16-63" aria-hidden="true" tabindex="-1"></a>We will be largely using the <span class="in">`tidyverse`</span> suite of packages for data organisation, summarising, and plotting; see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>.</span>
-<span id="cb16-64"><a href="#cb16-64" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-65"><a href="#cb16-65" aria-hidden="true" tabindex="-1"></a>Let's load that package now:</span>
-<span id="cb16-66"><a href="#cb16-66" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-69"><a href="#cb16-69" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-70"><a href="#cb16-70" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb16-71"><a href="#cb16-71" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb16-72"><a href="#cb16-72" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-73"><a href="#cb16-73" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-74"><a href="#cb16-74" aria-hidden="true" tabindex="-1"></a><span class="fu"># Datset</span></span>
-<span id="cb16-75"><a href="#cb16-75" aria-hidden="true" tabindex="-1"></a>For this workshop we will use some tidyverse built in datasets. Each dataset shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way.</span>
-<span id="cb16-76"><a href="#cb16-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-79"><a href="#cb16-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-80"><a href="#cb16-80" aria-hidden="true" tabindex="-1"></a>table1</span>
-<span id="cb16-81"><a href="#cb16-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-82"><a href="#cb16-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-83"><a href="#cb16-83" aria-hidden="true" tabindex="-1"></a>table2</span>
-<span id="cb16-84"><a href="#cb16-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-85"><a href="#cb16-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-86"><a href="#cb16-86" aria-hidden="true" tabindex="-1"></a>table3</span>
-<span id="cb16-87"><a href="#cb16-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-88"><a href="#cb16-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-89"><a href="#cb16-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-90"><a href="#cb16-90" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.1 {-}</span></span>
-<span id="cb16-91"><a href="#cb16-91" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-92"><a href="#cb16-92" aria-hidden="true" tabindex="-1"></a>For each of the sample tables, describe what each observation and each column represents.</span>
-<span id="cb16-93"><a href="#cb16-93" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-96"><a href="#cb16-96" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-97"><a href="#cb16-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-98"><a href="#cb16-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-99"><a href="#cb16-99" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.2 {-}</span></span>
-<span id="cb16-100"><a href="#cb16-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-101"><a href="#cb16-101" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`table1`</span>, compute rate of TB cases per 10,000 and the total cases per year</span>
-<span id="cb16-102"><a href="#cb16-102" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-105"><a href="#cb16-105" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-106"><a href="#cb16-106" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span></span>
-<span id="cb16-107"><a href="#cb16-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> cases <span class="sc">/</span> population <span class="sc">*</span> <span class="dv">10000</span>)</span>
-<span id="cb16-108"><a href="#cb16-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-109"><a href="#cb16-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-112"><a href="#cb16-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-113"><a href="#cb16-113" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span> </span>
-<span id="cb16-114"><a href="#cb16-114" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
-<span id="cb16-115"><a href="#cb16-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_cases =</span> <span class="fu">sum</span>(cases))</span>
-<span id="cb16-116"><a href="#cb16-116" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-117"><a href="#cb16-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-118"><a href="#cb16-118" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.3 {-}</span></span>
-<span id="cb16-119"><a href="#cb16-119" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-120"><a href="#cb16-120" aria-hidden="true" tabindex="-1"></a>For <span class="in">`table2`</span>, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. You haven’t yet learned all the functions you’d need to actually perform these operations, but you should still be able to think through the transformations you’d need.</span>
-<span id="cb16-121"><a href="#cb16-121" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-122"><a href="#cb16-122" aria-hidden="true" tabindex="-1"></a>a) Extract the number of TB cases per country per year.</span>
-<span id="cb16-123"><a href="#cb16-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-124"><a href="#cb16-124" aria-hidden="true" tabindex="-1"></a>b) Extract the matching population per country per year.</span>
-<span id="cb16-125"><a href="#cb16-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-126"><a href="#cb16-126" aria-hidden="true" tabindex="-1"></a>c) Divide cases by population, and multiply by 10000.</span>
-<span id="cb16-127"><a href="#cb16-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-128"><a href="#cb16-128" aria-hidden="true" tabindex="-1"></a>d) Store back in the appropriate place.</span>
-<span id="cb16-129"><a href="#cb16-129" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-130"><a href="#cb16-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-131"><a href="#cb16-131" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset *diamonds*</span></span>
-<span id="cb16-132"><a href="#cb16-132" aria-hidden="true" tabindex="-1"></a>We will use the built in dataset on diamond price and measurements. See<span class="in">`?diamonds`</span> more information.</span>
-<span id="cb16-133"><a href="#cb16-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-134"><a href="#cb16-134" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.4 {-}</span></span>
-<span id="cb16-135"><a href="#cb16-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-136"><a href="#cb16-136" aria-hidden="true" tabindex="-1"></a>Outliers are observations that are unusual; data points that don’t seem to fit the pattern. Sometimes outliers are data entry errors, sometimes they are simply values at the extremes that happened to be observed in this data collection, and other times they suggest important new discoveries. </span>
-<span id="cb16-137"><a href="#cb16-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-138"><a href="#cb16-138" aria-hidden="true" tabindex="-1"></a>Describe the distribution of the <span class="in">`y`</span> variable from the diamonds dataset.</span>
-<span id="cb16-139"><a href="#cb16-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-142"><a href="#cb16-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-143"><a href="#cb16-143" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
-<span id="cb16-144"><a href="#cb16-144" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span>
-<span id="cb16-145"><a href="#cb16-145" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-146"><a href="#cb16-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-147"><a href="#cb16-147" aria-hidden="true" tabindex="-1"></a>The only evidence of outliers is the unusually wide limits on the x-axis.</span>
-<span id="cb16-148"><a href="#cb16-148" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-149"><a href="#cb16-149" aria-hidden="true" tabindex="-1"></a>There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you’ll spot something). We can change the <span class="in">`binwidth=`</span> to help with this. We can also zoom in on the y axis using <span class="in">`coord_cartesian()`</span>.</span>
-<span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
-<span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
-<span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>)) <span class="co"># also has an xlim() option</span></span>
-<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.5 {-}</span></span>
-<span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-161"><a href="#cb16-161" aria-hidden="true" tabindex="-1"></a>Make a new dataset that includes these unusual values using dplyr.</span>
-<span id="cb16-162"><a href="#cb16-162" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-165"><a href="#cb16-165" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-166"><a href="#cb16-166" aria-hidden="true" tabindex="-1"></a>unusual <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> </span>
-<span id="cb16-167"><a href="#cb16-167" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb16-168"><a href="#cb16-168" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, x, y, z) <span class="sc">|&gt;</span></span>
-<span id="cb16-169"><a href="#cb16-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y)</span>
-<span id="cb16-170"><a href="#cb16-170" aria-hidden="true" tabindex="-1"></a>unusual</span>
-<span id="cb16-171"><a href="#cb16-171" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-172"><a href="#cb16-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-173"><a href="#cb16-173" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
-<span id="cb16-174"><a href="#cb16-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-175"><a href="#cb16-175" aria-hidden="true" tabindex="-1"></a>How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?</span>
-<span id="cb16-176"><a href="#cb16-176" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-179"><a href="#cb16-179" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-180"><a href="#cb16-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb16-181"><a href="#cb16-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-182"><a href="#cb16-182" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.7 {-}</span></span>
-<span id="cb16-183"><a href="#cb16-183" aria-hidden="true" tabindex="-1"></a>What does na.rm = TRUE do in mean() and sum()?</span>
-<span id="cb16-184"><a href="#cb16-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-187"><a href="#cb16-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb16-188"><a href="#cb16-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<div class="sourceCode" id="cb57" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Tidy data"</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to the tidyverse</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>We will be largely using the <span class="in">`tidyverse`</span> suite of packages for data organisation, summarising, and plotting; see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>.</span>
+<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>Let's load that package now:</span>
+<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a><span class="fu"># Datset</span></span>
+<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>For this workshop we will use some tidyverse built in datasets. Each dataset shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way.</span>
+<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a>table1</span>
+<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>table2</span>
+<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>table3</span>
+<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-35"><a href="#cb57-35" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.1 {-}</span></span>
+<span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-37"><a href="#cb57-37" aria-hidden="true" tabindex="-1"></a>For each of the sample tables, describe what each observation and each column represents.</span>
+<span id="cb57-38"><a href="#cb57-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-41"><a href="#cb57-41" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-42"><a href="#cb57-42" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-43"><a href="#cb57-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-44"><a href="#cb57-44" aria-hidden="true" tabindex="-1"></a><span class="fu">## Piping</span></span>
+<span id="cb57-45"><a href="#cb57-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-46"><a href="#cb57-46" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb57-47"><a href="#cb57-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-48"><a href="#cb57-48" aria-hidden="true" tabindex="-1"></a>**The piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.**</span>
+<span id="cb57-49"><a href="#cb57-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-50"><a href="#cb57-50" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb57-51"><a href="#cb57-51" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-52"><a href="#cb57-52" aria-hidden="true" tabindex="-1"></a>The <span class="in">`R`</span> package <span class="in">`magrittr`</span> introduced the pipe operator <span class="in">`%&gt;%`</span> and can be pronounced as "then". In RStudio windows/Linux versions, press <span class="in">`Ctrl+Shift+M`</span> to insert the pipe operator. On a Mac, use <span class="in">`Cmd+Shift+M`</span>. </span>
+<span id="cb57-53"><a href="#cb57-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-54"><a href="#cb57-54" aria-hidden="true" tabindex="-1"></a><span class="in">`R`</span> also has its own pipe, <span class="in">`|&gt;`</span>, which is an alternative to <span class="in">`%&gt;%`</span>. You will see both used in this course. If you want to change the pipe inserted automatically with <span class="in">`Ctrl+Shift+M`</span>, find on the menu **Tools &gt; Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". </span>
+<span id="cb57-55"><a href="#cb57-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-56"><a href="#cb57-56" aria-hidden="true" tabindex="-1"></a>Try the following examples after loading the <span class="in">`rangitikei`</span> dataset.</span>
+<span id="cb57-57"><a href="#cb57-57" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-58"><a href="#cb57-58" aria-hidden="true" tabindex="-1"></a><span class="in">`select()`</span></span>
+<span id="cb57-59"><a href="#cb57-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-60"><a href="#cb57-60" aria-hidden="true" tabindex="-1"></a>Consider the study guide dataset <span class="in">`rangitikei.txt`</span> (Recreational Use of</span>
+<span id="cb57-61"><a href="#cb57-61" aria-hidden="true" tabindex="-1"></a>the Rangitikei river) again. The first 10 rows of this dataset are shown</span>
+<span id="cb57-62"><a href="#cb57-62" aria-hidden="true" tabindex="-1"></a>below:</span>
+<span id="cb57-63"><a href="#cb57-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-64"><a href="#cb57-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb57-65"><a href="#cb57-65" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb57-66"><a href="#cb57-66" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>, </span>
+<span id="cb57-67"><a href="#cb57-67" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
+<span id="cb57-68"><a href="#cb57-68" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb57-69"><a href="#cb57-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-70"><a href="#cb57-70" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my.data, <span class="dv">10</span>) <span class="co"># shows the first ten rows</span></span>
+<span id="cb57-71"><a href="#cb57-71" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-72"><a href="#cb57-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-73"><a href="#cb57-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-76"><a href="#cb57-76" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-77"><a href="#cb57-77" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb57-78"><a href="#cb57-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-79"><a href="#cb57-79" aria-hidden="true" tabindex="-1"></a>new.data <span class="ot">&lt;-</span> my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-80"><a href="#cb57-80" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, vehicle)</span>
+<span id="cb57-81"><a href="#cb57-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-82"><a href="#cb57-82" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(new.data)</span>
+<span id="cb57-83"><a href="#cb57-83" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-84"><a href="#cb57-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-85"><a href="#cb57-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-88"><a href="#cb57-88" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-89"><a href="#cb57-89" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-90"><a href="#cb57-90" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, vehicle) <span class="sc">|&gt;</span> </span>
+<span id="cb57-91"><a href="#cb57-91" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb57-92"><a href="#cb57-92" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>people, <span class="at">y=</span>vehicle) <span class="sc">+</span></span>
+<span id="cb57-93"><a href="#cb57-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb57-94"><a href="#cb57-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-95"><a href="#cb57-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-96"><a href="#cb57-96" aria-hidden="true" tabindex="-1"></a>We select two columns and create a scatter plot with the above commands.</span>
+<span id="cb57-97"><a href="#cb57-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-98"><a href="#cb57-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-99"><a href="#cb57-99" aria-hidden="true" tabindex="-1"></a><span class="in">`filter()`</span></span>
+<span id="cb57-100"><a href="#cb57-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-103"><a href="#cb57-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-104"><a href="#cb57-104" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-105"><a href="#cb57-105" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wind<span class="sc">==</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb57-106"><a href="#cb57-106" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, vehicle) <span class="sc">|&gt;</span> </span>
+<span id="cb57-107"><a href="#cb57-107" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb57-108"><a href="#cb57-108" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>people, <span class="at">y=</span>vehicle) <span class="sc">+</span></span>
+<span id="cb57-109"><a href="#cb57-109" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb57-110"><a href="#cb57-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-111"><a href="#cb57-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-112"><a href="#cb57-112" aria-hidden="true" tabindex="-1"></a>The above commands filter the data for the low wind days and plots</span>
+<span id="cb57-113"><a href="#cb57-113" aria-hidden="true" tabindex="-1"></a>vehicle against people.</span>
+<span id="cb57-114"><a href="#cb57-114" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-115"><a href="#cb57-115" aria-hidden="true" tabindex="-1"></a><span class="in">`arrange()`</span></span>
+<span id="cb57-116"><a href="#cb57-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-119"><a href="#cb57-119" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-120"><a href="#cb57-120" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-121"><a href="#cb57-121" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wind<span class="sc">==</span><span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb57-122"><a href="#cb57-122" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb57-123"><a href="#cb57-123" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(w.e, people, vehicle)</span>
+<span id="cb57-124"><a href="#cb57-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-125"><a href="#cb57-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-126"><a href="#cb57-126" aria-hidden="true" tabindex="-1"></a><span class="in">`mutate()`</span></span>
+<span id="cb57-127"><a href="#cb57-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-128"><a href="#cb57-128" aria-hidden="true" tabindex="-1"></a>Assume that a \$10 levy is collected for each vehicle. We can create</span>
+<span id="cb57-129"><a href="#cb57-129" aria-hidden="true" tabindex="-1"></a>this new <span class="in">`levy`</span> column as follows.</span>
+<span id="cb57-130"><a href="#cb57-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-133"><a href="#cb57-133" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-134"><a href="#cb57-134" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-135"><a href="#cb57-135" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">levy =</span> vehicle<span class="sc">*</span><span class="dv">10</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb57-136"><a href="#cb57-136" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(people, levy) <span class="sc">|&gt;</span> </span>
+<span id="cb57-137"><a href="#cb57-137" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb57-138"><a href="#cb57-138" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> people, <span class="at">y=</span>levy) <span class="sc">+</span></span>
+<span id="cb57-139"><a href="#cb57-139" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb57-140"><a href="#cb57-140" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-141"><a href="#cb57-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-142"><a href="#cb57-142" aria-hidden="true" tabindex="-1"></a>Note that the pipe operation was used to create a scatter plot using the</span>
+<span id="cb57-143"><a href="#cb57-143" aria-hidden="true" tabindex="-1"></a>newly created column.</span>
+<span id="cb57-144"><a href="#cb57-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-145"><a href="#cb57-145" aria-hidden="true" tabindex="-1"></a><span class="in">`summarise()`</span></span>
+<span id="cb57-146"><a href="#cb57-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-149"><a href="#cb57-149" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-150"><a href="#cb57-150" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-151"><a href="#cb57-151" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), </span>
+<span id="cb57-152"><a href="#cb57-152" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(people)</span>
+<span id="cb57-153"><a href="#cb57-153" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb57-154"><a href="#cb57-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-155"><a href="#cb57-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-156"><a href="#cb57-156" aria-hidden="true" tabindex="-1"></a>We obtain the selected summary measures namely the total and the mean</span>
+<span id="cb57-157"><a href="#cb57-157" aria-hidden="true" tabindex="-1"></a>number of people. Try-</span>
+<span id="cb57-158"><a href="#cb57-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-161"><a href="#cb57-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-162"><a href="#cb57-162" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-163"><a href="#cb57-163" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(wind <span class="sc">==</span> <span class="dv">1</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb57-164"><a href="#cb57-164" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total =</span> <span class="fu">n</span>(), </span>
+<span id="cb57-165"><a href="#cb57-165" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg =</span> <span class="fu">mean</span>(people)</span>
+<span id="cb57-166"><a href="#cb57-166" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb57-167"><a href="#cb57-167" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-168"><a href="#cb57-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-169"><a href="#cb57-169" aria-hidden="true" tabindex="-1"></a><span class="in">`group_by()`</span></span>
+<span id="cb57-170"><a href="#cb57-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-171"><a href="#cb57-171" aria-hidden="true" tabindex="-1"></a>We obtain the wind group-wise summaries below:</span>
+<span id="cb57-172"><a href="#cb57-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-175"><a href="#cb57-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-176"><a href="#cb57-176" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-177"><a href="#cb57-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind) <span class="sc">|&gt;</span> </span>
+<span id="cb57-178"><a href="#cb57-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">total=</span><span class="fu">n</span>(), </span>
+<span id="cb57-179"><a href="#cb57-179" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg=</span><span class="fu">mean</span>(people))</span>
+<span id="cb57-180"><a href="#cb57-180" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-181"><a href="#cb57-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-182"><a href="#cb57-182" aria-hidden="true" tabindex="-1"></a>There are many more commands such as the <span class="in">`transmute`</span> function which</span>
+<span id="cb57-183"><a href="#cb57-183" aria-hidden="true" tabindex="-1"></a>conserves the only the needed columns. Try</span>
+<span id="cb57-184"><a href="#cb57-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-187"><a href="#cb57-187" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-188"><a href="#cb57-188" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-189"><a href="#cb57-189" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind, w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb57-190"><a href="#cb57-190" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transmute</span>(<span class="at">total=</span><span class="fu">n</span>(), </span>
+<span id="cb57-191"><a href="#cb57-191" aria-hidden="true" tabindex="-1"></a>            <span class="at">avg=</span><span class="fu">mean</span>(people))</span>
+<span id="cb57-192"><a href="#cb57-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-193"><a href="#cb57-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-194"><a href="#cb57-194" aria-hidden="true" tabindex="-1"></a>A simple frequency table is found using <span class="in">`count()`</span>. Try-</span>
+<span id="cb57-195"><a href="#cb57-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-198"><a href="#cb57-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-199"><a href="#cb57-199" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-200"><a href="#cb57-200" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind, w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb57-201"><a href="#cb57-201" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(temp)</span>
+<span id="cb57-202"><a href="#cb57-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-203"><a href="#cb57-203" aria-hidden="true" tabindex="-1"></a>my.data <span class="sc">|&gt;</span> </span>
+<span id="cb57-204"><a href="#cb57-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(wind, w.e) <span class="sc">|&gt;</span> </span>
+<span id="cb57-205"><a href="#cb57-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(temp, river)</span>
+<span id="cb57-206"><a href="#cb57-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-207"><a href="#cb57-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-208"><a href="#cb57-208" aria-hidden="true" tabindex="-1"></a>The <span class="in">`count()`</span> is useful to check the balanced nature of the data when</span>
+<span id="cb57-209"><a href="#cb57-209" aria-hidden="true" tabindex="-1"></a>many subgroups are involved.</span>
+<span id="cb57-210"><a href="#cb57-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-211"><a href="#cb57-211" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.2 {-}</span></span>
+<span id="cb57-212"><a href="#cb57-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-213"><a href="#cb57-213" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`table1`</span>, compute rate of TB cases per 10,000 and the total cases per year</span>
+<span id="cb57-214"><a href="#cb57-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-217"><a href="#cb57-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-218"><a href="#cb57-218" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span></span>
+<span id="cb57-219"><a href="#cb57-219" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rate =</span> cases <span class="sc">/</span> population <span class="sc">*</span> <span class="dv">10000</span>)</span>
+<span id="cb57-220"><a href="#cb57-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-221"><a href="#cb57-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-224"><a href="#cb57-224" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-225"><a href="#cb57-225" aria-hidden="true" tabindex="-1"></a>table1 <span class="sc">|&gt;</span> </span>
+<span id="cb57-226"><a href="#cb57-226" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">|&gt;</span> </span>
+<span id="cb57-227"><a href="#cb57-227" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">total_cases =</span> <span class="fu">sum</span>(cases))</span>
+<span id="cb57-228"><a href="#cb57-228" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-229"><a href="#cb57-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-230"><a href="#cb57-230" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.3 {-}</span></span>
+<span id="cb57-231"><a href="#cb57-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-232"><a href="#cb57-232" aria-hidden="true" tabindex="-1"></a>For <span class="in">`table2`</span>, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. You haven’t yet learned all the functions you’d need to actually perform these operations, but you should still be able to think through the transformations you’d need.</span>
+<span id="cb57-233"><a href="#cb57-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-234"><a href="#cb57-234" aria-hidden="true" tabindex="-1"></a>a) Extract the number of TB cases per country per year.</span>
+<span id="cb57-235"><a href="#cb57-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-236"><a href="#cb57-236" aria-hidden="true" tabindex="-1"></a>b) Extract the matching population per country per year.</span>
+<span id="cb57-237"><a href="#cb57-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-238"><a href="#cb57-238" aria-hidden="true" tabindex="-1"></a>c) Divide cases by population, and multiply by 10000.</span>
+<span id="cb57-239"><a href="#cb57-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-240"><a href="#cb57-240" aria-hidden="true" tabindex="-1"></a>d) Store back in the appropriate place.</span>
+<span id="cb57-241"><a href="#cb57-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-242"><a href="#cb57-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-243"><a href="#cb57-243" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset *diamonds*</span></span>
+<span id="cb57-244"><a href="#cb57-244" aria-hidden="true" tabindex="-1"></a>We will use the built in dataset on diamond price and measurements. See<span class="in">`?diamonds`</span> more information.</span>
+<span id="cb57-245"><a href="#cb57-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-246"><a href="#cb57-246" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.4 {-}</span></span>
+<span id="cb57-247"><a href="#cb57-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-248"><a href="#cb57-248" aria-hidden="true" tabindex="-1"></a>Outliers are observations that are unusual; data points that don’t seem to fit the pattern. Sometimes outliers are data entry errors, sometimes they are simply values at the extremes that happened to be observed in this data collection, and other times they suggest important new discoveries. </span>
+<span id="cb57-249"><a href="#cb57-249" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-250"><a href="#cb57-250" aria-hidden="true" tabindex="-1"></a>Describe the distribution of the <span class="in">`y`</span> variable from the diamonds dataset.</span>
+<span id="cb57-251"><a href="#cb57-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-254"><a href="#cb57-254" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-255"><a href="#cb57-255" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
+<span id="cb57-256"><a href="#cb57-256" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>)</span>
+<span id="cb57-257"><a href="#cb57-257" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-258"><a href="#cb57-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-259"><a href="#cb57-259" aria-hidden="true" tabindex="-1"></a>The only evidence of outliers is the unusually wide limits on the x-axis.</span>
+<span id="cb57-260"><a href="#cb57-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-261"><a href="#cb57-261" aria-hidden="true" tabindex="-1"></a>There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you’ll spot something). We can change the <span class="in">`binwidth=`</span> to help with this. We can also zoom in on the y axis using <span class="in">`coord_cartesian()`</span>.</span>
+<span id="cb57-262"><a href="#cb57-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-265"><a href="#cb57-265" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-266"><a href="#cb57-266" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(<span class="at">x =</span> y)) <span class="sc">+</span> </span>
+<span id="cb57-267"><a href="#cb57-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb57-268"><a href="#cb57-268" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_cartesian</span>(<span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>)) <span class="co"># also has an xlim() option</span></span>
+<span id="cb57-269"><a href="#cb57-269" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-270"><a href="#cb57-270" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-271"><a href="#cb57-271" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.5 {-}</span></span>
+<span id="cb57-272"><a href="#cb57-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-273"><a href="#cb57-273" aria-hidden="true" tabindex="-1"></a>Make a new dataset that includes these unusual values using dplyr.</span>
+<span id="cb57-274"><a href="#cb57-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-277"><a href="#cb57-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-278"><a href="#cb57-278" aria-hidden="true" tabindex="-1"></a>unusual <span class="ot">&lt;-</span> diamonds <span class="sc">|&gt;</span> </span>
+<span id="cb57-279"><a href="#cb57-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(y <span class="sc">&lt;</span> <span class="dv">3</span> <span class="sc">|</span> y <span class="sc">&gt;</span> <span class="dv">20</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb57-280"><a href="#cb57-280" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(price, x, y, z) <span class="sc">|&gt;</span></span>
+<span id="cb57-281"><a href="#cb57-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(y)</span>
+<span id="cb57-282"><a href="#cb57-282" aria-hidden="true" tabindex="-1"></a>unusual</span>
+<span id="cb57-283"><a href="#cb57-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-284"><a href="#cb57-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-285"><a href="#cb57-285" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
+<span id="cb57-286"><a href="#cb57-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-287"><a href="#cb57-287" aria-hidden="true" tabindex="-1"></a>How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?</span>
+<span id="cb57-288"><a href="#cb57-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-291"><a href="#cb57-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-292"><a href="#cb57-292" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb57-293"><a href="#cb57-293" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-294"><a href="#cb57-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-295"><a href="#cb57-295" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.7 {-}</span></span>
+<span id="cb57-296"><a href="#cb57-296" aria-hidden="true" tabindex="-1"></a>What does <span class="in">`na.rm = TRUE`</span> do in mean() and sum()?</span>
+<span id="cb57-297"><a href="#cb57-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-300"><a href="#cb57-300" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-301"><a href="#cb57-301" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb57-302"><a href="#cb57-302" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-303"><a href="#cb57-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-304"><a href="#cb57-304" aria-hidden="true" tabindex="-1"></a><span class="fu"># Tidying data</span></span>
+<span id="cb57-305"><a href="#cb57-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-306"><a href="#cb57-306" aria-hidden="true" tabindex="-1"></a>Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.</span>
+<span id="cb57-307"><a href="#cb57-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-308"><a href="#cb57-308" aria-hidden="true" tabindex="-1"></a>The <span class="in">`billboard`</span> dataset records the billboard rank of songs in the year 2000:</span>
+<span id="cb57-309"><a href="#cb57-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-312"><a href="#cb57-312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-313"><a href="#cb57-313" aria-hidden="true" tabindex="-1"></a>billboard</span>
+<span id="cb57-314"><a href="#cb57-314" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-315"><a href="#cb57-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-316"><a href="#cb57-316" aria-hidden="true" tabindex="-1"></a>In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).</span>
+<span id="cb57-317"><a href="#cb57-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-318"><a href="#cb57-318" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.8 {-}</span></span>
+<span id="cb57-319"><a href="#cb57-319" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`pivot_longer()`</span> to tidy this data</span>
+<span id="cb57-320"><a href="#cb57-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-323"><a href="#cb57-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-324"><a href="#cb57-324" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb57-325"><a href="#cb57-325" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-326"><a href="#cb57-326" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-327"><a href="#cb57-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-328"><a href="#cb57-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-329"><a href="#cb57-329" aria-hidden="true" tabindex="-1"></a><span class="fu">## Combining datasets</span></span>
+<span id="cb57-330"><a href="#cb57-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-331"><a href="#cb57-331" aria-hidden="true" tabindex="-1"></a>There are four types of joins, we will illustrate them using a simple example:</span>
+<span id="cb57-332"><a href="#cb57-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-335"><a href="#cb57-335" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-336"><a href="#cb57-336" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">y =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb57-337"><a href="#cb57-337" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">a =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="st">"a"</span>)</span>
+<span id="cb57-338"><a href="#cb57-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-339"><a href="#cb57-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-342"><a href="#cb57-342" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-343"><a href="#cb57-343" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(df2) </span>
+<span id="cb57-344"><a href="#cb57-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-345"><a href="#cb57-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-348"><a href="#cb57-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-349"><a href="#cb57-349" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df2)</span>
+<span id="cb57-350"><a href="#cb57-350" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-351"><a href="#cb57-351" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-354"><a href="#cb57-354" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-355"><a href="#cb57-355" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df2)</span>
+<span id="cb57-356"><a href="#cb57-356" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df1)</span>
+<span id="cb57-357"><a href="#cb57-357" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb57-358"><a href="#cb57-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-361"><a href="#cb57-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb57-362"><a href="#cb57-362" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(df2)</span>
+<span id="cb57-363"><a href="#cb57-363" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

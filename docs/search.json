@@ -2545,7 +2545,7 @@
     "href": "workshops/ws01.html",
     "title": "Getting Started With R",
     "section": "",
-    "text": "In this course, we will be using R https://www.r-project.org/, an open-source (i.e., free) software package for data analysis. This software is available for essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is maintained and developed by a huge community of users including many of the world’s foremost statisticians.\nR is a programming language but you may not be required to do a lot of programming for your course work. R includes functions which enables us to perform a full range of statistical analyses.\nFor installing R software, please visit https://cran.stat.auckland.ac.nz/ and follow the instructions.\nNote that the R software will be sitting in the background in RStudio and you will not be using the standalone version of R in this course.\nRStudio https://www.rstudio.com/products/rstudio/ is an integrated development environment (IDE) for R. It includes a console and a sophisticated code editor. It also contains tools for plotting, history, debugging, and management of workspaces and projects. RStudio has many other features such as authoring HTML, PDF, Word Documents, and slide shows. In order to download RStudio (Desktop edition, open source), go to\nhttps://www.rstudio.com/products/rstudio/download/\nDownload the installation file and run it. Note that RStudio must be installed after installing R.\nR/RStudio can also be run on a cloud platform at https://rstudio.cloud/ after creating a free account. Be aware though that some of the packages covered in this course may not work in the cloud platform and there is a maximum amount of computing time. We do not recommend relying on the cloud platform for this course.\nIf you open RStudio, you will see something similar to the screen shot shown in Figure 1:\n\n\n\nFigure 1: An RStudio window\n\n\nRStudio has many options, such as uploading files to a server, creating documents, etc. You will be using only a few of the options. You will not be using the menus such as Build, Debug, Profile at all in this course.\nYou can either type or copy and paste the R codes appearing in this section on to the R Script window and run them."
+    "text": "If you have not installed R and RStudio, refer to the study guide for some instructions.\nTo start this workshop download the source from the class website. You can now save this to your computer and make notes in this document."
   },
   {
     "objectID": "workshops/ws01.html#grammar-of-graphics",
@@ -2594,7 +2594,7 @@
     "href": "workshops/ws01.html#tidyr",
     "title": "Getting Started With R",
     "section": "tidyr",
-    "text": "tidyr\nBy the phrase tidy data, it is meant the preferred way of arranging data that is easy to analyse. The principles of tidy data are:\n\nEach variable forms a column.\nEach observation forms a row.\nEach type of observational unit forms a table.\n\nThe hospital admissions dataset is untidy because it does allocate many columns for a variable.\n\n\nCode\nmy.data &lt;- read.table(\n  \"https://www.massey.ac.nz/~anhsmith/data/hospital.txt\",\n  header=TRUE, sep=\",\")\n  \nhead(my.data)\n\n\n  YEAR PERI NORTH1 NORTH2 NORTH3 SOUTH1 SOUTH2 SOUTH3\n1 1980    1      0      4     27      4     16     27\n2 1980    2      6     11     31      8     18     21\n3 1980    3      6      4     25     20     16     24\n4 1980    4      1     10     31     22     17     20\n5 1980    5      4     16     22     21     30     31\n6 1980    6      3      8     28     31     20     30\n\n\nThe main response variable namely the number of admissions is allocated different columns depending on the North and South locations. This format is also called wide format which can be made into a tidy long format. Try-\n\n\nCode\nlibrary(tidyr)\n\nmy.data |&gt; \n  gather(NORTH1, NORTH2, NORTH3, \n         SOUTH1, SOUTH2, SOUTH3)\n\n\nThe command spread() does the opposite to gather(). The tidyr package many other functions such as unite(), separate() etc to deal with columns. A better approach would be to use the dplyr function pivot_longer(). Try-\n\n\nCode\nmy.data |&gt; \n  pivot_longer(cols = NORTH1:SOUTH3, \n               names_to = \"location\", \n               values_to = \"Admissions\")\n\n\nThe command pivot_wider() does the opposite to pivot_longer()\nThe dplyr package also has functions to deal with two-tables which can be joined either conditionally or unconditionally using commands such as full_join(). For a detailed notes and examples, you may visit https://dplyr.tidyverse.org/articles/two-table.html but we will be using such functions very occasionally in this course.\nThe reshape2 and data.table packages also have functions to do the same task."
+    "text": "tidyr\nBy the phrase tidy data, it is meant the preferred way of arranging data that is easy to analyse. The principles of tidy data are:\n\nEach variable forms a column.\nEach observation forms a row.\nEach type of observational unit forms a table.\n\nSimple Manipulations\nThere is always more than one-way of manipulating the data, producing summaries and tables from raw data.\nOne of the simplest manipulations on a batch of data we may do is to change the data type say numeric to character. For example, the television viewing time data in the text file tv.csv is read into a dataframe by the command line\n\n\nCode\nmy.data &lt;- read.csv(\n  \"https://www.massey.ac.nz/~anhsmith/data/tv.csv\", \n  header =TRUE\n  )\n\n\nWe can improve the read.csv command to recognise the data type while reading the table as follows, using the read_csv command from the readr package:\n\n\nCode\nmy.data &lt;- read_csv(\n  \"https://www.massey.ac.nz/~anhsmith/data/tv.csv\", \n  col_types = \"nfcc\"\n  )\n\n\nThe argument col_types = \"nfcc\" stands for {numeric, factor, character, character}, to match the order of the columns.\n\n\nCode\nmy.data\n\n\n# A tibble: 46 × 4\n   TELETIME SEX   SCHOOL STANDARD\n      &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt;  &lt;chr&gt;   \n 1     1482 1     1      4       \n 2     2018 1     1      4       \n 3     1849 1     1      4       \n 4      857 1     1      4       \n 5     2027 2     1      4       \n 6     2368 2     1      4       \n 7     1783 2     1      4       \n 8     1769 2     1      4       \n 9     2534 1     1      3       \n10     2366 1     1      3       \n# ℹ 36 more rows\n\n\nWe often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands\n\n\nCode\nattach(my.data)\nby(TELETIME, SCHOOL, summary)\n\n\nWe employed the by() command above and instead, we may also use tapply() aggregate() functions:\ntapply(TELETIME, SCHOOL, summary)\naggregate(TELETIME, list(SCHOOL), summary)\nA tabulated summary of categorical data is obtained using the table() command.\n\n\nCode\nmy.data &lt;- read.csv(\n  \"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv\",\n  header=TRUE\n  )\n\nwind &lt;- my.data |&gt; pull(wind)\nriver &lt;- my.data |&gt; pull(river)\n\ntable(wind, river)\n\n\nIt is sometimes convenient to work with matrices for some R functions such as apply(). For example, the number of admissions data in hospital.txt data can be formed as a matrix. Note that this is possible because we have the same number of observations for each hospital location.\n\n\nCode\ndata &lt;- read.table(\n  \"https://www.massey.ac.nz/~anhsmith/data/hospital.txt\",\n  header=TRUE, \n  sep=\",\")\n\nM &lt;- data |&gt; \n  select(NORTH1, NORTH2, NORTH3, \n         SOUTH1, SOUTH2, SOUTH3) |&gt; \n  sqrt()\n\nmeans &lt;- apply(M, 1, mean)\nsds &lt;- apply(M, 1, sd)\n\nplot(means, sds)"
   },
   {
     "objectID": "workshops/ws01.html#data-quality-checks",
@@ -2637,5 +2637,383 @@
     "title": "Chapter 7: Models with Multiple Continuous Predictors",
     "section": "Best Subsets Selection",
     "text": "Best Subsets Selection\nAn exhaustive screening of all possible regression models (and hence the name best subsets regression) can also be done using software. For example, there are 6 predictor variables in the horses’ hearts data. If we fix the number of predictors as 3, then \\(\\small {\\left(\\begin{array}{c} {6} \\\\ {3} \\end{array}\\right)} = 20\\) regression models are possible. One may select the ‘best’ 3-variable model based on criteria such as AIC, \\(C_{p}\\), \\(R_{adj}^{2}\\) etc. Software must be employed to perform the conventional stepwise regression procedures. Software algorithms give one or more best candidate models fixing the number of variables in each step.\nOn the basis of our analysis on the horses’ hear data, we might decide to recommend the model with predictor variables EXTDIA, EXTSYS, INNERDIA and OUTERSYS. In particular if the model is to be used for describing relationships then we would tend to include more variables. For prediction purposes, however, a simpler feasible model is preferred and in this case we may opt for the smaller model with only INNERDIA and OUTERSYS. See Table 4 produced using the following R codes:\n\n\nCode\nlibrary(leaps)\nlibrary(HH)\nlibrary(kableExtra)\n\nb.model &lt;- regsubsets(WEIGHT ~ ., data = horsehearts) |&gt;\n  summaryHH() \n\nb.model |&gt; \n  kable(digits = 3) |&gt; \n  kable_styling(bootstrap_options = \"basic\", full_width = F)\n\n\n\n\nTable 4: Subset selection\n\n\nmodel\np\nrsq\nrss\nadjr2\ncp\nbic\nstderr\n\n\n\n\nINNERD\n2\n0.658\n19.450\n0.650\n11.923\n-41.677\n0.665\n\n\nINNERD-OUTERS\n3\n0.715\n16.173\n0.702\n4.838\n-46.335\n0.613\n\n\nINNERD-OUTERS-OUTERD\n4\n0.718\n16.043\n0.698\n6.477\n-42.878\n0.618\n\n\nINNERD-OUTERS-EXTS-EXTD\n5\n0.741\n14.739\n0.715\n4.862\n-42.949\n0.600\n\n\nINNERD-OUTERS-OUTERD-EXTS-EXTD\n6\n0.749\n14.272\n0.718\n5.566\n-40.602\n0.597\n\n\nINNERS-INNERD-OUTERS-OUTERD-EXTS-EXTD\n7\n0.753\n14.067\n0.714\n7.000\n-37.437\n0.601\n\n\n\n\n\n\n\n\nSometimes theory may indicate that a certain explanatory variable should be included in the model (e.g. due to small sample size). If this variable is found to make an insignificant contribution to the model, then one should exclude the variable when the model is to be used for prediction but if the model is to be used for explanation purposes only then the variable should be included. Other considerations such as cost and time may also be taken into account. For every method or algorithm, one could find peculiar data sets where it fouls up. The moral – be alert and don’t automatically accept models thrown up by a program. Note there is never one right answer as different methods and different criteria lead to different models.\nVariable selection procedures can be a valuable tool in data analysis, particularly in the early stages of building a model. At the same time, they present certain dangers. There are several reasons for this:\n\nThese procedures automatically snoop though many models and may select ones which, by chance, happen to fit well.\nThese forward or backward stepwise procedures are heuristic (i.e., shortcut) algorithms, which often work very well but which may not always select the best model for a given number of predictors (here best may refer to adjusted \\(R^2\\)-values, or AIC or some other criterion).\nAutomatic procedures cannot take into account special knowledge the analyst may have about the data. Therefore, the model selected may not be the best (or make sense) from a practical point of view.\nMethods are available that shrink coefficients towards zero. The least squares approach minimises the residual sums of squares or RSS without placing any constraint on the coefficients. The shrinkage methods, which place a constraint on the coefficients, work well when there are large numbers of predictors. A ridge regression shrinks the coefficients towards zero but in relation each other. On the other hand, (Least Absolute Selection and Shrinkage Operator) lasso regression shrinks some of coefficients to zero which means these predictors can be dropped. Note that the ridge regression does not completely remove predictors. By shrinking large coefficients, we obtain a model with higher bias but lower variance. This process is known as regularisation in the literature (not covered in this course)."
+  },
+  {
+    "objectID": "workshops/ws01_5.html",
+    "href": "workshops/ws01_5.html",
+    "title": "Tidy data",
+    "section": "",
+    "text": "We will be largely using the tidyverse suite of packages for data organisation, summarising, and plotting; see https://www.tidyverse.org/.\nLet’s load that package now:\n\n\nCode\nlibrary(tidyverse)"
+  },
+  {
+    "objectID": "slides/Chapter00.html",
+    "href": "slides/Chapter00.html",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "",
+    "text": "A data analysis session in R/RStudio involves loading the data, graphing, summarizing, and modelling. You finally save your outputs or produce a Report.\nWhen you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis."
+  },
+  {
+    "objectID": "slides/Chapter00.html#the-nature-of-data-random-variables",
+    "href": "slides/Chapter00.html#the-nature-of-data-random-variables",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "",
+    "text": "Data come from recording observations of the world. E.g.,\n\nrecording the number of heart beats per minute\ncounting birds in your yard\nmeasuring the lengths of fish you catch\n\nEach time you collect one of these observations, it is likely to be different.\n\nPulse may vary between 55 and 70 bpm, depending on when you record it\nNumber of birds varies at different times, and across different yards.\n\nWe call these random variables (often denoted with an upper case letter, \\(X\\)), because the particular value that a single observation or measurement will take is uncertain. The value varies across observations."
+  },
+  {
+    "objectID": "slides/Chapter00.html#types-of-data",
+    "href": "slides/Chapter00.html#types-of-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Types of data",
+    "text": "Types of data"
+  },
+  {
+    "objectID": "slides/Chapter00.html#subtypes-of-qualitative-data",
+    "href": "slides/Chapter00.html#subtypes-of-qualitative-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Subtypes of qualitative data",
+    "text": "Subtypes of qualitative data\n\n\n\n\nNominal variables have no particular order (e.g., gender, colour, species, country)\n\n\n\nOrdinal variables can be ordered (e.g., altitude = {low, mid, high}, age group = {child, juvenile, adult} )"
+  },
+  {
+    "objectID": "slides/Chapter00.html#subtypes-of-quantitative-data",
+    "href": "slides/Chapter00.html#subtypes-of-quantitative-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Subtypes of quantitative data",
+    "text": "Subtypes of quantitative data\n\n\n\n\nContinuous variables have no gaps between possible values, as in measurements (e.g., weight, temperature, length)\n\n\n\nDiscrete variables have gaps between possible values, as in counts (e.g., number of siblings, number of flowers)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#subtypes-of-continuous-data",
+    "href": "slides/Chapter00.html#subtypes-of-continuous-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Subtypes of continuous data",
+    "text": "Subtypes of continuous data\n\n\nInterval scale\n\nNo absolute zero\nDivision & subtraction may not be meaningful\nTemperature in degrees Celcius is interval because 20°C is not twice as hot as 10°C.\n\n\n\n\nRatio scale\n\nZero = zero\nAll arithmetic manipulation can be done\nLength is ratio because 20 mm is twice as long as 10 mm."
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-collection-survey-experiment-census",
+    "href": "slides/Chapter00.html#data-collection-survey-experiment-census",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Data Collection: Survey, Experiment, Census",
+    "text": "Data Collection: Survey, Experiment, Census\n\n\n\nWe collect data from the world to get information about patterns and processes.\nMost datasets contain a subset, a sample, of a much bigger population of interest.\n\nWe may conduct a survey to collect a sample of data from different places, times, people, or organisms. We would rarely survey all of them.\nWe might conduct an experiment where we take a sample of elements (people, organisms, objects) and apply some treatment in a lab (e.g., drug, temperature, exercise regime, or other treatment) to study its effects.\n\nIf we are not dealing with a sample, if every element of the population of interest is represented in the dataset, we call this a census rather than a sample."
+  },
+  {
+    "objectID": "slides/Chapter00.html#measurement-issues",
+    "href": "slides/Chapter00.html#measurement-issues",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Measurement issues",
+    "text": "Measurement issues\n\nMeasuring Devices or Instruments\n\na physical device - measuring rule to gauge the heights of plants\na counting device - a Geiger- counter for measuring radioactive material\na questionnaire - requires a more subjective response.\n\nMeasurement Error\n\nmeasuring instrument may be faulty (bias)\nvalues recorded from the same object may vary from one measurement to another (variance)\n\nIndirect measures\n\nFor example, we use Body Mass Index (BMI) as a measure of condition, and we measure temperature with the expansion of mercury."
+  },
+  {
+    "objectID": "slides/Chapter00.html#non-response",
+    "href": "slides/Chapter00.html#non-response",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Non-response",
+    "text": "Non-response\n\na non-sampling error\nSelection stage: an element may be selected but not found\n\ne.g. sheep in a flock may be tagged with individual identification number but one may not be found at the time of the survey.\n\nCollection stage: it may not be possible to take a measurement\n\nsome respondents may forget, or refuse, to answer the questionnaire\n\nDocumentation stage\n\nIncorrect record of measurement\n\nCall-backs reduce non-response"
+  },
+  {
+    "objectID": "slides/Chapter00.html#census-related-concepts",
+    "href": "slides/Chapter00.html#census-related-concepts",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Census related concepts",
+    "text": "Census related concepts\nTARGET POPULATION the population under study\nFRAME operationalises data collection from a target population. e.g. listing of elements in population.\nACTUAL POPULATION is the resulting set of elements on which usable data have been collected."
+  },
+  {
+    "objectID": "slides/Chapter00.html#sample-vs-population",
+    "href": "slides/Chapter00.html#sample-vs-population",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Sample vs population",
+    "text": "Sample vs population\n\n\n\nA sample is a subset of the population.\nDatasets usually only contain a sample from the population; rarely do we have the entire population of data!\nWhy sample?\n\nSampling conserves resources (money, time, etc.).\nA well collected sample is more useful than a badly designed census.\nCollecting data may be destructive.\nThe disadvantage: the statistics we calculate from sample data is subject to sampling variation, which introduces uncertainty* about their true values.\n\n\n\n\n\n“You don’t have to eat the whole ox to know that the meat is tough” – Samuel Johnson (1709-1784)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#population-frame-and-sample",
+    "href": "slides/Chapter00.html#population-frame-and-sample",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Population, frame, and sample",
+    "text": "Population, frame, and sample"
+  },
+  {
+    "objectID": "slides/Chapter00.html#statistical-inference",
+    "href": "slides/Chapter00.html#statistical-inference",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Statistical inference",
+    "text": "Statistical inference\n\n\nStatistical inference is the process of using information from sample data to make conclusions about the population.\n\nFor example, we want to know \\(\\mu\\), mean length of fish in a population. So, we collect a sample of fish, measure their lengths, calculate the mean \\(\\bar{x}\\), and use \\(\\bar{x}\\) as an estimate of \\(\\mu\\). This is statistical inference.\n\n\n\n\nThe sample mean \\(\\bar{x}\\) depends on which particular fish we happened to get in our sample.\nTherefore, the sample mean \\(\\bar{x}\\) itself is a random variable.\nIf we were to take 1000 different samples, we’d get 1000 different means."
+  },
+  {
+    "objectID": "slides/Chapter00.html#bias-vs-sampling-variance",
+    "href": "slides/Chapter00.html#bias-vs-sampling-variance",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Bias vs sampling variance",
+    "text": "Bias vs sampling variance\n\n\nA method used to estimate \\(\\hat{\\theta}\\) a population parameter \\(\\theta\\) is called an estimator. An estimator includes the study design, methods of data collection, and mathematical operations.\nSampling variance is the sample-to-sample variation in an estimator.\nBias is when our estimator doesn’t get it right on average. That is, the average of estimates over \\(\\infty\\) samples is not centred on the population parameter; \\(\\text{Mean}(\\hat{\\theta}) \\neq \\theta\\).\n\n\n\n\nAn estimator can have high/low sampling variance and high/low bias."
+  },
+  {
+    "objectID": "slides/Chapter00.html#principle-of-randomisation",
+    "href": "slides/Chapter00.html#principle-of-randomisation",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Principle of randomisation",
+    "text": "Principle of randomisation\n\n\n\nWe want our sample to be representative of (and have similar properties to) the population. The most straightforward way to do this is through randomisation.\nWe randomise the selection of objects for our sample to avoid bias. If we (consciously or subconsciously) tended to chose the largest fish for our sample, we’d get an upwardly biased estimate of the lengths.\nSimple random sampling or EPSEM (equal probability of selection) is the gold standard of random sampling."
+  },
+  {
+    "objectID": "slides/Chapter00.html#simple-random-sampling-srs",
+    "href": "slides/Chapter00.html#simple-random-sampling-srs",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Simple Random Sampling (SRS)",
+    "text": "Simple Random Sampling (SRS)\n\n\n\nRandom selection of elements\n\n“Random” refers to the process not outcome\nEach (sampling) unit has same chance of being selected\nUnits can be selected with & without replacement\n\n\n\n\n\n\n\nSRS is easy to handle; suits even for a poor sampling frame\nSRS can be costly to implement\nSRS estimates are more variable than some alternatives\n\n\nSmith et al. (2017)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#stratified-random-sampling-strs",
+    "href": "slides/Chapter00.html#stratified-random-sampling-strs",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Stratified Random Sampling (STRS)",
+    "text": "Stratified Random Sampling (STRS)\n\n\n\nSuitable for heterogeneous populations\nPopulation is divided into relatively homogeneous groups called strata and a random sample is taken from each stratum.\n\n\n\n\n\n\nSampling Approaches\n\nSample the larger strata more heavily (suits when all the strata are equally variable)\nSample the more varied strata are sampled\n\nAdvantages of STRS\n\nleads to efficient estimation That is, the variance (of an estimate) is usually less than that of SRS\nsample is spread throughout population\n\n\n\nSmith et al. (2017)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#cluster-sampling",
+    "href": "slides/Chapter00.html#cluster-sampling",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Cluster sampling",
+    "text": "Cluster sampling\n\n\n\nA convenient method of sampling\npopulation is composed of clusters (groups)\nSelect certain clusters (randomly) and collect measurements from a random selection of the elements within the chosen clusters\nLarger variance than SRS!\n\n\n\n\n\n\nSmith et al. (2017)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#systematic-random-sampling-syrs",
+    "href": "slides/Chapter00.html#systematic-random-sampling-syrs",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Systematic Random sampling (SyRS)",
+    "text": "Systematic Random sampling (SyRS)\n\n\n\nSelect every \\(k^{th}\\) element!\nRandom start within the first block of elements.\n\nConvenient and also the sample will be representative of population\nVariance of estimates - generally greater than those of SRS\nInefficient/inappropriate, if cycle or trend is present\n\n\n\n\n\n\n\nSmith et al. (2017)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#other-sampling-methods",
+    "href": "slides/Chapter00.html#other-sampling-methods",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Other Sampling methods",
+    "text": "Other Sampling methods\n\nProbability proportional to size (PPS)\n\ne.g., sampling high-value companies more likely than low-value companies\n\nMultistage\n\ne.g., first stage - cluster; second stage - SRS\n\nNon-probability sampling methods\n\nHaphazard / opportunistic / volunteer; take what you can get!\nSnowball; get your participants to find new participants\nPurposive; select items with certain characteristics; e.g., patients with particular symptoms\n\nNon-probability samples are often treated as random, requiring the assumption that the sample is representative. The validity of this assumption should be carefully considered."
+  },
+  {
+    "objectID": "slides/Chapter00.html#some-sampling-methods",
+    "href": "slides/Chapter00.html#some-sampling-methods",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Some sampling methods",
+    "text": "Some sampling methods"
+  },
+  {
+    "objectID": "slides/Chapter00.html#effective-sample-size-thumb-rule",
+    "href": "slides/Chapter00.html#effective-sample-size-thumb-rule",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Effective Sample size (thumb rule)",
+    "text": "Effective Sample size (thumb rule)\n\n\n\n\n\n\n\n\nSample Design\nDesign Effect (\\(d\\))\nEffective Sample Size (\\(\\frac{n}{d}\\))\n\n\n\n\nSRS\n1.00\n\\(n\\)\n\n\nSTRS\n0.80 to 0.90\n\\(\\frac{n}{0.9}\\) to \\(\\frac{n}{0.8}\\)\n\n\nCluster\n1.02 to 1.26\n\\(\\frac{n}{1.26}\\) to \\(\\frac{n}{1.02}\\)\n\n\nSyRS\n1.05\n\\(\\frac{n}{1.05}\\)\n\n\nQuota\n2\n\\(\\frac{n}{2}\\)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#summary",
+    "href": "slides/Chapter00.html#summary",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Summary",
+    "text": "Summary\n\nIssues to address\n\nWHAT are collected?\nWHO does the data collection?\nHOW are the data collected?\n\nBias occurs due to\n\nSELECTION\nCOLLECTION\nNON-RESPONSE (the single largest cause of bias!)\n\nA sample may have the same biases as a census along with sampling errors"
+  },
+  {
+    "objectID": "studyguide/0-R-tidyverse.html",
+    "href": "studyguide/0-R-tidyverse.html",
+    "title": "Chapter 0 R quarto and Tidy data",
+    "section": "",
+    "text": "In this course, we will be using R https://www.r-project.org/, an open-source (i.e., free) software package for data analysis. This software is available for essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is maintained and developed by a huge community of users including many of the world’s foremost statisticians.\nR is a programming language but you may not be required to do a lot of programming for your course work. R includes functions which enables us to perform a full range of statistical analyses.\nFor installing R software, please visit https://cran.stat.auckland.ac.nz/ and follow the instructions.\nNote that the R software will be sitting in the background in RStudio and you will not be using the standalone version of R in this course.\nRStudio https://www.rstudio.com/products/rstudio/ is an integrated development environment (IDE) for R. It includes a console and a sophisticated code editor. It also contains tools for plotting, history, debugging, and management of workspaces and projects. RStudio has many other features such as authoring HTML, PDF, Word Documents, and slide shows. In order to download RStudio (Desktop edition, open source), go to\nhttps://www.rstudio.com/products/rstudio/download/\nDownload the installation file and run it. Note that RStudio must be installed after installing R.\nR/RStudio can also be run on a cloud platform at https://rstudio.cloud/ after creating a free account. Be aware though that some of the packages covered in this course may not work in the cloud platform and there is a maximum amount of computing time. We do not recommend relying on the cloud platform for this course.\nIf you open RStudio, you will see something similar to the screen shot shown in Figure 1:\n\n\n\nFigure 1: An RStudio window\n\n\nRStudio has many options, such as uploading files to a server, creating documents, etc. You will be using only a few of the options. You will not be using the menus such as Build, Debug, Profile at all in this course.\nYou can either type or copy and paste the R codes appearing in this section on to the R Script window and run them."
+  },
+  {
+    "objectID": "studyguide/0-R-tidyverse.html#to-use-with-summarize",
+    "href": "studyguide/0-R-tidyverse.html#to-use-with-summarize",
+    "title": "Chapter 0 R quarto and Tidy data",
+    "section": "To Use with summarize()",
+    "text": "To Use with summarize()\nsummarize() applies summary functions to columns to create a new table. Summary functions take vectors as input and return single values as output.\nCount - dplyr::n(): number of values/rows - dplyr::n_distinct(): # of uniques - sum(!is.na()): # of non-NAs\nPosition - mean(): mean, also mean(!is.na()) - median(): median\nLogical - mean(): proportion of TRUEs - sum(): # of TRUEs\nOrder - dplyr::first(): first value - dplyr::last(): last value - dplyr::nth(): value in the nth location of vector\nRank - quantile(): nth quantile - min(): minimum value - max(): maximum value\nSpread - IQR(): Inter-Quartile Range - mad(): median absolute deviation - sd(): standard deviation - var(): variance"
+  },
+  {
+    "objectID": "slides.html",
+    "href": "slides.html",
+    "title": "161250 Slides",
+    "section": "",
+    "text": "Chapter 0: R, quarto, tidyverse\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 1:Data Collection\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 2:Exploratory Data Analysis (EDA)\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 3:Probability Concepts & Distributions\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 4:Introduction to Statistical Inference\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 5:Tabulated Counts\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 6:Models with a Single Predictor\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 7:Models with Multiple Predictors\n\n\n\n\n\n\n\n\n\n\n\n\n\nChapter 8:Analysis of Variance (ANOVA) and Analysis of Covariance (ANCOVA)\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "slides/Chapter00.html#what-is-data-analysis",
+    "href": "slides/Chapter00.html#what-is-data-analysis",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "What is data analysis?",
+    "text": "What is data analysis?\nA data analysis session in R/RStudio involves loading the data, graphing, summarizing, and modelling. You finally save your outputs or produce a Report.\nWhen you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis."
+  },
+  {
+    "objectID": "slides/Chapter00.html#example",
+    "href": "slides/Chapter00.html#example",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Example",
+    "text": "Example"
+  },
+  {
+    "objectID": "slides/Chapter00.html#getting-started-with-r",
+    "href": "slides/Chapter00.html#getting-started-with-r",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Getting started with R",
+    "text": "Getting started with R"
+  },
+  {
+    "objectID": "slides/Chapter00.html#some-r-basics",
+    "href": "slides/Chapter00.html#some-r-basics",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Some R basics",
+    "text": "Some R basics\n\nR is case sensitive, so data is not the same as DATA\nSimilarly beware of spaces and punctuation, particularly in column header\n&lt;- (read as “gets”) is the assignment operator. That is, you use &lt;- to assign some content to a variable. The operator = has a slightly different meaning but it can be used in the same way as &lt;-. In R Studio, press ALT and minus key when you are in the R script mode (File &gt;&gt; New File &gt;&gt; R Script).\nComments are denoted by the # symbol. Anything after a # symbol is ignored by R . This is a great way to write yourself notes.\nR coding can be hard to write from scratch. So do not hesitate to adopt R codes written by others. Search the internet for R code to do what you want to do. The usual copy and paste trick works!\nWarnings vs error messages: R gives warnings typically in &lt;span style='color: orange;'&gt;orange&lt;/span&gt; and errors in &lt;span style='color: red;'&gt;red&lt;/span&gt;. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.\nYou can take notes on your code using the # symbol, called a comment R interprets everything after this symbol as notes not to be run."
+  },
+  {
+    "objectID": "slides/Chapter00.html#r-as-a-calulator",
+    "href": "slides/Chapter00.html#r-as-a-calulator",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "R as a calulator",
+    "text": "R as a calulator\nAt the most basic level R is a calculator. We can type mathematical equations directly into R.\n\n\n[1] 4\n\n\n[1] 4"
+  },
+  {
+    "objectID": "slides/Chapter00.html#directories",
+    "href": "slides/Chapter00.html#directories",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Directories",
+    "text": "Directories\nDirectories is a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.\n\n For example on my computer my slides for this class are located in a folder called ‘slides’ inside ‘Data_Analysis_course’. The last part of the directory is the most specific folder which is nested inside parent folders."
+  },
+  {
+    "objectID": "slides/Chapter00.html#set-directory-in-r",
+    "href": "slides/Chapter00.html#set-directory-in-r",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Set directory in R",
+    "text": "Set directory in R\nIn RStudio, set the working directory under the Session menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.\n\n\n[1] \"/Users/mmarraff/Documents/Classes/161.250/Data_Analysis_Course/slides\""
+  },
+  {
+    "objectID": "slides/Chapter00.html#quarto",
+    "href": "slides/Chapter00.html#quarto",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Quarto",
+    "text": "Quarto\nThis course will be using Quarto *.qmd files rather than raw *.R files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you’re just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.\nQuarto files contain text and code, and can be ‘Rendered’ to produce a nicely formatted document, usually in HTML or PDF format, containing sections, text, code, plots, and output. Quarto can also be used to make websites; in fact, the website for this course was made using Quarto.\nHere’s some information to get you started: https://quarto.org/docs/get-started/hello/rstudio.html.\nAnd some other useful tips: https://r4ds.hadley.nz/quarto."
+  },
+  {
+    "objectID": "slides/Chapter00.html#loading-data",
+    "href": "slides/Chapter00.html#loading-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Loading data",
+    "text": "Loading data\nMost data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name.\nIf the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., mydata.csv rather than C:/Users/anhsmith/Work/Project1/data/mydata.csv). Better yet, Projects make this much easier.\nYou can also load data from the web using a URL. For example,\nWe usually store the data in an R object, here named rangitikei."
+  },
+  {
+    "objectID": "slides/Chapter00.html#loading-packages",
+    "href": "slides/Chapter00.html#loading-packages",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Loading packages",
+    "text": "Loading packages\nMany (but not all) R packages are hosted at a repository called CRAN (Comprehensive R Archive Network). The package install option within RStudio can download and install these optional packages under the menu Packages &gt;&gt; Install. You can also do this using the command install.packages.\nIn this course we will use multiple packages. You need to load them with the library() function every time you run a script/R session but you only need to install them once."
+  },
+  {
+    "objectID": "slides/Chapter00.html#welcome-to-the-tidyverse",
+    "href": "slides/Chapter00.html#welcome-to-the-tidyverse",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Welcome to the tidyverse",
+    "text": "Welcome to the tidyverse\nWe will be largely using the tidyverse suite of packages for data organisation, summarising, and plotting; see https://www.tidyverse.org/.\nLet’s load that package now:\nRecommended reading to accompany this workshop is pages 1-11 of R for Data Science https://r4ds.hadley.nz/"
+  },
+  {
+    "objectID": "slides/Chapter00.html#piping",
+    "href": "slides/Chapter00.html#piping",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Piping",
+    "text": "Piping\n\n\n\n\n\n\nTip\n\n\nThe piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.\n\n\n\nThe R package magrittr introduced the pipe operator %&gt;% and can be pronounced as “then”. In RStudio windows/Linux versions, press Ctrl+Shift+M to insert the pipe operator. On a Mac, use Cmd+Shift+M.\nR also has its own pipe, |&gt;, which is an alternative to %&gt;%. I tend to use |&gt;. If you want to change the pipe inserted automatically with Ctrl+Shift+M, find on the menu Tools &gt; Global Options, then click on Code and check the box that says “Use Native Pipe Operator”.\nWe often pipe the dplyr functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework."
+  },
+  {
+    "objectID": "workshops/ws01_5.html#piping",
+    "href": "workshops/ws01_5.html#piping",
+    "title": "Tidy data",
+    "section": "Piping",
+    "text": "Piping\n\n\n\n\n\n\nTip\n\n\n\nThe piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.\n\n\nThe R package magrittr introduced the pipe operator %&gt;% and can be pronounced as “then”. In RStudio windows/Linux versions, press Ctrl+Shift+M to insert the pipe operator. On a Mac, use Cmd+Shift+M.\nR also has its own pipe, |&gt;, which is an alternative to %&gt;%. You will see both used in this course. If you want to change the pipe inserted automatically with Ctrl+Shift+M, find on the menu Tools &gt; Global Options, then click on Code and check the box that says “Use Native Pipe Operator”.\nTry the following examples after loading the rangitikei dataset.\nselect()\nConsider the study guide dataset rangitikei.txt (Recreational Use of the Rangitikei river) again. The first 10 rows of this dataset are shown below:\n\n\n   id loc time w.e cl wind temp river people vehicle\n1   1   1    2   1  1    2    2     1     37      15\n2   2   1    1   1  1    2    1     2     23       6\n3   3   1    2   1  1    2    2     3     87      31\n4   4   2    2   1  1    2    1     1     86      27\n5   5   2    1   1  1    2    2     2     19       2\n6   6   2    2   1  2    1    3     3    136      23\n7   7   1    2   2  2    2    2     3     14       8\n8   8   1    2   1  2    2    2     3     67      26\n9   9   1    1   2  1    3    1     2      4       3\n10 10   2    2   1  2    2    2     3    127      45\n\n\n\n\nCode\nlibrary(tidyverse)\n\nnew.data &lt;- my.data |&gt; \n  select(people, vehicle)\n\nnames(new.data)\n\n\n[1] \"people\"  \"vehicle\"\n\n\n\n\nCode\nmy.data |&gt; \n  select(people, vehicle) |&gt; \n  ggplot() + \n  aes(x=people, y=vehicle) +\n  geom_point()\n\n\n\n\n\nWe select two columns and create a scatter plot with the above commands.\nfilter()\n\n\nCode\nmy.data |&gt; \n  filter(wind==1) |&gt; \n  select(people, vehicle) |&gt; \n  ggplot() +\n  aes(x=people, y=vehicle) +\n  geom_point()\n\n\n\n\n\nThe above commands filter the data for the low wind days and plots vehicle against people.\narrange()\n\n\nCode\nmy.data |&gt; \n  filter(wind==1) |&gt; \n  arrange(w.e) |&gt; \n  select(w.e, people, vehicle)\n\n\n  w.e people vehicle\n1   1    136      23\n2   1     50      22\n3   1    100      31\n4   1    470     122\n5   2     22      11\n\n\nmutate()\nAssume that a $10 levy is collected for each vehicle. We can create this new levy column as follows.\n\n\nCode\nmy.data |&gt; \n  mutate(levy = vehicle*10) |&gt; \n  select(people, levy) |&gt; \n  ggplot() +\n  aes(x = people, y=levy) +\n  geom_point()\n\n\n\n\n\nNote that the pipe operation was used to create a scatter plot using the newly created column.\nsummarise()\n\n\nCode\nmy.data |&gt; \n  summarise(total = n(), \n            avg = mean(people)\n            )\n\n\n  total      avg\n1    33 71.72727\n\n\nWe obtain the selected summary measures namely the total and the mean number of people. Try-\n\n\nCode\nmy.data |&gt; \n  filter(wind == 1) |&gt; \n  summarise(total = n(), \n            avg = mean(people)\n            )\n\n\n  total   avg\n1     5 155.6\n\n\ngroup_by()\nWe obtain the wind group-wise summaries below:\n\n\nCode\nmy.data |&gt; \n  group_by(wind) |&gt; \n  summarise(total=n(), \n            avg=mean(people))\n\n\n# A tibble: 3 × 3\n   wind total   avg\n  &lt;int&gt; &lt;int&gt; &lt;dbl&gt;\n1     1     5 156. \n2     2    26  59.7\n3     3     2  19  \n\n\nThere are many more commands such as the transmute function which conserves the only the needed columns. Try\n\n\nCode\nmy.data |&gt; \n  group_by(wind, w.e) |&gt; \n  transmute(total=n(), \n            avg=mean(people))\n\n\n# A tibble: 33 × 4\n# Groups:   wind, w.e [6]\n    wind   w.e total   avg\n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt;\n 1     2     1    18  72.1\n 2     2     1    18  72.1\n 3     2     1    18  72.1\n 4     2     1    18  72.1\n 5     2     1    18  72.1\n 6     1     1     4 189  \n 7     2     2     8  31.8\n 8     2     1    18  72.1\n 9     3     2     1   4  \n10     2     1    18  72.1\n# ℹ 23 more rows\n\n\nA simple frequency table is found using count(). Try-\n\n\nCode\nmy.data |&gt; \n  group_by(wind, w.e) |&gt; \n  count(temp)\n\n\n# A tibble: 10 × 4\n# Groups:   wind, w.e [6]\n    wind   w.e  temp     n\n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;\n 1     1     1     1     1\n 2     1     1     3     3\n 3     1     2     3     1\n 4     2     1     1     4\n 5     2     1     2    12\n 6     2     1     3     2\n 7     2     2     2     6\n 8     2     2     3     2\n 9     3     1     2     1\n10     3     2     1     1\n\n\nCode\nmy.data |&gt; \n  group_by(wind, w.e) |&gt; \n  count(temp, river)\n\n\n# A tibble: 16 × 5\n# Groups:   wind, w.e [6]\n    wind   w.e  temp river     n\n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;\n 1     1     1     1     1     1\n 2     1     1     3     3     3\n 3     1     2     3     3     1\n 4     2     1     1     1     1\n 5     2     1     1     2     1\n 6     2     1     1     3     2\n 7     2     1     2     1     3\n 8     2     1     2     2     2\n 9     2     1     2     3     7\n10     2     1     3     3     2\n11     2     2     2     1     2\n12     2     2     2     3     4\n13     2     2     3     2     1\n14     2     2     3     3     1\n15     3     1     2     2     1\n16     3     2     1     2     1\n\n\nThe count() is useful to check the balanced nature of the data when many subgroups are involved."
+  },
+  {
+    "objectID": "workshops/ws01_5.html#combining-datasets",
+    "href": "workshops/ws01_5.html#combining-datasets",
+    "title": "Tidy data",
+    "section": "Combining datasets",
+    "text": "Combining datasets\nThere are four types of joins, we will illustrate them using a simple example:\n\n\nCode\ndf1 &lt;- tibble(x = c(1, 2), y = 2:1)\ndf2 &lt;- tibble(x = c(3, 1), a = 10, b = \"a\")\n\n\n\n\nCode\ndf1 %&gt;% inner_join(df2) \n\n\nJoining with `by = join_by(x)`\n\n\n# A tibble: 1 × 4\n      x     y     a b    \n  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1     2    10 a    \n\n\n\n\nCode\ndf1 %&gt;% left_join(df2)\n\n\nJoining with `by = join_by(x)`\n\n\n# A tibble: 2 × 4\n      x     y     a b    \n  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1     2    10 a    \n2     2     1    NA &lt;NA&gt; \n\n\n\n\nCode\ndf1 %&gt;% right_join(df2)\n\n\nJoining with `by = join_by(x)`\n\n\n# A tibble: 2 × 4\n      x     y     a b    \n  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1     2    10 a    \n2     3    NA    10 a    \n\n\nCode\ndf2 %&gt;% left_join(df1)\n\n\nJoining with `by = join_by(x)`\n\n\n# A tibble: 2 × 4\n      x     a b         y\n  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;int&gt;\n1     3    10 a        NA\n2     1    10 a         2\n\n\n\n\nCode\ndf1 %&gt;% full_join(df2)\n\n\nJoining with `by = join_by(x)`\n\n\n# A tibble: 3 × 4\n      x     y     a b    \n  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;\n1     1     2    10 a    \n2     2     1    NA &lt;NA&gt; \n3     3    NA    10 a"
+  },
+  {
+    "objectID": "slides/Chapter00.html#types-of-data-files",
+    "href": "slides/Chapter00.html#types-of-data-files",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Types of data files",
+    "text": "Types of data files\nThe letters after the . at the end of a files name are called the extension and tell you the type of file.\nIf the data are stored as a *.csv or “comma separated values” file, then you can use the read.csv() or read_csv() function to load the file. If it’s a text file (.txt) with columns separated by spaces or tabs, you can use read.table() or read_table() function. The ones with underscores ( read_csv() and read_table() ) are in the readr package, so you’ll need to load it first (though readr is part of tidyverse, so if you load tidyverse you’re all set). We will introduce tidyverse in a moment.\nYou can also load Microsoft Excel files using functions read_excel(), available in the readxl package.\nNote that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them."
+  },
+  {
+    "objectID": "slides/Chapter00.html#tidy-data",
+    "href": "slides/Chapter00.html#tidy-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Tidy data",
+    "text": "Tidy data\nThere are three interrelated rules that make a dataset tidy:\n\nEach variable is a column; each column is a variable.\nEach observation is a row; each row is an observation.\nEach value is a cell; each cell is a single value.\n\n\nFigure 1: Tidy data"
+  },
+  {
+    "objectID": "slides/Chapter00.html#why-ensure-that-your-data-is-tidy",
+    "href": "slides/Chapter00.html#why-ensure-that-your-data-is-tidy",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Why ensure that your data is tidy?",
+    "text": "Why ensure that your data is tidy?\nThere are two main advantages:\n\nThere’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.\nThere’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values.\n\ndplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data."
+  },
+  {
+    "objectID": "slides/Chapter00.html#summarizing-data",
+    "href": "slides/Chapter00.html#summarizing-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Summarizing data",
+    "text": "Summarizing data\nSummarizing data is a large part of data analysis."
+  },
+  {
+    "objectID": "slides/Chapter00.html#dplyr",
+    "href": "slides/Chapter00.html#dplyr",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "dplyr",
+    "text": "dplyr\nThe following six functions of dplyr are very useful for data wrangling :\n\nFor selecting columns, use select()\nFor subsetting data, use filter()\nFor re-ordering (e.g. ascending/descending), use arrange()\nFor augmenting new calculated columns, use mutate()\nFor computing summary measures, use summarise()\nFor group-wise computations (e.g. summary measures), use group_by()\n\nThere are many other functions such as transmute() which will add newly calculated columns to the existing data frame but drop all unused columns. The across() function extends group_by() and summarise() functions for multiple column and function summaries. For example, you like to report rounded data in a table, which calls for an operation across both rows and columns."
+  },
+  {
+    "objectID": "slides/Chapter00.html#grammar-of-graphics",
+    "href": "slides/Chapter00.html#grammar-of-graphics",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Grammar of Graphics",
+    "text": "Grammar of Graphics\nThe main idea behind the grammar of graphics of [@Wilkinson] is to mimic the manual graphing approach and define building blocks and combine them to create a graphical display. The building blocks of a graph are:\n\ndata\naesthetic mapping\ngeometric object\ntransformation or re-expression of data\nscales\ncoordinate system\nposition adjustments\nfaceting"
+  },
+  {
+    "objectID": "slides/Chapter00.html#aesthetic-mapping-aes",
+    "href": "slides/Chapter00.html#aesthetic-mapping-aes",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Aesthetic Mapping (aes)",
+    "text": "Aesthetic Mapping (aes)\nIn ggplot land aesthetic means visualisation features or aesthetics. These are\n\nposition (i.e., on the x and y axes)\ncolor (“outside” color)\nfill (“inside” color)\nshape (of points)\nlinetype\nsize\n\nAesthetic mappings are set with the aes() function."
+  },
+  {
+    "objectID": "slides/Chapter00.html#geometric-objects-geom",
+    "href": "slides/Chapter00.html#geometric-objects-geom",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Geometric Objects (geom)",
+    "text": "Geometric Objects (geom)\nGeometric objects or geoms are the actual marking or inking on a plot such as:\n\npoints (geom_point, for scatter plots, dot plots, etc)\nlines (geom_line, for time series, trend lines, etc)\nboxplot (geom_boxplot, for boxplots)\n\nA plot must have at least one geom but there is no upper limit. In order to add a geom to a plot, the + operator is employed. A list of available geometric objects can be obtained by typing geom_&lt;tab&gt; in Rstudio. The following command can also be used which will open a Help window.\nhelp.search(\"geom_\", package = \"ggplot2\")"
+  },
+  {
+    "objectID": "slides/Chapter00.html#tidying-data",
+    "href": "slides/Chapter00.html#tidying-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Tidying data",
+    "text": "Tidying data\nThe principles of tidy data might seem so obvious that you wonder if you’ll ever encounter a dataset that isn’t tidy. Unfortunately, however, most real data is (very) untidy. There are two main reasons:\n\nData is often organized to facilitate some goal other than analysis. For example, it’s common for data to be structured to make data entry easy.\nMost people aren’t familiar with the principles of tidy data, and it’s hard to derive them yourself unless you spend a lot of time working with data.\n\nThis means that most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data."
+  },
+  {
+    "objectID": "slides/Chapter00.html#tidying-data-example",
+    "href": "slides/Chapter00.html#tidying-data-example",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Tidying data example",
+    "text": "Tidying data example\nThe hospital admissions dataset is untidy because it does allocate many columns for a variable.\n\n\n  YEAR PERI NORTH1 NORTH2 NORTH3 SOUTH1 SOUTH2 SOUTH3\n1 1980    1      0      4     27      4     16     27\n2 1980    2      6     11     31      8     18     21\n3 1980    3      6      4     25     20     16     24\n4 1980    4      1     10     31     22     17     20\n5 1980    5      4     16     22     21     30     31\n6 1980    6      3      8     28     31     20     30\n\n\nThe main response variable namely the number of admissions is allocated different columns depending on the North and South locations. This format is also called wide format which can be made into a tidy long format. We can use the dplyr function pivot_longer() to change this data into long format. Try-\nThe command pivot_wider() does the opposite to pivot_longer()"
+  },
+  {
+    "objectID": "slides/Chapter00.html#common-data-issues",
+    "href": "slides/Chapter00.html#common-data-issues",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Common data issues",
+    "text": "Common data issues\n\nSpelling, capitalization, typos, and white spaces\nthere are some handy functions in stringr and janitor packages\nNAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project\ncan remove NAs using na.omit(), !is.na(), na.rm=T, etc. depending on what function you are using. See help menu for more details\nMultiple types of data in a single column or wrong data type\ncan force a data class using as.numeric() for example"
+  },
+  {
+    "objectID": "slides/Chapter00.html#joining-data",
+    "href": "slides/Chapter00.html#joining-data",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Joining data",
+    "text": "Joining data\nMutating joins allow you to combine variables from multiple tables. For example, consider the flights and airlines data from the nycflights13 package. In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. You can use a join to add the carrier names to the flight data:\n\n\n# A tibble: 336,776 × 9\n    year month   day  hour origin dest  tailnum carrier name                    \n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   \n 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines Inc.   \n 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines Inc.   \n 3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines Inc.  \n 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways         \n 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines Inc.    \n 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines Inc.   \n 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways         \n 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlines Inc.\n 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         \n10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  \n# ℹ 336,766 more rows\n\n\nAs well as x and y, each mutating join takes an argument by that controls which variables are used to match observations in the two tables."
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-quality-checks",
+    "href": "slides/Chapter00.html#data-quality-checks",
+    "title": "Chapter 0: R, quarto, tidyverse",
+    "section": "Data Quality Checks",
+    "text": "Data Quality Checks\nIt is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx\nThe missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.\n\n\n\n\n\n\n\n\n\nor\nThe term Missing completely at random (MCAR) is often used to mean there is there is no pattern to the missing data themselves or alternatively the missingness is not related to any other variable or data in the dataset. In other words, the probability of missingness is the same for all units. So no bias is caused by the missing data, and we can discard cases with missing data when we fit models.\nIn practice, we often find missing data do have a relationship with other variables in the dataset but the actual missing values are random. This situation of data conditionally missing at random is called Missing at random (MAR) data. For a particular survey question, the response rate may differ depending on the respondent’s gender. In this situation, the actual missingness may be random but still related to the gender variable.\nMissing not at random (MNAR) is the pattern when missingness is related to other variables in the dataset, as well as the values of the missing data are not random. In other words, there is a predictable pattern in the missingness. So we cannot avoid the bias when missing cases are omitted.\nThere are also situations such as censoring where we just record a single value without actually measuring the variable of interest.\nImputation of data can be made except for the case of MCAR type. A number of R packages are available for data imputation; see https://cran.r-project.org/web/views/MissingData.html or https://stefvanbuuren.name/fimd/. We may occasionally cover data imputation issue in an assignment question.\nThere are also R packages to perform automatic investigation for data cleaning. Try-\nRule based validation is enabled in the R package validate. The R package janitor has a function get_dupes() to find duplicate entries in the dataset. Cleaner package will allow to clean the variables so that the columns are consistent in terms of the factor, date, numerical variable types. You will be largely using data that are already cleaned for your assignments but be aware that you have to perform data cleaning and perform necessary quality checks before analysis.\n\n\n\n\n161250 Data Analysis"
   }
 ]

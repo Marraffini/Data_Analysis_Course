@@ -1,8 +1,130 @@
 ---
-title: "Tidy data"
+title: "Chapter 0 R quarto and Tidy data"
 ---
+# Installing `R` and RStudio
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+```
+
+
+In this course, we will be using R <https://www.r-project.org/>, an open-source (i.e., free) software package for data analysis. This software is available for essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is maintained and developed by a huge community of users including many of the 
+world's foremost statisticians.
+
+R is a programming language but you may not be required to do a lot of programming for your course work. R includes functions which enables us to perform a full range of statistical analyses.
+
+**For installing R software, please visit
+<https://cran.stat.auckland.ac.nz/> and follow the instructions.**
+
+Note that the R software will be sitting in the background in RStudio and you will not be using the standalone version of R in this course. 
+
+RStudio <https://www.rstudio.com/products/rstudio/> is an integrated development environment (IDE) for R. It includes a console and a sophisticated code editor. It also contains tools for plotting, history, debugging, and management of workspaces and projects. RStudio has many other features such as authoring HTML, 
+PDF, Word Documents, and slide shows. In order to download RStudio (Desktop edition, open source), go to
+
+<https://www.rstudio.com/products/rstudio/download/>
+
+Download the installation file and run it. 
+**Note that RStudio must be installed after installing R.**
+
+
+R/RStudio can also be run on a cloud platform at <https://rstudio.cloud/> after creating a *free* account. Be aware though that some of the packages covered in this course may not work in the cloud platform and there is a maximum amount of computing time. We *do not recommend* relying on the cloud platform for this course. 
+
+If you open RStudio, you will see something similar to the screen shot shown 
+in @fig-rstud:
+
+![An RStudio window](img/Rstudio.png){#fig-rstud}
+
+RStudio has many options, such as uploading files to a server, creating documents, etc. You will be using only a few of the options. You will *not* be using the menus such as *Build*, *Debug*, *Profile* at all in this course.
+
+You can either type or copy and paste the R codes appearing in this section on to the R Script window and run them.
+
+# Setting up a Quarto project
+
+It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don't have to use projects, but they are very useful. 
+
+1. Open RStudio. (Optional: click on the little window symbol at the top and select "Console on Right")
+
+![](img/console_right.png)
+
+2. If you haven't already, make a directory on your computer where you want to keep your code for this course. 
+
+3. Make a new project. Select the "Project" button at the top-right of Rstudio, and select "New Project...".
+
+![](img/open_project.png)
+
+4. In the pop-up window:
+
+- Select "New Directory"
+
+![](img/new_direct.png)
+
+- Select "Quarto Project"
+
+![](img/quarto_proj.png)
+
+- Choose your directory via the "Browse", and then give the project a name like "161250_workshops"
+
+![](img/dir_name.png)
+
+- Finish by clicking on "Create Project". 
+
+The project should now be created, and you'll likely have an open \*.qmd file (something like "161250_workshops.qmd") in the top-right window of Rstudio. We want to make a \*.qmd file for this workshop. 
+
+5. Right-click on the qmd tab and select "Rename", and rename it "workshop2.qmd" or something similar. (Alternatively, just make a new file via the menus: *File > New File > Quarto Document*.)
+
+![](img/rename_qmd.png)
+
+Now you have a document for your Workshop work. You can:
+
+- Write headings with lines beginning with "#". 
+- Write text in the main part of the document.
+- Make a code chunk for your R code using *Ctrl-Alt-i*. Write R code in the code chunks.
+
+Like so:
+
+![](img/chunk.png)
+
+There are lots of tutorials online covering the basics of Quarto, and we'll discuss them during our own workshops. Here are a couple for starters:
+
+<https://quarto.org/docs/get-started/hello/rstudio.html>
+
+<https://www.youtube.com/watch?v=c654j7aQjcg>
+
+There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they'll be easily accessible within your project, without having to worry about file paths. 
+
+You can easily open a recent past projects via the "Projects" button on the top-right of Rstudio. 
+
 
 This covers some introduces tidyverse and some functions we will be using in this course. This is not meant to be an exhaustive list and students are encourage to read R4 data science or other free tutorials online.
+
+
+# R Projects and GitHub {.unnumbered}
+
+Instead of putting your R code into an ordinary directory on your computer, I encourage you to use Rstudio Projects. A Project is a self-contained directory of code and data, pertaining to a particular project. You might create a single project for your work during this course, with a folder for workshops and another folder for assignments. 
+
+Here's a primer on R projects: <https://r4ds.hadley.nz/workflow-scripts#projects>
+
+An advantage of Projects is that they work nicely with [GitHub](https://github.com/), a cloud code-repository service. If you plan to do any programming during your career, you'll probably need to learn how to use GitHub. It can be a little tricky to use at first. You don't have to use it for this course, but feel free to have a go at it if you're interested.
+
+If you're using R projects and GitHub, this online book is a great place to start: [Happy Git and GitHub for the useR](https://happygitwithr.com/).
+
+# Definitions
+
+-   A *variable* is a quantity, quality, or property that you can measure.
+
+-   A *value* is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.
+
+-   An *observation* is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. We’ll sometimes refer to an observation as a data point.
+
+-   *Tabular data* is a set of values, each associated with a variable and an observation. Tabular data is tidy if each value is placed in its own “cell”, each variable in its own column, and each observation in its own row.
 
 # Introduction to the tidyverse
 
@@ -186,4 +308,330 @@ mtcars |> rename(miles_per_gallon = mpg)
 -   `mad()`: median absolute deviation
 -   `sd()`: standard deviation
 -   `var()`: variance
+
+
+# Further Help {.unnumbered}
+
+There are a number of online sources (tutorials, discussion groups etc)
+for getting help with R. These links are available at your class Stream.
+You may also use the advanced search facility of Goggle at
+<https://www.google.com/advanced_search>; more specifically at
+<https://stackoverflow.com>.
+
+-   For further online tutorials
+
+    -   <https://r4ds.had.co.nz/>
+    -   <https://www.datacamp.org>
+
+-   For further graphing example
+
+    -   <https://www.r-graph-gallery.com/all-graphs>
+
+-   Getting help:
+
+    -   RStudio cheat sheets:
+        <https://www.rstudio.com/resources/cheatsheets>
+    -   RStudio resources <https://resources.rstudio.com>
+    -   Recommended R packages by topic:
+        <https://cran.r-project.org/web/views/>
+    -   StackOverflow: <https://stackoverflow.com/questions/tagged/r>
+
+# R default (base) Graphing {.unnumbered}
+
+For a simple bar chart, try
+
+```{r, fig.show="hide"}
+freq <- c(1, 2, 3, 4, 5)
+names <- c("A","B","C","D","E")
+barplot(freq, names.arg=names)
+```
+
+Let us generate random data from the normal distribution *N(10,1)*
+distribution and form a batch of data for illustrating graphing in R.
+Try the following commands one by one.
+
+```{r}
+#| results: hide
+
+x  <-  rnorm(40, 10,1)
+
+hist(x)
+
+boxplot(x)
+
+plot(x)
+
+plot(density(x), xlab="")
+
+stripchart(round(x,1), method = "stack", pch=20)
+
+plot(ecdf(x), verticals=TRUE)
+
+```
+
+
+
+
+We can form a matrix of order 3X2 or (or 2X3) and display all the above
+six graphs in a panel. This is done using the option `par()`, which
+controls the graphics *par*ameters.
+
+```{r, fig.width=6, fig.height=5}
+x  <- rnorm(40, 10,1)
+
+par(mfrow = c(2, 3))
+
+hist(x) 
+
+boxplot(x)
+
+plot(x)
+
+plot(density(x), xlab='')
+
+stripchart(round(x,1), method = "stack", pch=20)
+
+plot(ecdf(x), verticals=TRUE)
+
+```
+
+Although we shall not cover them here, many plotting options can be set using `par()` function; including size of margins, font types, the colour of axis labels etc. See `help("par")`. The option `par(new=T)` will be useful for an overlaid graph (instead of splitting a graph). Try the following:
+
+```{r, fig.show="hide"}
+x  <- rnorm(40, 10,1)
+
+plot(x, type = "o", pch = 1, ylab = "", 
+     ylim = c(6.5, 13.5), lty = 1)
+
+par(new=T)
+
+y  <-  rnorm(40, 10,1)
+
+plot(y, type = "o", pch = 2,
+     ylab = "Two Batches of Random Normal Data",
+     ylim = c(6.5, 13.5), lty = 2)
+```
+
+Note that `pch` specifies for the plotting character and `lty` specifies
+the line type. You can add a legend by the following command line:
+
+`legend("topright", c("Batch I", "Batch II"), pch=1:2, lty=1:2)`
+
+For scatter and other related plots, the command is `plot()`. Try
+
+```{r, fig.show="hide"}
+x  <-  rnorm(40, 10,1)
+y  <- rnorm(40, 10,1)
+plot(y~x)  # or plot(x,y) 
+```
+
+Add a title by the command
+
+`title("This is my title")`
+
+Add a reference line for the mean at the x-axis by the command
+
+`abline(v=10)`
+
+and again with `abline(h=10)` for the y-axis. A 45 degree (Y=X) line can be added by the command
+
+`abline(0,1) #slope, b=1, y-intercept a=1`
+
+You may also specify two points on the graph, and ask them to be
+connected using the command
+
+`lines(c(8, 12), c(8, 12), lty=2, col=4, lwd=2)`
+
+Note that the `line()` has extra arguments to control the line type,
+line width, and colour.
+
+The command `rug(x)` draws will draw small vertical lines on the x-axis (the command actually suits better for one dimensional graphs such as a boxplot). Try
+
+`rug(x)`
+
+`rug(y, side=2)  #side =2 specifies y-axis`
+
+Graphs can be saved in various file formats, such as PDF (.pdf), JPEG (.jpeg or .jpg), or postscript (.ps), by enclosing the plotting function in the appropriate commands. For example, to save a simple figure as a PDF file, we use the `pdf()` function.
+
+`x  <-  1:10`
+
+`y  <-  x^2`
+
+`pdf(file = "Fig.pdf")`
+
+`plot(x, y)`
+
+`dev.off()`
+
+The `command dev.off()` closes the file. You may use the copy and paste facility for processing graphs or use the RStudio option to save graphs.
+
+The`lattice` package contains extra graphing facilities but such graphs can be produced using `ggplot2` package. Try-
+
+```{r}
+my.data <-read.csv(
+  "https://www.massey.ac.nz/~anhsmith/data/tv.csv", 
+  header=TRUE)
+
+library(lattice)
+
+bwplot(TELETIME ~ factor(SCHOOL), 
+       data = my.data)
+```
+
+It requires a bit of coding to combine base, lattice and ggplot graphs. Try the following codes which combines three density plots of the same data produced in different styles.
+
+```{r, fig.show="hide"}
+library("grid")
+library("ggplotify")
+
+x= rnorm(30)
+
+p1 <- as.grob(~plot(density(x)))
+p1 <- as.ggplot(p1)
+
+p2 <- as.grob(densityplot(x))
+p2 <- as.ggplot(p2)
+
+library(ggplot2)
+
+p3 <- data.frame(x=x) |> 
+  ggplot() + 
+  aes(x) +
+  geom_density()
+
+library(patchwork)
+
+p1/(p2+p3)
+```
+
+
+
+::: {.callout-tip}
+
+It is optional to work through the activities that follow to gain an appreciation of how R works. Do not try to remember how to do everything right now. For your assignment work, we will be given the R codes to load data, graphing and modelling. These codes will give you a head-start. Note that we often often learn R by doing and sometime making mistakes.
+
+:::
+
+
+*R default options for Hypothesis tests and modelling*
+
+The `stats` default package in R has a number of functions for
+performing hypothesis tests. However you will only use the following for
+this course:
+
+`ks.test` - Kolmogorov-Smirnov Tests
+
+`shapiro.test` - Shapiro-Wilk Normality Test
+
+`t.test` - Student's t-Test (one & two samples, paired t-test etc)
+
+`pairwise.t.test` - Pairwise t tests (for multiple comparison)
+
+`oneway.test` - Test for Equal Means in a One-Way Layout
+
+`TukeyHSD` - To Compute Tukey's Honest Significant Differences
+
+`var.test` - F Test to Compare Two Variances
+
+`bartlett.test` - Bartlett Test of Homogeneity of Variances
+
+`fisher.test` - Fisher's Exact Test for Count Data
+
+`chisq.test` - Pearson's Chi-squared Test for Count Data
+
+`cor.test` - Test for Association/Correlation Between Paired Samples
+
+The `car` package is needed for the following:
+
+`durbinWatsonTest ` Durbin-Watson Test for autocorrelated Errors
+
+`leveneTest` Levene's Test
+
+We will largely use the R function `lm` in this course. The syntax for specifying a model under `lm` command (and various other model related commands) is explained below:
+
+The structure of the model is that the response variable is modelled as a function of the response variables. The symbol `~` (tilde) is used to say "a function of". The simple regression of `y` on `x` is therefore specified as
+
+`lm(y ~ x)`
+
+The same applies to a one-way ANOVA in which `x` is a categorical factor. For example, consider `tv.txt` dataset and the one-way ANOVA model of `TELETIME` for `SCHOOL` is specified as follows:
+
+```{r, results='hide'}
+mydata <- read.csv(
+  "https://www.massey.ac.nz/~anhsmith/data/tv.csv", 
+  header=TRUE
+  )
+
+mymodel <- lm(TELETIME ~ factor(SCHOOL), 
+              data = mydata) # replace lm by aov and try
+
+summary(mymodel)
+```
+
+The function `summary()` gives the summary of the model (F statistics, residual SD etc). The model summary output can be stored into a text file using the function `sink()` or copy and paste in the windows version. Graphs associated with a model can be obtained using the command
+
+`plot(mymodel)`
+
+In the above context, we may also use the specific test command which will give the same result but this test can also be performed without assuming equal variances.
+
+```{r, fig.show="hide", results='hide'}
+oneway.test(TELETIME ~ SCHOOL, 
+            var.equal = TRUE, 
+            data = mydata) 
+```
+
+For the `lm` command, note the following:
+
+`+` indicates inclusion (not addition) of an explanatory variable in the model
+
+`-` indicates deletion (not subtraction) of an explanatory variable from the model
+
+`*` indicates the inclusion of the explanatory variables and their
+interaction (not multiplication) between explanatory variables
+
+`:` (colon) means only interaction between explanatory variables
+
+`/` indicates the nesting (not division) of explanatory variables
+
+`|` indicates the conditioning (for example `y ~ x|z` means that y is a function of x for given z).
+
+For our course, you will not use the last two types. Some model examples are given below:
+
+`lm(y ~ x + z)` \#regression of y on x and z (flat surface fit)
+
+`lm(y ~ x*z)` \#includes the interaction term ie `lm(y ~ x + z + x:z)`
+
+`lm(y ~ x + I(x^2)` \# fits a quadratic model or use `poly(x,2)`
+
+`lm(log(y) ~ sqrt(x) + log(z))` \#all variables are transformed
+
+As a further example, consider a study guide dataset. The following
+commands fit a simple regression model and then plot the fitted line on a scatter plot. Note that commands can be shortened but deliberately shown this way.
+
+```{r, fig.show="hide", results='hide'}
+mydata <- read.csv(
+  "https://www.massey.ac.nz/~anhsmith/data/horsehearts.csv", 
+  header=TRUE
+  )
+
+x <- mydata$EXTDIA
+y <- mydata$WEIGHT
+
+simplereg <- lm(y ~ x)
+```
+
+Note that our model object `simplereg` can be queried in many ways. The command `summary()` gives the following output.
+
+```{r, fig.show="hide", results='hide'}
+summary(simplereg)
+# or
+# library(broom)
+# tidy(simplereg)
+# glance(simplereg)
+```
+
+The command `names(simplereg)` will gives the names of many individual components of the object `simplereg` we created. For example, a plot of the residuals against the fitted values can be obtained as
+
+```{r, fig.show="hide", results='hide'}
+plot(residuals(simplereg) ~ fitted.values(simplereg))
+```
 
