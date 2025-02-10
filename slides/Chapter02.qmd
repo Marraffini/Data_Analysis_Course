@@ -767,26 +767,6 @@ p1 <- ggplot(pinetree) +
 p1 + aes(colour = Area)
 ```
 
-## 3-D plots are far more useful if you can rotate them
-
-Package `plot3D`
-
-```{r}
-#| echo: true
-#| output-location: column
-#| classes: custom3070
-#| fig-width: 6
-#| fig-height: 5
-library("plot3D")
-
-scatter3D(
-  x = pinetree$First, 
-  y = pinetree$Second, 
-  z = pinetree$Top, 
-  phi = 0, bty = "g", 
-  ticktype ="detailed"
-  )
-```
 
 ## 3-D plots are far more useful if you can rotate them
 
