@@ -87,7 +87,7 @@ fabric=read.table("../data/fabric.txt", header=TRUE, sep="\t")
 fabric |>
   ggplot(aes(x=factor(fabric), y=burntime))+
   geom_point()+
-  stat_summary(fun.data = "mean_cl_boot", colour = "blue", linewidth = 2, size = 3)
+  stat_summary(fun.data = "mean_cl_normal", colour = "blue", linewidth = 2, size = 3)
 
 fabric |>
   ggplot(aes(x=factor(fabric), y=burntime))+
