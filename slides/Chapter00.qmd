@@ -1,0 +1,763 @@
+---
+title: "Chapter 0:<br> R, quarto, tidyverse"
+image: img/abacus.jpg
+format: 
+  revealjs:
+    width: 1050
+    height:	700
+    transition: fade
+    theme: [default, myquarto.scss]
+    slide-number: c/t  
+    logo: img/L_Color.png
+    footer: "[161250 Data Analysis](https:https://marraffini.github.io/Data_Analysis_Course/slides.html)"
+    styles:
+      - revealjs.dark:
+        background-color: #222
+        color: #fff
+execute:
+  echo: true
+---
+
+<!-- <link href="http://www.massey.ac.nz/~kgovinda/250/lecnotes/220.css" rel="stylesheet"> -->
+
+```{r setup, echo=FALSE, message=FALSE}
+library(jpeg)
+library(png)
+library(readr)
+knitr::opts_chunk$set(
+  warning = FALSE, 
+  echo = FALSE, 
+  include=TRUE, 
+  message=FALSE, 
+  comment = NA, 
+  warn=-1, 
+  warn.conflicts = FALSE, 
+  quietly=TRUE, 
+  fig.align="center", 
+  fig.height=3.5, 
+  fig.width=6
+  )
+```
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color, 
+      x)
+  } else x
+}
+
+```
+## What is data analysis?
+
+A data analysis session in R/RStudio involves loading the data,
+graphing, summarizing, and modelling. You finally save your outputs or produce a
+Report.
+
+When you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.
+
+## Example
+
+## Getting started with R
+
+## Some `R` basics {.unnumbered}
+
+-   `R` is case sensitive, so `data` is not the same as `DATA`
+
+-   Similarly beware of spaces and punctuation, particularly in column header
+
+-   `<-` (read as "gets") is the assignment operator. That is, you use
+    `<-` to assign some content to a variable. The operator `=` has a
+    slightly different meaning but it can be used in the same way as `<-`. In R Studio, press `ALT` and minus key when you are in the R script mode
+    (File \>\> New File \>\> R Script).
+
+-   Comments are denoted by the \# symbol. Anything after a `#` symbol
+    is ignored by `R` . This is a great way to write yourself notes.
+
+-   R coding can be hard to write from scratch. 
+    `r colorize("So do not hesitate to adopt R codes written by others.", "red")`
+    Search the internet for R code to do what you want to do. The usual `copy and paste` trick works!
+    
+-     Warnings vs error messages: R gives warnings typically in `r colorize("orange", "orange")` and errors in `r colorize("red", "red")`. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.
+
+-   You can take notes on your code using the \# symbol, called a comment R interprets everything after this symbol as notes not to be run.
+
+## R as a calulator
+
+At the most basic level R is a calculator. We can type mathematical equations directly into R.
+
+```{r}
+2 + 2
+
+sqrt(16) # take the square root
+```
+
+
+
+# R Objects, Model Syntax etc. {.unnumbered}
+
+In R, we work with objects. There are different classes of objects
+including: `character`, `integer`, `numeric`, `vector`, `matrix`,
+`array`, `data.frame`, `list`, `lm` (linear model). An object may belong to several classes at once.
+
+Suppose that your data consists of 4 numbers say 1 to 4. We can combine these numbers using the `c()` function namely `c(1,2,3,4)` and then assign it to `x`, an object.
+
+```{r, fig.show="hide", results='hide'}
+x <- c(1,2,3,4)
+```
+
+
+
+Evidently `x` is a vector and also belongs to other classes of objects. This can be queried as follows:
+
+```{r, fig.show="hide", results='hide'}
+is(x)
+```
+
+The main class it belongs to is queried as
+
+```{r, fig.show="hide", results='hide'}
+class(x)
+```
+
+Our data are actually integers and arranged in a pattern. So we can
+define `x` as follows:
+
+```{r, fig.show="hide", results='hide'}
+x <- 1:4
+```
+
+The colon (`:`) operator created the desired pattern. Alternative
+expressions include
+
+```{r, fig.show="hide", results='hide'}
+x <- seq(1, 4, by=1)
+``` 
+
+Try `is(x)` and `class(x)` and check whether our data are recognised as integer class.
+
+We can do many mathematical manipulations on `x`. Try
+
+```{r, fig.show="hide", results='hide'}
+mean(x)
+min(x)
+max(x)
+sum(x)
+sd(x)
+var(x)
+sort(x, T)
+trunc(x/2)
+```
+
+Vector elements are accessed by square brackets, `[]`. Try
+
+```{r, fig.show="hide", results='hide'}
+x[2]+x[4]
+x[2:3]
+x[c(1,3)]
+x[-2]
+```
+
+Assume that our data are actually categorical codes. Then the correct way of defining the character data is to use single quotes as
+
+```{r, fig.show="hide", results='hide'}
+x <- c('a', 'b', 'c', 'd')
+```
+
+Now try Try `is(x)` and `class(x)`. For large patterned categorical
+data, placing quotes is laborious. So we can change the class as
+follows:
+
+```{r, fig.show="hide", results='hide'}
+x <- as.character(1:4)
+```
+
+Assume that you have two batches of data. The first one is
+
+```{r, fig.show="hide", results='hide'}
+x <- 1:4 
+```
+
+and the second one is
+
+```{r, fig.show="hide", results='hide'}
+y <- c('a', 'b', 'c', 'd')
+```
+
+These two batches can be combined into a matrix as follows:
+
+```{r, fig.show="hide", results='hide'}
+m <- cbind(x,y)
+```
+
+Here the matrix `m` is formed by binding the columns (vectors). The
+other option is to bind as rows
+
+```{r, fig.show="hide", results='hide'}
+m <- rbind(x,y)
+```
+
+Evidently vectors must be of the same length for these commands to work. We can also form a matrix by splitting a vector. Try
+
+```{r, fig.show="hide", results='hide'}
+x <- 1:6
+m <- matrix(x, byrow = TRUE, ncol = 3)
+m <- matrix(x, byrow = TRUE, ncol = 2)
+```
+
+and just type `m` to see the generated matrix on the R console.
+
+```{r, fig.show="hide", results='hide'}
+m
+```
+
+To access the first of row of the matrix `m`, we use `m[1,]`; to access the first column of `m`, we use `m[,1]`.
+
+A `data frame` is an R object that contains vectors; the vectors are
+stored vertically in a matrix like structure, and can be referred to by the name of the column. The main advantage of a data frame is that the variables in a data frame do not all need to be the same type; e.g. some variables can be of class numeric, and some variables can be of class character. We can create a data frame object using the `data.frame()` function. This data frame contains two small vectors, the first of which is named `ID`, and the second `NAME`. Try 
+
+```{r, fig.show="hide", results='hide'}
+x <- 1:4
+y <- c('a', 'b', 'c', 'd')
+my.data <-data.frame(ID=x, NAME=y)
+my.data 
+```
+
+We can access the original vector of interest in the following way:
+
+```{r, fig.show="hide", results='hide'}
+my.data$NAME
+```
+
+
+There are times when it is useful to convert a data frame into a matrix; we can do this with the `as.matrix()` function.
+
+```{r, fig.show="hide", results='hide'}
+m <- as.matrix(my.data)
+```
+
+Type `class(m)` and see the changes.
+
+Two data frames can also be merged into a single data frame using the `merge` command.
+
+The internal structure of an R object can be viewed using the diagnostic function `str()`.
+
+
+## Directories
+
+Directories is a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.
+
+![](img/file-cabinet.png)
+
+![](img/directory.png)
+For example on my computer my slides for this class are located in a folder called 'slides' inside 'Data_Analysis_course'. The last part of the directory is the most specific folder which is nested inside parent folders.
+
+## Set directory in R
+
+In RStudio, set the working directory under the *Session* menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.
+
+```{r}
+getwd() # check your working directory
+
+# setwd() # if you know the directory you want R to look in
+```
+
+## Quarto
+
+This course will be using [Quarto](https://quarto.org/) `*.qmd` files rather than raw `*.R` files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you're just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.
+
+Quarto files contain text and code, and can be 'Rendered' to produce a nicely formatted document, usually in HTML or PDF format, containing sections, text, code, plots, and output. Quarto can also be used to make websites; in fact, the website for this course was made using Quarto.
+
+Here's some information to get you started: <https://quarto.org/docs/get-started/hello/rstudio.html>.
+
+And some other useful tips: <https://r4ds.hadley.nz/quarto>.
+
+
+## Loading data
+
+Most data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name. 
+
+If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., `mydata.csv` rather than `C:/Users/anhsmith/Work/Project1/data/mydata.csv`). Better yet, [Projects](https://r4ds.hadley.nz/workflow-scripts#projects) make this much easier.
+
+You can also load data from the web using a URL. For example,
+
+```{r}
+#| code-fold: show
+rangitikei <- read_csv("https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv")
+```
+
+We usually store the data in an R object, here named `rangitikei`.
+
+## Types of data files
+
+The letters after the `.` at the end of a files name are called the extension and tell you the type of file. 
+
+If the data are stored as a `*.csv` or "comma separated values" file, then you can use the `read.csv()` or `read_csv()` function to load the file. If it's a text file (`.txt`) with columns separated by spaces or tabs, you can use `read.table()` or `read_table()` function. The ones with underscores ( `read_csv()` and `read_table()` ) are in the `readr` package, so you'll need to load it first (though `readr` is part of `tidyverse`, so if you load `tidyverse` you're all set). We will introduce `tidyverse` in a moment.
+
+You can also load Microsoft Excel files using functions `read_excel()`, available in the `readxl` package.
+
+Note that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them.
+
+## Loading packages
+
+Many (but not all) R packages are hosted at a repository called CRAN (*C*omprehensive *R* *A*rchive *N*etwork). The package install option within RStudio can download and install these optional packages under the menu `Packages >> Install`. You can also do this using the command
+`install.packages`.
+
+```{r}
+#| message: false
+# install.packages('tidyverse')
+library(tidyverse)
+```
+
+In this course we will use multiple packages. You need to load them with the library() function every time you run a script/R session but you only need to install them once.
+
+## Welcome to the tidyverse
+
+We will be largely using the `tidyverse` suite of packages for data organisation, summarising, and plotting; see <https://www.tidyverse.org/>.
+
+Let's load that package now:
+
+```{r}
+#| message: false
+library(tidyverse)
+```
+
+Recommended reading to accompany this workshop is pages 1-11 of R for Data Science <https://r4ds.hadley.nz/>
+
+## Tidy data
+
+
+There are three interrelated rules that make a dataset tidy:
+
+-   Each variable is a column; each column is a variable.
+-   Each observation is a row; each row is an observation.
+-   Each value is a cell; each cell is a single value.
+
+![Tidy data](img/tidy_data.png){#fig-tidy} 
+
+## Why ensure that your data is tidy? 
+
+There are two main advantages:
+
+-   There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.
+
+-   There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values. 
+
+dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data. 
+
+
+## Summarizing data
+
+Summarizing data is a large part of data analysis.
+
+
+## `dplyr` {.unnumbered}
+
+The following six functions of `dplyr` are very useful for data
+wrangling :
+
+-   For selecting columns, use `select()`
+-   For subsetting data, use `filter()`
+-   For re-ordering (e.g. ascending/descending), use `arrange()`
+-   For augmenting new calculated columns, use `mutate()`
+-   For computing summary measures, use `summarise()`
+-   For group-wise computations (e.g. summary measures), use
+    `group_by()`
+
+There are many other functions such as `transmute()` which will add newly calculated columns to the existing data frame but drop all unused columns. The `across()` function  extends `group_by()` and `summarise()` functions for multiple column and function summaries.  For example, you like to report rounded data in a table, which calls for an operation across both rows and columns.
+
+## Piping
+
+::: {.callout-tip}
+
+**The piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.**
+
+:::
+
+The `R` package `magrittr` introduced the pipe operator `%>%` and can be pronounced as "then". In RStudio windows/Linux versions, press `Ctrl+Shift+M` to insert the pipe operator. On a Mac, use `Cmd+Shift+M`. 
+
+`R` also has its own pipe, `|>`, which is an alternative to `%>%`. I tend to use `|>`. If you want to change the pipe inserted automatically with `Ctrl+Shift+M`, find on the menu **Tools > Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". 
+
+We often pipe the `dplyr` functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework.
+
+
+# Graphing with `ggplot2` {.unnumbered}
+
+The R library `ggplot2` is very powerful for plotting but
+you may find the syntax little strange. There are plenty of examples at the [`ggplot2` online help website](https://ggplot2.tidyverse.org/reference/). The `ggplot2` package is loaded as part of the `tidyverse` set of packages.
+
+Advantages of `ggplot2` are the following:
+
+-   employs the "grammar of graphics" of [@Wilkinson]
+-   plotting involves a high level of abstraction
+-   very flexible and complete graphics system
+-   theme system for getting attractive plots
+-   Fast growing and actively developed
+
+Some disadvantages of `ggplot2` are the following:
+
+-   3-dimensional graphics (opt for `rgl` package instead)
+-   Graph-theory type graphs (nodes/edges layout; opt for `igraph` and
+    other packages)
+-   Interactive graphics (opt for `plotly`, `ggvis` and other packages)
+
+
+## Grammar of Graphics
+
+The main idea behind the grammar of graphics of [@Wilkinson] is to mimic
+the manual graphing approach and define building blocks and combine them
+to create a graphical display. The building blocks of a graph are:
+
+-   data
+-   aesthetic mapping
+-   geometric object
+-   transformation or re-expression of data
+-   scales
+-   coordinate system
+-   position adjustments
+-   faceting
+
+## Aesthetic Mapping (`aes`)
+
+In ggplot land *aesthetic* means visualisation features or aesthetics.
+These are
+
+-   position (i.e., on the x and y axes)
+-   color ("outside" color)
+-   fill ("inside" color)
+-   shape (of points)
+-   linetype
+-   size
+
+Aesthetic mappings are set with the `aes()` function.
+
+## Geometric Objects (`geom`)
+
+Geometric objects or `geoms` are the actual marking or inking on a plot
+such as:
+
+-   points (`geom_point`, for scatter plots, dot plots, etc)
+-   lines (`geom_line`, for time series, trend lines, etc)
+-   boxplot (`geom_boxplot`, for boxplots)
+
+*A plot must have at least one `geom` but there is no upper limit.* In
+order to add a `geom` to a plot, the `+` operator is employed. A list of
+available geometric objects can be obtained by typing `geom_<tab>` in
+Rstudio. The following command can also be used which will open a Help
+window.
+
+    help.search("geom_", package = "ggplot2")
+
+## Tidying data
+
+The principles of tidy data might seem so obvious that you wonder if you’ll ever encounter a dataset that isn’t tidy. Unfortunately, however, most real data is (very) untidy. There are two main reasons:
+
+-   Data is often organized to facilitate some goal other than analysis. For example, it’s common for data to be structured to make data entry easy.
+
+-   Most people aren’t familiar with the principles of tidy data, and it’s hard to derive them yourself unless you spend a lot of time working with data.
+
+This means that most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data.
+
+## Tidying data example
+
+The hospital admissions dataset is untidy because it does allocate many
+columns for a variable.
+
+```{r}
+hospital <- read.table(
+  "https://www.massey.ac.nz/~anhsmith/data/hospital.txt",
+  header=TRUE, sep=",")
+  
+head(hospital)
+```
+
+
+
+The main response variable namely the number of admissions is allocated different columns depending on the North and South locations. This format is also called `wide format` which can be made into a tidy `long format`. We can use the `dplyr` function `pivot_longer()` to change this data into `long format`. Try-
+
+```{r}
+#| results: hide
+
+hospital |> 
+  pivot_longer(cols = NORTH1:SOUTH3, 
+               names_to = "location", 
+               values_to = "Admissions")
+```
+
+
+
+
+The command `pivot_wider()` does the opposite to `pivot_longer()`
+
+## Common data issues
+
+-   Spelling, capitalization, typos, and white spaces
+
+      there are some handy functions in `stringr` and `janitor` packages
+
+-   NAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project
+
+      can remove NAs using `na.omit()`, `!is.na()`, `na.rm=T`, etc. depending on what function you are using. See help menu for more details
+      
+-   Multiple types of data in a single column or wrong data type
+
+      can force a data class using `as.numeric()` for example 
+
+## Joining data
+
+Mutating joins allow you to combine variables from multiple tables. For example, consider the flights and airlines data from the nycflights13 package. In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. You can use a join to add the carrier names to the flight data:
+
+```{r}
+library(nycflights13)
+# Drop unimportant variables so it's easier to understand the join results.
+flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+
+flights2 %>% 
+  left_join(airlines)
+```
+
+As well as x and y, each mutating join takes an argument by that controls which variables are used to match observations in the two tables. 
+
+# Types of join
+
+There are four types of mutating join, which differ in their behaviour when a match is not found.
+
+-   `inner_join(x, y)` only includes observations that match in both x and y.
+
+-   `left_join(x, y)` includes all observations in `x`, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table.
+
+-   `right_join(x, y)` includes all observations in `y`. It’s equivalent to `left_join(y, x)`, but the columns and rows will be ordered differently.
+
+-   `full_join()` includes all observations from x and y.
+
+The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.
+
+# A typical data analysis session in R/RStudio {.unnumbered}
+
+A data analysis session in R/RStudio involves loading the data,
+graphing, and modelling. You finally save your outputs or produce a
+Report.
+
+When you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.
+
+For the sack of simplicity, let us use an R default dataset called
+`stackloss` giving the operational data of a plant for the oxidation of ammonia to nitric acid.
+
+```{r}
+data("stackloss")
+head(stackloss, 5)
+```
+
+The distribution of the response variable `stack.loss` is explored using
+a histogram below:
+
+```{r}
+stackloss |> 
+  ggplot() +
+  aes(stack.loss) +
+  geom_histogram(bins = 5)
+```
+
+Histograms are not good displays for small datasets. In order to see the
+size or length of `stack.loss` data, we select the stack.loss variable
+and then summarise the size using the *n()* option.
+
+```{r}
+stackloss |> 
+  select(stack.loss) |> 
+  summarise(n())
+```
+
+The following commands will also work.
+
+```{r}
+length(stackloss$stack.loss)
+
+stackloss |> pull(stack.loss) |> length()
+```
+
+We may also explore how well `stack.loss` is related `Air.Flow` to using
+a scatter plot. For this, we type the command `plot`
+
+```{r}
+stackloss |> 
+  ggplot() +
+  aes(y=stack.loss, x=Air.Flow) +
+  geom_point()
+```
+
+The relationship is roughly linear. So we may fit a straight line model
+using the `lm` command.
+
+```{r}
+st.line.model <- lm(stack.loss~Air.Flow, data=stackloss)
+```
+
+We can query this model asking for its summary using the `summary()`
+function.
+
+```{r}
+summary(st.line.model)
+```
+
+`R` default model summary is bit too long.  We may just glance the overall quality measures of the fitted model as follows:
+
+```{r}
+library(tidyverse)
+library(broom)
+library(kableExtra)
+
+out1 <- st.line.model |> 
+  glance() |> 
+  mutate(across(where(is.numeric), 
+                ~round(., 2))
+         )
+
+out1 |> t() |> kable() 
+```
+
+For processing using Rmarkdown, we may use the codes which will give a tidy tabular output in the word-processed output.
+
+
+```{r}
+out1 <- st.line.model |> 
+  tidy() |> 
+  mutate(across(where(is.numeric), ~round(., 2)))
+
+kable(out1)
+```
+
+The fitted model is shown below:
+
+```{r}
+ggplot(stackloss) + 
+  
+  aes(
+    y = stack.loss, 
+    x = Air.Flow
+    ) +
+  
+  geom_point() + 
+  
+  geom_smooth(
+    method = lm, 
+    se = FALSE
+    )
+```
+
+The fitted model can also be displayed on the scatter plot using the old style `plot` and `abline` commands.
+
+```{r, echo=TRUE, fig.show="hide"}
+plot(stack.loss ~ Air.Flow, data=stackloss)
+st.line.model <- lm(stack.loss~Air.Flow, data=stackloss)
+abline(st.line.model)
+```
+
+
+
+## Data Quality Checks {.unnumbered}
+
+It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from
+<http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx>
+
+```{r}
+# #| eval: false
+# url <- "http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"
+# destfile <- "rsos192136_si_001.xlsx"
+# # 
+# download.file(url, destfile)
+
+```
+
+```{r}
+url <- "http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"
+destfile <- "rsos192136_si_001.xlsx"
+
+curl::curl_download(url, destfile)
+```
+
+
+```{r}
+library(readxl)
+rsos192136_si_001 <- read_excel("rsos192136_si_001.xlsx")
+```
+
+The missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.
+
+```{r, results='hide'}
+library(VIM)
+
+res <- rsos192136_si_001 |> 
+  aggr(sortVar=TRUE) |> 
+  summary() |> 
+  pluck("combinations")
+```
+
+or
+
+```{r, fig.show='hide', results='hide'}
+library(naniar)
+gg_miss_var(rsos192136_si_001) 
+```
+
+The term *Missing completely at random* (MCAR) is often used to mean
+there is there is no pattern to the missing data themselves or
+alternatively the missingness is not related to any other variable or
+data in the dataset. In other words, the probability of missingness is
+the same for all units. So no bias is caused by the missing data, and we
+can discard cases with missing data when we fit models.
+
+In practice, we often find missing data do have a relationship with
+other variables in the dataset but the actual missing values are random.
+This situation of data conditionally missing at random is called
+*Missing at random (MAR)* data. For a particular survey question, the
+response rate may differ depending on the respondent's gender. In this
+situation, the actual missingness may be random but still related to the
+gender variable.
+
+*Missing not at random (MNAR)* is the pattern when missingness is
+related to other variables in the dataset, as well as the values of the
+missing data are not random. In other words, there is a predictable
+pattern in the missingness. So we cannot avoid the bias when missing
+cases are omitted.
+
+There are also situations such as censoring where we just record a
+single value without actually measuring the variable of interest.
+
+Imputation of data can be made except for the case of MCAR type. A
+number of R packages are available for data imputation; see
+<https://cran.r-project.org/web/views/MissingData.html> or
+<https://stefvanbuuren.name/fimd/>. We may occasionally cover data
+imputation issue in an assignment question.
+
+There are also R packages to perform automatic investigation for data
+cleaning. Try-
+
+```{r}
+#| results: hide
+#| eval: false
+
+library(dataMaid)
+
+makeDataReport(rsos192136_si_001, output="html", replace=TRUE)
+
+# or
+library(DataExplorer)
+
+create_report(rsos192136_si_001)
+
+```
+
+
+Rule based validation is enabled in the R package *validate*. The R
+package *janitor* has a function get\_dupes() to find duplicate entries
+in the dataset. *Cleaner* package will allow to clean the variables so
+that the columns are consistent in terms of the factor, date, numerical
+variable types. You will be largely using data that are already cleaned
+for your assignments but be aware that you have to perform data cleaning
+and perform necessary quality checks before analysis.
+
+
+<!-- ricomisc::rstudio_viewer("Chapter-1.html", file_path = NULL) -->
