@@ -1,5 +1,5 @@
 ---
-title: "Chapter 0:<br> R, quarto, tidyverse"
+title: "Chapter 0:<br> Introduction: R, quarto, tidyverse"
 image: img/abacus.jpg
 format: 
   revealjs:
@@ -8,7 +8,7 @@ format:
     transition: fade
     theme: [default, myquarto.scss]
     slide-number: c/t  
-    logo: img/L_Color.png
+    logo: img/data_analysis.png
     footer: "[161250 Data Analysis](https:https://marraffini.github.io/Data_Analysis_Course/slides.html)"
     styles:
       - revealjs.dark:
@@ -39,6 +39,45 @@ knitr::opts_chunk$set(
   )
 ```
 
+## What is data analysis?
+
+Data analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making. (wikipedia)
+
+A data analysis session involves loading the data, graphing, summarizing, and modelling. 
+
+![](img/data_analysis.png)
+
+## Data Analysis
+
+-   Identify the question you would like to answer
+-   Collect data
+-   Clean data to prepare it for analysis
+-   Analyse data
+-   Interpret the results
+
+![](img/stock.jpg)
+
+## Types of data anlysis
+
+-   Descriptive:
+
+        What happened?
+        
+-   Diagnostic:
+
+        Why did it happen?
+        
+-   Predictive:
+
+        What might happen in the future?
+        
+-   Prescriptive:
+
+        What should we do about it?
+ 
+ ![](img/infographic_data.png)       
+
+
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 colorize <- function(x, color) {
   if (knitr::is_latex_output()) {
@@ -50,17 +89,19 @@ colorize <- function(x, color) {
 }
 
 ```
-## What is data analysis?
 
-A data analysis session in R/RStudio involves loading the data,
-graphing, summarizing, and modelling. You finally save your outputs or produce a
-Report.
-
-When you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.
-
-## Example
 
 ## Getting started with R
+
+We will be using the programming language R for our data analysis
+
+R is the language
+
+R studio is the graphical user interface (GUI)
+
+
+ ![](img/R_logo.png)  
+If you have not installed R and R studio on your computer please see the resources page on Stream about how to do that.
 
 ## Some `R` basics {.unnumbered}
 

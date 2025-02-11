@@ -10,7 +10,7 @@
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.353">
 
-  <title>161250 Data Analysis - Chapter 0: R, quarto, tidyverse</title>
+  <title>161250 Data Analysis - Chapter 0: Introduction: R, quarto, tidyverse</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
@@ -389,7 +389,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Chapter 0:<br> R, quarto, tidyverse</h1>
+  <h1 class="title">Chapter 0:<br> Introduction: R, quarto, tidyverse</h1>
 
 <div class="quarto-title-authors">
 </div>
@@ -401,14 +401,42 @@
 </section>
 <section id="what-is-data-analysis" class="slide level2">
 <h2>What is data analysis?</h2>
-<p>A data analysis session in R/RStudio involves loading the data, graphing, summarizing, and modelling. You finally save your outputs or produce a Report.</p>
-<p>When you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.</p>
-</section>
-<section id="example" class="slide level2">
-<h2>Example</h2>
-</section>
+<p>Data analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making. (wikipedia)</p>
+<p>A data analysis session involves loading the data, graphing, summarizing, and modelling.</p>
+
+<img data-src="img/data_analysis.png" class="r-stretch"></section>
+<section id="data-analysis" class="slide level2">
+<h2>Data Analysis</h2>
+<ul>
+<li>Identify the question you would like to answer</li>
+<li>Collect data</li>
+<li>Clean data to prepare it for analysis</li>
+<li>Analyse data</li>
+<li>Interpret the results</li>
+</ul>
+
+<img data-src="img/stock.jpg" class="r-stretch"></section>
+<section id="types-of-data-anlysis" class="slide level2">
+<h2>Types of data anlysis</h2>
+<ul>
+<li><p>Descriptive:</p>
+<pre><code>What happened?</code></pre></li>
+<li><p>Diagnostic:</p>
+<pre><code>Why did it happen?</code></pre></li>
+<li><p>Predictive:</p>
+<pre><code>What might happen in the future?</code></pre></li>
+<li><p>Prescriptive:</p>
+<pre><code>What should we do about it?</code></pre></li>
+</ul>
+
+<img data-src="img/infographic_data.png" class="r-stretch"></section>
 <section id="getting-started-with-r" class="slide level2">
 <h2>Getting started with R</h2>
+<p>We will be using the programming language R for our data analysis</p>
+<p>R is the language</p>
+<p>R studio is the graphical user interface (GUI)</p>
+<p><img data-src="img/R_logo.png"><br>
+If you have not installed R and R studio on your computer please see the resources page on Stream about how to do that.</p>
 </section>
 <section id="some-r-basics" class="slide level2 unnumbered">
 <h2>Some <code>R</code> basics</h2>
@@ -870,9 +898,9 @@ F-statistic: 104.2 on 1 and 19 DF,  p-value: 3.774e-09</code></pre>
 </div>
 <p>The fitted model can also be displayed on the scatter plot using the old style <code>plot</code> and <code>abline</code> commands.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">plot</span>(stack.loss <span class="sc">~</span> Air.Flow, <span class="at">data=</span>stackloss)</span>
-<span id="cb13-2"><a href="#cb13-2"></a>st.line.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(stack.loss<span class="sc">~</span>Air.Flow, <span class="at">data=</span>stackloss)</span>
-<span id="cb13-3"><a href="#cb13-3"></a><span class="fu">abline</span>(st.line.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">plot</span>(stack.loss <span class="sc">~</span> Air.Flow, <span class="at">data=</span>stackloss)</span>
+<span id="cb17-2"><a href="#cb17-2"></a>st.line.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(stack.loss<span class="sc">~</span>Air.Flow, <span class="at">data=</span>stackloss)</span>
+<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">abline</span>(st.line.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="data-quality-checks" class="slide level2 unnumbered">
@@ -898,7 +926,7 @@ F-statistic: 104.2 on 1 and 19 DF,  p-value: 3.774e-09</code></pre>
 <p>Rule based validation is enabled in the R package <em>validate</em>. The R package <em>janitor</em> has a function get_dupes() to find duplicate entries in the dataset. <em>Cleaner</em> package will allow to clean the variables so that the columns are consistent in terms of the factor, date, numerical variable types. You will be largely using data that are already cleaned for your assignments but be aware that you have to perform data cleaning and perform necessary quality checks before analysis.</p>
 <!-- ricomisc::rstudio_viewer("Chapter-1.html", file_path = NULL) -->
 
-<p><img src="img/L_Color.png" class="slide-logo"></p>
+<p><img src="img/data_analysis.png" class="slide-logo"></p>
 <div class="footer footer-default">
 <p><a href="https:https://marraffini.github.io/Data_Analysis_Course/slides.html">161250 Data Analysis</a></p>
 </div>
