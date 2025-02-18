@@ -53,7 +53,7 @@ There are many built-in functions. Try the following.
 
 ```{r}
 # your code goes here
-# make yourself notes about what these functions do
+# make yourself notes about what each of these functions does
 ```
 
 You may wonder what was the base used for `log(10)`. A help on this can be obtained by placing a question mark (`?`) before log as `?log` or by `help(log)`
@@ -73,7 +73,7 @@ my_varıable
 ```
 
 # Exercise 1.3 {-}
-Make a variable with a sequence of numbers between 1 and 10.
+Make a variable with a sequence of numbers between 1 and 10. Look up the function `seq()` in the help menu for tips.
 
 ```{r}
 # your code goes here
@@ -95,7 +95,9 @@ Let's load that package now:
 
 ```{r}
 #| message: false
-library(tidyverse)
+# install.packages('tidyverse') # if you do not have tidyverse you will need to install it first
+# you only have to install packages once per machine (computer)
+library(tidyverse) # you need to load a library every R session
 ```
 
 A huge number of other dedicated packages are available to improve the power of R. Many R packages are hosted at a repository called CRAN (*C*omprehensive *R* *A*rchive *N*etwork). The package install option within RStudio can download and install these optional packages under the menu `Packages >> Install`. You can also do this using the command
@@ -110,15 +112,6 @@ Contributed R packages are grouped in various headings at
 
 You might have to install quite a few packages as you work through this course.
 
-# Quarto {.unnumbered}
-
-This course will be using [Quarto](https://quarto.org/) `*.qmd` files rather than raw `*.R` files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you're just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.
-
-Here's some information to get you started: <https://quarto.org/docs/get-started/hello/rstudio.html>.
-
-And some other useful tips: <https://r4ds.hadley.nz/quarto>.
-
-The studyguide illustrates a step-by-step guide to setting up a Quarto project.
 
 # Loading/Importing Data {.unnumbered}
 
@@ -585,5 +578,8 @@ sds <- apply(M, 1, sd)
 plot(means, sds)
 ```
 
+## Quarto
+
+Demonstrate how to open a new Quarto document
 
 

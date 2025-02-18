@@ -46,6 +46,28 @@ RStudio has many options, such as uploading files to a server, creating document
 
 You can either type or copy and paste the R codes appearing in this section on to the R Script window and run them.
 
+# Quarto {.unnumbered}
+
+This course will be using [Quarto](https://quarto.org/) `*.qmd` files rather than raw `*.R` files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you're just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.
+
+Here's some information to get you started: <https://quarto.org/docs/get-started/hello/rstudio.html>.
+
+And some other useful tips: <https://r4ds.hadley.nz/quarto>.
+
+We will be using Quarto documents. You can open a blank one by clicking File \> New File \> Quarto Document.
+
+You can then make your own document or copy code from the course website and paste it into your new Quarto file. 
+
+# Including text and code
+
+The one advantage of Quarto (and its predecessor R markdown) is being able to include general text along side code chunks.
+
+You can insert a code chunk using the green button near the top right of your quarto document window.
+
+```{r}
+
+```
+
 # Setting up a Quarto project
 
 It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don't have to use projects, but they are very useful. 
@@ -106,17 +128,9 @@ You can easily open a recent past projects via the "Projects" button on the top-
 This covers some introduces tidyverse and some functions we will be using in this course. This is not meant to be an exhaustive list and students are encourage to read R4 data science or other free tutorials online.
 
 
-# R Projects and GitHub {.unnumbered}
-
-Instead of putting your R code into an ordinary directory on your computer, I encourage you to use Rstudio Projects. A Project is a self-contained directory of code and data, pertaining to a particular project. You might create a single project for your work during this course, with a folder for workshops and another folder for assignments. 
-
-Here's a primer on R projects: <https://r4ds.hadley.nz/workflow-scripts#projects>
-
-An advantage of Projects is that they work nicely with [GitHub](https://github.com/), a cloud code-repository service. If you plan to do any programming during your career, you'll probably need to learn how to use GitHub. It can be a little tricky to use at first. You don't have to use it for this course, but feel free to have a go at it if you're interested.
-
-If you're using R projects and GitHub, this online book is a great place to start: [Happy Git and GitHub for the useR](https://happygitwithr.com/).
-
 # Definitions
+
+Before we talk more about data it is useful to define some terms:
 
 -   A *variable* is a quantity, quality, or property that you can measure.
 

@@ -1,0 +1,2195 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.3.353" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+
+<title>161250 Data Analysis – Chapter 0 R quarto and Tidy data</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="../styles.css" />
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="/index.html">
+    <span class="navbar-title">161250 Data Analysis</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+  aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation"
+  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/about.html" rel="" target="">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/slides.html" rel="" target="">
+ <span class="menu-text">Slides</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/studyguide/index.html" rel="" target="">
+ <span class="menu-text">Study Guide</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/workshops/ws01.html" rel="" target="">
+ <span class="menu-text">Workshops</span></a>
+  </li>  
+  <li class="nav-item dropdown ">
+    <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-code" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
+ <span class="menu-text">Extra Code</span>
+    </a>
+    <ul class="dropdown-menu" aria-labelledby="nav-menu-extra-code">    
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap2more.R" rel="" target="">
+ <span class="dropdown-text">Ex2</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap3more.R" rel="" target="">
+ <span class="dropdown-text">Ex3</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap4more.R" rel="" target="">
+ <span class="dropdown-text">Ex4</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap5more.R" rel="" target="">
+ <span class="dropdown-text">Ex5</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap6more.R" rel="" target="">
+ <span class="dropdown-text">Ex6</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap7more.R" rel="" target="">
+ <span class="dropdown-text">Ex7</span></a>
+  </li>  
+        <li>
+    <a class="dropdown-item" href="/exercises/Chap8more.R" rel="" target="">
+ <span class="dropdown-text">Ex8</span></a>
+  </li>  
+    </ul>
+  </li>
+</ul>
+            <div class="quarto-navbar-tools ms-auto">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+      <h1 class="quarto-secondary-nav-title"></h1>
+      <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+      </a>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal sidebar-navigation floating overflow-auto">
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="/studyguide/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Study Guide</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/0-R-tidyverse.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Chapter 0 R quarto and Tidy data</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/1-data-collection.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 1: Data Collection and Quality Issues</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/2-eda.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 2: Exploratory Data Analysis (EDA)</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/3-probability.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 3: Probability Concepts and Distributions</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/4-inference.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 4: Statistical Inference</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/5-tabulated.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 5: Tabulated Counts</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/6-single.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 6: Models with a Single Continuous Predictor</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/7-multiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 7: Models with Multiple Continuous Predictors</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/studyguide/8-anova.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Chapter 8: Analysis of Variance (ANOVA) and Covariance (ANCOVA)</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Chapter 0 R quarto and Tidy data</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#installing-r-and-rstudio" id="toc-installing-r-and-rstudio">Installing <code>R</code> and RStudio</a></li>
+  <li><a href="#quarto" id="toc-quarto">Quarto</a></li>
+  <li><a href="#including-text-and-code" id="toc-including-text-and-code">Including text and code</a></li>
+  <li><a href="#setting-up-a-quarto-project" id="toc-setting-up-a-quarto-project">Setting up a Quarto project</a></li>
+  <li><a href="#definitions" id="toc-definitions">Definitions</a></li>
+  <li><a href="#introduction-to-the-tidyverse" id="toc-introduction-to-the-tidyverse">Introduction to the tidyverse</a></li>
+  <li><a href="#tidy-data" id="toc-tidy-data">Tidy data</a></li>
+  <li><a href="#summarize-data" id="toc-summarize-data">Summarize data</a></li>
+  <li><a href="#group-cases" id="toc-group-cases">Group Cases</a></li>
+  <li><a href="#extract-cases" id="toc-extract-cases">Extract cases</a></li>
+  <li><a href="#alter-data" id="toc-alter-data">Alter data</a></li>
+  <li><a href="#summary-functions" id="toc-summary-functions">Summary functions</a>
+  <ul>
+  <li><a href="#to-use-with-summarize" id="toc-to-use-with-summarize">To Use with summarize()</a></li>
+  </ul></li>
+  <li><a href="#further-help" id="toc-further-help">Further Help</a></li>
+  <li><a href="#r-default-base-graphing" id="toc-r-default-base-graphing">R default (base) Graphing</a></li>
+  </ul>
+</nav>
+<section id="installing-r-and-rstudio" class="level1">
+<h1>Installing <code>R</code> and RStudio</h1>
+<p>In this course, we will be using R <a href="https://www.r-project.org/" class="uri">https://www.r-project.org/</a>, an open-source (i.e., free) software package for data analysis. This software is available for essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is maintained and developed by a huge community of users including many of the world’s foremost statisticians.</p>
+<p>R is a programming language but you may not be required to do a lot of programming for your course work. R includes functions which enables us to perform a full range of statistical analyses.</p>
+<p><strong>For installing R software, please visit <a href="https://cran.stat.auckland.ac.nz/" class="uri">https://cran.stat.auckland.ac.nz/</a> and follow the instructions.</strong></p>
+<p>Note that the R software will be sitting in the background in RStudio and you will not be using the standalone version of R in this course.</p>
+<p>RStudio <a href="https://www.rstudio.com/products/rstudio/" class="uri">https://www.rstudio.com/products/rstudio/</a> is an integrated development environment (IDE) for R. It includes a console and a sophisticated code editor. It also contains tools for plotting, history, debugging, and management of workspaces and projects. RStudio has many other features such as authoring HTML, PDF, Word Documents, and slide shows. In order to download RStudio (Desktop edition, open source), go to</p>
+<p><a href="https://www.rstudio.com/products/rstudio/download/" class="uri">https://www.rstudio.com/products/rstudio/download/</a></p>
+<p>Download the installation file and run it. <strong>Note that RStudio must be installed after installing R.</strong></p>
+<p>R/RStudio can also be run on a cloud platform at <a href="https://rstudio.cloud/" class="uri">https://rstudio.cloud/</a> after creating a <em>free</em> account. Be aware though that some of the packages covered in this course may not work in the cloud platform and there is a maximum amount of computing time. We <em>do not recommend</em> relying on the cloud platform for this course.</p>
+<p>If you open RStudio, you will see something similar to the screen shot shown in <a href="#fig-rstud">Figure 1</a>:</p>
+<div id="fig-rstud" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="img/Rstudio.png" class="img-fluid" /></p>
+<figcaption>Figure 1: An RStudio window</figcaption>
+</figure>
+</div>
+<p>RStudio has many options, such as uploading files to a server, creating documents, etc. You will be using only a few of the options. You will <em>not</em> be using the menus such as <em>Build</em>, <em>Debug</em>, <em>Profile</em> at all in this course.</p>
+<p>You can either type or copy and paste the R codes appearing in this section on to the R Script window and run them.</p>
+</section>
+<section id="quarto" class="level1 unnumbered">
+<h1 class="unnumbered">Quarto</h1>
+<p>This course will be using <a href="https://quarto.org/">Quarto</a> <code>*.qmd</code> files rather than raw <code>*.R</code> files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you’re just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.</p>
+<p>Here’s some information to get you started: <a href="https://quarto.org/docs/get-started/hello/rstudio.html" class="uri">https://quarto.org/docs/get-started/hello/rstudio.html</a>.</p>
+<p>And some other useful tips: <a href="https://r4ds.hadley.nz/quarto" class="uri">https://r4ds.hadley.nz/quarto</a>.</p>
+<p>We will be using Quarto documents. You can open a blank one by clicking File &gt; New File &gt; Quarto Document.</p>
+<p>You can then make your own document or copy code from the course website and paste it into your new Quarto file.</p>
+</section>
+<section id="including-text-and-code" class="level1">
+<h1>Including text and code</h1>
+<p>The one advantage of Quarto (and its predecessor R markdown) is being able to include general text along side code chunks.</p>
+<p>You can insert a code chunk using the green button near the top right of your quarto document window.</p>
+</section>
+<section id="setting-up-a-quarto-project" class="level1">
+<h1>Setting up a Quarto project</h1>
+<p>It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don’t have to use projects, but they are very useful.</p>
+<ol type="1">
+<li>Open RStudio. (Optional: click on the little window symbol at the top and select “Console on Right”)</li>
+</ol>
+<p><img src="img/console_right.png" class="img-fluid" /></p>
+<ol start="2" type="1">
+<li><p>If you haven’t already, make a directory on your computer where you want to keep your code for this course.</p></li>
+<li><p>Make a new project. Select the “Project” button at the top-right of Rstudio, and select “New Project…”.</p></li>
+</ol>
+<p><img src="img/open_project.png" class="img-fluid" /></p>
+<ol start="4" type="1">
+<li>In the pop-up window:</li>
+</ol>
+<ul>
+<li>Select “New Directory”</li>
+</ul>
+<p><img src="img/new_direct.png" class="img-fluid" /></p>
+<ul>
+<li>Select “Quarto Project”</li>
+</ul>
+<p><img src="img/quarto_proj.png" class="img-fluid" /></p>
+<ul>
+<li>Choose your directory via the “Browse”, and then give the project a name like “161250_workshops”</li>
+</ul>
+<p><img src="img/dir_name.png" class="img-fluid" /></p>
+<ul>
+<li>Finish by clicking on “Create Project”.</li>
+</ul>
+<p>The project should now be created, and you’ll likely have an open *.qmd file (something like “161250_workshops.qmd”) in the top-right window of Rstudio. We want to make a *.qmd file for this workshop.</p>
+<ol start="5" type="1">
+<li>Right-click on the qmd tab and select “Rename”, and rename it “workshop2.qmd” or something similar. (Alternatively, just make a new file via the menus: <em>File &gt; New File &gt; Quarto Document</em>.)</li>
+</ol>
+<p><img src="img/rename_qmd.png" class="img-fluid" /></p>
+<p>Now you have a document for your Workshop work. You can:</p>
+<ul>
+<li>Write headings with lines beginning with “#”.</li>
+<li>Write text in the main part of the document.</li>
+<li>Make a code chunk for your R code using <em>Ctrl-Alt-i</em>. Write R code in the code chunks.</li>
+</ul>
+<p>Like so:</p>
+<p><img src="img/chunk.png" class="img-fluid" /></p>
+<p>There are lots of tutorials online covering the basics of Quarto, and we’ll discuss them during our own workshops. Here are a couple for starters:</p>
+<p><a href="https://quarto.org/docs/get-started/hello/rstudio.html" class="uri">https://quarto.org/docs/get-started/hello/rstudio.html</a></p>
+<p><a href="https://www.youtube.com/watch?v=c654j7aQjcg" class="uri">https://www.youtube.com/watch?v=c654j7aQjcg</a></p>
+<p>There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they’ll be easily accessible within your project, without having to worry about file paths.</p>
+<p>You can easily open a recent past projects via the “Projects” button on the top-right of Rstudio.</p>
+<p>This covers some introduces tidyverse and some functions we will be using in this course. This is not meant to be an exhaustive list and students are encourage to read R4 data science or other free tutorials online.</p>
+</section>
+<section id="definitions" class="level1">
+<h1>Definitions</h1>
+<p>Before we talk more about data it is useful to define some terms:</p>
+<ul>
+<li><p>A <em>variable</em> is a quantity, quality, or property that you can measure.</p></li>
+<li><p>A <em>value</em> is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.</p></li>
+<li><p>An <em>observation</em> is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. We’ll sometimes refer to an observation as a data point.</p></li>
+<li><p><em>Tabular data</em> is a set of values, each associated with a variable and an observation. Tabular data is tidy if each value is placed in its own “cell”, each variable in its own column, and each observation in its own row.</p></li>
+</ul>
+</section>
+<section id="introduction-to-the-tidyverse" class="level1">
+<h1>Introduction to the tidyverse</h1>
+<p>We will be largely using the <code>tidyverse</code> suite of packages for data organisation, summarising, and plotting; see <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>.</p>
+<p>Let’s load that package now:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+</details>
+</div>
+<p>Recommended reading to accompany this workshop is pages 1-11 of R for Data Science <a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a></p>
+</section>
+<section id="tidy-data" class="level1">
+<h1>Tidy data</h1>
+<p>There are three interrelated rules that make a dataset tidy:</p>
+<ul>
+<li>Each variable is a column; each column is a variable.</li>
+<li>Each observation is a row; each row is an observation.</li>
+<li>Each value is a cell; each cell is a single value.</li>
+</ul>
+<div id="fig-tidy" class="quarto-figure quarto-figure-center">
+<figure>
+<p><img src="images/tidy_data.png" class="img-fluid" /></p>
+<figcaption>Figure 2: Tidy data</figcaption>
+</figure>
+</div>
+<p>Why ensure that your data is tidy? There are two main advantages:</p>
+<ul>
+<li><p>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p></li>
+<li><p>There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values.</p></li>
+</ul>
+<p>dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data.</p>
+</section>
+<section id="summarize-data" class="level1">
+<h1>Summarize data</h1>
+<p>Apply summary functions to columns to create a new table of summary statistics. Summary functions take vectors as input and return one value back.</p>
+<ul>
+<li><code>summarize(.data, .. )</code> : Compute table of summaries</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(mpg))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>       avg
+1 20.09062</code></pre>
+</div>
+</div>
+<ul>
+<li><code>count(.data, ..., wt = NULL, sort = FLASE, name = NULL)</code>: Count number of rows in each group defined by the variables in …. Also <code>tally()</code>, <code>add_count()</code>, and <code>add_tally()</code>.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">count</span>(cyl)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>  cyl  n
+1   4 11
+2   6  7
+3   8 14</code></pre>
+</div>
+</div>
+</section>
+<section id="group-cases" class="level1">
+<h1>Group Cases</h1>
+<ul>
+<li>Use <code>group_by(.data, ..., .add = FALSE, .drop = TRUE)</code> to created a “grouped” copy of a table grouped by columns in …. dplyr functions will manipulate each “group” separately and combine the results.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(mpg))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 2
+    cyl   avg
+  &lt;dbl&gt; &lt;dbl&gt;
+1     4  26.7
+2     6  19.7
+3     8  15.1</code></pre>
+</div>
+</div>
+</section>
+<section id="extract-cases" class="level1">
+<h1>Extract cases</h1>
+<ul>
+<li><code>filter(.data, ..., .preserve = FALSE)</code>: Extract rows that meet logical criteria.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">filter</span>(mpg <span class="sc">&gt;</span> <span class="dv">20</span>)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4      21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag  21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710     22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Merc 240D      24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230       22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Fiat 128       32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic    30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona  21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Fiat X1-9      27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2  26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Lotus Europa   30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Volvo 142E     21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2</code></pre>
+</div>
+</div>
+<p>Logical and boolean operations to use with filter() - <code>==</code>, <code>!=</code> - <code>&lt;</code>, <code>&gt;</code> - <code>&lt;=</code>, <code>&gt;=</code> - <code>is.na()</code>, <code>!is.na()</code> - <code>%in%</code> - <code>|</code> See <code>?base::Logic</code> and <code>?Comparison</code> for help.</p>
+<ul>
+<li><code>distinct(.data, ..., .keep_all = FALSE)</code>: Remove rows with duplicate values.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">distinct</span>(gear)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>               gear
+Mazda RX4         4
+Hornet 4 Drive    3
+Porsche 914-2     5</code></pre>
+</div>
+</div>
+<ul>
+<li><code>pull(.data, var = -1, name = NULL, ...)</code>: Extract column values as a vector, by name or index.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">pull</span>(wt)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] 2.620 2.875 2.320 3.215 3.440 3.460 3.570 3.190 3.150 3.440 3.440 4.070
+[13] 3.730 3.780 5.250 5.424 5.345 2.200 1.615 1.835 2.465 3.520 3.435 3.840
+[25] 3.845 1.935 2.140 1.513 3.170 2.770 3.570 2.780</code></pre>
+</div>
+</div>
+<ul>
+<li><code>select(.data, ...)</code>: Extract columns as a table.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">select</span>(mpg, wt)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     mpg    wt
+Mazda RX4           21.0 2.620
+Mazda RX4 Wag       21.0 2.875
+Datsun 710          22.8 2.320
+Hornet 4 Drive      21.4 3.215
+Hornet Sportabout   18.7 3.440
+Valiant             18.1 3.460
+Duster 360          14.3 3.570
+Merc 240D           24.4 3.190
+Merc 230            22.8 3.150
+Merc 280            19.2 3.440
+Merc 280C           17.8 3.440
+Merc 450SE          16.4 4.070
+Merc 450SL          17.3 3.730
+Merc 450SLC         15.2 3.780
+Cadillac Fleetwood  10.4 5.250
+Lincoln Continental 10.4 5.424
+Chrysler Imperial   14.7 5.345
+Fiat 128            32.4 2.200
+Honda Civic         30.4 1.615
+Toyota Corolla      33.9 1.835
+Toyota Corona       21.5 2.465
+Dodge Challenger    15.5 3.520
+AMC Javelin         15.2 3.435
+Camaro Z28          13.3 3.840
+Pontiac Firebird    19.2 3.845
+Fiat X1-9           27.3 1.935
+Porsche 914-2       26.0 2.140
+Lotus Europa        30.4 1.513
+Ford Pantera L      15.8 3.170
+Ferrari Dino        19.7 2.770
+Maserati Bora       15.0 3.570
+Volvo 142E          21.4 2.780</code></pre>
+</div>
+</div>
+<p>Use these helpers with select() - <code>contains(match)</code> - <code>num_range(prefix, range)</code> - <code>:</code>, e.g., <code>mpg:cyl</code> - <code>ends_with(match)</code> - <code>all_of(x)</code> or <code>any_of(x, ..., vars)</code> - <code>!</code>, e.g., <code>!gear</code> - <code>starts_with(match)</code> - <code>matches(match)</code> - <code>everything()</code></p>
+<ul>
+<li><code>dplyr::case_when()</code>: multi-case if_else()</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">case_when</span>(</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    height <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">|</span> mass <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">~</span> <span class="st">&quot;large&quot;</span>,</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">&quot;Droid&quot;</span> <span class="sc">~</span> <span class="st">&quot;robot&quot;</span>,</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;other&quot;</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  ))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 87 × 15
+   name     height  mass hair_color skin_color eye_color birth_year sex   gender
+   &lt;chr&gt;     &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; 
+ 1 Luke Sk…    172    77 blond      fair       blue            19   male  mascu…
+ 2 C-3PO       167    75 &lt;NA&gt;       gold       yellow         112   none  mascu…
+ 3 R2-D2        96    32 &lt;NA&gt;       white, bl… red             33   none  mascu…
+ 4 Darth V…    202   136 none       white      yellow          41.9 male  mascu…
+ 5 Leia Or…    150    49 brown      light      brown           19   fema… femin…
+ 6 Owen La…    178   120 brown, gr… light      blue            52   male  mascu…
+ 7 Beru Wh…    165    75 brown      light      blue            47   fema… femin…
+ 8 R5-D4        97    32 &lt;NA&gt;       white, red red             NA   none  mascu…
+ 9 Biggs D…    183    84 black      light      brown           24   male  mascu…
+10 Obi-Wan…    182    77 auburn, w… fair       blue-gray       57   male  mascu…
+# ℹ 77 more rows
+# ℹ 6 more variables: homeworld &lt;chr&gt;, species &lt;chr&gt;, films &lt;list&gt;,
+#   vehicles &lt;list&gt;, starships &lt;list&gt;, type &lt;chr&gt;</code></pre>
+</div>
+</div>
+</section>
+<section id="alter-data" class="level1">
+<h1>Alter data</h1>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x_1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">x_2 =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>))</span></code></pre></div>
+</details>
+</div>
+<ul>
+<li><code>across(.cols, .fun, ..., .name = NULL)</code>: summarize or mutate multiple columns in the same way.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 3
+    x_1   x_2     y
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+1   1.5   3.5   4.5</code></pre>
+</div>
+</div>
+<ul>
+<li><code>c_across(.cols)</code>: Compute across columns in row-wise data.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_total =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)))</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+# Rowwise: 
+    x_1   x_2     y x_total
+  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;
+1     1     3     4       4
+2     2     4     5       6</code></pre>
+</div>
+</div>
+<ul>
+<li><code>mutate(.data, ..., .keep = "all", .before = NULL, .after = NULL)</code>: Compute new column(s). Also add_column().</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">gpm =</span> <span class="dv">1</span> <span class="sc">/</span> mpg)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+                           gpm
+Mazda RX4           0.04761905
+Mazda RX4 Wag       0.04761905
+Datsun 710          0.04385965
+Hornet 4 Drive      0.04672897
+Hornet Sportabout   0.05347594
+Valiant             0.05524862
+Duster 360          0.06993007
+Merc 240D           0.04098361
+Merc 230            0.04385965
+Merc 280            0.05208333
+Merc 280C           0.05617978
+Merc 450SE          0.06097561
+Merc 450SL          0.05780347
+Merc 450SLC         0.06578947
+Cadillac Fleetwood  0.09615385
+Lincoln Continental 0.09615385
+Chrysler Imperial   0.06802721
+Fiat 128            0.03086420
+Honda Civic         0.03289474
+Toyota Corolla      0.02949853
+Toyota Corona       0.04651163
+Dodge Challenger    0.06451613
+AMC Javelin         0.06578947
+Camaro Z28          0.07518797
+Pontiac Firebird    0.05208333
+Fiat X1-9           0.03663004
+Porsche 914-2       0.03846154
+Lotus Europa        0.03289474
+Ford Pantera L      0.06329114
+Ferrari Dino        0.05076142
+Maserati Bora       0.06666667
+Volvo 142E          0.04672897</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">mutate</span>(mtcars, <span class="at">gpm =</span> <span class="dv">1</span> <span class="sc">/</span> mpg, <span class="at">.keep =</span> <span class="st">&quot;none&quot;</span>)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                     mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4           21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag       21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710          22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive      21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout   18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+Valiant             18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+Duster 360          14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+Merc 240D           24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+Merc 230            22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+Merc 280            19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+Merc 280C           17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+Merc 450SE          16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+Merc 450SL          17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+Merc 450SLC         15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+Cadillac Fleetwood  10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+Chrysler Imperial   14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+Fiat 128            32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+Honda Civic         30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+Toyota Corolla      33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+Toyota Corona       21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+Dodge Challenger    15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+AMC Javelin         15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+Camaro Z28          13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+Pontiac Firebird    19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+Fiat X1-9           27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+Porsche 914-2       26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+Lotus Europa        30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+Ford Pantera L      15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+Ferrari Dino        19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+Maserati Bora       15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+Volvo 142E          21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+                           gpm
+Mazda RX4           0.04761905
+Mazda RX4 Wag       0.04761905
+Datsun 710          0.04385965
+Hornet 4 Drive      0.04672897
+Hornet Sportabout   0.05347594
+Valiant             0.05524862
+Duster 360          0.06993007
+Merc 240D           0.04098361
+Merc 230            0.04385965
+Merc 280            0.05208333
+Merc 280C           0.05617978
+Merc 450SE          0.06097561
+Merc 450SL          0.05780347
+Merc 450SLC         0.06578947
+Cadillac Fleetwood  0.09615385
+Lincoln Continental 0.09615385
+Chrysler Imperial   0.06802721
+Fiat 128            0.03086420
+Honda Civic         0.03289474
+Toyota Corolla      0.02949853
+Toyota Corona       0.04651163
+Dodge Challenger    0.06451613
+AMC Javelin         0.06578947
+Camaro Z28          0.07518797
+Pontiac Firebird    0.05208333
+Fiat X1-9           0.03663004
+Porsche 914-2       0.03846154
+Lotus Europa        0.03289474
+Ford Pantera L      0.06329114
+Ferrari Dino        0.05076142
+Maserati Bora       0.06666667
+Volvo 142E          0.04672897</code></pre>
+</div>
+</div>
+<ul>
+<li><code>rename(.data, ...)</code>: Rename columns. Use rename_with() to rename with a function.</li>
+</ul>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">miles_per_gallon =</span> mpg)</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    miles_per_gallon cyl  disp  hp drat    wt  qsec vs am gear
+Mazda RX4                       21.0   6 160.0 110 3.90 2.620 16.46  0  1    4
+Mazda RX4 Wag                   21.0   6 160.0 110 3.90 2.875 17.02  0  1    4
+Datsun 710                      22.8   4 108.0  93 3.85 2.320 18.61  1  1    4
+Hornet 4 Drive                  21.4   6 258.0 110 3.08 3.215 19.44  1  0    3
+Hornet Sportabout               18.7   8 360.0 175 3.15 3.440 17.02  0  0    3
+Valiant                         18.1   6 225.0 105 2.76 3.460 20.22  1  0    3
+Duster 360                      14.3   8 360.0 245 3.21 3.570 15.84  0  0    3
+Merc 240D                       24.4   4 146.7  62 3.69 3.190 20.00  1  0    4
+Merc 230                        22.8   4 140.8  95 3.92 3.150 22.90  1  0    4
+Merc 280                        19.2   6 167.6 123 3.92 3.440 18.30  1  0    4
+Merc 280C                       17.8   6 167.6 123 3.92 3.440 18.90  1  0    4
+Merc 450SE                      16.4   8 275.8 180 3.07 4.070 17.40  0  0    3
+Merc 450SL                      17.3   8 275.8 180 3.07 3.730 17.60  0  0    3
+Merc 450SLC                     15.2   8 275.8 180 3.07 3.780 18.00  0  0    3
+Cadillac Fleetwood              10.4   8 472.0 205 2.93 5.250 17.98  0  0    3
+Lincoln Continental             10.4   8 460.0 215 3.00 5.424 17.82  0  0    3
+Chrysler Imperial               14.7   8 440.0 230 3.23 5.345 17.42  0  0    3
+Fiat 128                        32.4   4  78.7  66 4.08 2.200 19.47  1  1    4
+Honda Civic                     30.4   4  75.7  52 4.93 1.615 18.52  1  1    4
+Toyota Corolla                  33.9   4  71.1  65 4.22 1.835 19.90  1  1    4
+Toyota Corona                   21.5   4 120.1  97 3.70 2.465 20.01  1  0    3
+Dodge Challenger                15.5   8 318.0 150 2.76 3.520 16.87  0  0    3
+AMC Javelin                     15.2   8 304.0 150 3.15 3.435 17.30  0  0    3
+Camaro Z28                      13.3   8 350.0 245 3.73 3.840 15.41  0  0    3
+Pontiac Firebird                19.2   8 400.0 175 3.08 3.845 17.05  0  0    3
+Fiat X1-9                       27.3   4  79.0  66 4.08 1.935 18.90  1  1    4
+Porsche 914-2                   26.0   4 120.3  91 4.43 2.140 16.70  0  1    5
+Lotus Europa                    30.4   4  95.1 113 3.77 1.513 16.90  1  1    5
+Ford Pantera L                  15.8   8 351.0 264 4.22 3.170 14.50  0  1    5
+Ferrari Dino                    19.7   6 145.0 175 3.62 2.770 15.50  0  1    5
+Maserati Bora                   15.0   8 301.0 335 3.54 3.570 14.60  0  1    5
+Volvo 142E                      21.4   4 121.0 109 4.11 2.780 18.60  1  1    4
+                    carb
+Mazda RX4              4
+Mazda RX4 Wag          4
+Datsun 710             1
+Hornet 4 Drive         1
+Hornet Sportabout      2
+Valiant                1
+Duster 360             4
+Merc 240D              2
+Merc 230               2
+Merc 280               4
+Merc 280C              4
+Merc 450SE             3
+Merc 450SL             3
+Merc 450SLC            3
+Cadillac Fleetwood     4
+Lincoln Continental    4
+Chrysler Imperial      4
+Fiat 128               1
+Honda Civic            2
+Toyota Corolla         1
+Toyota Corona          1
+Dodge Challenger       2
+AMC Javelin            2
+Camaro Z28             4
+Pontiac Firebird       2
+Fiat X1-9              1
+Porsche 914-2          2
+Lotus Europa           2
+Ford Pantera L         4
+Ferrari Dino           6
+Maserati Bora          8
+Volvo 142E             2</code></pre>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># also see colnames() and names()</span></span></code></pre></div>
+</details>
+</div>
+</section>
+<section id="summary-functions" class="level1">
+<h1>Summary functions</h1>
+<section id="to-use-with-summarize" class="level2">
+<h2>To Use with summarize()</h2>
+<p><code>summarize()</code> applies summary functions to columns to create a new table. Summary functions take vectors as input and return single values as output.</p>
+<p><em>Count</em> - <code>dplyr::n()</code>: number of values/rows - <code>dplyr::n_distinct()</code>: # of uniques - <code>sum(!is.na())</code>: # of non-NAs</p>
+<p><em>Position</em> - <code>mean()</code>: mean, also <code>mean(!is.na())</code> - <code>median()</code>: median</p>
+<p><em>Logical</em> - <code>mean()</code>: proportion of TRUEs - <code>sum()</code>: # of TRUEs</p>
+<p><em>Order</em> - <code>dplyr::first()</code>: first value - <code>dplyr::last()</code>: last value - <code>dplyr::nth()</code>: value in the nth location of vector</p>
+<p><em>Rank</em> - <code>quantile()</code>: nth quantile - <code>min()</code>: minimum value - <code>max()</code>: maximum value</p>
+<p><em>Spread</em> - <code>IQR()</code>: Inter-Quartile Range - <code>mad()</code>: median absolute deviation - <code>sd()</code>: standard deviation - <code>var()</code>: variance</p>
+</section>
+</section>
+<section id="further-help" class="level1 unnumbered">
+<h1 class="unnumbered">Further Help</h1>
+<p>There are a number of online sources (tutorials, discussion groups etc) for getting help with R. These links are available at your class Stream. You may also use the advanced search facility of Goggle at <a href="https://www.google.com/advanced_search" class="uri">https://www.google.com/advanced_search</a>; more specifically at <a href="https://stackoverflow.com" class="uri">https://stackoverflow.com</a>.</p>
+<ul>
+<li><p>For further online tutorials</p>
+<ul>
+<li><a href="https://r4ds.had.co.nz/" class="uri">https://r4ds.had.co.nz/</a></li>
+<li><a href="https://www.datacamp.org" class="uri">https://www.datacamp.org</a></li>
+</ul></li>
+<li><p>For further graphing example</p>
+<ul>
+<li><a href="https://www.r-graph-gallery.com/all-graphs" class="uri">https://www.r-graph-gallery.com/all-graphs</a></li>
+</ul></li>
+<li><p>Getting help:</p>
+<ul>
+<li>RStudio cheat sheets: <a href="https://www.rstudio.com/resources/cheatsheets" class="uri">https://www.rstudio.com/resources/cheatsheets</a></li>
+<li>RStudio resources <a href="https://resources.rstudio.com" class="uri">https://resources.rstudio.com</a></li>
+<li>Recommended R packages by topic: <a href="https://cran.r-project.org/web/views/" class="uri">https://cran.r-project.org/web/views/</a></li>
+<li>StackOverflow: <a href="https://stackoverflow.com/questions/tagged/r" class="uri">https://stackoverflow.com/questions/tagged/r</a></li>
+</ul></li>
+</ul>
+</section>
+<section id="r-default-base-graphing" class="level1 unnumbered">
+<h1 class="unnumbered">R default (base) Graphing</h1>
+<p>For a simple bar chart, try</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>freq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>)</span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(freq, <span class="at">names.arg=</span>names)</span></code></pre></div>
+</details>
+</div>
+<p>Let us generate random data from the normal distribution <em>N(10,1)</em> distribution and form a batch of data for illustrating graphing in R. Try the following commands one by one.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid" width="672" /></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-18-2.png" class="img-fluid" width="672" /></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-18-3.png" class="img-fluid" width="672" /></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x), <span class="at">xlab=</span><span class="st">&quot;&quot;</span>)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-18-4.png" class="img-fluid" width="672" /></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">round</span>(x,<span class="dv">1</span>), <span class="at">method =</span> <span class="st">&quot;stack&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-18-5.png" class="img-fluid" width="672" /></p>
+</div>
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(x), <span class="at">verticals=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-18-6.png" class="img-fluid" width="672" /></p>
+</div>
+</div>
+<p>We can form a matrix of order 3X2 or (or 2X3) and display all the above six graphs in a panel. This is done using the option <code>par()</code>, which controls the graphics <em>par</em>ameters.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x) </span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x), <span class="at">xlab=</span><span class="st">&#39;&#39;</span>)</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">round</span>(x,<span class="dv">1</span>), <span class="at">method =</span> <span class="st">&quot;stack&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(x), <span class="at">verticals=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid" width="576" /></p>
+</div>
+</div>
+<p>Although we shall not cover them here, many plotting options can be set using <code>par()</code> function; including size of margins, font types, the colour of axis labels etc. See <code>help("par")</code>. The option <code>par(new=T)</code> will be useful for an overlaid graph (instead of splitting a graph). Try the following:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">6.5</span>, <span class="fl">13.5</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new=</span>T)</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>y  <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">2</span>,</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Two Batches of Random Normal Data&quot;</span>,</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">6.5</span>, <span class="fl">13.5</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span></code></pre></div>
+</details>
+</div>
+<p>Note that <code>pch</code> specifies for the plotting character and <code>lty</code> specifies the line type. You can add a legend by the following command line:</p>
+<p><code>legend("topright", c("Batch I", "Batch II"), pch=1:2, lty=1:2)</code></p>
+<p>For scatter and other related plots, the command is <code>plot()</code>. Try</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x)  <span class="co"># or plot(x,y) </span></span></code></pre></div>
+</details>
+</div>
+<p>Add a title by the command</p>
+<p><code>title("This is my title")</code></p>
+<p>Add a reference line for the mean at the x-axis by the command</p>
+<p><code>abline(v=10)</code></p>
+<p>and again with <code>abline(h=10)</code> for the y-axis. A 45 degree (Y=X) line can be added by the command</p>
+<p><code>abline(0,1) #slope, b=1, y-intercept a=1</code></p>
+<p>You may also specify two points on the graph, and ask them to be connected using the command</p>
+<p><code>lines(c(8, 12), c(8, 12), lty=2, col=4, lwd=2)</code></p>
+<p>Note that the <code>line()</code> has extra arguments to control the line type, line width, and colour.</p>
+<p>The command <code>rug(x)</code> draws will draw small vertical lines on the x-axis (the command actually suits better for one dimensional graphs such as a boxplot). Try</p>
+<p><code>rug(x)</code></p>
+<p><code>rug(y, side=2)  #side =2 specifies y-axis</code></p>
+<p>Graphs can be saved in various file formats, such as PDF (.pdf), JPEG (.jpeg or .jpg), or postscript (.ps), by enclosing the plotting function in the appropriate commands. For example, to save a simple figure as a PDF file, we use the <code>pdf()</code> function.</p>
+<p><code>x  &lt;-  1:10</code></p>
+<p><code>y  &lt;-  x^2</code></p>
+<p><code>pdf(file = "Fig.pdf")</code></p>
+<p><code>plot(x, y)</code></p>
+<p><code>dev.off()</code></p>
+<p>The <code>command dev.off()</code> closes the file. You may use the copy and paste facility for processing graphs or use the RStudio option to save graphs.</p>
+<p>The<code>lattice</code> package contains extra graphing facilities but such graphs can be produced using <code>ggplot2</code> package. Try-</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span><span class="fu">read.csv</span>(</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://www.massey.ac.nz/~anhsmith/data/tv.csv&quot;</span>, </span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(TELETIME <span class="sc">~</span> <span class="fu">factor</span>(SCHOOL), </span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> my.data)</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<p><img src="0-R-tidyverse_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid" width="672" /></p>
+</div>
+</div>
+<p>It requires a bit of coding to combine base, lattice and ggplot graphs. Try the following codes which combines three density plots of the same data produced in different styles.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;grid&quot;</span>)</span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplotify&quot;</span>)</span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">as.grob</span>(<span class="sc">~</span><span class="fu">plot</span>(<span class="fu">density</span>(x)))</span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">as.ggplot</span>(p1)</span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">as.grob</span>(<span class="fu">densityplot</span>(x))</span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">as.ggplot</span>(p2)</span>
+<span id="cb41-11"><a href="#cb41-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-12"><a href="#cb41-12" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb41-13"><a href="#cb41-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-14"><a href="#cb41-14" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span>x) <span class="sc">|&gt;</span> </span>
+<span id="cb41-15"><a href="#cb41-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb41-16"><a href="#cb41-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(x) <span class="sc">+</span></span>
+<span id="cb41-17"><a href="#cb41-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span>
+<span id="cb41-18"><a href="#cb41-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-19"><a href="#cb41-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb41-20"><a href="#cb41-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-21"><a href="#cb41-21" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">/</span>(p2<span class="sc">+</span>p3)</span></code></pre></div>
+</details>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+Tip
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>It is optional to work through the activities that follow to gain an appreciation of how R works. Do not try to remember how to do everything right now. For your assignment work, we will be given the R codes to load data, graphing and modelling. These codes will give you a head-start. Note that we often often learn R by doing and sometime making mistakes.</p>
+</div>
+</div>
+<p><em>R default options for Hypothesis tests and modelling</em></p>
+<p>The <code>stats</code> default package in R has a number of functions for performing hypothesis tests. However you will only use the following for this course:</p>
+<p><code>ks.test</code> - Kolmogorov-Smirnov Tests</p>
+<p><code>shapiro.test</code> - Shapiro-Wilk Normality Test</p>
+<p><code>t.test</code> - Student’s t-Test (one &amp; two samples, paired t-test etc)</p>
+<p><code>pairwise.t.test</code> - Pairwise t tests (for multiple comparison)</p>
+<p><code>oneway.test</code> - Test for Equal Means in a One-Way Layout</p>
+<p><code>TukeyHSD</code> - To Compute Tukey’s Honest Significant Differences</p>
+<p><code>var.test</code> - F Test to Compare Two Variances</p>
+<p><code>bartlett.test</code> - Bartlett Test of Homogeneity of Variances</p>
+<p><code>fisher.test</code> - Fisher’s Exact Test for Count Data</p>
+<p><code>chisq.test</code> - Pearson’s Chi-squared Test for Count Data</p>
+<p><code>cor.test</code> - Test for Association/Correlation Between Paired Samples</p>
+<p>The <code>car</code> package is needed for the following:</p>
+<p><code>durbinWatsonTest</code> Durbin-Watson Test for autocorrelated Errors</p>
+<p><code>leveneTest</code> Levene’s Test</p>
+<p>We will largely use the R function <code>lm</code> in this course. The syntax for specifying a model under <code>lm</code> command (and various other model related commands) is explained below:</p>
+<p>The structure of the model is that the response variable is modelled as a function of the response variables. The symbol <code>~</code> (tilde) is used to say “a function of”. The simple regression of <code>y</code> on <code>x</code> is therefore specified as</p>
+<p><code>lm(y ~ x)</code></p>
+<p>The same applies to a one-way ANOVA in which <code>x</code> is a categorical factor. For example, consider <code>tv.txt</code> dataset and the one-way ANOVA model of <code>TELETIME</code> for <code>SCHOOL</code> is specified as follows:</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://www.massey.ac.nz/~anhsmith/data/tv.csv&quot;</span>, </span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>mymodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(TELETIME <span class="sc">~</span> <span class="fu">factor</span>(SCHOOL), </span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> mydata) <span class="co"># replace lm by aov and try</span></span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-9"><a href="#cb42-9" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mymodel)</span></code></pre></div>
+</details>
+</div>
+<p>The function <code>summary()</code> gives the summary of the model (F statistics, residual SD etc). The model summary output can be stored into a text file using the function <code>sink()</code> or copy and paste in the windows version. Graphs associated with a model can be obtained using the command</p>
+<p><code>plot(mymodel)</code></p>
+<p>In the above context, we may also use the specific test command which will give the same result but this test can also be performed without assuming equal variances.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(TELETIME <span class="sc">~</span> SCHOOL, </span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>            <span class="at">var.equal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> mydata) </span></code></pre></div>
+</details>
+</div>
+<p>For the <code>lm</code> command, note the following:</p>
+<p><code>+</code> indicates inclusion (not addition) of an explanatory variable in the model</p>
+<p><code>-</code> indicates deletion (not subtraction) of an explanatory variable from the model</p>
+<p><code>*</code> indicates the inclusion of the explanatory variables and their interaction (not multiplication) between explanatory variables</p>
+<p><code>:</code> (colon) means only interaction between explanatory variables</p>
+<p><code>/</code> indicates the nesting (not division) of explanatory variables</p>
+<p><code>|</code> indicates the conditioning (for example <code>y ~ x|z</code> means that y is a function of x for given z).</p>
+<p>For our course, you will not use the last two types. Some model examples are given below:</p>
+<p><code>lm(y ~ x + z)</code> #regression of y on x and z (flat surface fit)</p>
+<p><code>lm(y ~ x*z)</code> #includes the interaction term ie <code>lm(y ~ x + z + x:z)</code></p>
+<p><code>lm(y ~ x + I(x^2)</code> # fits a quadratic model or use <code>poly(x,2)</code></p>
+<p><code>lm(log(y) ~ sqrt(x) + log(z))</code> #all variables are transformed</p>
+<p>As a further example, consider a study guide dataset. The following commands fit a simple regression model and then plot the fitted line on a scatter plot. Note that commands can be shortened but deliberately shown this way.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://www.massey.ac.nz/~anhsmith/data/horsehearts.csv&quot;</span>, </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="#cb44-6" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mydata<span class="sc">$</span>EXTDIA</span>
+<span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mydata<span class="sc">$</span>WEIGHT</span>
+<span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb44-9"><a href="#cb44-9" aria-hidden="true" tabindex="-1"></a>simplereg <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
+</details>
+</div>
+<p>Note that our model object <code>simplereg</code> can be queried in many ways. The command <code>summary()</code> gives the following output.</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(simplereg)</span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co"># library(broom)</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy(simplereg)</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co"># glance(simplereg)</span></span></code></pre></div>
+</details>
+</div>
+<p>The command <code>names(simplereg)</code> will gives the names of many individual components of the object <code>simplereg</code> we created. For example, a plot of the residuals against the fitted values can be obtained as</p>
+<div class="cell">
+<details>
+<summary>Code</summary>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r cell-code"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(simplereg) <span class="sc">~</span> <span class="fu">fitted.values</span>(simplereg))</span></code></pre></div>
+</details>
+</div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden" data-render-id="quarto-int-sidebar-title">161250 Data Analysis</span> <span class="hidden" data-render-id="quarto-int-navbar-title">161250 Data Analysis</span> <span class="hidden" data-render-id="quarto-int-next">Chapter 1: Data Collection and Quality Issues</span> <span class="hidden" data-render-id="quarto-int-prev">Study Guide</span> <span class="hidden" data-render-id="quarto-int-sidebar:quarto-sidebar-section-1">Study Guide</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/0-R-tidyverse.html">Chapter 0 R quarto and Tidy data</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/1-data-collection.html">Chapter 1: Data Collection and Quality Issues</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/2-eda.html">Chapter 2: Exploratory Data Analysis (EDA)</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/3-probability.html">Chapter 3: Probability Concepts and Distributions</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/4-inference.html">Chapter 4: Statistical Inference</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/5-tabulated.html">Chapter 5: Tabulated Counts</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/6-single.html">Chapter 6: Models with a Single Continuous Predictor</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/7-multiple.html">Chapter 7: Models with Multiple Continuous Predictors</span> <span class="hidden" data-render-id="quarto-int-sidebar:/studyguide/8-anova.html">Chapter 8: Analysis of Variance (ANOVA) and Covariance (ANCOVA)</span> <span class="hidden" data-render-id="quarto-int-navbar:About">About</span> <span class="hidden" data-render-id="quarto-int-navbar:/about.html">/about.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Slides">Slides</span> <span class="hidden" data-render-id="quarto-int-navbar:/slides.html">/slides.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Study Guide">Study Guide</span> <span class="hidden" data-render-id="quarto-int-navbar:/studyguide/index.html">/studyguide/index.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Workshops">Workshops</span> <span class="hidden" data-render-id="quarto-int-navbar:/workshops/ws01.html">/workshops/ws01.html</span> <span class="hidden" data-render-id="quarto-int-navbar:Extra Code">Extra Code</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex2">Ex2</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap2more.R">/exercises/Chap2more.R</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex3">Ex3</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap3more.R">/exercises/Chap3more.R</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex4">Ex4</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap4more.R">/exercises/Chap4more.R</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex5">Ex5</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap5more.R">/exercises/Chap5more.R</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex6">Ex6</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap6more.R">/exercises/Chap6more.R</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex7">Ex7</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap7more.R">/exercises/Chap7more.R</span> <span class="hidden" data-render-id="quarto-int-navbar:Ex8">Ex8</span> <span class="hidden" data-render-id="quarto-int-navbar:/exercises/Chap8more.R">/exercises/Chap8more.R</span> <span class="hidden" data-render-id="quarto-breadcrumbs-9fcd3671e58871ac5f602c51f0791910">Study Guide</span> <span class="hidden" data-render-id="quarto-breadcrumbs-37afda52e8a5964f55cd6eff13c97c7c">Chapter 0 R quarto and Tidy data</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden" data-render-id="quarto-metatitle">161250 Data Analysis - Chapter 0 R quarto and Tidy data</span> <span class="hidden" data-render-id="quarto-twittercardtitle">161250 Data Analysis - Chapter 0 R quarto and Tidy data</span> <span class="hidden" data-render-id="quarto-ogcardtitle">161250 Data Analysis - Chapter 0 R quarto and Tidy data</span> <span class="hidden" data-render-id="quarto-metasitename">161250 Data Analysis</span> <span class="hidden" data-render-id="quarto-twittercarddesc"></span> <span class="hidden" data-render-id="quarto-ogcardddesc"></span></p>
+</div>
+<!-- -->
+<div class="quarto-embedded-source-code">
+<div class="sourceCode" id="cb47" data-shortcodes="false"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Chapter 0 R quarto and Tidy data&quot;</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="fu"># Installing `R` and RStudio</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, message=FALSE, warning=FALSE}</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>colorize <span class="ot">&lt;-</span> <span class="cf">function</span>(x, color) {</span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_latex_output</span>()) {</span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sprintf</span>(<span class="st">&quot;</span><span class="sc">\\</span><span class="st">textcolor{%s}{%s}&quot;</span>, color, x)</span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> <span class="cf">if</span> (knitr<span class="sc">::</span><span class="fu">is_html_output</span>()) {</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sprintf</span>(<span class="st">&quot;&lt;span style=&#39;color: %s;&#39;&gt;%s&lt;/span&gt;&quot;</span>, color, </span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>      x)</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> x</span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>In this course, we will be using R <span class="ot">&lt;https://www.r-project.org/&gt;</span>, an open-source (i.e., free) software package for data analysis. This software is available for essentially all computing platforms (e.g. Windows, Linux, Unix, Mac) is maintained and developed by a huge community of users including many of the </span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>world&#39;s foremost statisticians.</span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>R is a programming language but you may not be required to do a lot of programming for your course work. R includes functions which enables us to perform a full range of statistical analyses.</span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>**For installing R software, please visit</span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://cran.stat.auckland.ac.nz/&gt;</span> and follow the instructions.**</span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>Note that the R software will be sitting in the background in RStudio and you will not be using the standalone version of R in this course. </span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>RStudio <span class="ot">&lt;https://www.rstudio.com/products/rstudio/&gt;</span> is an integrated development environment (IDE) for R. It includes a console and a sophisticated code editor. It also contains tools for plotting, history, debugging, and management of workspaces and projects. RStudio has many other features such as authoring HTML, </span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>PDF, Word Documents, and slide shows. In order to download RStudio (Desktop edition, open source), go to</span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://www.rstudio.com/products/rstudio/download/&gt;</span></span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a>Download the installation file and run it. </span>
+<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a>**Note that RStudio must be installed after installing R.**</span>
+<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a>R/RStudio can also be run on a cloud platform at <span class="ot">&lt;https://rstudio.cloud/&gt;</span> after creating a *free* account. Be aware though that some of the packages covered in this course may not work in the cloud platform and there is a maximum amount of computing time. We *do not recommend* relying on the cloud platform for this course. </span>
+<span id="cb47-39"><a href="#cb47-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-40"><a href="#cb47-40" aria-hidden="true" tabindex="-1"></a>If you open RStudio, you will see something similar to the screen shot shown </span>
+<span id="cb47-41"><a href="#cb47-41" aria-hidden="true" tabindex="-1"></a>in @fig-rstud:</span>
+<span id="cb47-42"><a href="#cb47-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-43"><a href="#cb47-43" aria-hidden="true" tabindex="-1"></a><span class="al">![An RStudio window](img/Rstudio.png)</span>{#fig-rstud}</span>
+<span id="cb47-44"><a href="#cb47-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-45"><a href="#cb47-45" aria-hidden="true" tabindex="-1"></a>RStudio has many options, such as uploading files to a server, creating documents, etc. You will be using only a few of the options. You will *not* be using the menus such as *Build*, *Debug*, *Profile* at all in this course.</span>
+<span id="cb47-46"><a href="#cb47-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-47"><a href="#cb47-47" aria-hidden="true" tabindex="-1"></a>You can either type or copy and paste the R codes appearing in this section on to the R Script window and run them.</span>
+<span id="cb47-48"><a href="#cb47-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-49"><a href="#cb47-49" aria-hidden="true" tabindex="-1"></a><span class="fu"># Quarto {.unnumbered}</span></span>
+<span id="cb47-50"><a href="#cb47-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-51"><a href="#cb47-51" aria-hidden="true" tabindex="-1"></a>This course will be using <span class="co">[</span><span class="ot">Quarto</span><span class="co">](https://quarto.org/)</span> <span class="in">`*.qmd`</span> files rather than raw <span class="in">`*.R`</span> files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you&#39;re just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.</span>
+<span id="cb47-52"><a href="#cb47-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-53"><a href="#cb47-53" aria-hidden="true" tabindex="-1"></a>Here&#39;s some information to get you started: <span class="ot">&lt;https://quarto.org/docs/get-started/hello/rstudio.html&gt;</span>.</span>
+<span id="cb47-54"><a href="#cb47-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-55"><a href="#cb47-55" aria-hidden="true" tabindex="-1"></a>And some other useful tips: <span class="ot">&lt;https://r4ds.hadley.nz/quarto&gt;</span>.</span>
+<span id="cb47-56"><a href="#cb47-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-57"><a href="#cb47-57" aria-hidden="true" tabindex="-1"></a>We will be using Quarto documents. You can open a blank one by clicking File <span class="sc">\&gt;</span> New File <span class="sc">\&gt;</span> Quarto Document.</span>
+<span id="cb47-58"><a href="#cb47-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-59"><a href="#cb47-59" aria-hidden="true" tabindex="-1"></a>You can then make your own document or copy code from the course website and paste it into your new Quarto file. </span>
+<span id="cb47-60"><a href="#cb47-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-61"><a href="#cb47-61" aria-hidden="true" tabindex="-1"></a><span class="fu"># Including text and code</span></span>
+<span id="cb47-62"><a href="#cb47-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-63"><a href="#cb47-63" aria-hidden="true" tabindex="-1"></a>The one advantage of Quarto (and its predecessor R markdown) is being able to include general text along side code chunks.</span>
+<span id="cb47-64"><a href="#cb47-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-65"><a href="#cb47-65" aria-hidden="true" tabindex="-1"></a>You can insert a code chunk using the green button near the top right of your quarto document window.</span>
+<span id="cb47-66"><a href="#cb47-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-67"><a href="#cb47-67" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-68"><a href="#cb47-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-69"><a href="#cb47-69" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-70"><a href="#cb47-70" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-71"><a href="#cb47-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-72"><a href="#cb47-72" aria-hidden="true" tabindex="-1"></a><span class="fu"># Setting up a Quarto project</span></span>
+<span id="cb47-73"><a href="#cb47-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-74"><a href="#cb47-74" aria-hidden="true" tabindex="-1"></a>It is a good idea to get into the habit of using Quarto projects, rather than just R scripts. Here is a step-by-step guide to creating a project for your workshops. You don&#39;t have to use projects, but they are very useful. </span>
+<span id="cb47-75"><a href="#cb47-75" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-76"><a href="#cb47-76" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span>Open RStudio. (Optional: click on the little window symbol at the top and select &quot;Console on Right&quot;)</span>
+<span id="cb47-77"><a href="#cb47-77" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-78"><a href="#cb47-78" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/console_right.png)</span></span>
+<span id="cb47-79"><a href="#cb47-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-80"><a href="#cb47-80" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span>If you haven&#39;t already, make a directory on your computer where you want to keep your code for this course. </span>
+<span id="cb47-81"><a href="#cb47-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-82"><a href="#cb47-82" aria-hidden="true" tabindex="-1"></a><span class="ss">3. </span>Make a new project. Select the &quot;Project&quot; button at the top-right of Rstudio, and select &quot;New Project...&quot;.</span>
+<span id="cb47-83"><a href="#cb47-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-84"><a href="#cb47-84" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/open_project.png)</span></span>
+<span id="cb47-85"><a href="#cb47-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-86"><a href="#cb47-86" aria-hidden="true" tabindex="-1"></a><span class="ss">4. </span>In the pop-up window:</span>
+<span id="cb47-87"><a href="#cb47-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-88"><a href="#cb47-88" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Select &quot;New Directory&quot;</span>
+<span id="cb47-89"><a href="#cb47-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-90"><a href="#cb47-90" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/new_direct.png)</span></span>
+<span id="cb47-91"><a href="#cb47-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-92"><a href="#cb47-92" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Select &quot;Quarto Project&quot;</span>
+<span id="cb47-93"><a href="#cb47-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-94"><a href="#cb47-94" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/quarto_proj.png)</span></span>
+<span id="cb47-95"><a href="#cb47-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-96"><a href="#cb47-96" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Choose your directory via the &quot;Browse&quot;, and then give the project a name like &quot;161250_workshops&quot;</span>
+<span id="cb47-97"><a href="#cb47-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-98"><a href="#cb47-98" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/dir_name.png)</span></span>
+<span id="cb47-99"><a href="#cb47-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-100"><a href="#cb47-100" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Finish by clicking on &quot;Create Project&quot;. </span>
+<span id="cb47-101"><a href="#cb47-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-102"><a href="#cb47-102" aria-hidden="true" tabindex="-1"></a>The project should now be created, and you&#39;ll likely have an open <span class="sc">\*</span>.qmd file (something like &quot;161250_workshops.qmd&quot;) in the top-right window of Rstudio. We want to make a <span class="sc">\*</span>.qmd file for this workshop. </span>
+<span id="cb47-103"><a href="#cb47-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-104"><a href="#cb47-104" aria-hidden="true" tabindex="-1"></a><span class="ss">5. </span>Right-click on the qmd tab and select &quot;Rename&quot;, and rename it &quot;workshop2.qmd&quot; or something similar. (Alternatively, just make a new file via the menus: *File &gt; New File &gt; Quarto Document*.)</span>
+<span id="cb47-105"><a href="#cb47-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-106"><a href="#cb47-106" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/rename_qmd.png)</span></span>
+<span id="cb47-107"><a href="#cb47-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-108"><a href="#cb47-108" aria-hidden="true" tabindex="-1"></a>Now you have a document for your Workshop work. You can:</span>
+<span id="cb47-109"><a href="#cb47-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-110"><a href="#cb47-110" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Write headings with lines beginning with &quot;#&quot;. </span>
+<span id="cb47-111"><a href="#cb47-111" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Write text in the main part of the document.</span>
+<span id="cb47-112"><a href="#cb47-112" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>Make a code chunk for your R code using *Ctrl-Alt-i*. Write R code in the code chunks.</span>
+<span id="cb47-113"><a href="#cb47-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-114"><a href="#cb47-114" aria-hidden="true" tabindex="-1"></a>Like so:</span>
+<span id="cb47-115"><a href="#cb47-115" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-116"><a href="#cb47-116" aria-hidden="true" tabindex="-1"></a><span class="al">![](img/chunk.png)</span></span>
+<span id="cb47-117"><a href="#cb47-117" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-118"><a href="#cb47-118" aria-hidden="true" tabindex="-1"></a>There are lots of tutorials online covering the basics of Quarto, and we&#39;ll discuss them during our own workshops. Here are a couple for starters:</span>
+<span id="cb47-119"><a href="#cb47-119" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-120"><a href="#cb47-120" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://quarto.org/docs/get-started/hello/rstudio.html&gt;</span></span>
+<span id="cb47-121"><a href="#cb47-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-122"><a href="#cb47-122" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://www.youtube.com/watch?v=c654j7aQjcg&gt;</span></span>
+<span id="cb47-123"><a href="#cb47-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-124"><a href="#cb47-124" aria-hidden="true" tabindex="-1"></a>There are many advantages of Quarto projects. One is that you can put datasets into the project folder, and they&#39;ll be easily accessible within your project, without having to worry about file paths. </span>
+<span id="cb47-125"><a href="#cb47-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-126"><a href="#cb47-126" aria-hidden="true" tabindex="-1"></a>You can easily open a recent past projects via the &quot;Projects&quot; button on the top-right of Rstudio. </span>
+<span id="cb47-127"><a href="#cb47-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-128"><a href="#cb47-128" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-129"><a href="#cb47-129" aria-hidden="true" tabindex="-1"></a>This covers some introduces tidyverse and some functions we will be using in this course. This is not meant to be an exhaustive list and students are encourage to read R4 data science or other free tutorials online.</span>
+<span id="cb47-130"><a href="#cb47-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-131"><a href="#cb47-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-132"><a href="#cb47-132" aria-hidden="true" tabindex="-1"></a><span class="fu"># Definitions</span></span>
+<span id="cb47-133"><a href="#cb47-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-134"><a href="#cb47-134" aria-hidden="true" tabindex="-1"></a>Before we talk more about data it is useful to define some terms:</span>
+<span id="cb47-135"><a href="#cb47-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-136"><a href="#cb47-136" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A *variable* is a quantity, quality, or property that you can measure.</span>
+<span id="cb47-137"><a href="#cb47-137" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-138"><a href="#cb47-138" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>A *value* is the state of a variable when you measure it. The value of a variable may change from measurement to measurement.</span>
+<span id="cb47-139"><a href="#cb47-139" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-140"><a href="#cb47-140" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>An *observation* is a set of measurements made under similar conditions (you usually make all of the measurements in an observation at the same time and on the same object). An observation will contain several values, each associated with a different variable. We’ll sometimes refer to an observation as a data point.</span>
+<span id="cb47-141"><a href="#cb47-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-142"><a href="#cb47-142" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>*Tabular data* is a set of values, each associated with a variable and an observation. Tabular data is tidy if each value is placed in its own “cell”, each variable in its own column, and each observation in its own row.</span>
+<span id="cb47-143"><a href="#cb47-143" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-144"><a href="#cb47-144" aria-hidden="true" tabindex="-1"></a><span class="fu"># Introduction to the tidyverse</span></span>
+<span id="cb47-145"><a href="#cb47-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-146"><a href="#cb47-146" aria-hidden="true" tabindex="-1"></a>We will be largely using the <span class="in">`tidyverse`</span> suite of packages for data organisation, summarising, and plotting; see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>.</span>
+<span id="cb47-147"><a href="#cb47-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-148"><a href="#cb47-148" aria-hidden="true" tabindex="-1"></a>Let&#39;s load that package now:</span>
+<span id="cb47-149"><a href="#cb47-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-150"><a href="#cb47-150" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-151"><a href="#cb47-151" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-152"><a href="#cb47-152" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-153"><a href="#cb47-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb47-154"><a href="#cb47-154" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb47-155"><a href="#cb47-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-156"><a href="#cb47-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-157"><a href="#cb47-157" aria-hidden="true" tabindex="-1"></a>Recommended reading to accompany this workshop is pages 1-11 of R for Data Science <span class="ot">&lt;https://r4ds.hadley.nz/&gt;</span></span>
+<span id="cb47-158"><a href="#cb47-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-159"><a href="#cb47-159" aria-hidden="true" tabindex="-1"></a><span class="fu"># Tidy data</span></span>
+<span id="cb47-160"><a href="#cb47-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-161"><a href="#cb47-161" aria-hidden="true" tabindex="-1"></a>There are three interrelated rules that make a dataset tidy:</span>
+<span id="cb47-162"><a href="#cb47-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-163"><a href="#cb47-163" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each variable is a column; each column is a variable.</span>
+<span id="cb47-164"><a href="#cb47-164" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each observation is a row; each row is an observation.</span>
+<span id="cb47-165"><a href="#cb47-165" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each value is a cell; each cell is a single value.</span>
+<span id="cb47-166"><a href="#cb47-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-167"><a href="#cb47-167" aria-hidden="true" tabindex="-1"></a><span class="al">![Tidy data](images/tidy_data.png)</span>{#fig-tidy}</span>
+<span id="cb47-168"><a href="#cb47-168" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-169"><a href="#cb47-169" aria-hidden="true" tabindex="-1"></a>Why ensure that your data is tidy? There are two main advantages:</span>
+<span id="cb47-170"><a href="#cb47-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-171"><a href="#cb47-171" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</span>
+<span id="cb47-172"><a href="#cb47-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-173"><a href="#cb47-173" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values. </span>
+<span id="cb47-174"><a href="#cb47-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-175"><a href="#cb47-175" aria-hidden="true" tabindex="-1"></a>dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data. </span>
+<span id="cb47-176"><a href="#cb47-176" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-177"><a href="#cb47-177" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summarize data</span></span>
+<span id="cb47-178"><a href="#cb47-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-179"><a href="#cb47-179" aria-hidden="true" tabindex="-1"></a>Apply summary functions to columns to create a new table of summary statistics. Summary functions take vectors as input and return one value back.</span>
+<span id="cb47-180"><a href="#cb47-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-181"><a href="#cb47-181" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`summarize(.data, .. )`</span> : Compute table of summaries</span>
+<span id="cb47-182"><a href="#cb47-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-183"><a href="#cb47-183" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-184"><a href="#cb47-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-185"><a href="#cb47-185" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-186"><a href="#cb47-186" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb47-187"><a href="#cb47-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-188"><a href="#cb47-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-189"><a href="#cb47-189" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`count(.data, ..., wt = NULL, sort = FLASE, name = NULL)`</span>: Count number of rows in each group defined by the variables in .... Also <span class="in">`tally()`</span>, <span class="in">`add_count()`</span>, and <span class="in">`add_tally()`</span>.</span>
+<span id="cb47-190"><a href="#cb47-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-191"><a href="#cb47-191" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-192"><a href="#cb47-192" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-193"><a href="#cb47-193" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-194"><a href="#cb47-194" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">count</span>(cyl)</span>
+<span id="cb47-195"><a href="#cb47-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-196"><a href="#cb47-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-197"><a href="#cb47-197" aria-hidden="true" tabindex="-1"></a><span class="fu"># Group Cases</span></span>
+<span id="cb47-198"><a href="#cb47-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-199"><a href="#cb47-199" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Use <span class="in">`group_by(.data, ..., .add = FALSE, .drop = TRUE)`</span> to created a “grouped” copy of a table grouped by columns in .... dplyr functions will manipulate each “group” separately and combine the results.</span>
+<span id="cb47-200"><a href="#cb47-200" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-201"><a href="#cb47-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-202"><a href="#cb47-202" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-203"><a href="#cb47-203" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span></span>
+<span id="cb47-204"><a href="#cb47-204" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(cyl) <span class="sc">|&gt;</span></span>
+<span id="cb47-205"><a href="#cb47-205" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarize</span>(<span class="at">avg =</span> <span class="fu">mean</span>(mpg))</span>
+<span id="cb47-206"><a href="#cb47-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-207"><a href="#cb47-207" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-208"><a href="#cb47-208" aria-hidden="true" tabindex="-1"></a><span class="fu"># Extract cases</span></span>
+<span id="cb47-209"><a href="#cb47-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-210"><a href="#cb47-210" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`filter(.data, ..., .preserve = FALSE)`</span>: Extract rows that meet logical criteria.</span>
+<span id="cb47-211"><a href="#cb47-211" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-212"><a href="#cb47-212" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-213"><a href="#cb47-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-214"><a href="#cb47-214" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-215"><a href="#cb47-215" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">filter</span>(mpg <span class="sc">&gt;</span> <span class="dv">20</span>)</span>
+<span id="cb47-216"><a href="#cb47-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-217"><a href="#cb47-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-218"><a href="#cb47-218" aria-hidden="true" tabindex="-1"></a>Logical and boolean operations to use with filter()</span>
+<span id="cb47-219"><a href="#cb47-219" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`==`</span>, <span class="in">`!=`</span></span>
+<span id="cb47-220"><a href="#cb47-220" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`&lt;`</span>, <span class="in">`&gt;`</span></span>
+<span id="cb47-221"><a href="#cb47-221" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`&lt;=`</span>, <span class="in">`&gt;=`</span></span>
+<span id="cb47-222"><a href="#cb47-222" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`is.na()`</span>, <span class="in">`!is.na()`</span></span>
+<span id="cb47-223"><a href="#cb47-223" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`%in%`</span></span>
+<span id="cb47-224"><a href="#cb47-224" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`|`</span></span>
+<span id="cb47-225"><a href="#cb47-225" aria-hidden="true" tabindex="-1"></a>See <span class="in">`?base::Logic`</span> and <span class="in">`?Comparison`</span> for help.</span>
+<span id="cb47-226"><a href="#cb47-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-227"><a href="#cb47-227" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`distinct(.data, ..., .keep_all = FALSE)`</span>: Remove rows with duplicate values.</span>
+<span id="cb47-228"><a href="#cb47-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-229"><a href="#cb47-229" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-230"><a href="#cb47-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-231"><a href="#cb47-231" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-232"><a href="#cb47-232" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">distinct</span>(gear)</span>
+<span id="cb47-233"><a href="#cb47-233" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-234"><a href="#cb47-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-235"><a href="#cb47-235" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`pull(.data, var = -1, name = NULL, ...)`</span>: Extract column values as a vector, by name or index.</span>
+<span id="cb47-236"><a href="#cb47-236" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-237"><a href="#cb47-237" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-238"><a href="#cb47-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-239"><a href="#cb47-239" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-240"><a href="#cb47-240" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">pull</span>(wt)</span>
+<span id="cb47-241"><a href="#cb47-241" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-242"><a href="#cb47-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-243"><a href="#cb47-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-244"><a href="#cb47-244" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`select(.data, ...)`</span>: Extract columns as a table.</span>
+<span id="cb47-245"><a href="#cb47-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-246"><a href="#cb47-246" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-247"><a href="#cb47-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-248"><a href="#cb47-248" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-249"><a href="#cb47-249" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">select</span>(mpg, wt)</span>
+<span id="cb47-250"><a href="#cb47-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-251"><a href="#cb47-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-252"><a href="#cb47-252" aria-hidden="true" tabindex="-1"></a>Use these helpers with select()</span>
+<span id="cb47-253"><a href="#cb47-253" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`contains(match)`</span></span>
+<span id="cb47-254"><a href="#cb47-254" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`num_range(prefix, range)`</span></span>
+<span id="cb47-255"><a href="#cb47-255" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`:`</span>, e.g., <span class="in">`mpg:cyl`</span></span>
+<span id="cb47-256"><a href="#cb47-256" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ends_with(match)`</span></span>
+<span id="cb47-257"><a href="#cb47-257" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`all_of(x)`</span> or <span class="in">`any_of(x, ..., vars)`</span></span>
+<span id="cb47-258"><a href="#cb47-258" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`!`</span>, e.g., <span class="in">`!gear`</span></span>
+<span id="cb47-259"><a href="#cb47-259" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`starts_with(match)`</span></span>
+<span id="cb47-260"><a href="#cb47-260" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`matches(match)`</span></span>
+<span id="cb47-261"><a href="#cb47-261" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`everything()`</span></span>
+<span id="cb47-262"><a href="#cb47-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-263"><a href="#cb47-263" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr::case_when()`</span>: multi-case if_else()</span>
+<span id="cb47-264"><a href="#cb47-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-265"><a href="#cb47-265" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-266"><a href="#cb47-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-267"><a href="#cb47-267" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-268"><a href="#cb47-268" aria-hidden="true" tabindex="-1"></a>starwars <span class="sc">|&gt;</span></span>
+<span id="cb47-269"><a href="#cb47-269" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">type =</span> <span class="fu">case_when</span>(</span>
+<span id="cb47-270"><a href="#cb47-270" aria-hidden="true" tabindex="-1"></a>    height <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">|</span> mass <span class="sc">&gt;</span> <span class="dv">200</span> <span class="sc">~</span> <span class="st">&quot;large&quot;</span>,</span>
+<span id="cb47-271"><a href="#cb47-271" aria-hidden="true" tabindex="-1"></a>    species <span class="sc">==</span> <span class="st">&quot;Droid&quot;</span> <span class="sc">~</span> <span class="st">&quot;robot&quot;</span>,</span>
+<span id="cb47-272"><a href="#cb47-272" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">&quot;other&quot;</span></span>
+<span id="cb47-273"><a href="#cb47-273" aria-hidden="true" tabindex="-1"></a>  ))</span>
+<span id="cb47-274"><a href="#cb47-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-275"><a href="#cb47-275" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-276"><a href="#cb47-276" aria-hidden="true" tabindex="-1"></a><span class="fu"># Alter data</span></span>
+<span id="cb47-277"><a href="#cb47-277" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-278"><a href="#cb47-278" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-279"><a href="#cb47-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-280"><a href="#cb47-280" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-281"><a href="#cb47-281" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x_1 =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">x_2 =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">4</span>), <span class="at">y =</span> <span class="fu">c</span>(<span class="dv">4</span>, <span class="dv">5</span>))</span>
+<span id="cb47-282"><a href="#cb47-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-283"><a href="#cb47-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-284"><a href="#cb47-284" aria-hidden="true" tabindex="-1"></a><span class="ss">-    </span><span class="in">`across(.cols, .fun, ..., .name = NULL)`</span>: summarize or mutate multiple columns in the same way. </span>
+<span id="cb47-285"><a href="#cb47-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-286"><a href="#cb47-286" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-287"><a href="#cb47-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-288"><a href="#cb47-288" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-289"><a href="#cb47-289" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> <span class="fu">summarize</span>(<span class="fu">across</span>(<span class="fu">everything</span>(), mean))</span>
+<span id="cb47-290"><a href="#cb47-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-291"><a href="#cb47-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-292"><a href="#cb47-292" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`c_across(.cols)`</span>: Compute across columns in row-wise data.</span>
+<span id="cb47-293"><a href="#cb47-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-294"><a href="#cb47-294" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-295"><a href="#cb47-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-296"><a href="#cb47-296" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-297"><a href="#cb47-297" aria-hidden="true" tabindex="-1"></a>df <span class="sc">|&gt;</span> </span>
+<span id="cb47-298"><a href="#cb47-298" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rowwise</span>() <span class="sc">|&gt;</span></span>
+<span id="cb47-299"><a href="#cb47-299" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">x_total =</span> <span class="fu">sum</span>(<span class="fu">c_across</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>)))</span>
+<span id="cb47-300"><a href="#cb47-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-301"><a href="#cb47-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-302"><a href="#cb47-302" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mutate(.data, ..., .keep = &quot;all&quot;, .before = NULL, .after = NULL)`</span>: Compute new column(s). Also add_column().</span>
+<span id="cb47-303"><a href="#cb47-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-304"><a href="#cb47-304" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-305"><a href="#cb47-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-306"><a href="#cb47-306" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-307"><a href="#cb47-307" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">mutate</span>(<span class="at">gpm =</span> <span class="dv">1</span> <span class="sc">/</span> mpg)</span>
+<span id="cb47-308"><a href="#cb47-308" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">mutate</span>(mtcars, <span class="at">gpm =</span> <span class="dv">1</span> <span class="sc">/</span> mpg, <span class="at">.keep =</span> <span class="st">&quot;none&quot;</span>)</span>
+<span id="cb47-309"><a href="#cb47-309" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-310"><a href="#cb47-310" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-311"><a href="#cb47-311" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`rename(.data, ...)`</span>: Rename columns. Use rename_with() to rename with a function.</span>
+<span id="cb47-312"><a href="#cb47-312" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-313"><a href="#cb47-313" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-314"><a href="#cb47-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-315"><a href="#cb47-315" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-316"><a href="#cb47-316" aria-hidden="true" tabindex="-1"></a>mtcars <span class="sc">|&gt;</span> <span class="fu">rename</span>(<span class="at">miles_per_gallon =</span> mpg)</span>
+<span id="cb47-317"><a href="#cb47-317" aria-hidden="true" tabindex="-1"></a><span class="co"># also see colnames() and names()</span></span>
+<span id="cb47-318"><a href="#cb47-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-319"><a href="#cb47-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-320"><a href="#cb47-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-321"><a href="#cb47-321" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summary functions</span></span>
+<span id="cb47-322"><a href="#cb47-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-323"><a href="#cb47-323" aria-hidden="true" tabindex="-1"></a><span class="fu">## To Use with summarize()</span></span>
+<span id="cb47-324"><a href="#cb47-324" aria-hidden="true" tabindex="-1"></a><span class="in">`summarize()`</span> applies summary functions to columns to create a new table. Summary functions take vectors as input and return single values as output.</span>
+<span id="cb47-325"><a href="#cb47-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-326"><a href="#cb47-326" aria-hidden="true" tabindex="-1"></a>*Count*</span>
+<span id="cb47-327"><a href="#cb47-327" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr::n()`</span>: number of values/rows</span>
+<span id="cb47-328"><a href="#cb47-328" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr::n_distinct()`</span>: # of uniques</span>
+<span id="cb47-329"><a href="#cb47-329" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sum(!is.na())`</span>: # of non-NAs</span>
+<span id="cb47-330"><a href="#cb47-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-331"><a href="#cb47-331" aria-hidden="true" tabindex="-1"></a>*Position*</span>
+<span id="cb47-332"><a href="#cb47-332" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mean()`</span>: mean, also <span class="in">`mean(!is.na())`</span></span>
+<span id="cb47-333"><a href="#cb47-333" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`median()`</span>: median</span>
+<span id="cb47-334"><a href="#cb47-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-335"><a href="#cb47-335" aria-hidden="true" tabindex="-1"></a>*Logical*</span>
+<span id="cb47-336"><a href="#cb47-336" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mean()`</span>: proportion of TRUEs</span>
+<span id="cb47-337"><a href="#cb47-337" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sum()`</span>: # of TRUEs</span>
+<span id="cb47-338"><a href="#cb47-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-339"><a href="#cb47-339" aria-hidden="true" tabindex="-1"></a>*Order*</span>
+<span id="cb47-340"><a href="#cb47-340" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr::first()`</span>: first value</span>
+<span id="cb47-341"><a href="#cb47-341" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr::last()`</span>: last value</span>
+<span id="cb47-342"><a href="#cb47-342" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`dplyr::nth()`</span>: value in the nth location of vector</span>
+<span id="cb47-343"><a href="#cb47-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-344"><a href="#cb47-344" aria-hidden="true" tabindex="-1"></a>*Rank*</span>
+<span id="cb47-345"><a href="#cb47-345" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`quantile()`</span>: nth quantile</span>
+<span id="cb47-346"><a href="#cb47-346" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`min()`</span>: minimum value</span>
+<span id="cb47-347"><a href="#cb47-347" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`max()`</span>: maximum value</span>
+<span id="cb47-348"><a href="#cb47-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-349"><a href="#cb47-349" aria-hidden="true" tabindex="-1"></a>*Spread*</span>
+<span id="cb47-350"><a href="#cb47-350" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`IQR()`</span>: Inter-Quartile Range</span>
+<span id="cb47-351"><a href="#cb47-351" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mad()`</span>: median absolute deviation</span>
+<span id="cb47-352"><a href="#cb47-352" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`sd()`</span>: standard deviation</span>
+<span id="cb47-353"><a href="#cb47-353" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`var()`</span>: variance</span>
+<span id="cb47-354"><a href="#cb47-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-355"><a href="#cb47-355" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-356"><a href="#cb47-356" aria-hidden="true" tabindex="-1"></a><span class="fu"># Further Help {.unnumbered}</span></span>
+<span id="cb47-357"><a href="#cb47-357" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-358"><a href="#cb47-358" aria-hidden="true" tabindex="-1"></a>There are a number of online sources (tutorials, discussion groups etc)</span>
+<span id="cb47-359"><a href="#cb47-359" aria-hidden="true" tabindex="-1"></a>for getting help with R. These links are available at your class Stream.</span>
+<span id="cb47-360"><a href="#cb47-360" aria-hidden="true" tabindex="-1"></a>You may also use the advanced search facility of Goggle at</span>
+<span id="cb47-361"><a href="#cb47-361" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://www.google.com/advanced_search&gt;</span>; more specifically at</span>
+<span id="cb47-362"><a href="#cb47-362" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://stackoverflow.com&gt;</span>.</span>
+<span id="cb47-363"><a href="#cb47-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-364"><a href="#cb47-364" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>For further online tutorials</span>
+<span id="cb47-365"><a href="#cb47-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-366"><a href="#cb47-366" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="ot">&lt;https://r4ds.had.co.nz/&gt;</span></span>
+<span id="cb47-367"><a href="#cb47-367" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="ot">&lt;https://www.datacamp.org&gt;</span></span>
+<span id="cb47-368"><a href="#cb47-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-369"><a href="#cb47-369" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>For further graphing example</span>
+<span id="cb47-370"><a href="#cb47-370" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-371"><a href="#cb47-371" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span><span class="ot">&lt;https://www.r-graph-gallery.com/all-graphs&gt;</span></span>
+<span id="cb47-372"><a href="#cb47-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-373"><a href="#cb47-373" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Getting help:</span>
+<span id="cb47-374"><a href="#cb47-374" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-375"><a href="#cb47-375" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>RStudio cheat sheets:</span>
+<span id="cb47-376"><a href="#cb47-376" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&lt;https://www.rstudio.com/resources/cheatsheets&gt;</span></span>
+<span id="cb47-377"><a href="#cb47-377" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>RStudio resources <span class="ot">&lt;https://resources.rstudio.com&gt;</span></span>
+<span id="cb47-378"><a href="#cb47-378" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>Recommended R packages by topic:</span>
+<span id="cb47-379"><a href="#cb47-379" aria-hidden="true" tabindex="-1"></a>        <span class="ot">&lt;https://cran.r-project.org/web/views/&gt;</span></span>
+<span id="cb47-380"><a href="#cb47-380" aria-hidden="true" tabindex="-1"></a><span class="ss">    -   </span>StackOverflow: <span class="ot">&lt;https://stackoverflow.com/questions/tagged/r&gt;</span></span>
+<span id="cb47-381"><a href="#cb47-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-382"><a href="#cb47-382" aria-hidden="true" tabindex="-1"></a><span class="fu"># R default (base) Graphing {.unnumbered}</span></span>
+<span id="cb47-383"><a href="#cb47-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-384"><a href="#cb47-384" aria-hidden="true" tabindex="-1"></a>For a simple bar chart, try</span>
+<span id="cb47-385"><a href="#cb47-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-386"><a href="#cb47-386" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;}</span></span>
+<span id="cb47-387"><a href="#cb47-387" aria-hidden="true" tabindex="-1"></a>freq <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>)</span>
+<span id="cb47-388"><a href="#cb47-388" aria-hidden="true" tabindex="-1"></a>names <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;A&quot;</span>,<span class="st">&quot;B&quot;</span>,<span class="st">&quot;C&quot;</span>,<span class="st">&quot;D&quot;</span>,<span class="st">&quot;E&quot;</span>)</span>
+<span id="cb47-389"><a href="#cb47-389" aria-hidden="true" tabindex="-1"></a><span class="fu">barplot</span>(freq, <span class="at">names.arg=</span>names)</span>
+<span id="cb47-390"><a href="#cb47-390" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-391"><a href="#cb47-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-392"><a href="#cb47-392" aria-hidden="true" tabindex="-1"></a>Let us generate random data from the normal distribution *N(10,1)*</span>
+<span id="cb47-393"><a href="#cb47-393" aria-hidden="true" tabindex="-1"></a>distribution and form a batch of data for illustrating graphing in R.</span>
+<span id="cb47-394"><a href="#cb47-394" aria-hidden="true" tabindex="-1"></a>Try the following commands one by one.</span>
+<span id="cb47-395"><a href="#cb47-395" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-396"><a href="#cb47-396" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-397"><a href="#cb47-397" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-398"><a href="#cb47-398" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-399"><a href="#cb47-399" aria-hidden="true" tabindex="-1"></a><span class="co">#| results: hide</span></span>
+<span id="cb47-400"><a href="#cb47-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-401"><a href="#cb47-401" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb47-402"><a href="#cb47-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-403"><a href="#cb47-403" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x)</span>
+<span id="cb47-404"><a href="#cb47-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-405"><a href="#cb47-405" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span>
+<span id="cb47-406"><a href="#cb47-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-407"><a href="#cb47-407" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span>
+<span id="cb47-408"><a href="#cb47-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-409"><a href="#cb47-409" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x), <span class="at">xlab=</span><span class="st">&quot;&quot;</span>)</span>
+<span id="cb47-410"><a href="#cb47-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-411"><a href="#cb47-411" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">round</span>(x,<span class="dv">1</span>), <span class="at">method =</span> <span class="st">&quot;stack&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb47-412"><a href="#cb47-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-413"><a href="#cb47-413" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(x), <span class="at">verticals=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-414"><a href="#cb47-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-415"><a href="#cb47-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-416"><a href="#cb47-416" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-417"><a href="#cb47-417" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-418"><a href="#cb47-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-419"><a href="#cb47-419" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-420"><a href="#cb47-420" aria-hidden="true" tabindex="-1"></a>We can form a matrix of order 3X2 or (or 2X3) and display all the above</span>
+<span id="cb47-421"><a href="#cb47-421" aria-hidden="true" tabindex="-1"></a>six graphs in a panel. This is done using the option <span class="in">`par()`</span>, which</span>
+<span id="cb47-422"><a href="#cb47-422" aria-hidden="true" tabindex="-1"></a>controls the graphics *par*ameters.</span>
+<span id="cb47-423"><a href="#cb47-423" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-424"><a href="#cb47-424" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.width=6, fig.height=5}</span></span>
+<span id="cb47-425"><a href="#cb47-425" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb47-426"><a href="#cb47-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-427"><a href="#cb47-427" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">3</span>))</span>
+<span id="cb47-428"><a href="#cb47-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-429"><a href="#cb47-429" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(x) </span>
+<span id="cb47-430"><a href="#cb47-430" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-431"><a href="#cb47-431" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(x)</span>
+<span id="cb47-432"><a href="#cb47-432" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-433"><a href="#cb47-433" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x)</span>
+<span id="cb47-434"><a href="#cb47-434" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-435"><a href="#cb47-435" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">density</span>(x), <span class="at">xlab=</span><span class="st">&#39;&#39;</span>)</span>
+<span id="cb47-436"><a href="#cb47-436" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-437"><a href="#cb47-437" aria-hidden="true" tabindex="-1"></a><span class="fu">stripchart</span>(<span class="fu">round</span>(x,<span class="dv">1</span>), <span class="at">method =</span> <span class="st">&quot;stack&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span>
+<span id="cb47-438"><a href="#cb47-438" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-439"><a href="#cb47-439" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(x), <span class="at">verticals=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-440"><a href="#cb47-440" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-441"><a href="#cb47-441" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-442"><a href="#cb47-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-443"><a href="#cb47-443" aria-hidden="true" tabindex="-1"></a>Although we shall not cover them here, many plotting options can be set using <span class="in">`par()`</span> function; including size of margins, font types, the colour of axis labels etc. See <span class="in">`help(&quot;par&quot;)`</span>. The option <span class="in">`par(new=T)`</span> will be useful for an overlaid graph (instead of splitting a graph). Try the following:</span>
+<span id="cb47-444"><a href="#cb47-444" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-445"><a href="#cb47-445" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;}</span></span>
+<span id="cb47-446"><a href="#cb47-446" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb47-447"><a href="#cb47-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-448"><a href="#cb47-448" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">ylab =</span> <span class="st">&quot;&quot;</span>, </span>
+<span id="cb47-449"><a href="#cb47-449" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">6.5</span>, <span class="fl">13.5</span>), <span class="at">lty =</span> <span class="dv">1</span>)</span>
+<span id="cb47-450"><a href="#cb47-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-451"><a href="#cb47-451" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">new=</span>T)</span>
+<span id="cb47-452"><a href="#cb47-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-453"><a href="#cb47-453" aria-hidden="true" tabindex="-1"></a>y  <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb47-454"><a href="#cb47-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-455"><a href="#cb47-455" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">2</span>,</span>
+<span id="cb47-456"><a href="#cb47-456" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Two Batches of Random Normal Data&quot;</span>,</span>
+<span id="cb47-457"><a href="#cb47-457" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylim =</span> <span class="fu">c</span>(<span class="fl">6.5</span>, <span class="fl">13.5</span>), <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb47-458"><a href="#cb47-458" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-459"><a href="#cb47-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-460"><a href="#cb47-460" aria-hidden="true" tabindex="-1"></a>Note that <span class="in">`pch`</span> specifies for the plotting character and <span class="in">`lty`</span> specifies</span>
+<span id="cb47-461"><a href="#cb47-461" aria-hidden="true" tabindex="-1"></a>the line type. You can add a legend by the following command line:</span>
+<span id="cb47-462"><a href="#cb47-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-463"><a href="#cb47-463" aria-hidden="true" tabindex="-1"></a><span class="in">`legend(&quot;topright&quot;, c(&quot;Batch I&quot;, &quot;Batch II&quot;), pch=1:2, lty=1:2)`</span></span>
+<span id="cb47-464"><a href="#cb47-464" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-465"><a href="#cb47-465" aria-hidden="true" tabindex="-1"></a>For scatter and other related plots, the command is <span class="in">`plot()`</span>. Try</span>
+<span id="cb47-466"><a href="#cb47-466" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-467"><a href="#cb47-467" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;}</span></span>
+<span id="cb47-468"><a href="#cb47-468" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb47-469"><a href="#cb47-469" aria-hidden="true" tabindex="-1"></a>y  <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">40</span>, <span class="dv">10</span>,<span class="dv">1</span>)</span>
+<span id="cb47-470"><a href="#cb47-470" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(y<span class="sc">~</span>x)  <span class="co"># or plot(x,y) </span></span>
+<span id="cb47-471"><a href="#cb47-471" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-472"><a href="#cb47-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-473"><a href="#cb47-473" aria-hidden="true" tabindex="-1"></a>Add a title by the command</span>
+<span id="cb47-474"><a href="#cb47-474" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-475"><a href="#cb47-475" aria-hidden="true" tabindex="-1"></a><span class="in">`title(&quot;This is my title&quot;)`</span></span>
+<span id="cb47-476"><a href="#cb47-476" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-477"><a href="#cb47-477" aria-hidden="true" tabindex="-1"></a>Add a reference line for the mean at the x-axis by the command</span>
+<span id="cb47-478"><a href="#cb47-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-479"><a href="#cb47-479" aria-hidden="true" tabindex="-1"></a><span class="in">`abline(v=10)`</span></span>
+<span id="cb47-480"><a href="#cb47-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-481"><a href="#cb47-481" aria-hidden="true" tabindex="-1"></a>and again with <span class="in">`abline(h=10)`</span> for the y-axis. A 45 degree (Y=X) line can be added by the command</span>
+<span id="cb47-482"><a href="#cb47-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-483"><a href="#cb47-483" aria-hidden="true" tabindex="-1"></a><span class="in">`abline(0,1) #slope, b=1, y-intercept a=1`</span></span>
+<span id="cb47-484"><a href="#cb47-484" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-485"><a href="#cb47-485" aria-hidden="true" tabindex="-1"></a>You may also specify two points on the graph, and ask them to be</span>
+<span id="cb47-486"><a href="#cb47-486" aria-hidden="true" tabindex="-1"></a>connected using the command</span>
+<span id="cb47-487"><a href="#cb47-487" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-488"><a href="#cb47-488" aria-hidden="true" tabindex="-1"></a><span class="in">`lines(c(8, 12), c(8, 12), lty=2, col=4, lwd=2)`</span></span>
+<span id="cb47-489"><a href="#cb47-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-490"><a href="#cb47-490" aria-hidden="true" tabindex="-1"></a>Note that the <span class="in">`line()`</span> has extra arguments to control the line type,</span>
+<span id="cb47-491"><a href="#cb47-491" aria-hidden="true" tabindex="-1"></a>line width, and colour.</span>
+<span id="cb47-492"><a href="#cb47-492" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-493"><a href="#cb47-493" aria-hidden="true" tabindex="-1"></a>The command <span class="in">`rug(x)`</span> draws will draw small vertical lines on the x-axis (the command actually suits better for one dimensional graphs such as a boxplot). Try</span>
+<span id="cb47-494"><a href="#cb47-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-495"><a href="#cb47-495" aria-hidden="true" tabindex="-1"></a><span class="in">`rug(x)`</span></span>
+<span id="cb47-496"><a href="#cb47-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-497"><a href="#cb47-497" aria-hidden="true" tabindex="-1"></a><span class="in">`rug(y, side=2)  #side =2 specifies y-axis`</span></span>
+<span id="cb47-498"><a href="#cb47-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-499"><a href="#cb47-499" aria-hidden="true" tabindex="-1"></a>Graphs can be saved in various file formats, such as PDF (.pdf), JPEG (.jpeg or .jpg), or postscript (.ps), by enclosing the plotting function in the appropriate commands. For example, to save a simple figure as a PDF file, we use the <span class="in">`pdf()`</span> function.</span>
+<span id="cb47-500"><a href="#cb47-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-501"><a href="#cb47-501" aria-hidden="true" tabindex="-1"></a><span class="in">`x  &lt;-  1:10`</span></span>
+<span id="cb47-502"><a href="#cb47-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-503"><a href="#cb47-503" aria-hidden="true" tabindex="-1"></a><span class="in">`y  &lt;-  x^2`</span></span>
+<span id="cb47-504"><a href="#cb47-504" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-505"><a href="#cb47-505" aria-hidden="true" tabindex="-1"></a><span class="in">`pdf(file = &quot;Fig.pdf&quot;)`</span></span>
+<span id="cb47-506"><a href="#cb47-506" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-507"><a href="#cb47-507" aria-hidden="true" tabindex="-1"></a><span class="in">`plot(x, y)`</span></span>
+<span id="cb47-508"><a href="#cb47-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-509"><a href="#cb47-509" aria-hidden="true" tabindex="-1"></a><span class="in">`dev.off()`</span></span>
+<span id="cb47-510"><a href="#cb47-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-511"><a href="#cb47-511" aria-hidden="true" tabindex="-1"></a>The <span class="in">`command dev.off()`</span> closes the file. You may use the copy and paste facility for processing graphs or use the RStudio option to save graphs.</span>
+<span id="cb47-512"><a href="#cb47-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-513"><a href="#cb47-513" aria-hidden="true" tabindex="-1"></a>The<span class="in">`lattice`</span> package contains extra graphing facilities but such graphs can be produced using <span class="in">`ggplot2`</span> package. Try-</span>
+<span id="cb47-514"><a href="#cb47-514" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-515"><a href="#cb47-515" aria-hidden="true" tabindex="-1"></a>quarto-executable-code-5450563D</span>
+<span id="cb47-516"><a href="#cb47-516" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-517"><a href="#cb47-517" aria-hidden="true" tabindex="-1"></a><span class="in">```r</span></span>
+<span id="cb47-518"><a href="#cb47-518" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span><span class="fu">read.csv</span>(</span>
+<span id="cb47-519"><a href="#cb47-519" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://www.massey.ac.nz/~anhsmith/data/tv.csv&quot;</span>, </span>
+<span id="cb47-520"><a href="#cb47-520" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>)</span>
+<span id="cb47-521"><a href="#cb47-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-522"><a href="#cb47-522" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lattice)</span>
+<span id="cb47-523"><a href="#cb47-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-524"><a href="#cb47-524" aria-hidden="true" tabindex="-1"></a><span class="fu">bwplot</span>(TELETIME <span class="sc">~</span> <span class="fu">factor</span>(SCHOOL), </span>
+<span id="cb47-525"><a href="#cb47-525" aria-hidden="true" tabindex="-1"></a>       <span class="at">data =</span> my.data)</span>
+<span id="cb47-526"><a href="#cb47-526" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-527"><a href="#cb47-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-528"><a href="#cb47-528" aria-hidden="true" tabindex="-1"></a>It requires a bit of coding to combine base, lattice and ggplot graphs. Try the following codes which combines three density plots of the same data produced in different styles.</span>
+<span id="cb47-529"><a href="#cb47-529" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-530"><a href="#cb47-530" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;}</span></span>
+<span id="cb47-531"><a href="#cb47-531" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;grid&quot;</span>)</span>
+<span id="cb47-532"><a href="#cb47-532" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;ggplotify&quot;</span>)</span>
+<span id="cb47-533"><a href="#cb47-533" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-534"><a href="#cb47-534" aria-hidden="true" tabindex="-1"></a>x<span class="ot">=</span> <span class="fu">rnorm</span>(<span class="dv">30</span>)</span>
+<span id="cb47-535"><a href="#cb47-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-536"><a href="#cb47-536" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">as.grob</span>(<span class="sc">~</span><span class="fu">plot</span>(<span class="fu">density</span>(x)))</span>
+<span id="cb47-537"><a href="#cb47-537" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">as.ggplot</span>(p1)</span>
+<span id="cb47-538"><a href="#cb47-538" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-539"><a href="#cb47-539" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">as.grob</span>(<span class="fu">densityplot</span>(x))</span>
+<span id="cb47-540"><a href="#cb47-540" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">as.ggplot</span>(p2)</span>
+<span id="cb47-541"><a href="#cb47-541" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-542"><a href="#cb47-542" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb47-543"><a href="#cb47-543" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-544"><a href="#cb47-544" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span>x) <span class="sc">|&gt;</span> </span>
+<span id="cb47-545"><a href="#cb47-545" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb47-546"><a href="#cb47-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(x) <span class="sc">+</span></span>
+<span id="cb47-547"><a href="#cb47-547" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_density</span>()</span>
+<span id="cb47-548"><a href="#cb47-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-549"><a href="#cb47-549" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb47-550"><a href="#cb47-550" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-551"><a href="#cb47-551" aria-hidden="true" tabindex="-1"></a>p1<span class="sc">/</span>(p2<span class="sc">+</span>p3)</span>
+<span id="cb47-552"><a href="#cb47-552" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-553"><a href="#cb47-553" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-554"><a href="#cb47-554" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-555"><a href="#cb47-555" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-556"><a href="#cb47-556" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
+<span id="cb47-557"><a href="#cb47-557" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-558"><a href="#cb47-558" aria-hidden="true" tabindex="-1"></a>It is optional to work through the activities that follow to gain an appreciation of how R works. Do not try to remember how to do everything right now. For your assignment work, we will be given the R codes to load data, graphing and modelling. These codes will give you a head-start. Note that we often often learn R by doing and sometime making mistakes.</span>
+<span id="cb47-559"><a href="#cb47-559" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-560"><a href="#cb47-560" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb47-561"><a href="#cb47-561" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-562"><a href="#cb47-562" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-563"><a href="#cb47-563" aria-hidden="true" tabindex="-1"></a>*R default options for Hypothesis tests and modelling*</span>
+<span id="cb47-564"><a href="#cb47-564" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-565"><a href="#cb47-565" aria-hidden="true" tabindex="-1"></a>The <span class="in">`stats`</span> default package in R has a number of functions for</span>
+<span id="cb47-566"><a href="#cb47-566" aria-hidden="true" tabindex="-1"></a>performing hypothesis tests. However you will only use the following for</span>
+<span id="cb47-567"><a href="#cb47-567" aria-hidden="true" tabindex="-1"></a>this course:</span>
+<span id="cb47-568"><a href="#cb47-568" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-569"><a href="#cb47-569" aria-hidden="true" tabindex="-1"></a><span class="in">`ks.test`</span> - Kolmogorov-Smirnov Tests</span>
+<span id="cb47-570"><a href="#cb47-570" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-571"><a href="#cb47-571" aria-hidden="true" tabindex="-1"></a><span class="in">`shapiro.test`</span> - Shapiro-Wilk Normality Test</span>
+<span id="cb47-572"><a href="#cb47-572" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-573"><a href="#cb47-573" aria-hidden="true" tabindex="-1"></a><span class="in">`t.test`</span> - Student&#39;s t-Test (one &amp; two samples, paired t-test etc)</span>
+<span id="cb47-574"><a href="#cb47-574" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-575"><a href="#cb47-575" aria-hidden="true" tabindex="-1"></a><span class="in">`pairwise.t.test`</span> - Pairwise t tests (for multiple comparison)</span>
+<span id="cb47-576"><a href="#cb47-576" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-577"><a href="#cb47-577" aria-hidden="true" tabindex="-1"></a><span class="in">`oneway.test`</span> - Test for Equal Means in a One-Way Layout</span>
+<span id="cb47-578"><a href="#cb47-578" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-579"><a href="#cb47-579" aria-hidden="true" tabindex="-1"></a><span class="in">`TukeyHSD`</span> - To Compute Tukey&#39;s Honest Significant Differences</span>
+<span id="cb47-580"><a href="#cb47-580" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-581"><a href="#cb47-581" aria-hidden="true" tabindex="-1"></a><span class="in">`var.test`</span> - F Test to Compare Two Variances</span>
+<span id="cb47-582"><a href="#cb47-582" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-583"><a href="#cb47-583" aria-hidden="true" tabindex="-1"></a><span class="in">`bartlett.test`</span> - Bartlett Test of Homogeneity of Variances</span>
+<span id="cb47-584"><a href="#cb47-584" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-585"><a href="#cb47-585" aria-hidden="true" tabindex="-1"></a><span class="in">`fisher.test`</span> - Fisher&#39;s Exact Test for Count Data</span>
+<span id="cb47-586"><a href="#cb47-586" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-587"><a href="#cb47-587" aria-hidden="true" tabindex="-1"></a><span class="in">`chisq.test`</span> - Pearson&#39;s Chi-squared Test for Count Data</span>
+<span id="cb47-588"><a href="#cb47-588" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-589"><a href="#cb47-589" aria-hidden="true" tabindex="-1"></a><span class="in">`cor.test`</span> - Test for Association/Correlation Between Paired Samples</span>
+<span id="cb47-590"><a href="#cb47-590" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-591"><a href="#cb47-591" aria-hidden="true" tabindex="-1"></a>The <span class="in">`car`</span> package is needed for the following:</span>
+<span id="cb47-592"><a href="#cb47-592" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-593"><a href="#cb47-593" aria-hidden="true" tabindex="-1"></a><span class="in">`durbinWatsonTest `</span> Durbin-Watson Test for autocorrelated Errors</span>
+<span id="cb47-594"><a href="#cb47-594" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-595"><a href="#cb47-595" aria-hidden="true" tabindex="-1"></a><span class="in">`leveneTest`</span> Levene&#39;s Test</span>
+<span id="cb47-596"><a href="#cb47-596" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-597"><a href="#cb47-597" aria-hidden="true" tabindex="-1"></a>We will largely use the R function <span class="in">`lm`</span> in this course. The syntax for specifying a model under <span class="in">`lm`</span> command (and various other model related commands) is explained below:</span>
+<span id="cb47-598"><a href="#cb47-598" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-599"><a href="#cb47-599" aria-hidden="true" tabindex="-1"></a>The structure of the model is that the response variable is modelled as a function of the response variables. The symbol <span class="in">`~`</span> (tilde) is used to say &quot;a function of&quot;. The simple regression of <span class="in">`y`</span> on <span class="in">`x`</span> is therefore specified as</span>
+<span id="cb47-600"><a href="#cb47-600" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-601"><a href="#cb47-601" aria-hidden="true" tabindex="-1"></a><span class="in">`lm(y ~ x)`</span></span>
+<span id="cb47-602"><a href="#cb47-602" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-603"><a href="#cb47-603" aria-hidden="true" tabindex="-1"></a>The same applies to a one-way ANOVA in which <span class="in">`x`</span> is a categorical factor. For example, consider <span class="in">`tv.txt`</span> dataset and the one-way ANOVA model of <span class="in">`TELETIME`</span> for <span class="in">`SCHOOL`</span> is specified as follows:</span>
+<span id="cb47-604"><a href="#cb47-604" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-605"><a href="#cb47-605" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, results=&#39;hide&#39;}</span></span>
+<span id="cb47-606"><a href="#cb47-606" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb47-607"><a href="#cb47-607" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://www.massey.ac.nz/~anhsmith/data/tv.csv&quot;</span>, </span>
+<span id="cb47-608"><a href="#cb47-608" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
+<span id="cb47-609"><a href="#cb47-609" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb47-610"><a href="#cb47-610" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-611"><a href="#cb47-611" aria-hidden="true" tabindex="-1"></a>mymodel <span class="ot">&lt;-</span> <span class="fu">lm</span>(TELETIME <span class="sc">~</span> <span class="fu">factor</span>(SCHOOL), </span>
+<span id="cb47-612"><a href="#cb47-612" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> mydata) <span class="co"># replace lm by aov and try</span></span>
+<span id="cb47-613"><a href="#cb47-613" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-614"><a href="#cb47-614" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mymodel)</span>
+<span id="cb47-615"><a href="#cb47-615" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-616"><a href="#cb47-616" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-617"><a href="#cb47-617" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`summary()`</span> gives the summary of the model (F statistics, residual SD etc). The model summary output can be stored into a text file using the function <span class="in">`sink()`</span> or copy and paste in the windows version. Graphs associated with a model can be obtained using the command</span>
+<span id="cb47-618"><a href="#cb47-618" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-619"><a href="#cb47-619" aria-hidden="true" tabindex="-1"></a><span class="in">`plot(mymodel)`</span></span>
+<span id="cb47-620"><a href="#cb47-620" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-621"><a href="#cb47-621" aria-hidden="true" tabindex="-1"></a>In the above context, we may also use the specific test command which will give the same result but this test can also be performed without assuming equal variances.</span>
+<span id="cb47-622"><a href="#cb47-622" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-623"><a href="#cb47-623" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;, results=&#39;hide&#39;}</span></span>
+<span id="cb47-624"><a href="#cb47-624" aria-hidden="true" tabindex="-1"></a><span class="fu">oneway.test</span>(TELETIME <span class="sc">~</span> SCHOOL, </span>
+<span id="cb47-625"><a href="#cb47-625" aria-hidden="true" tabindex="-1"></a>            <span class="at">var.equal =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb47-626"><a href="#cb47-626" aria-hidden="true" tabindex="-1"></a>            <span class="at">data =</span> mydata) </span>
+<span id="cb47-627"><a href="#cb47-627" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-628"><a href="#cb47-628" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-629"><a href="#cb47-629" aria-hidden="true" tabindex="-1"></a>For the <span class="in">`lm`</span> command, note the following:</span>
+<span id="cb47-630"><a href="#cb47-630" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-631"><a href="#cb47-631" aria-hidden="true" tabindex="-1"></a><span class="in">`+`</span> indicates inclusion (not addition) of an explanatory variable in the model</span>
+<span id="cb47-632"><a href="#cb47-632" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-633"><a href="#cb47-633" aria-hidden="true" tabindex="-1"></a><span class="in">`-`</span> indicates deletion (not subtraction) of an explanatory variable from the model</span>
+<span id="cb47-634"><a href="#cb47-634" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-635"><a href="#cb47-635" aria-hidden="true" tabindex="-1"></a><span class="in">`*`</span> indicates the inclusion of the explanatory variables and their</span>
+<span id="cb47-636"><a href="#cb47-636" aria-hidden="true" tabindex="-1"></a>interaction (not multiplication) between explanatory variables</span>
+<span id="cb47-637"><a href="#cb47-637" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-638"><a href="#cb47-638" aria-hidden="true" tabindex="-1"></a><span class="in">`:`</span> (colon) means only interaction between explanatory variables</span>
+<span id="cb47-639"><a href="#cb47-639" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-640"><a href="#cb47-640" aria-hidden="true" tabindex="-1"></a><span class="in">`/`</span> indicates the nesting (not division) of explanatory variables</span>
+<span id="cb47-641"><a href="#cb47-641" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-642"><a href="#cb47-642" aria-hidden="true" tabindex="-1"></a><span class="in">`|`</span> indicates the conditioning (for example <span class="in">`y ~ x|z`</span> means that y is a function of x for given z).</span>
+<span id="cb47-643"><a href="#cb47-643" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-644"><a href="#cb47-644" aria-hidden="true" tabindex="-1"></a>For our course, you will not use the last two types. Some model examples are given below:</span>
+<span id="cb47-645"><a href="#cb47-645" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-646"><a href="#cb47-646" aria-hidden="true" tabindex="-1"></a><span class="in">`lm(y ~ x + z)`</span> <span class="sc">\#</span>regression of y on x and z (flat surface fit)</span>
+<span id="cb47-647"><a href="#cb47-647" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-648"><a href="#cb47-648" aria-hidden="true" tabindex="-1"></a><span class="in">`lm(y ~ x*z)`</span> <span class="sc">\#</span>includes the interaction term ie <span class="in">`lm(y ~ x + z + x:z)`</span></span>
+<span id="cb47-649"><a href="#cb47-649" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-650"><a href="#cb47-650" aria-hidden="true" tabindex="-1"></a><span class="in">`lm(y ~ x + I(x^2)`</span> <span class="sc">\#</span> fits a quadratic model or use <span class="in">`poly(x,2)`</span></span>
+<span id="cb47-651"><a href="#cb47-651" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-652"><a href="#cb47-652" aria-hidden="true" tabindex="-1"></a><span class="in">`lm(log(y) ~ sqrt(x) + log(z))`</span> <span class="sc">\#</span>all variables are transformed</span>
+<span id="cb47-653"><a href="#cb47-653" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-654"><a href="#cb47-654" aria-hidden="true" tabindex="-1"></a>As a further example, consider a study guide dataset. The following</span>
+<span id="cb47-655"><a href="#cb47-655" aria-hidden="true" tabindex="-1"></a>commands fit a simple regression model and then plot the fitted line on a scatter plot. Note that commands can be shortened but deliberately shown this way.</span>
+<span id="cb47-656"><a href="#cb47-656" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-657"><a href="#cb47-657" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;, results=&#39;hide&#39;}</span></span>
+<span id="cb47-658"><a href="#cb47-658" aria-hidden="true" tabindex="-1"></a>mydata <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb47-659"><a href="#cb47-659" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;https://www.massey.ac.nz/~anhsmith/data/horsehearts.csv&quot;</span>, </span>
+<span id="cb47-660"><a href="#cb47-660" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
+<span id="cb47-661"><a href="#cb47-661" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb47-662"><a href="#cb47-662" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-663"><a href="#cb47-663" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mydata<span class="sc">$</span>EXTDIA</span>
+<span id="cb47-664"><a href="#cb47-664" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mydata<span class="sc">$</span>WEIGHT</span>
+<span id="cb47-665"><a href="#cb47-665" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-666"><a href="#cb47-666" aria-hidden="true" tabindex="-1"></a>simplereg <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
+<span id="cb47-667"><a href="#cb47-667" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-668"><a href="#cb47-668" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-669"><a href="#cb47-669" aria-hidden="true" tabindex="-1"></a>Note that our model object <span class="in">`simplereg`</span> can be queried in many ways. The command <span class="in">`summary()`</span> gives the following output.</span>
+<span id="cb47-670"><a href="#cb47-670" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-671"><a href="#cb47-671" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;, results=&#39;hide&#39;}</span></span>
+<span id="cb47-672"><a href="#cb47-672" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(simplereg)</span>
+<span id="cb47-673"><a href="#cb47-673" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb47-674"><a href="#cb47-674" aria-hidden="true" tabindex="-1"></a><span class="co"># library(broom)</span></span>
+<span id="cb47-675"><a href="#cb47-675" aria-hidden="true" tabindex="-1"></a><span class="co"># tidy(simplereg)</span></span>
+<span id="cb47-676"><a href="#cb47-676" aria-hidden="true" tabindex="-1"></a><span class="co"># glance(simplereg)</span></span>
+<span id="cb47-677"><a href="#cb47-677" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb47-678"><a href="#cb47-678" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-679"><a href="#cb47-679" aria-hidden="true" tabindex="-1"></a>The command <span class="in">`names(simplereg)`</span> will gives the names of many individual components of the object <span class="in">`simplereg`</span> we created. For example, a plot of the residuals against the fitted values can be obtained as</span>
+<span id="cb47-680"><a href="#cb47-680" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-681"><a href="#cb47-681" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show=&quot;hide&quot;, results=&#39;hide&#39;}</span></span>
+<span id="cb47-682"><a href="#cb47-682" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">residuals</span>(simplereg) <span class="sc">~</span> <span class="fu">fitted.values</span>(simplereg))</span>
+<span id="cb47-683"><a href="#cb47-683" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code></pre></div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  const viewSource = window.document.getElementById('quarto-view-source') ||
+                     window.document.getElementById('quarto-code-tools-source');
+  if (viewSource) {
+    const sourceUrl = viewSource.getAttribute("data-quarto-source-url");
+    viewSource.addEventListener("click", function(e) {
+      if (sourceUrl) {
+        // rstudio viewer pane
+        if (/\bcapabilities=\b/.test(window.location)) {
+          window.open(sourceUrl);
+        } else {
+          window.location.href = sourceUrl;
+        }
+      } else {
+        const modal = new bootstrap.Modal(document.getElementById('quarto-embedded-source-code-modal'));
+        modal.show();
+      }
+      return false;
+    });
+  }
+  function toggleCodeHandler(show) {
+    return function(e) {
+      const detailsSrc = window.document.querySelectorAll(".cell > details > .sourceCode");
+      for (let i=0; i<detailsSrc.length; i++) {
+        const details = detailsSrc[i].parentElement;
+        if (show) {
+          details.open = true;
+        } else {
+          details.removeAttribute("open");
+        }
+      }
+      const cellCodeDivs = window.document.querySelectorAll(".cell > .sourceCode");
+      const fromCls = show ? "hidden" : "unhidden";
+      const toCls = show ? "unhidden" : "hidden";
+      for (let i=0; i<cellCodeDivs.length; i++) {
+        const codeDiv = cellCodeDivs[i];
+        if (codeDiv.classList.contains(fromCls)) {
+          codeDiv.classList.remove(fromCls);
+          codeDiv.classList.add(toCls);
+        } 
+      }
+      return false;
+    }
+  }
+  const hideAllCode = window.document.getElementById("quarto-hide-all-code");
+  if (hideAllCode) {
+    hideAllCode.addEventListener("click", toggleCodeHandler(false));
+  }
+  const showAllCode = window.document.getElementById("quarto-show-all-code");
+  if (showAllCode) {
+    showAllCode.addEventListener("click", toggleCodeHandler(true));
+  }
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a  href="/studyguide/index.html" class="pagination-link">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Study Guide</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a  href="/studyguide/1-data-collection.html" class="pagination-link">
+        <span class="nav-page-text">Chapter 1: Data Collection and Quality Issues</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+</body>
+
+</html>

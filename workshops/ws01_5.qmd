@@ -5,9 +5,10 @@ title: "Tidy data"
 
 # Introduction to the tidyverse
 
-We will be largely using the `tidyverse` suite of packages for data organisation, summarising, and plotting; see <https://www.tidyverse.org/>.
+We will be largely using the `tidyverse` suite of packages for data organisation, summarizing, and plotting; see <https://www.tidyverse.org/>.
 
 Let's load that package now:
+Remember if you have not installed it you will need to use `install.packages()` first.
 
 ```{r}
 #| message: false
@@ -15,7 +16,7 @@ library(tidyverse)
 ```
 
 # Datset
-For this workshop we will use some tidyverse built in datasets. Each dataset shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way.
+For this workshop we will use some tidyverse built in datasets. Each dataset below shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way. Take a look at these datasets by typing their names into a code chunk or directly into the console. You can also try your hand at the functions `head()` and `summary()`. 
 
 ```{r}
 table1
@@ -30,11 +31,12 @@ table3
 
 # Exercise 1.1 {-}
 
-For each of the sample tables, describe what each observation and each column represents.
+For each of the sample tables, describe what each observation and each column represents. Which is the most `tidy`?
 
-```{r}
+::: {#answer}
 
-```
+:::
+
 
 ## Piping
 
@@ -48,12 +50,9 @@ The `R` package `magrittr` introduced the pipe operator `%>%` and can be pronoun
 
 `R` also has its own pipe, `|>`, which is an alternative to `%>%`. You will see both used in this course. If you want to change the pipe inserted automatically with `Ctrl+Shift+M`, find on the menu **Tools > Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". 
 
-Try the following examples after loading the `rangitikei` dataset.
-
-`select()`
 
 Consider the study guide dataset `rangitikei.txt` (Recreational Use of
-the Rangitikei river) again. The first 10 rows of this dataset are shown
+the Rangitikei river). The first 10 rows of this dataset are shown
 below:
 
 ```{r, echo=FALSE}
@@ -65,6 +64,9 @@ my.data <- read.csv(
 head(my.data, 10) # shows the first ten rows
 ```
 
+Try the following examples after loading the `rangitikei` dataset.
+
+`select()`
 
 ```{r}
 library(tidyverse)
@@ -75,17 +77,19 @@ new.data <- my.data |>
 names(new.data)
 ```
 
+What does `select()` do?
 
 ```{r}
 my.data |> 
-  select(people, vehicle) |> 
-  ggplot() + 
-  aes(x=people, y=vehicle) +
+  select(people, vehicle) |> # select columns
+  ggplot() + # make a plot using those columns
+  aes(x=people, y=vehicle) + 
   geom_point()
 ```
 
 We select two columns and create a scatter plot with the above commands.
 
+Now try another function:
 
 `filter()`
 
@@ -98,8 +102,10 @@ my.data |>
   geom_point()
 ```
 
+What does `filter()` do? 
+
 The above commands filter the data for the low wind days and plots
-vehicle against people.
+vehicle against people. `filter()` subsets the data for all observations matching a specified criteria.
 
 `arrange()`
 
@@ -183,6 +189,8 @@ my.data |>
 The `count()` is useful to check the balanced nature of the data when
 many subgroups are involved.
 
+Now let's practice using these functions.
+
 # Exercise 1.2 {-}
 
 Using `table1`, compute rate of TB cases per 10,000 and the total cases per year
@@ -200,7 +208,7 @@ table1 |>
 
 # Exercise 1.3 {-}
 
-For `table2`, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. You haven’t yet learned all the functions you’d need to actually perform these operations, but you should still be able to think through the transformations you’d need.
+For `table2`, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. 
 
 a) Extract the number of TB cases per country per year.
 
@@ -212,7 +220,7 @@ d) Store back in the appropriate place.
 
 
 # Dataset *diamonds*
-We will use the built in dataset on diamond price and measurements. See`?diamonds` more information.
+We will now use the built in dataset on diamond price and measurements for some more exercises. See`?diamonds` more information.
 
 # Exercise 1.4 {-}
 
@@ -284,13 +292,19 @@ Use `pivot_longer()` to tidy this data
 
 
 ## Combining datasets
+Two tables can be connected through a pair of keys, within each table.
+
+Every join involves a pair of keys: a primary key and a foreign key. A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound key. 
 
 There are four types of joins, we will illustrate them using a simple example:
 
+First lets make some data:
 ```{r}
 df1 <- tibble(x = c(1, 2), y = 2:1)
 df2 <- tibble(x = c(3, 1), a = 10, b = "a")
 ```
+
+Now join the two datasets using the different join functions:
 
 ```{r}
 df1 %>% inner_join(df2) 
@@ -307,5 +321,91 @@ df2 %>% left_join(df1)
 
 ```{r}
 df1 %>% full_join(df2)
+```
+
+What are the differences between the join functions?
+
+# Specifying join keys
+
+By default, left_join() will use all variables that appear in both data frames as the join key, but it doesn’t always work.
+
+For example lets look at some airline data:
+
+```{r}
+library(nycflights13) # data package
+
+flights2 <- flights |> 
+  select(year, time_hour, origin, dest, tailnum, carrier)
+flights2
+
+planes
+```
+
+We are going to try to going flight data to data about types of planes
+
+```{r}
+flights2 |> 
+  left_join(planes)
+
+```
+
+We get a lot of missing matches because our join is trying to use tailnum and year as a compound key. Both flights and planes have a year column but they mean different things: `flights$year` is the year the flight occurred and `planes$year` is the year the plane was built.
+
+Since these represent different types of data and we might want to keep both, we can be explicit about how to join the two data tables:
+
+```{r}
+flights2 |> 
+  left_join(planes, join_by(tailnum))
+```
+
+Now by default there is a year.x and year.y coming from the flights and planes data respectively. You can change this using the `suffix` argument in join or by renaming the columns after the join.
+
+# Exercise 1.9 {-}
+Imagine you’ve found the top 10 most popular destinations using this code:
+```{r}
+top_dest <- flights2 |>
+  count(dest, sort = TRUE) |>
+  head(10)
+```
+
+How can you find all flights to those destinations?
+
+```{r}
+# your code goes here
+```
+
+# Exercise 1.10 {-}
+What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+
+# case_when()
+Sometimes you want to add a new variable to your data based on existing variables. 
+
+dplyr’s case_when() is inspired by SQL’s CASE statement and provides a flexible way of performing different computations for different conditions. It has a special syntax that unfortunately looks like nothing else you’ll use in the tidyverse. It takes pairs that look like condition ~ output. condition must be a logical vector; when it’s TRUE, output will be used.
+
+This can take the place of if_else() statements.
+
+For example:
+```{r}
+flights |> 
+  mutate(
+    status = case_when( # make a new variable status based on the flights arrival delay
+      is.na(arr_delay)      ~ "cancelled",
+      arr_delay < -30       ~ "very early",
+      arr_delay < -15       ~ "early",
+      abs(arr_delay) <= 15  ~ "on time",
+      arr_delay < 60        ~ "late",
+      arr_delay < Inf       ~ "very late",
+    ),
+    .keep = "used"
+  )
+```
+
+# Exercise 1.11 {-}
+
+Write a case_when() statement that uses the month and day columns from flights to label a selection of important US holidays (e.g., New Years Day, 4th of July, Thanksgiving, and Christmas). First create a logical column that is either TRUE or FALSE, and then create a character column that either gives the name of the holiday or is NA.
+
+```{r}
+
 ```
 

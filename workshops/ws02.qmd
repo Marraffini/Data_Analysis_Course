@@ -352,7 +352,7 @@ Make a different scatter plot using the same three variables. Keep `x = educatio
 
 Obtain the contour plot  **prestige vs. education vs. income** :
 
-```{r}
+```{r, eval = knitr::is_latex_output()}
 #| results: hide
 
 library(plotly)
@@ -365,7 +365,7 @@ plot_ly(type = 'contour',
 
 To add axes labels and titles, try-
 
-```{r}
+```{r, eval = knitr::is_latex_output()}
 #| results: hide
 
 plot_ly(
@@ -421,5 +421,24 @@ p
 # ggplotly(p)
 ```
 
+# Make it fancy
+
+## Adjusting labels
+
+```{r, eval = FALSE}
+?labs()
+```
+
+## color pallets 
+
+```{r}
+
+```
+
+## themes
+
+```{r}
+
+```
 
 More graphing examples are [here](../exercises/Chap2more.R) (R code file).
