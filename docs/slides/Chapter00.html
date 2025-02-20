@@ -395,16 +395,29 @@
 </div>
 
 </section>
-<section class="slide level2">
-
-<!-- <link href="http://www.massey.ac.nz/~kgovinda/250/lecnotes/220.css" rel="stylesheet"> -->
+<section id="introduction" class="slide level2">
+<h2>Introduction</h2>
+<p>Why am I in this course?</p>
+<p>Why do I need to learn this stuff?</p>
+</section>
+<section id="choices-choices-everywhere" class="slide level2">
+<h2>Choices, choices everywhere</h2>
+<p>The goal of this course is not to make perfect little replicas of our thinking.</p>
+<p>Instead we aim to give you some tools to approach data analysis.</p>
+<p>Most of life is not about following instructions; it is about navigating ambiguity.</p>
+<p>There is almost always more than one way to do things in this course.</p>
+<p>How do I make decisions when things aren’t clear? and is that the way I want to be making them?</p>
 </section>
 <section id="what-is-data-analysis" class="slide level2">
 <h2>What is data analysis?</h2>
+<div class="columns">
+<div class="column">
 <p>Data analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making. (wikipedia)</p>
-<p>A data analysis session involves loading the data, graphing, summarizing, and modelling.</p>
-
-<img data-src="img/data_analysis.png" class="r-stretch"></section>
+</div><div class="column">
+<p><img data-src="img/data_analysis.jpg">{height = 6in}</p>
+</div>
+</div>
+</section>
 <section id="data-analysis" class="slide level2">
 <h2>Data Analysis</h2>
 <ul>
@@ -412,12 +425,14 @@
 <li>Collect data</li>
 <li>Clean data to prepare it for analysis</li>
 <li>Analyse data</li>
-<li>Interpret the results</li>
+<li>Interpret and communicate the results</li>
 </ul>
 
 <img data-src="img/stock.jpg" class="r-stretch"></section>
-<section id="types-of-data-anlysis" class="slide level2">
-<h2>Types of data anlysis</h2>
+<section id="types-of-data-analysis" class="slide level2">
+<h2>Types of data analysis</h2>
+<div class="columns">
+<div class="column">
 <ul>
 <li><p>Descriptive:</p>
 <pre><code>What happened?</code></pre></li>
@@ -428,86 +443,213 @@
 <li><p>Prescriptive:</p>
 <pre><code>What should we do about it?</code></pre></li>
 </ul>
-
-<img data-src="img/infographic_data.png" class="r-stretch"></section>
+</div><div class="column">
+<p><img data-src="img/infographic_data.png"></p>
+</div>
+</div>
+</section>
 <section id="getting-started-with-r" class="slide level2">
 <h2>Getting started with R</h2>
 <p>We will be using the programming language R for our data analysis</p>
 <p>R is the language</p>
 <p>R studio is the graphical user interface (GUI)</p>
 <p><img data-src="img/R_logo.png"><br>
-If you have not installed R and R studio on your computer please see the resources page on Stream about how to do that.</p>
+If you have not installed R and R studio on your computer please see the resources page on Stream and studyguide material about how to do that.</p>
+</section>
+<section id="getting-started-with-r-1" class="slide level2">
+<h2>Getting started with R</h2>
+<p>Without R, it would take hours each day to manage data in the best case scenario. In a worst case scenario, it could take the entire day looking at data and fixing mistakes from cutting and pasting. Trying to remember what order you pressed buttons in last time or where the button moved to now that the software has updated. None of this is accounting for the cost of accessing any of the proprietary software.</p>
+<p><em>Advantages of R</em></p>
+<ul>
+<li>Free!</li>
+<li>Save your workflow: reuse when data is updated</li>
+<li>Explicit and transparent: steps are shown</li>
+<li>Serves multiple functions: organise, analyses, communicate</li>
+</ul>
+</section>
+<section id="learning-r" class="slide level2">
+<h2>Learning R</h2>
+<p>Learning any skill from scratch is going to be challenging at first.</p>
+<p>R is no exception.</p>
+<p>You must consistently practice R in order to retain any information.</p>
+<p>Making mistakes is part of learning. We learn a lot from failure.</p>
 </section>
 <section id="some-r-basics" class="slide level2 unnumbered">
 <h2>Some <code>R</code> basics</h2>
 <ul>
 <li><p><code>R</code> is case sensitive, so <code>data</code> is not the same as <code>DATA</code></p></li>
 <li><p>Similarly beware of spaces and punctuation, particularly in column header</p></li>
-<li><p><code>&lt;-</code> (read as “gets”) is the assignment operator. That is, you use <code>&lt;-</code> to assign some content to a variable. The operator <code>=</code> has a slightly different meaning but it can be used in the same way as <code>&lt;-</code>. In R Studio, press <code>ALT</code> and minus key when you are in the R script mode (File &gt;&gt; New File &gt;&gt; R Script).</p></li>
+<li><p><code>&lt;-</code> (read as “gets”) is the assignment operator. That is, you use <code>&lt;-</code> to assign some content to a variable. The operator <code>=</code> has a slightly different meaning but it can be used in the same way as <code>&lt;-</code>.</p></li>
 <li><p>Comments are denoted by the # symbol. Anything after a <code>#</code> symbol is ignored by <code>R</code> . This is a great way to write yourself notes.</p></li>
+</ul>
+</section>
+<section id="some-r-basics-1" class="slide level2 unnumbered">
+<h2>Some <code>R</code> basics</h2>
+<ul>
 <li><p>R coding can be hard to write from scratch. <span style="color: red;">So do not hesitate to adopt R codes written by others.</span> Search the internet for R code to do what you want to do. The usual <code>copy and paste</code> trick works!</p></li>
-<li><pre><code>Warnings vs error messages: R gives warnings typically in &lt;span style='color: orange;'&gt;orange&lt;/span&gt; and errors in &lt;span style='color: red;'&gt;red&lt;/span&gt;. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.</code></pre></li>
-<li><p>You can take notes on your code using the # symbol, called a comment R interprets everything after this symbol as notes not to be run.</p></li>
+<li><p>Warnings vs error messages: R gives warnings typically in <span style="color: orange;">orange</span> and errors in <span style="color: red;">red</span>. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.</p></li>
 </ul>
 </section>
 <section id="r-as-a-calulator" class="slide level2">
 <h2>R as a calulator</h2>
-<p>At the most basic level R is a calculator. We can type mathematical equations directly into R.</p>
+<p>At the most basic level R is a calculator.</p>
+<p>We can type mathematical equations directly into R.</p>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="dv">2</span> <span class="sc">+</span> <span class="dv">2</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">sqrt</span>(<span class="dv">16</span>) <span class="co"># take the square root</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4</code></pre>
 </div>
 </div>
 </section>
-<section>
-<section id="r-objects-model-syntax-etc." class="title-slide slide level1 unnumbered center">
-<h1>R Objects, Model Syntax etc.</h1>
-<p>In R, we work with objects. There are different classes of objects including: <code>character</code>, <code>integer</code>, <code>numeric</code>, <code>vector</code>, <code>matrix</code>, <code>array</code>, <code>data.frame</code>, <code>list</code>, <code>lm</code> (linear model). An object may belong to several classes at once.</p>
+<section id="r-objects-model-syntax-etc." class="slide level2 unnumbered">
+<h2>R Objects, Model Syntax etc.</h2>
+<p>In R, we work with objects. There are different classes of objects including:</p>
+<p><code>character</code>, <code>integer</code>, <code>numeric</code>, <code>vector</code>, <code>matrix</code>, <code>array</code>, <code>data.frame</code>, <code>list</code>, <code>lm</code> (linear model).</p>
+<p>An object may belong to several classes at once.</p>
+<p>Understanding the data type is essential for knowing what you can</p>
+</section>
+<section id="r-objects-model-syntax-etc.-1" class="slide level2 unnumbered">
+<h2>R Objects, Model Syntax etc.</h2>
 <p>Suppose that your data consists of 4 numbers say 1 to 4. We can combine these numbers using the <code>c()</code> function namely <code>c(1,2,3,4)</code> and then assign it to <code>x</code>, an object.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Evidently <code>x</code> is a vector and also belongs to other classes of objects. This can be queried as follows:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">is</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The main class it belongs to is queried as</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">class</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="r-objects-model-syntax-etc.-2" class="slide level2 unnumbered">
+<h2>R Objects, Model Syntax etc.</h2>
 <p>Our data are actually integers and arranged in a pattern. So we can define <code>x</code> as follows:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The colon (<code>:</code>) operator created the desired pattern. Alternative expressions include</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">4</span>, <span class="at">by=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Try <code>is(x)</code> and <code>class(x)</code> and check whether our data are recognised as integer class.</p>
+</section>
+<section id="r-mathematical-expressions" class="slide level2 unnumbered">
+<h2>R mathematical expressions</h2>
 <p>We can do many mathematical manipulations on <code>x</code>. Try</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">mean</span>(x)</span>
+<span id="cb14-2"><a href="#cb14-2"></a><span class="fu">min</span>(x)</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="fu">max</span>(x)</span>
+<span id="cb14-4"><a href="#cb14-4"></a><span class="fu">sum</span>(x)</span>
+<span id="cb14-5"><a href="#cb14-5"></a><span class="fu">sd</span>(x)</span>
+<span id="cb14-6"><a href="#cb14-6"></a><span class="fu">var</span>(x)</span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="fu">sort</span>(x, T)</span>
+<span id="cb14-8"><a href="#cb14-8"></a><span class="fu">trunc</span>(x<span class="sc">/</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="accessing-objects-in-r" class="slide level2">
+<h2>Accessing objects in R</h2>
 <p>Vector elements are accessed by square brackets, <code>[]</code>. Try</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a>x[<span class="dv">2</span>]<span class="sc">+</span>x[<span class="dv">4</span>]</span>
+<span id="cb15-2"><a href="#cb15-2"></a>x[<span class="dv">2</span><span class="sc">:</span><span class="dv">3</span>]</span>
+<span id="cb15-3"><a href="#cb15-3"></a>x[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>)]</span>
+<span id="cb15-4"><a href="#cb15-4"></a>x[<span class="sc">-</span><span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="types-of-data-in-r" class="slide level2">
+<h2>Types of data in R</h2>
 <p>Assume that our data are actually categorical codes. Then the correct way of defining the character data is to use single quotes as</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Now try Try <code>is(x)</code> and <code>class(x)</code>. For large patterned categorical data, placing quotes is laborious. So we can change the class as follows:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a>x <span class="ot">&lt;-</span> <span class="fu">as.character</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="combining-data" class="slide level2">
+<h2>Combining data</h2>
 <p>Assume that you have two batches of data. The first one is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span> </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>and the second one is</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>These two batches can be combined into a matrix as follows:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>m <span class="ot">&lt;-</span> <span class="fu">cbind</span>(x,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Here the matrix <code>m</code> is formed by binding the columns (vectors). The other option is to bind as rows</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1"></a>m <span class="ot">&lt;-</span> <span class="fu">rbind</span>(x,y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Evidently vectors must be of the same length for these commands to work. We can also form a matrix by splitting a vector. Try</p>
-<p>and just type <code>m</code> to see the generated matrix on the R console.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span></span>
+<span id="cb22-2"><a href="#cb22-2"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="at">ncol =</span> <span class="dv">3</span>)</span>
+<span id="cb22-3"><a href="#cb22-3"></a>m <span class="ot">&lt;-</span> <span class="fu">matrix</span>(x, <span class="at">byrow =</span> <span class="cn">TRUE</span>, <span class="at">ncol =</span> <span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>To access the first of row of the matrix <code>m</code>, we use <code>m[1,]</code>; to access the first column of <code>m</code>, we use <code>m[,1]</code>.</p>
+</section>
+<section id="data-frame" class="slide level2">
+<h2>Data frame</h2>
 <p>A <code>data frame</code> is an R object that contains vectors; the vectors are stored vertically in a matrix like structure, and can be referred to by the name of the column. The main advantage of a data frame is that the variables in a data frame do not all need to be the same type; e.g.&nbsp;some variables can be of class numeric, and some variables can be of class character. We can create a data frame object using the <code>data.frame()</code> function. This data frame contains two small vectors, the first of which is named <code>ID</code>, and the second <code>NAME</code>. Try</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>x <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb23-2"><a href="#cb23-2"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'a'</span>, <span class="st">'b'</span>, <span class="st">'c'</span>, <span class="st">'d'</span>)</span>
+<span id="cb23-3"><a href="#cb23-3"></a>my.data <span class="ot">&lt;-</span><span class="fu">data.frame</span>(<span class="at">ID=</span>x, <span class="at">NAME=</span>y)</span>
+<span id="cb23-4"><a href="#cb23-4"></a>my.data </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>We can access the original vector of interest in the following way:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a>my.data<span class="sc">$</span>NAME</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="matrices" class="slide level2">
+<h2>Matrices</h2>
 <p>There are times when it is useful to convert a data frame into a matrix; we can do this with the <code>as.matrix()</code> function.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>m <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(my.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Type <code>class(m)</code> and see the changes.</p>
 <p>Two data frames can also be merged into a single data frame using the <code>merge</code> command.</p>
 <p>The internal structure of an R object can be viewed using the diagnostic function <code>str()</code>.</p>
 </section>
 <section id="directories" class="slide level2">
 <h2>Directories</h2>
-<p>Directories is a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.</p>
-<p><img data-src="img/file-cabinet.png"></p>
-<p><img data-src="img/directory.png"> For example on my computer my slides for this class are located in a folder called ‘slides’ inside ‘Data_Analysis_course’. The last part of the directory is the most specific folder which is nested inside parent folders.</p>
+<p>Directories are a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.</p>
+<p><img data-src="img/file-cabinet.png" style="height:4in"></p>
+</section>
+<section id="directories-1" class="slide level2">
+<h2>Directories</h2>
+
+<img data-src="img/directory.png" class="r-stretch"><p>This full address of the file is also called a path.</p>
+<p>For example on my computer my slides for this class are located in a folder called ‘slides’ inside ‘Data_Analysis_course’. The last part of the path is the most specific folder which is nested inside parent folders.</p>
 </section>
 <section id="set-directory-in-r" class="slide level2">
 <h2>Set directory in R</h2>
 <p>In RStudio, set the working directory under the <em>Session</em> menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.</p>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1"></a><span class="fu">getwd</span>() <span class="co"># check your working directory</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] "/Users/mmarraff/Documents/Classes/161.250/Data_Analysis_Course/slides"</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1"></a><span class="co"># setwd() # if you know the directory you want R to look in</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="quarto" class="slide level2">
 <h2>Quarto</h2>
-<p>This course will be using <a href="https://quarto.org/">Quarto</a> <code>*.qmd</code> files rather than raw <code>*.R</code> files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you’re just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.</p>
+<p>This course will be using <a href="https://quarto.org/">Quarto</a> <code>*.qmd</code> files rather than raw <code>*.R</code> files.</p>
+<p>Quarto is the successor to Rmarkdown.</p>
 <p>Quarto files contain text and code, and can be ‘Rendered’ to produce a nicely formatted document, usually in HTML or PDF format, containing sections, text, code, plots, and output. Quarto can also be used to make websites; in fact, the website for this course was made using Quarto.</p>
 <p>Here’s some information to get you started: <a href="https://quarto.org/docs/get-started/hello/rstudio.html" class="uri">https://quarto.org/docs/get-started/hello/rstudio.html</a>.</p>
 <p>And some other useful tips: <a href="https://r4ds.hadley.nz/quarto" class="uri">https://r4ds.hadley.nz/quarto</a>.</p>
@@ -515,26 +657,41 @@ If you have not installed R and R studio on your computer please see the resourc
 <section id="loading-data" class="slide level2">
 <h2>Loading data</h2>
 <p>Most data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name.</p>
-<p>If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., <code>mydata.csv</code> rather than <code>C:/Users/anhsmith/Work/Project1/data/mydata.csv</code>). Better yet, <a href="https://r4ds.hadley.nz/workflow-scripts#projects">Projects</a> make this much easier.</p>
+<p>If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., <code>mydata.csv</code> rather than <code>C:/Users/anhsmith/Work/Project1/data/mydata.csv</code>).</p>
 <p>You can also load data from the web using a URL. For example,</p>
+<div class="cell" data-layout-align="center">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
 <p>We usually store the data in an R object, here named <code>rangitikei</code>.</p>
 </section>
 <section id="types-of-data-files" class="slide level2">
 <h2>Types of data files</h2>
 <p>The letters after the <code>.</code> at the end of a files name are called the extension and tell you the type of file.</p>
-<p>If the data are stored as a <code>*.csv</code> or “comma separated values” file, then you can use the <code>read.csv()</code> or <code>read_csv()</code> function to load the file. If it’s a text file (<code>.txt</code>) with columns separated by spaces or tabs, you can use <code>read.table()</code> or <code>read_table()</code> function. The ones with underscores ( <code>read_csv()</code> and <code>read_table()</code> ) are in the <code>readr</code> package, so you’ll need to load it first (though <code>readr</code> is part of <code>tidyverse</code>, so if you load <code>tidyverse</code> you’re all set). We will introduce <code>tidyverse</code> in a moment.</p>
+<p><em>“comma separated values”</em> (<code>.csv</code>) : <code>read.csv()</code> or <code>read_csv()</code> function to load the file.</p>
+<p><em>text file</em> (<code>.txt</code>): <code>read.table()</code> or <code>read_table()</code> function.</p>
+<p>The ones with underscores ( <code>read_csv()</code> and <code>read_table()</code> ) are in the <code>readr</code> package, so you’ll need to load it first (though <code>readr</code> is part of <code>tidyverse</code>, so if you load <code>tidyverse</code> you’re all set).</p>
 <p>You can also load Microsoft Excel files using functions <code>read_excel()</code>, available in the <code>readxl</code> package.</p>
 <p>Note that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them.</p>
 </section>
 <section id="loading-packages" class="slide level2">
 <h2>Loading packages</h2>
 <p>Many (but not all) R packages are hosted at a repository called CRAN (<em>C</em>omprehensive <em>R</em> <em>A</em>rchive <em>N</em>etwork). The package install option within RStudio can download and install these optional packages under the menu <code>Packages &gt;&gt; Install</code>. You can also do this using the command <code>install.packages</code>.</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a><span class="co"># install.packages('tidyverse')</span></span>
+<span id="cb30-2"><a href="#cb30-2"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>In this course we will use multiple packages. You need to load them with the library() function every time you run a script/R session but you only need to install them once.</p>
 </section>
 <section id="welcome-to-the-tidyverse" class="slide level2">
 <h2>Welcome to the tidyverse</h2>
 <p>We will be largely using the <code>tidyverse</code> suite of packages for data organisation, summarising, and plotting; see <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a>.</p>
 <p>Let’s load that package now:</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>Recommended reading to accompany this workshop is pages 1-11 of R for Data Science <a href="https://r4ds.hadley.nz/" class="uri">https://r4ds.hadley.nz/</a></p>
 </section>
 <section id="tidy-data" class="slide level2">
@@ -551,18 +708,26 @@ If you have not installed R and R studio on your computer please see the resourc
 <h2>Why ensure that your data is tidy?</h2>
 <p>There are two main advantages:</p>
 <ul>
-<li><p>There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p></li>
-<li><p>There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values.</p></li>
+<li><p>If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.</p></li>
+<li><p>Placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values.</p></li>
 </ul>
 <p>dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data.</p>
 </section>
 <section id="summarizing-data" class="slide level2">
 <h2>Summarizing data</h2>
 <p>Summarizing data is a large part of data analysis.</p>
+<p>We summarize data in general because it provides us with a way to generalize - that is, to make general statements that extend beyond specific observations.</p>
+<p>What is a summary?</p>
+<ul>
+<li>Tables</li>
+<li>Frequency distributions</li>
+<li>Cumulative distributions</li>
+<li>Histograms</li>
+</ul>
 </section>
 <section id="dplyr" class="slide level2 unnumbered">
 <h2><code>dplyr</code></h2>
-<p>The following six functions of <code>dplyr</code> are very useful for data wrangling :</p>
+<p>The following six functions of <code>dplyr</code> are very useful for data wrangling:</p>
 <ul>
 <li>For selecting columns, use <code>select()</code></li>
 <li>For subsetting data, use <code>filter()</code></li>
@@ -571,7 +736,9 @@ If you have not installed R and R studio on your computer please see the resourc
 <li>For computing summary measures, use <code>summarise()</code></li>
 <li>For group-wise computations (e.g.&nbsp;summary measures), use <code>group_by()</code></li>
 </ul>
-<p>There are many other functions such as <code>transmute()</code> which will add newly calculated columns to the existing data frame but drop all unused columns. The <code>across()</code> function extends <code>group_by()</code> and <code>summarise()</code> functions for multiple column and function summaries. For example, you like to report rounded data in a table, which calls for an operation across both rows and columns.</p>
+<p>There are many other functions such as <code>transmute()</code> which will add newly calculated columns to the existing data frame but drop all unused columns.</p>
+<p>The <code>across()</code> function extends <code>group_by()</code> and <code>summarise()</code> functions for multiple column and function summaries.</p>
+<p>For example, you like to report rounded data in a table, which calls for an operation across both rows and columns.</p>
 </section>
 <section id="piping" class="slide level2">
 <h2>Piping</h2>
@@ -589,13 +756,14 @@ If you have not installed R and R studio on your computer please see the resourc
 </div>
 </div>
 <p>The <code>R</code> package <code>magrittr</code> introduced the pipe operator <code>%&gt;%</code> and can be pronounced as “then”. In RStudio windows/Linux versions, press <code>Ctrl+Shift+M</code> to insert the pipe operator. On a Mac, use <code>Cmd+Shift+M</code>.</p>
-<p><code>R</code> also has its own pipe, <code>|&gt;</code>, which is an alternative to <code>%&gt;%</code>. I tend to use <code>|&gt;</code>. If you want to change the pipe inserted automatically with <code>Ctrl+Shift+M</code>, find on the menu <strong>Tools &gt; Global Options</strong>, then click on <strong>Code</strong> and check the box that says “<strong>Use Native Pipe Operator</strong>”.</p>
+<p><code>R</code> also has its own pipe, <code>|&gt;</code>, which is an alternative to <code>%&gt;%</code>. If you want to change the pipe inserted automatically with <code>Ctrl+Shift+M</code>, find on the menu <strong>Tools &gt; Global Options</strong>, then click on <strong>Code</strong> and check the box that says “<strong>Use Native Pipe Operator</strong>”.</p>
 <p>We often pipe the <code>dplyr</code> functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework.</p>
-</section></section>
-<section>
-<section id="graphing-with-ggplot2" class="title-slide slide level1 unnumbered center">
-<h1>Graphing with <code>ggplot2</code></h1>
+</section>
+<section id="graphing-with-ggplot2" class="slide level2 unnumbered">
+<h2>Graphing with <code>ggplot2</code></h2>
 <p>The R library <code>ggplot2</code> is very powerful for plotting but you may find the syntax little strange. There are plenty of examples at the <a href="https://ggplot2.tidyverse.org/reference/"><code>ggplot2</code> online help website</a>. The <code>ggplot2</code> package is loaded as part of the <code>tidyverse</code> set of packages.</p>
+<div class="columns">
+<div class="column">
 <p>Advantages of <code>ggplot2</code> are the following:</p>
 <ul>
 <li>employs the “grammar of graphics” of <span class="citation" data-cites="Wilkinson">[@Wilkinson]</span></li>
@@ -604,16 +772,20 @@ If you have not installed R and R studio on your computer please see the resourc
 <li>theme system for getting attractive plots</li>
 <li>Fast growing and actively developed</li>
 </ul>
+</div><div class="column">
 <p>Some disadvantages of <code>ggplot2</code> are the following:</p>
 <ul>
 <li>3-dimensional graphics (opt for <code>rgl</code> package instead)</li>
 <li>Graph-theory type graphs (nodes/edges layout; opt for <code>igraph</code> and other packages)</li>
 <li>Interactive graphics (opt for <code>plotly</code>, <code>ggvis</code> and other packages)</li>
 </ul>
+</div>
+</div>
 </section>
 <section id="grammar-of-graphics" class="slide level2">
 <h2>Grammar of Graphics</h2>
-<p>The main idea behind the grammar of graphics of <span class="citation" data-cites="Wilkinson">[@Wilkinson]</span> is to mimic the manual graphing approach and define building blocks and combine them to create a graphical display. The building blocks of a graph are:</p>
+<p>The main idea behind the grammar of graphics of <span class="citation" data-cites="Wilkinson">[@Wilkinson]</span> is to mimic the manual graphing approach by defining building blocks and combining them to create the figure.</p>
+<p>The building blocks of a graph are:</p>
 <ul>
 <li>data</li>
 <li>aesthetic mapping</li>
@@ -662,6 +834,11 @@ If you have not installed R and R studio on your computer please see the resourc
 <h2>Tidying data example</h2>
 <p>The hospital admissions dataset is untidy because it does allocate many columns for a variable.</p>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>hospital <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
+<span id="cb33-2"><a href="#cb33-2"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/hospital.txt"</span>,</span>
+<span id="cb33-3"><a href="#cb33-3"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">","</span>)</span>
+<span id="cb33-4"><a href="#cb33-4"></a>  </span>
+<span id="cb33-5"><a href="#cb33-5"></a><span class="fu">head</span>(hospital)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  YEAR PERI NORTH1 NORTH2 NORTH3 SOUTH1 SOUTH2 SOUTH3
 1 1980    1      0      4     27      4     16     27
@@ -672,24 +849,36 @@ If you have not installed R and R studio on your computer please see the resourc
 6 1980    6      3      8     28     31     20     30</code></pre>
 </div>
 </div>
-<p>The main response variable namely the number of admissions is allocated different columns depending on the North and South locations. This format is also called <code>wide format</code> which can be made into a tidy <code>long format</code>. We can use the <code>dplyr</code> function <code>pivot_longer()</code> to change this data into <code>long format</code>. Try-</p>
-<p>The command <code>pivot_wider()</code> does the opposite to <code>pivot_longer()</code></p>
+<p>This format is also called <code>wide format</code> which can be made into a tidy <code>long format</code>.</p>
 </section>
-<section id="common-data-issues" class="slide level2">
-<h2>Common data issues</h2>
-<ul>
-<li><p>Spelling, capitalization, typos, and white spaces</p>
-<p>there are some handy functions in <code>stringr</code> and <code>janitor</code> packages</p></li>
-<li><p>NAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project</p>
-<p>can remove NAs using <code>na.omit()</code>, <code>!is.na()</code>, <code>na.rm=T</code>, etc. depending on what function you are using. See help menu for more details</p></li>
-<li><p>Multiple types of data in a single column or wrong data type</p>
-<p>can force a data class using <code>as.numeric()</code> for example</p></li>
-</ul>
+<section id="tidying-data-example-cont." class="slide level2">
+<h2>Tidying data example (cont.)</h2>
+<p>We can use the <code>dplyr</code> function <code>pivot_longer()</code> to change this data into <code>long format</code>. Try-</p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>hospital <span class="sc">|&gt;</span> </span>
+<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> NORTH1<span class="sc">:</span>SOUTH3, </span>
+<span id="cb35-3"><a href="#cb35-3"></a>               <span class="at">names_to =</span> <span class="st">"location"</span>, </span>
+<span id="cb35-4"><a href="#cb35-4"></a>               <span class="at">values_to =</span> <span class="st">"Admissions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The command <code>pivot_wider()</code> does the opposite to <code>pivot_longer()</code></p>
 </section>
 <section id="joining-data" class="slide level2">
 <h2>Joining data</h2>
-<p>Mutating joins allow you to combine variables from multiple tables. For example, consider the flights and airlines data from the nycflights13 package. In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. You can use a join to add the carrier names to the flight data:</p>
+<p>Sometimes you may want to analyse information that is in multiple tables.</p>
+<p>We will introduce a series of functions for joining tables together.</p>
+</section>
+<section id="joining-data-example" class="slide level2">
+<h2>Joining data: Example</h2>
+<p>For example, consider the flights and airlines data from the nycflights13 package.</p>
+<p>In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names.</p>
+<p>You can use a join to add the carrier names to the flight data:</p>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb36-2"><a href="#cb36-2"></a><span class="co"># Drop unimportant variables so it's easier to understand the join results.</span></span>
+<span id="cb36-3"><a href="#cb36-3"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, dest, tailnum, carrier)</span>
+<span id="cb36-4"><a href="#cb36-4"></a></span>
+<span id="cb36-5"><a href="#cb36-5"></a>flights2 <span class="sc">%&gt;%</span> </span>
+<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">left_join</span>(airlines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 9
     year month   day  hour origin dest  tailnum carrier name                    
@@ -707,10 +896,10 @@ If you have not installed R and R studio on your computer please see the resourc
 # ℹ 336,766 more rows</code></pre>
 </div>
 </div>
-<p>As well as x and y, each mutating join takes an argument by that controls which variables are used to match observations in the two tables.</p>
-</section></section>
-<section id="types-of-join" class="title-slide slide level1 center">
-<h1>Types of join</h1>
+<p>As well as x and y, each mutating join takes an argument <code>by</code> that controls which variables are used to match observations in the two tables.</p>
+</section>
+<section id="types-of-join" class="slide level2">
+<h2>Types of join</h2>
 <p>There are four types of mutating join, which differ in their behaviour when a match is not found.</p>
 <ul>
 <li><p><code>inner_join(x, y)</code> only includes observations that match in both x and y.</p></li>
@@ -720,217 +909,115 @@ If you have not installed R and R studio on your computer please see the resourc
 </ul>
 <p>The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.</p>
 </section>
-
-<section>
-<section id="a-typical-data-analysis-session-in-rrstudio" class="title-slide slide level1 unnumbered center">
-<h1>A typical data analysis session in R/RStudio</h1>
-<p>A data analysis session in R/RStudio involves loading the data, graphing, and modelling. You finally save your outputs or produce a Report.</p>
-<p>When you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.</p>
-<p>For the sack of simplicity, let us use an R default dataset called <code>stackloss</code> giving the operational data of a plant for the oxidation of ammonia to nitric acid.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code>  Air.Flow Water.Temp Acid.Conc. stack.loss
-1       80         27         89         42
-2       80         27         88         37
-3       75         25         90         37
-4       62         24         87         28
-5       62         22         87         18</code></pre>
-</div>
-</div>
-<p>The distribution of the response variable <code>stack.loss</code> is explored using a histogram below:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-29-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>Histograms are not good displays for small datasets. In order to see the size or length of <code>stack.loss</code> data, we select the stack.loss variable and then summarise the size using the <em>n()</em> option.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code>  n()
-1  21</code></pre>
-</div>
-</div>
-<p>The following commands will also work.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21</code></pre>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 21</code></pre>
-</div>
-</div>
-<p>We may also explore how well <code>stack.loss</code> is related <code>Air.Flow</code> to using a scatter plot. For this, we type the command <code>plot</code></p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-32-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The relationship is roughly linear. So we may fit a straight line model using the <code>lm</code> command.</p>
-<p>We can query this model asking for its summary using the <code>summary()</code> function.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = stack.loss ~ Air.Flow, data = stackloss)
-
-Residuals:
-     Min       1Q   Median       3Q      Max 
--12.2896  -1.1272  -0.0459   1.1166   8.8728 
-
-Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -44.13202    6.10586  -7.228 7.31e-07 ***
-Air.Flow      1.02031    0.09995  10.208 3.77e-09 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 4.098 on 19 degrees of freedom
-Multiple R-squared:  0.8458,    Adjusted R-squared:  0.8377 
-F-statistic: 104.2 on 1 and 19 DF,  p-value: 3.774e-09</code></pre>
-</div>
-</div>
-<p><code>R</code> default model summary is bit too long. We may just glance the overall quality measures of the fitted model as follows:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">r.squared</td>
-<td style="text-align: right;">0.85</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">adj.r.squared</td>
-<td style="text-align: right;">0.84</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">sigma</td>
-<td style="text-align: right;">4.10</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">statistic</td>
-<td style="text-align: right;">104.20</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">p.value</td>
-<td style="text-align: right;">0.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">df</td>
-<td style="text-align: right;">1.00</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">logLik</td>
-<td style="text-align: right;">-58.37</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">AIC</td>
-<td style="text-align: right;">122.74</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">BIC</td>
-<td style="text-align: right;">125.87</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">deviance</td>
-<td style="text-align: right;">319.12</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">df.residual</td>
-<td style="text-align: right;">19.00</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">nobs</td>
-<td style="text-align: right;">21.00</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>For processing using Rmarkdown, we may use the codes which will give a tidy tabular output in the word-processed output.</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<table>
-<thead>
-<tr class="header">
-<th style="text-align: left;">term</th>
-<th style="text-align: right;">estimate</th>
-<th style="text-align: right;">std.error</th>
-<th style="text-align: right;">statistic</th>
-<th style="text-align: right;">p.value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">(Intercept)</td>
-<td style="text-align: right;">-44.13</td>
-<td style="text-align: right;">6.11</td>
-<td style="text-align: right;">-7.23</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Air.Flow</td>
-<td style="text-align: right;">1.02</td>
-<td style="text-align: right;">0.10</td>
-<td style="text-align: right;">10.21</td>
-<td style="text-align: right;">0</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<p>The fitted model is shown below:</p>
-<div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-37-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The fitted model can also be displayed on the scatter plot using the old style <code>plot</code> and <code>abline</code> commands.</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">plot</span>(stack.loss <span class="sc">~</span> Air.Flow, <span class="at">data=</span>stackloss)</span>
-<span id="cb17-2"><a href="#cb17-2"></a>st.line.model <span class="ot">&lt;-</span> <span class="fu">lm</span>(stack.loss<span class="sc">~</span>Air.Flow, <span class="at">data=</span>stackloss)</span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="fu">abline</span>(st.line.model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="importance-of-data-quality-control-process" class="slide level2">
+<h2>Importance of Data Quality Control Process</h2>
+<p>Decision-making:</p>
+<pre><code>High-quality data ensures that decisions are based on accurate information.</code></pre>
+<p>Operational Efficiency:</p>
+<pre><code>Reliable data is crucial for an efficient manufacturing. </code></pre>
+<p>Customer Satisfaction:</p>
+<pre><code>Accurate customer data contributes to improved customer satisfaction.</code></pre>
+<p>Compliance:</p>
+<pre><code>Complying with regulations requires accurate and secure data handling. </code></pre>
+<p>Trust and Credibility:</p>
+<pre><code>Builds trust with stakeholders, customers, and partners.</code></pre>
+</section>
+<section id="data-quality" class="slide level2">
+<h2>Data Quality</h2>
+<p>Accuracy: Refers to the correctness of data.</p>
+<p>Completeness: Addresses whether all necessary data is present.</p>
+<p>Consistency: Ensures uniformity and coherence across data sets.</p>
+<p>Timeliness: Timely data is up-to-date and aligns with the current context.</p>
+<p>Relevance: Relevant data is directly applicable to the analysis or decision-making process.</p>
+<p>Validity: Valid data meets the criteria set for its format and structure.</p>
+<p>Reliability: Reliable data remains accurate and consistent across various timeframes.</p>
+<p>Precision: Precise data is specific and avoids unnecessary granularity or ambiguity.</p>
 </section>
 <section id="data-quality-checks" class="slide level2 unnumbered">
 <h2>Data Quality Checks</h2>
+<ul>
+<li><p>Inaccurate entries</p>
+<p>Typos, spelling, capitalization</p></li>
+<li><p>Missing data</p>
+<p>Empty cells or rows</p></li>
+<li><p>Outliers/Unrealistic entries</p>
+<p>Large numbers, negative numbers, etc. Age should fall within a realistic range (e.g., 0 to 120 years)</p></li>
+</ul>
+</section>
+<section id="common-data-issues" class="slide level2">
+<h2>Common data issues</h2>
+<ul>
+<li><p>Spelling, capitalization, typos, and white spaces</p>
+<p>there are some handy functions in <code>stringr</code> and <code>janitor</code> packages <em>case_when()</em> in dplyr can be very helpful for rename or reclassifying observations</p></li>
+<li><p>NAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project</p>
+<p>can remove NAs using <code>na.omit()</code>, <code>!is.na()</code>, <code>na.rm=T</code>, etc. depending on what function you are using. See help menu for more details</p></li>
+<li><p>Multiple types of data in a single column or wrong data type</p>
+<p>can force a data class using <code>as.numeric()</code> for example</p></li>
+<li><p>Multiple entries of the same observation</p>
+<p><code>janitor</code> package has a function get_dupes() to find duplicate entries or the distinct() function from dplyr.</p></li>
+</ul>
+</section>
+<section id="missing-data" class="slide level2 unnumbered">
+<h2>Missing Data</h2>
+<p><em>Missing completely at random</em> (MCAR) is often used to mean there is there is no pattern to the missing data themselves or alternatively the missingness is not related to any other variable or data in the dataset.</p>
+<p><em>Missing at random (MAR)</em> data is data conditionally missing at random.</p>
+<p>For example a particular survey question, the response rate may differ depending on the respondent’s gender. In this situation, the actual missingness may be random but still related to the gender variable.</p>
+<p><em>Missing not at random (MNAR)</em> is the pattern when missingness is related to other variables in the dataset, as well as the values of the missing data are not random.</p>
+<p>There are also situations such as censoring where we just record a single value without actually measuring the variable of interest.</p>
+</section>
+<section id="data-quality-checks-example" class="slide level2">
+<h2>Data Quality Checks: Example</h2>
 <p>It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from <a href="http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx" class="uri">http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx</a></p>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>url <span class="ot">&lt;-</span> <span class="st">"http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>destfile <span class="ot">&lt;-</span> <span class="st">"rsos192136_si_001.xlsx"</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a></span>
+<span id="cb43-4"><a href="#cb43-4"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>rsos192136_si_001 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rsos192136_si_001.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>The missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.</p>
 <div class="cell" data-layout-align="center">
-<div class="cell-output-display">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-42-1.png" width="576"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>or</p>
-<p>The term <em>Missing completely at random</em> (MCAR) is often used to mean there is there is no pattern to the missing data themselves or alternatively the missingness is not related to any other variable or data in the dataset. In other words, the probability of missingness is the same for all units. So no bias is caused by the missing data, and we can discard cases with missing data when we fit models.</p>
-<p>In practice, we often find missing data do have a relationship with other variables in the dataset but the actual missing values are random. This situation of data conditionally missing at random is called <em>Missing at random (MAR)</em> data. For a particular survey question, the response rate may differ depending on the respondent’s gender. In this situation, the actual missingness may be random but still related to the gender variable.</p>
-<p><em>Missing not at random (MNAR)</em> is the pattern when missingness is related to other variables in the dataset, as well as the values of the missing data are not random. In other words, there is a predictable pattern in the missingness. So we cannot avoid the bias when missing cases are omitted.</p>
-<p>There are also situations such as censoring where we just record a single value without actually measuring the variable of interest.</p>
-<p>Imputation of data can be made except for the case of MCAR type. A number of R packages are available for data imputation; see <a href="https://cran.r-project.org/web/views/MissingData.html" class="uri">https://cran.r-project.org/web/views/MissingData.html</a> or <a href="https://stefvanbuuren.name/fimd/" class="uri">https://stefvanbuuren.name/fimd/</a>. We may occasionally cover data imputation issue in an assignment question.</p>
-<p>There are also R packages to perform automatic investigation for data cleaning. Try-</p>
-<p>Rule based validation is enabled in the R package <em>validate</em>. The R package <em>janitor</em> has a function get_dupes() to find duplicate entries in the dataset. <em>Cleaner</em> package will allow to clean the variables so that the columns are consistent in terms of the factor, date, numerical variable types. You will be largely using data that are already cleaned for your assignments but be aware that you have to perform data cleaning and perform necessary quality checks before analysis.</p>
-<!-- ricomisc::rstudio_viewer("Chapter-1.html", file_path = NULL) -->
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">library</span>(VIM)</span>
+<span id="cb45-2"><a href="#cb45-2"></a></span>
+<span id="cb45-3"><a href="#cb45-3"></a>res <span class="ot">&lt;-</span> rsos192136_si_001 <span class="sc">|&gt;</span> </span>
+<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">aggr</span>(<span class="at">sortVar=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb45-6"><a href="#cb45-6"></a>  <span class="fu">pluck</span>(<span class="st">"combinations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
-<p><img src="img/data_analysis.png" class="slide-logo"></p>
-<div class="footer footer-default">
+</div>
+<img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-30-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<section id="missing-data-1" class="slide level2 unnumbered">
+<h2>Missing Data</h2>
+<p>Imputation of data can be made except for the case of MCAR type. A number of R packages are available for data imputation; see <a href="https://cran.r-project.org/web/views/MissingData.html" class="uri">https://cran.r-project.org/web/views/MissingData.html</a> or <a href="https://stefvanbuuren.name/fimd/" class="uri">https://stefvanbuuren.name/fimd/</a>. We may occasionally cover data imputation issue in an assignment question.</p>
+</section>
+<section id="data-quality-checks-1" class="slide level2 unnumbered">
+<h2>Data Quality Checks</h2>
+<p>There are also R packages to perform automatic investigation for data cleaning. Try-</p>
+</section>
+<section id="summary" class="slide level2">
+<h2>Summary</h2>
+<ul>
+<li><p>Introduction:</p>
+<p>What is data analysis?</p></li>
+<li><p>Tidy data:</p>
+<ul>
+<li>Each variable is a column; each column is a variable.</li>
+<li>Each observation is a row; each row is an observation.</li>
+<li>Each value is a cell; each cell is a single value.</li>
+</ul></li>
+<li><p>R programming for data analysis:</p>
+<p>Get practicing with R.</p></li>
+</ul>
+<!-- ricomisc::rstudio_viewer("Chapter-0.html", file_path = NULL) -->
+
+
+<img src="img/data_analysis.jpg" class="slide-logo r-stretch"><div class="footer footer-default">
 <p><a href="https:https://marraffini.github.io/Data_Analysis_Course/slides.html">161250 Data Analysis</a></p>
 </div>
-</section></section>
+</section>
     </div>
   </div>
 

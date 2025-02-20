@@ -2802,9 +2802,9 @@
   {
     "objectID": "slides/Chapter00.html#summary",
     "href": "slides/Chapter00.html#summary",
-    "title": "Chapter 0: R, quarto, tidyverse",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Summary",
-    "text": "Summary\n\nIssues to address\n\nWHAT are collected?\nWHO does the data collection?\nHOW are the data collected?\n\nBias occurs due to\n\nSELECTION\nCOLLECTION\nNON-RESPONSE (the single largest cause of bias!)\n\nA sample may have the same biases as a census along with sampling errors"
+    "text": "Summary\n\nIntroduction:\nWhat is data analysis?\nTidy data:\n\nEach variable is a column; each column is a variable.\nEach observation is a row; each row is an observation.\nEach value is a cell; each cell is a single value.\n\nR programming for data analysis:\nGet practicing with R.\n\n\n\n\n\n161250 Data Analysis"
   },
   {
     "objectID": "studyguide/0-R-tidyverse.html",
@@ -2832,7 +2832,7 @@
     "href": "slides/Chapter00.html#what-is-data-analysis",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "What is data analysis?",
-    "text": "What is data analysis?\nData analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making. (wikipedia)\nA data analysis session involves loading the data, graphing, summarizing, and modelling."
+    "text": "What is data analysis?\n\n\nData analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making. (wikipedia)\n\n{height = 6in}"
   },
   {
     "objectID": "slides/Chapter00.html#example",
@@ -2846,70 +2846,70 @@
     "href": "slides/Chapter00.html#getting-started-with-r",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Getting started with R",
-    "text": "Getting started with R\nWe will be using the programming language R for our data analysis\nR is the language\nR studio is the graphical user interface (GUI)\n\nIf you have not installed R and R studio on your computer please see the resources page on Stream about how to do that."
+    "text": "Getting started with R\nWe will be using the programming language R for our data analysis\nR is the language\nR studio is the graphical user interface (GUI)\n\nIf you have not installed R and R studio on your computer please see the resources page on Stream and studyguide material about how to do that."
   },
   {
     "objectID": "slides/Chapter00.html#some-r-basics",
     "href": "slides/Chapter00.html#some-r-basics",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Some R basics",
-    "text": "Some R basics\n\nR is case sensitive, so data is not the same as DATA\nSimilarly beware of spaces and punctuation, particularly in column header\n&lt;- (read as “gets”) is the assignment operator. That is, you use &lt;- to assign some content to a variable. The operator = has a slightly different meaning but it can be used in the same way as &lt;-. In R Studio, press ALT and minus key when you are in the R script mode (File &gt;&gt; New File &gt;&gt; R Script).\nComments are denoted by the # symbol. Anything after a # symbol is ignored by R . This is a great way to write yourself notes.\nR coding can be hard to write from scratch. So do not hesitate to adopt R codes written by others. Search the internet for R code to do what you want to do. The usual copy and paste trick works!\nWarnings vs error messages: R gives warnings typically in &lt;span style='color: orange;'&gt;orange&lt;/span&gt; and errors in &lt;span style='color: red;'&gt;red&lt;/span&gt;. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.\nYou can take notes on your code using the # symbol, called a comment R interprets everything after this symbol as notes not to be run."
+    "text": "Some R basics\n\nR is case sensitive, so data is not the same as DATA\nSimilarly beware of spaces and punctuation, particularly in column header\n&lt;- (read as “gets”) is the assignment operator. That is, you use &lt;- to assign some content to a variable. The operator = has a slightly different meaning but it can be used in the same way as &lt;-.\nComments are denoted by the # symbol. Anything after a # symbol is ignored by R . This is a great way to write yourself notes."
   },
   {
     "objectID": "slides/Chapter00.html#r-as-a-calulator",
     "href": "slides/Chapter00.html#r-as-a-calulator",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "R as a calulator",
-    "text": "R as a calulator\nAt the most basic level R is a calculator. We can type mathematical equations directly into R.\n\n\n[1] 4\n\n\n[1] 4"
+    "text": "R as a calulator\nAt the most basic level R is a calculator.\nWe can type mathematical equations directly into R.\n\n2 + 2\n\n[1] 4\n\nsqrt(16) # take the square root\n\n[1] 4"
   },
   {
     "objectID": "slides/Chapter00.html#directories",
     "href": "slides/Chapter00.html#directories",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Directories",
-    "text": "Directories\nDirectories is a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.\n\n For example on my computer my slides for this class are located in a folder called ‘slides’ inside ‘Data_Analysis_course’. The last part of the directory is the most specific folder which is nested inside parent folders."
+    "text": "Directories\nDirectories are a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file."
   },
   {
     "objectID": "slides/Chapter00.html#set-directory-in-r",
     "href": "slides/Chapter00.html#set-directory-in-r",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Set directory in R",
-    "text": "Set directory in R\nIn RStudio, set the working directory under the Session menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.\n\n\n[1] \"/Users/mmarraff/Documents/Classes/161.250/Data_Analysis_Course/slides\""
+    "text": "Set directory in R\nIn RStudio, set the working directory under the Session menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.\n\ngetwd() # check your working directory\n\n[1] \"/Users/mmarraff/Documents/Classes/161.250/Data_Analysis_Course/slides\"\n\n# setwd() # if you know the directory you want R to look in"
   },
   {
     "objectID": "slides/Chapter00.html#quarto",
     "href": "slides/Chapter00.html#quarto",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Quarto",
-    "text": "Quarto\nThis course will be using Quarto *.qmd files rather than raw *.R files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you’re just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.\nQuarto files contain text and code, and can be ‘Rendered’ to produce a nicely formatted document, usually in HTML or PDF format, containing sections, text, code, plots, and output. Quarto can also be used to make websites; in fact, the website for this course was made using Quarto.\nHere’s some information to get you started: https://quarto.org/docs/get-started/hello/rstudio.html.\nAnd some other useful tips: https://r4ds.hadley.nz/quarto."
+    "text": "Quarto\nThis course will be using Quarto *.qmd files rather than raw *.R files.\nQuarto is the successor to Rmarkdown.\nQuarto files contain text and code, and can be ‘Rendered’ to produce a nicely formatted document, usually in HTML or PDF format, containing sections, text, code, plots, and output. Quarto can also be used to make websites; in fact, the website for this course was made using Quarto.\nHere’s some information to get you started: https://quarto.org/docs/get-started/hello/rstudio.html.\nAnd some other useful tips: https://r4ds.hadley.nz/quarto."
   },
   {
     "objectID": "slides/Chapter00.html#loading-data",
     "href": "slides/Chapter00.html#loading-data",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Loading data",
-    "text": "Loading data\nMost data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name.\nIf the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., mydata.csv rather than C:/Users/anhsmith/Work/Project1/data/mydata.csv). Better yet, Projects make this much easier.\nYou can also load data from the web using a URL. For example,\nWe usually store the data in an R object, here named rangitikei."
+    "text": "Loading data\nMost data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name.\nIf the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., mydata.csv rather than C:/Users/anhsmith/Work/Project1/data/mydata.csv).\nYou can also load data from the web using a URL. For example,\n\n\nCode\nrangitikei &lt;- read_csv(\"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv\")\n\n\nWe usually store the data in an R object, here named rangitikei."
   },
   {
     "objectID": "slides/Chapter00.html#loading-packages",
     "href": "slides/Chapter00.html#loading-packages",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Loading packages",
-    "text": "Loading packages\nMany (but not all) R packages are hosted at a repository called CRAN (Comprehensive R Archive Network). The package install option within RStudio can download and install these optional packages under the menu Packages &gt;&gt; Install. You can also do this using the command install.packages.\nIn this course we will use multiple packages. You need to load them with the library() function every time you run a script/R session but you only need to install them once."
+    "text": "Loading packages\nMany (but not all) R packages are hosted at a repository called CRAN (Comprehensive R Archive Network). The package install option within RStudio can download and install these optional packages under the menu Packages &gt;&gt; Install. You can also do this using the command install.packages.\n\n# install.packages('tidyverse')\nlibrary(tidyverse)\n\nIn this course we will use multiple packages. You need to load them with the library() function every time you run a script/R session but you only need to install them once."
   },
   {
     "objectID": "slides/Chapter00.html#welcome-to-the-tidyverse",
     "href": "slides/Chapter00.html#welcome-to-the-tidyverse",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Welcome to the tidyverse",
-    "text": "Welcome to the tidyverse\nWe will be largely using the tidyverse suite of packages for data organisation, summarising, and plotting; see https://www.tidyverse.org/.\nLet’s load that package now:\nRecommended reading to accompany this workshop is pages 1-11 of R for Data Science https://r4ds.hadley.nz/"
+    "text": "Welcome to the tidyverse\nWe will be largely using the tidyverse suite of packages for data organisation, summarising, and plotting; see https://www.tidyverse.org/.\nLet’s load that package now:\n\nlibrary(tidyverse)\n\nRecommended reading to accompany this workshop is pages 1-11 of R for Data Science https://r4ds.hadley.nz/"
   },
   {
     "objectID": "slides/Chapter00.html#piping",
     "href": "slides/Chapter00.html#piping",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Piping",
-    "text": "Piping\n\n\n\n\n\n\nTip\n\n\nThe piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.\n\n\n\nThe R package magrittr introduced the pipe operator %&gt;% and can be pronounced as “then”. In RStudio windows/Linux versions, press Ctrl+Shift+M to insert the pipe operator. On a Mac, use Cmd+Shift+M.\nR also has its own pipe, |&gt;, which is an alternative to %&gt;%. I tend to use |&gt;. If you want to change the pipe inserted automatically with Ctrl+Shift+M, find on the menu Tools &gt; Global Options, then click on Code and check the box that says “Use Native Pipe Operator”.\nWe often pipe the dplyr functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework."
+    "text": "Piping\n\n\n\n\n\n\nTip\n\n\nThe piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.\n\n\n\nThe R package magrittr introduced the pipe operator %&gt;% and can be pronounced as “then”. In RStudio windows/Linux versions, press Ctrl+Shift+M to insert the pipe operator. On a Mac, use Cmd+Shift+M.\nR also has its own pipe, |&gt;, which is an alternative to %&gt;%. If you want to change the pipe inserted automatically with Ctrl+Shift+M, find on the menu Tools &gt; Global Options, then click on Code and check the box that says “Use Native Pipe Operator”.\nWe often pipe the dplyr functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework."
   },
   {
     "objectID": "workshops/ws01_5.html#piping",
@@ -2930,7 +2930,7 @@
     "href": "slides/Chapter00.html#types-of-data-files",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Types of data files",
-    "text": "Types of data files\nThe letters after the . at the end of a files name are called the extension and tell you the type of file.\nIf the data are stored as a *.csv or “comma separated values” file, then you can use the read.csv() or read_csv() function to load the file. If it’s a text file (.txt) with columns separated by spaces or tabs, you can use read.table() or read_table() function. The ones with underscores ( read_csv() and read_table() ) are in the readr package, so you’ll need to load it first (though readr is part of tidyverse, so if you load tidyverse you’re all set). We will introduce tidyverse in a moment.\nYou can also load Microsoft Excel files using functions read_excel(), available in the readxl package.\nNote that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them."
+    "text": "Types of data files\nThe letters after the . at the end of a files name are called the extension and tell you the type of file.\n“comma separated values” (.csv) : read.csv() or read_csv() function to load the file.\ntext file (.txt): read.table() or read_table() function.\nThe ones with underscores ( read_csv() and read_table() ) are in the readr package, so you’ll need to load it first (though readr is part of tidyverse, so if you load tidyverse you’re all set).\nYou can also load Microsoft Excel files using functions read_excel(), available in the readxl package.\nNote that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them."
   },
   {
     "objectID": "slides/Chapter00.html#tidy-data",
@@ -2944,28 +2944,28 @@
     "href": "slides/Chapter00.html#why-ensure-that-your-data-is-tidy",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Why ensure that your data is tidy?",
-    "text": "Why ensure that your data is tidy?\nThere are two main advantages:\n\nThere’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.\nThere’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values.\n\ndplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data."
+    "text": "Why ensure that your data is tidy?\nThere are two main advantages:\n\nIf you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.\nPlacing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values.\n\ndplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data."
   },
   {
     "objectID": "slides/Chapter00.html#summarizing-data",
     "href": "slides/Chapter00.html#summarizing-data",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Summarizing data",
-    "text": "Summarizing data\nSummarizing data is a large part of data analysis."
+    "text": "Summarizing data\nSummarizing data is a large part of data analysis.\nWe summarize data in general because it provides us with a way to generalize - that is, to make general statements that extend beyond specific observations.\nWhat is a summary?\n\nTables\nFrequency distributions\nCumulative distributions\nHistograms"
   },
   {
     "objectID": "slides/Chapter00.html#dplyr",
     "href": "slides/Chapter00.html#dplyr",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "dplyr",
-    "text": "dplyr\nThe following six functions of dplyr are very useful for data wrangling :\n\nFor selecting columns, use select()\nFor subsetting data, use filter()\nFor re-ordering (e.g. ascending/descending), use arrange()\nFor augmenting new calculated columns, use mutate()\nFor computing summary measures, use summarise()\nFor group-wise computations (e.g. summary measures), use group_by()\n\nThere are many other functions such as transmute() which will add newly calculated columns to the existing data frame but drop all unused columns. The across() function extends group_by() and summarise() functions for multiple column and function summaries. For example, you like to report rounded data in a table, which calls for an operation across both rows and columns."
+    "text": "dplyr\nThe following six functions of dplyr are very useful for data wrangling:\n\nFor selecting columns, use select()\nFor subsetting data, use filter()\nFor re-ordering (e.g. ascending/descending), use arrange()\nFor augmenting new calculated columns, use mutate()\nFor computing summary measures, use summarise()\nFor group-wise computations (e.g. summary measures), use group_by()\n\nThere are many other functions such as transmute() which will add newly calculated columns to the existing data frame but drop all unused columns.\nThe across() function extends group_by() and summarise() functions for multiple column and function summaries.\nFor example, you like to report rounded data in a table, which calls for an operation across both rows and columns."
   },
   {
     "objectID": "slides/Chapter00.html#grammar-of-graphics",
     "href": "slides/Chapter00.html#grammar-of-graphics",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Grammar of Graphics",
-    "text": "Grammar of Graphics\nThe main idea behind the grammar of graphics of [@Wilkinson] is to mimic the manual graphing approach and define building blocks and combine them to create a graphical display. The building blocks of a graph are:\n\ndata\naesthetic mapping\ngeometric object\ntransformation or re-expression of data\nscales\ncoordinate system\nposition adjustments\nfaceting"
+    "text": "Grammar of Graphics\nThe main idea behind the grammar of graphics of [@Wilkinson] is to mimic the manual graphing approach by defining building blocks and combining them to create the figure.\nThe building blocks of a graph are:\n\ndata\naesthetic mapping\ngeometric object\ntransformation or re-expression of data\nscales\ncoordinate system\nposition adjustments\nfaceting"
   },
   {
     "objectID": "slides/Chapter00.html#aesthetic-mapping-aes",
@@ -2993,42 +2993,42 @@
     "href": "slides/Chapter00.html#tidying-data-example",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Tidying data example",
-    "text": "Tidying data example\nThe hospital admissions dataset is untidy because it does allocate many columns for a variable.\n\n\n  YEAR PERI NORTH1 NORTH2 NORTH3 SOUTH1 SOUTH2 SOUTH3\n1 1980    1      0      4     27      4     16     27\n2 1980    2      6     11     31      8     18     21\n3 1980    3      6      4     25     20     16     24\n4 1980    4      1     10     31     22     17     20\n5 1980    5      4     16     22     21     30     31\n6 1980    6      3      8     28     31     20     30\n\n\nThe main response variable namely the number of admissions is allocated different columns depending on the North and South locations. This format is also called wide format which can be made into a tidy long format. We can use the dplyr function pivot_longer() to change this data into long format. Try-\nThe command pivot_wider() does the opposite to pivot_longer()"
+    "text": "Tidying data example\nThe hospital admissions dataset is untidy because it does allocate many columns for a variable.\n\nhospital &lt;- read.table(\n  \"https://www.massey.ac.nz/~anhsmith/data/hospital.txt\",\n  header=TRUE, sep=\",\")\n  \nhead(hospital)\n\n  YEAR PERI NORTH1 NORTH2 NORTH3 SOUTH1 SOUTH2 SOUTH3\n1 1980    1      0      4     27      4     16     27\n2 1980    2      6     11     31      8     18     21\n3 1980    3      6      4     25     20     16     24\n4 1980    4      1     10     31     22     17     20\n5 1980    5      4     16     22     21     30     31\n6 1980    6      3      8     28     31     20     30\n\n\nThis format is also called wide format which can be made into a tidy long format."
   },
   {
     "objectID": "slides/Chapter00.html#common-data-issues",
     "href": "slides/Chapter00.html#common-data-issues",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Common data issues",
-    "text": "Common data issues\n\nSpelling, capitalization, typos, and white spaces\nthere are some handy functions in stringr and janitor packages\nNAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project\ncan remove NAs using na.omit(), !is.na(), na.rm=T, etc. depending on what function you are using. See help menu for more details\nMultiple types of data in a single column or wrong data type\ncan force a data class using as.numeric() for example"
+    "text": "Common data issues\n\nSpelling, capitalization, typos, and white spaces\nthere are some handy functions in stringr and janitor packages case_when() in dplyr can be very helpful for rename or reclassifying observations\nNAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project\ncan remove NAs using na.omit(), !is.na(), na.rm=T, etc. depending on what function you are using. See help menu for more details\nMultiple types of data in a single column or wrong data type\ncan force a data class using as.numeric() for example\nMultiple entries of the same observation\njanitor package has a function get_dupes() to find duplicate entries or the distinct() function from dplyr."
   },
   {
     "objectID": "slides/Chapter00.html#joining-data",
     "href": "slides/Chapter00.html#joining-data",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Joining data",
-    "text": "Joining data\nMutating joins allow you to combine variables from multiple tables. For example, consider the flights and airlines data from the nycflights13 package. In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. You can use a join to add the carrier names to the flight data:\n\n\n# A tibble: 336,776 × 9\n    year month   day  hour origin dest  tailnum carrier name                    \n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   \n 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines Inc.   \n 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines Inc.   \n 3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines Inc.  \n 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways         \n 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines Inc.    \n 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines Inc.   \n 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways         \n 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlines Inc.\n 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         \n10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  \n# ℹ 336,766 more rows\n\n\nAs well as x and y, each mutating join takes an argument by that controls which variables are used to match observations in the two tables."
+    "text": "Joining data\nSometimes you may want to analyse information that is in multiple tables.\nWe will introduce a series of functions for joining tables together."
   },
   {
     "objectID": "slides/Chapter00.html#data-quality-checks",
     "href": "slides/Chapter00.html#data-quality-checks",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Data Quality Checks",
-    "text": "Data Quality Checks\nIt is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx\nThe missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.\n\n\n\n\n\n\n\n\n\nor\nThe term Missing completely at random (MCAR) is often used to mean there is there is no pattern to the missing data themselves or alternatively the missingness is not related to any other variable or data in the dataset. In other words, the probability of missingness is the same for all units. So no bias is caused by the missing data, and we can discard cases with missing data when we fit models.\nIn practice, we often find missing data do have a relationship with other variables in the dataset but the actual missing values are random. This situation of data conditionally missing at random is called Missing at random (MAR) data. For a particular survey question, the response rate may differ depending on the respondent’s gender. In this situation, the actual missingness may be random but still related to the gender variable.\nMissing not at random (MNAR) is the pattern when missingness is related to other variables in the dataset, as well as the values of the missing data are not random. In other words, there is a predictable pattern in the missingness. So we cannot avoid the bias when missing cases are omitted.\nThere are also situations such as censoring where we just record a single value without actually measuring the variable of interest.\nImputation of data can be made except for the case of MCAR type. A number of R packages are available for data imputation; see https://cran.r-project.org/web/views/MissingData.html or https://stefvanbuuren.name/fimd/. We may occasionally cover data imputation issue in an assignment question.\nThere are also R packages to perform automatic investigation for data cleaning. Try-\nRule based validation is enabled in the R package validate. The R package janitor has a function get_dupes() to find duplicate entries in the dataset. Cleaner package will allow to clean the variables so that the columns are consistent in terms of the factor, date, numerical variable types. You will be largely using data that are already cleaned for your assignments but be aware that you have to perform data cleaning and perform necessary quality checks before analysis.\n\n\n\n\n161250 Data Analysis"
+    "text": "Data Quality Checks\n\nInaccurate entries\nTypos, spelling, capitalization\nMissing data\nEmpty cells or rows\nOutliers/Unrealistic entries\nLarge numbers, negative numbers, etc. Age should fall within a realistic range (e.g., 0 to 120 years)"
   },
   {
     "objectID": "slides/Chapter00.html#data-analysis",
     "href": "slides/Chapter00.html#data-analysis",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Data Analysis",
-    "text": "Data Analysis\n\nIdentify the question you would like to answer\nCollect data\nClean data to prepare it for analysis\nAnalyse data\nInterpret the results"
+    "text": "Data Analysis\n\nIdentify the question you would like to answer\nCollect data\nClean data to prepare it for analysis\nAnalyse data\nInterpret and communicate the results"
   },
   {
     "objectID": "slides/Chapter00.html#types-of-data-anlysis",
     "href": "slides/Chapter00.html#types-of-data-anlysis",
     "title": "Chapter 0: Introduction: R, quarto, tidyverse",
     "section": "Types of data anlysis",
-    "text": "Types of data anlysis\n\nDescriptive:\nWhat happened?\nDiagnostic:\nWhy did it happen?\nPredictive:\nWhat might happen in the future?\nPrescriptive:\nWhat should we do about it?"
+    "text": "Types of data anlysis\n\n\n\nDescriptive:\nWhat happened?\nDiagnostic:\nWhy did it happen?\nPredictive:\nWhat might happen in the future?\nPrescriptive:\nWhat should we do about it?"
   },
   {
     "objectID": "workshops/ws02.html#make-it-fancy",
@@ -3372,5 +3372,222 @@
     "title": "Chapter 2: Exploratory Data Analysis (EDA)",
     "section": "Higher dimensional data",
     "text": "Higher dimensional data\nA short-cut to explore three numerical variables is to obtain a contour plot. In Figure 26, the contours were the joint density of Maths and English marks. Instead, we can just use three numerical variables and show the third variable (Z) as a contour on a scatter plot of Y vs. X. What this means is that several combinations of X and Y can lead to the same Z. So we have to use some smoothing method or a model to obtain the contours and form a grid. The R package plotly is rather simple and powerful to obtain dynamic or interactive plots. The plots produced with this package are colour optimised for viewing and hence they may not be the best for printing but good for EDA purposes. We can also hover over the graph and view the graphed data. After loading the pine tree data, try-\n\n\nCode\nlibrary(plotly)\nplot_ly(type = 'contour', \n        x=pinetree$First, \n        y=pinetree$Second, \n        z=pinetree$Top)\n\n\n\n\n\n\nA bubble plot is a way to plot three variables on a two-dimensional scatter plot, where a third variable gives the size of the points (or ‘bubbles’). This type of plot can be restrictive for some datasets depending on the variability involved in the third variable. Figure 27 shows the location of the house pits and total Area. This plot not only gives the spatial view of the tribal area but indirectly reveals the clustering of house sizes.\n\n\nCode\nggplot(Snodgrass) + \n  aes(x=East, y=South, colour=Area, size=Area) + \n  geom_point()\n\n\n\n\n\nFigure 27: A bubble plot for the Snodgrass data\n\n\n\n\nUsing the appropriate software, it is possible to explore three variables using a 3-D scatter plot. We explore the pinetree data in Figure 28 which clearly shows the strong relationships and the Area effect. The other forms of exploring 3 variables include 3-D surface plots.\n\n\nCode\nlibrary(lattice)\ncloud(Top ~ First+Second, group=Area, data=pinetree)\n\n\n\n\n\nFigure 28: A 3-D plot\n\n\n\n\nplotly is great for interactive 3d plots (though they only work with HTML, not PDF).\n\n\nCode\nplot_ly(Snodgrass, x = ~East, y = ~South, z = ~Area) |&gt; \n  add_markers()\n\n\n\n\n\n\nIf we wish to examine the relationships between (three or more) variables we could do so with a conditioning plot, otherwise known as a coplot. A coplot is a scatterplot matrix where each panel in the matrix is a scatterplot of the same two variables, whose observations are restricted by the values of a third (and possibly a fourth) variable.\n\n\nCode\ncoplot(Top~ First | Second*Area, data = pinetree)\n\n\n\n\n\nFigure 29: A co-plot\n\n\n\n\nThe coplot in Figure 29 shows that pine trees are not maturing well in Area 3, given that fewer points are on the right hand side of the graph when compared to Areas 1 and 2."
+  },
+  {
+    "objectID": "slides/Chapter00.html#some-r-basics-1",
+    "href": "slides/Chapter00.html#some-r-basics-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Some R basics",
+    "text": "Some R basics\n\nR coding can be hard to write from scratch. So do not hesitate to adopt R codes written by others. Search the internet for R code to do what you want to do. The usual copy and paste trick works!\nWarnings vs error messages: R gives warnings typically in orange and errors in red. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message."
+  },
+  {
+    "objectID": "slides/Chapter00.html#introduction",
+    "href": "slides/Chapter00.html#introduction",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Introduction",
+    "text": "Introduction\nWhy am I in this course?\nWhy do I need to learn this stuff?"
+  },
+  {
+    "objectID": "slides/Chapter00.html#choices-choices-everywhere",
+    "href": "slides/Chapter00.html#choices-choices-everywhere",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Choices, choices everywhere",
+    "text": "Choices, choices everywhere\nThe goal of this course is not to make perfect little replicas of our thinking.\nInstead we aim to give you some tools to approach data analysis.\nMost of life is not about following instructions; it is about navigating ambiguity.\nThere is almost always more than one way to do things in this course.\nHow do I make decisions when things aren’t clear? and is that the way I want to be making them?"
+  },
+  {
+    "objectID": "slides/Chapter00.html#getting-started-with-r-1",
+    "href": "slides/Chapter00.html#getting-started-with-r-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Getting started with R",
+    "text": "Getting started with R\nWithout R, it would take hours each day to manage data in the best case scenario. In a worst case scenario, it could take the entire day looking at data and fixing mistakes from cutting and pasting. Trying to remember what order you pressed buttons in last time or where the button moved to now that the software has updated. None of this is accounting for the cost of accessing any of the proprietary software.\nAdvantages of R\n\nFree!\nSave your workflow: reuse when data is updated\nExplicit and transparent: steps are shown\nServes multiple functions: organise, analyses, communicate"
+  },
+  {
+    "objectID": "slides/Chapter00.html#learning-r",
+    "href": "slides/Chapter00.html#learning-r",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Learning R",
+    "text": "Learning R\nLearning any skill from scratch is going to be challenging at first.\nR is no exception.\nYou must consistently practice R in order to retain any information.\nMaking mistakes is part of learning. We learn a lot from failure."
+  },
+  {
+    "objectID": "slides/Chapter00.html#r-objects-model-syntax-etc.",
+    "href": "slides/Chapter00.html#r-objects-model-syntax-etc.",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "R Objects, Model Syntax etc.",
+    "text": "R Objects, Model Syntax etc.\nIn R, we work with objects. There are different classes of objects including:\ncharacter, integer, numeric, vector, matrix, array, data.frame, list, lm (linear model).\nAn object may belong to several classes at once.\nUnderstanding the data type is essential for knowing what you can"
+  },
+  {
+    "objectID": "slides/Chapter00.html#r-objects-model-syntax-etc.-1",
+    "href": "slides/Chapter00.html#r-objects-model-syntax-etc.-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "R Objects, Model Syntax etc.",
+    "text": "R Objects, Model Syntax etc.\nSuppose that your data consists of 4 numbers say 1 to 4. We can combine these numbers using the c() function namely c(1,2,3,4) and then assign it to x, an object.\n\nx &lt;- c(1,2,3,4)\n\nEvidently x is a vector and also belongs to other classes of objects. This can be queried as follows:\n\nis(x)\n\nThe main class it belongs to is queried as\n\nclass(x)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#r-objects-model-syntax-etc.-2",
+    "href": "slides/Chapter00.html#r-objects-model-syntax-etc.-2",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "R Objects, Model Syntax etc.",
+    "text": "R Objects, Model Syntax etc.\nOur data are actually integers and arranged in a pattern. So we can define x as follows:\n\nx &lt;- 1:4\n\nThe colon (:) operator created the desired pattern. Alternative expressions include\n\nx &lt;- seq(1, 4, by=1)\n\nTry is(x) and class(x) and check whether our data are recognised as integer class."
+  },
+  {
+    "objectID": "slides/Chapter00.html#r-mathematical-expressions",
+    "href": "slides/Chapter00.html#r-mathematical-expressions",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "R mathematical expressions",
+    "text": "R mathematical expressions\nWe can do many mathematical manipulations on x. Try\n\nmean(x)\nmin(x)\nmax(x)\nsum(x)\nsd(x)\nvar(x)\nsort(x, T)\ntrunc(x/2)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#types-of-data-in-r",
+    "href": "slides/Chapter00.html#types-of-data-in-r",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Types of data in R",
+    "text": "Types of data in R\nAssume that our data are actually categorical codes. Then the correct way of defining the character data is to use single quotes as\n\nx &lt;- c('a', 'b', 'c', 'd')\n\nNow try Try is(x) and class(x). For large patterned categorical data, placing quotes is laborious. So we can change the class as follows:\n\nx &lt;- as.character(1:4)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#combining-data",
+    "href": "slides/Chapter00.html#combining-data",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Combining data",
+    "text": "Combining data\nAssume that you have two batches of data. The first one is\n\nx &lt;- 1:4 \n\nand the second one is\n\ny &lt;- c('a', 'b', 'c', 'd')\n\nThese two batches can be combined into a matrix as follows:\n\nm &lt;- cbind(x,y)\n\nHere the matrix m is formed by binding the columns (vectors). The other option is to bind as rows\n\nm &lt;- rbind(x,y)\n\nEvidently vectors must be of the same length for these commands to work. We can also form a matrix by splitting a vector. Try\n\nx &lt;- 1:6\nm &lt;- matrix(x, byrow = TRUE, ncol = 3)\nm &lt;- matrix(x, byrow = TRUE, ncol = 2)\n\nTo access the first of row of the matrix m, we use m[1,]; to access the first column of m, we use m[,1]."
+  },
+  {
+    "objectID": "slides/Chapter00.html#directories-1",
+    "href": "slides/Chapter00.html#directories-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Directories",
+    "text": "Directories\n\nThis full address of the file is also called a path.\nFor example on my computer my slides for this class are located in a folder called ‘slides’ inside ‘Data_Analysis_course’. The last part of the path is the most specific folder which is nested inside parent folders."
+  },
+  {
+    "objectID": "slides/Chapter00.html#graphing-with-ggplot2",
+    "href": "slides/Chapter00.html#graphing-with-ggplot2",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Graphing with ggplot2",
+    "text": "Graphing with ggplot2\nThe R library ggplot2 is very powerful for plotting but you may find the syntax little strange. There are plenty of examples at the ggplot2 online help website. The ggplot2 package is loaded as part of the tidyverse set of packages.\n\n\nAdvantages of ggplot2 are the following:\n\nemploys the “grammar of graphics” of [@Wilkinson]\nplotting involves a high level of abstraction\nvery flexible and complete graphics system\ntheme system for getting attractive plots\nFast growing and actively developed\n\n\nSome disadvantages of ggplot2 are the following:\n\n3-dimensional graphics (opt for rgl package instead)\nGraph-theory type graphs (nodes/edges layout; opt for igraph and other packages)\nInteractive graphics (opt for plotly, ggvis and other packages)"
+  },
+  {
+    "objectID": "slides/Chapter00.html#types-of-join",
+    "href": "slides/Chapter00.html#types-of-join",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Types of join",
+    "text": "Types of join\nThere are four types of mutating join, which differ in their behaviour when a match is not found.\n\ninner_join(x, y) only includes observations that match in both x and y.\nleft_join(x, y) includes all observations in x, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table.\nright_join(x, y) includes all observations in y. It’s equivalent to left_join(y, x), but the columns and rows will be ordered differently.\nfull_join() includes all observations from x and y.\n\nThe left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values."
+  },
+  {
+    "objectID": "slides/Chapter00.html#a-typical-data-analysis-session-in-rrstudio",
+    "href": "slides/Chapter00.html#a-typical-data-analysis-session-in-rrstudio",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "A typical data analysis session in R/RStudio",
+    "text": "A typical data analysis session in R/RStudio\nA data analysis session in R/RStudio involves loading the data, graphing, and modelling. You finally save your outputs or produce a Report.\nWhen you begin your analysis in RStudio, you can start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.\nFor the sack of simplicity, let us use an R default dataset called stackloss giving the operational data of a plant for the oxidation of ammonia to nitric acid.\n\ndata(\"stackloss\")\nhead(stackloss, 5)\n\n  Air.Flow Water.Temp Acid.Conc. stack.loss\n1       80         27         89         42\n2       80         27         88         37\n3       75         25         90         37\n4       62         24         87         28\n5       62         22         87         18"
+  },
+  {
+    "objectID": "slides/Chapter00.html#example-cont.",
+    "href": "slides/Chapter00.html#example-cont.",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Example (cont.)",
+    "text": "Example (cont.)\nThe distribution of the response variable stack.loss is explored using a histogram below:\n\nstackloss |&gt; \n  ggplot() +\n  aes(stack.loss) +\n  geom_histogram(bins = 5)\n\n\nHistograms are not good displays for small datasets. In order to see the size or length of stack.loss data, we select the stack.loss variable and then summarise the size using the n() option.\n\nstackloss |&gt; \n  select(stack.loss) |&gt; \n  summarise(n())\n\n  n()\n1  21\n\n\nThe following commands will also work.\n\nlength(stackloss$stack.loss)\n\n[1] 21\n\nstackloss |&gt; pull(stack.loss) |&gt; length()\n\n[1] 21"
+  },
+  {
+    "objectID": "slides/Chapter00.html#example-cont.-1",
+    "href": "slides/Chapter00.html#example-cont.-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Example (cont.)",
+    "text": "Example (cont.)\nWe may also explore how well stack.loss is related Air.Flow to using a scatter plot. For this, we type the command plot\n\nstackloss |&gt; \n  ggplot() +\n  aes(y=stack.loss, x=Air.Flow) +\n  geom_point()\n\n\nThe relationship is roughly linear. So we may fit a straight line model using the lm command.\n\nst.line.model &lt;- lm(stack.loss~Air.Flow, data=stackloss)\n\nWe can query this model asking for its summary using the summary() function.\n\nsummary(st.line.model)\n\n\nCall:\nlm(formula = stack.loss ~ Air.Flow, data = stackloss)\n\nResiduals:\n     Min       1Q   Median       3Q      Max \n-12.2896  -1.1272  -0.0459   1.1166   8.8728 \n\nCoefficients:\n             Estimate Std. Error t value Pr(&gt;|t|)    \n(Intercept) -44.13202    6.10586  -7.228 7.31e-07 ***\nAir.Flow      1.02031    0.09995  10.208 3.77e-09 ***\n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\nResidual standard error: 4.098 on 19 degrees of freedom\nMultiple R-squared:  0.8458,    Adjusted R-squared:  0.8377 \nF-statistic: 104.2 on 1 and 19 DF,  p-value: 3.774e-09"
+  },
+  {
+    "objectID": "slides/Chapter00.html#example-cont.-2",
+    "href": "slides/Chapter00.html#example-cont.-2",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Example (cont.)",
+    "text": "Example (cont.)\nR default model summary is bit too long. We may just glance the overall quality measures of the fitted model as follows:\n\nlibrary(tidyverse)\nlibrary(broom)\nlibrary(kableExtra)\n\nout1 &lt;- st.line.model |&gt; \n  glance() |&gt; \n  mutate(across(where(is.numeric), \n                ~round(., 2))\n         )\n\nout1 |&gt; t() |&gt; kable() \n\n\n\n\nr.squared\n0.85\n\n\nadj.r.squared\n0.84\n\n\nsigma\n4.10\n\n\nstatistic\n104.20\n\n\np.value\n0.00\n\n\ndf\n1.00\n\n\nlogLik\n-58.37\n\n\nAIC\n122.74\n\n\nBIC\n125.87\n\n\ndeviance\n319.12\n\n\ndf.residual\n19.00\n\n\nnobs\n21.00\n\n\n\n\n\nFor processing using Rmarkdown, we may use the codes which will give a tidy tabular output in the word-processed output.\n\nout1 &lt;- st.line.model |&gt; \n  tidy() |&gt; \n  mutate(across(where(is.numeric), ~round(., 2)))\n\nkable(out1)\n\n\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\n\n\n\n\n(Intercept)\n-44.13\n6.11\n-7.23\n0\n\n\nAir.Flow\n1.02\n0.10\n10.21\n0\n\n\n\n\n\nThe fitted model is shown below:\n\nggplot(stackloss) + \n  \n  aes(\n    y = stack.loss, \n    x = Air.Flow\n    ) +\n  \n  geom_point() + \n  \n  geom_smooth(\n    method = lm, \n    se = FALSE\n    )"
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-quality-checks-example",
+    "href": "slides/Chapter00.html#data-quality-checks-example",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Data Quality Checks: Example",
+    "text": "Data Quality Checks: Example\nIt is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx\n\nurl &lt;- \"http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx\"\ndestfile &lt;- \"rsos192136_si_001.xlsx\"\n\ncurl::curl_download(url, destfile)\n\n\nlibrary(readxl)\nrsos192136_si_001 &lt;- read_excel(\"rsos192136_si_001.xlsx\")\n\nThe missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.\n\nlibrary(VIM)\n\nres &lt;- rsos192136_si_001 |&gt; \n  aggr(sortVar=TRUE) |&gt; \n  summary() |&gt; \n  pluck(\"combinations\")"
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-quality-checks-1",
+    "href": "slides/Chapter00.html#data-quality-checks-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Data Quality Checks",
+    "text": "Data Quality Checks\nThere are also R packages to perform automatic investigation for data cleaning. Try-"
+  },
+  {
+    "objectID": "slides/Chapter00.html#types-of-data-analysis",
+    "href": "slides/Chapter00.html#types-of-data-analysis",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Types of data analysis",
+    "text": "Types of data analysis\n\n\n\nDescriptive:\nWhat happened?\nDiagnostic:\nWhy did it happen?\nPredictive:\nWhat might happen in the future?\nPrescriptive:\nWhat should we do about it?"
+  },
+  {
+    "objectID": "slides/Chapter00.html#accessing-objects-in-r",
+    "href": "slides/Chapter00.html#accessing-objects-in-r",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Accessing objects in R",
+    "text": "Accessing objects in R\nVector elements are accessed by square brackets, []. Try\n\nx[2]+x[4]\nx[2:3]\nx[c(1,3)]\nx[-2]"
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-frame",
+    "href": "slides/Chapter00.html#data-frame",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Data frame",
+    "text": "Data frame\nA data frame is an R object that contains vectors; the vectors are stored vertically in a matrix like structure, and can be referred to by the name of the column. The main advantage of a data frame is that the variables in a data frame do not all need to be the same type; e.g. some variables can be of class numeric, and some variables can be of class character. We can create a data frame object using the data.frame() function. This data frame contains two small vectors, the first of which is named ID, and the second NAME. Try\n\nx &lt;- 1:4\ny &lt;- c('a', 'b', 'c', 'd')\nmy.data &lt;-data.frame(ID=x, NAME=y)\nmy.data \n\nWe can access the original vector of interest in the following way:\n\nmy.data$NAME"
+  },
+  {
+    "objectID": "slides/Chapter00.html#matrices",
+    "href": "slides/Chapter00.html#matrices",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Matrices",
+    "text": "Matrices\nThere are times when it is useful to convert a data frame into a matrix; we can do this with the as.matrix() function.\n\nm &lt;- as.matrix(my.data)\n\nType class(m) and see the changes.\nTwo data frames can also be merged into a single data frame using the merge command.\nThe internal structure of an R object can be viewed using the diagnostic function str()."
+  },
+  {
+    "objectID": "slides/Chapter00.html#missing-data",
+    "href": "slides/Chapter00.html#missing-data",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Missing Data",
+    "text": "Missing Data\nMissing completely at random (MCAR) is often used to mean there is there is no pattern to the missing data themselves or alternatively the missingness is not related to any other variable or data in the dataset.\nMissing at random (MAR) data is data conditionally missing at random.\nFor example a particular survey question, the response rate may differ depending on the respondent’s gender. In this situation, the actual missingness may be random but still related to the gender variable.\nMissing not at random (MNAR) is the pattern when missingness is related to other variables in the dataset, as well as the values of the missing data are not random.\nThere are also situations such as censoring where we just record a single value without actually measuring the variable of interest."
+  },
+  {
+    "objectID": "slides/Chapter00.html#missing-data-1",
+    "href": "slides/Chapter00.html#missing-data-1",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Missing Data",
+    "text": "Missing Data\nImputation of data can be made except for the case of MCAR type. A number of R packages are available for data imputation; see https://cran.r-project.org/web/views/MissingData.html or https://stefvanbuuren.name/fimd/. We may occasionally cover data imputation issue in an assignment question."
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-quality-checks-2",
+    "href": "slides/Chapter00.html#data-quality-checks-2",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Data Quality Checks",
+    "text": "Data Quality Checks\njanitor has a function get_dupes() to find duplicate entries in the dataset.\nCleaner package will allow to clean the variables so that the columns are consistent in terms of the factor, date, numerical variable types.\ncase_when() in dplyr can be very helpful for rename or reclassifying observations\n\n\n\n\n161250 Data Analysis"
+  },
+  {
+    "objectID": "slides/Chapter00.html#tidying-data-example-cont.",
+    "href": "slides/Chapter00.html#tidying-data-example-cont.",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Tidying data example (cont.)",
+    "text": "Tidying data example (cont.)\nWe can use the dplyr function pivot_longer() to change this data into long format. Try-\n\nhospital |&gt; \n  pivot_longer(cols = NORTH1:SOUTH3, \n               names_to = \"location\", \n               values_to = \"Admissions\")\n\nThe command pivot_wider() does the opposite to pivot_longer()"
+  },
+  {
+    "objectID": "slides/Chapter00.html#joining-data-example",
+    "href": "slides/Chapter00.html#joining-data-example",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Joining data: Example",
+    "text": "Joining data: Example\nFor example, consider the flights and airlines data from the nycflights13 package.\nIn one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names.\nYou can use a join to add the carrier names to the flight data:\n\nlibrary(nycflights13)\n# Drop unimportant variables so it's easier to understand the join results.\nflights2 &lt;- flights %&gt;% select(year:day, hour, origin, dest, tailnum, carrier)\n\nflights2 %&gt;% \n  left_join(airlines)\n\n# A tibble: 336,776 × 9\n    year month   day  hour origin dest  tailnum carrier name                    \n   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   \n 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines Inc.   \n 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines Inc.   \n 3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines Inc.  \n 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways         \n 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines Inc.    \n 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines Inc.   \n 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways         \n 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlines Inc.\n 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         \n10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  \n# ℹ 336,766 more rows\n\n\nAs well as x and y, each mutating join takes an argument by that controls which variables are used to match observations in the two tables."
+  },
+  {
+    "objectID": "slides/Chapter00.html#importance-of-data-quality-control-process",
+    "href": "slides/Chapter00.html#importance-of-data-quality-control-process",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Importance of Data Quality Control Process",
+    "text": "Importance of Data Quality Control Process\nDecision-making:\nHigh-quality data ensures that decisions are based on accurate information.\nOperational Efficiency:\nReliable data is crucial for an efficient manufacturing. \nCustomer Satisfaction:\nAccurate customer data contributes to improved customer satisfaction.\nCompliance:\nComplying with regulations requires accurate and secure data handling. \nTrust and Credibility:\nBuilds trust with stakeholders, customers, and partners."
+  },
+  {
+    "objectID": "slides/Chapter00.html#data-quality",
+    "href": "slides/Chapter00.html#data-quality",
+    "title": "Chapter 0: Introduction: R, quarto, tidyverse",
+    "section": "Data Quality",
+    "text": "Data Quality\nAccuracy: Refers to the correctness of data.\nCompleteness: Addresses whether all necessary data is present.\nConsistency: Ensures uniformity and coherence across data sets.\nTimeliness: Timely data is up-to-date and aligns with the current context.\nRelevance: Relevant data is directly applicable to the analysis or decision-making process.\nValidity: Valid data meets the criteria set for its format and structure.\nReliability: Reliable data remains accurate and consistent across various timeframes.\nPrecision: Precise data is specific and avoids unnecessary granularity or ambiguity."
   }
 ]

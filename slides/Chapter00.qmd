@@ -8,7 +8,7 @@ format:
     transition: fade
     theme: [default, myquarto.scss]
     slide-number: c/t  
-    logo: img/data_analysis.png
+    logo: img/data_analysis.jpg
     footer: "[161250 Data Analysis](https:https://marraffini.github.io/Data_Analysis_Course/slides.html)"
     styles:
       - revealjs.dark:
@@ -18,7 +18,6 @@ execute:
   echo: true
 ---
 
-<!-- <link href="http://www.massey.ac.nz/~kgovinda/250/lecnotes/220.css" rel="stylesheet"> -->
 
 ```{r setup, echo=FALSE, message=FALSE}
 library(jpeg)
@@ -39,13 +38,40 @@ knitr::opts_chunk$set(
   )
 ```
 
+## Introduction
+
+Why am I in this course? 
+
+Why do I need to learn this stuff?
+
+
+## Choices, choices everywhere
+
+The goal of this course is not to make perfect little replicas of our thinking.
+
+Instead we aim to give you some tools to approach data analysis.
+
+Most of life is not about following instructions; it is about navigating ambiguity.
+
+There is almost always more than one way to do things in this course.
+
+How do I make decisions when things aren't clear? and is that the way I want to be making them?
+
+
 ## What is data analysis?
 
+::::{.columns}
+
+:::{.column}
 Data analysis is the process of inspecting, cleansing, transforming, and modeling data with the goal of discovering useful information, informing conclusions, and supporting decision-making. (wikipedia)
 
-A data analysis session involves loading the data, graphing, summarizing, and modelling. 
+:::
 
-![](img/data_analysis.png)
+:::{.column}
+![](img/data_analysis.jpg){height = 6in}
+:::
+
+::::
 
 ## Data Analysis
 
@@ -53,11 +79,13 @@ A data analysis session involves loading the data, graphing, summarizing, and mo
 -   Collect data
 -   Clean data to prepare it for analysis
 -   Analyse data
--   Interpret the results
+-   Interpret and communicate the results
 
 ![](img/stock.jpg)
 
-## Types of data anlysis
+## Types of data analysis
+::::{.columns}
+:::{.column}
 
 -   Descriptive:
 
@@ -75,8 +103,68 @@ A data analysis session involves loading the data, graphing, summarizing, and mo
 
         What should we do about it?
  
+:::
+
+:::{.column}
  ![](img/infographic_data.png)       
 
+:::
+
+::::
+
+
+
+## Getting started with R
+
+We will be using the programming language R for our data analysis
+
+R is the language
+
+R studio is the graphical user interface (GUI)
+
+
+ ![](img/R_logo.png)  
+If you have not installed R and R studio on your computer please see the resources page on Stream and studyguide material about how to do that.
+
+
+## Getting started with R
+
+Without R, it would take hours each day to manage data in the best case scenario. In a worst case scenario, it could take the entire day looking at data and fixing mistakes from cutting and pasting. Trying to remember what order you pressed buttons in last time or where the button moved to now that the software has updated.
+None of this is accounting for the cost of accessing any of the proprietary software. 
+
+*Advantages of R*
+
+- Free!
+- Save your workflow: reuse when data is updated
+- Explicit and transparent: steps are shown
+- Serves multiple functions: organise, analyses, communicate
+
+
+## Learning R
+
+Learning any skill from scratch is going to be challenging at first. 
+
+R is no exception. 
+
+You must consistently practice R in order to retain any information.
+
+Making mistakes is part of learning. We learn a lot from failure.
+
+## Some `R` basics {.unnumbered}
+
+-   `R` is case sensitive, so `data` is not the same as `DATA`
+
+-   Similarly beware of spaces and punctuation, particularly in column header
+
+-   `<-` (read as "gets") is the assignment operator. That is, you use
+    `<-` to assign some content to a variable. The operator `=` has a
+    slightly different meaning but it can be used in the same way as `<-`. 
+
+-   Comments are denoted by the \# symbol. Anything after a `#` symbol
+    is ignored by `R` . This is a great way to write yourself notes.
+
+
+## Some `R` basics {.unnumbered}
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 colorize <- function(x, color) {
@@ -90,46 +178,21 @@ colorize <- function(x, color) {
 
 ```
 
-
-## Getting started with R
-
-We will be using the programming language R for our data analysis
-
-R is the language
-
-R studio is the graphical user interface (GUI)
-
-
- ![](img/R_logo.png)  
-If you have not installed R and R studio on your computer please see the resources page on Stream about how to do that.
-
-## Some `R` basics {.unnumbered}
-
--   `R` is case sensitive, so `data` is not the same as `DATA`
-
--   Similarly beware of spaces and punctuation, particularly in column header
-
--   `<-` (read as "gets") is the assignment operator. That is, you use
-    `<-` to assign some content to a variable. The operator `=` has a
-    slightly different meaning but it can be used in the same way as `<-`. In R Studio, press `ALT` and minus key when you are in the R script mode
-    (File \>\> New File \>\> R Script).
-
--   Comments are denoted by the \# symbol. Anything after a `#` symbol
-    is ignored by `R` . This is a great way to write yourself notes.
-
 -   R coding can be hard to write from scratch. 
     `r colorize("So do not hesitate to adopt R codes written by others.", "red")`
     Search the internet for R code to do what you want to do. The usual `copy and paste` trick works!
     
--     Warnings vs error messages: R gives warnings typically in `r colorize("orange", "orange")` and errors in `r colorize("red", "red")`. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.
+-   Warnings vs error messages: R gives warnings typically in `r colorize("orange", "orange")` and errors in `r colorize("red", "red")`. A warning means your code likely ran but there is something you should be aware of while an error means your code did not run. We recommend first trying to understand what the error is saying, check for common mistakes (missing failing to close a bracket or quotation, misspelling, capitalization, etc. ), then try to google your error message.
 
--   You can take notes on your code using the \# symbol, called a comment R interprets everything after this symbol as notes not to be run.
+
 
 ## R as a calulator
 
-At the most basic level R is a calculator. We can type mathematical equations directly into R.
+At the most basic level R is a calculator. 
 
-```{r}
+We can type mathematical equations directly into R.
+
+```{r, echo =TRUE}
 2 + 2
 
 sqrt(16) # take the square root
@@ -137,15 +200,22 @@ sqrt(16) # take the square root
 
 
 
-# R Objects, Model Syntax etc. {.unnumbered}
+## R Objects, Model Syntax etc. {.unnumbered}
 
-In R, we work with objects. There are different classes of objects
-including: `character`, `integer`, `numeric`, `vector`, `matrix`,
-`array`, `data.frame`, `list`, `lm` (linear model). An object may belong to several classes at once.
+In R, we work with objects. There are different classes of objects including:
+
+`character`, `integer`, `numeric`, `vector`, `matrix`,
+`array`, `data.frame`, `list`, `lm` (linear model). 
+
+An object may belong to several classes at once.
+
+Understanding the data type is essential for knowing what you can
+
+## R Objects, Model Syntax etc. {.unnumbered}
 
 Suppose that your data consists of 4 numbers say 1 to 4. We can combine these numbers using the `c()` function namely `c(1,2,3,4)` and then assign it to `x`, an object.
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- c(1,2,3,4)
 ```
 
@@ -153,35 +223,39 @@ x <- c(1,2,3,4)
 
 Evidently `x` is a vector and also belongs to other classes of objects. This can be queried as follows:
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 is(x)
 ```
 
 The main class it belongs to is queried as
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 class(x)
 ```
+
+## R Objects, Model Syntax etc. {.unnumbered}
 
 Our data are actually integers and arranged in a pattern. So we can
 define `x` as follows:
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- 1:4
 ```
 
 The colon (`:`) operator created the desired pattern. Alternative
 expressions include
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- seq(1, 4, by=1)
 ``` 
 
 Try `is(x)` and `class(x)` and check whether our data are recognised as integer class.
 
+## R mathematical expressions {.unnumbered}
+
 We can do many mathematical manipulations on `x`. Try
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 mean(x)
 min(x)
 max(x)
@@ -192,18 +266,20 @@ sort(x, T)
 trunc(x/2)
 ```
 
+## Accessing objects in R
 Vector elements are accessed by square brackets, `[]`. Try
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x[2]+x[4]
 x[2:3]
 x[c(1,3)]
 x[-2]
 ```
 
+## Types of data in R
 Assume that our data are actually categorical codes. Then the correct way of defining the character data is to use single quotes as
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- c('a', 'b', 'c', 'd')
 ```
 
@@ -211,55 +287,54 @@ Now try Try `is(x)` and `class(x)`. For large patterned categorical
 data, placing quotes is laborious. So we can change the class as
 follows:
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- as.character(1:4)
 ```
 
+## Combining data
 Assume that you have two batches of data. The first one is
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- 1:4 
 ```
 
 and the second one is
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 y <- c('a', 'b', 'c', 'd')
 ```
 
 These two batches can be combined into a matrix as follows:
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 m <- cbind(x,y)
 ```
 
 Here the matrix `m` is formed by binding the columns (vectors). The
 other option is to bind as rows
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 m <- rbind(x,y)
 ```
 
-Evidently vectors must be of the same length for these commands to work. We can also form a matrix by splitting a vector. Try
 
-```{r, fig.show="hide", results='hide'}
+Evidently vectors must be of the same length for these commands to work. 
+We can also form a matrix by splitting a vector. Try
+
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- 1:6
 m <- matrix(x, byrow = TRUE, ncol = 3)
 m <- matrix(x, byrow = TRUE, ncol = 2)
 ```
 
-and just type `m` to see the generated matrix on the R console.
-
-```{r, fig.show="hide", results='hide'}
-m
-```
-
 To access the first of row of the matrix `m`, we use `m[1,]`; to access the first column of `m`, we use `m[,1]`.
+
+## Data frame
 
 A `data frame` is an R object that contains vectors; the vectors are
 stored vertically in a matrix like structure, and can be referred to by the name of the column. The main advantage of a data frame is that the variables in a data frame do not all need to be the same type; e.g. some variables can be of class numeric, and some variables can be of class character. We can create a data frame object using the `data.frame()` function. This data frame contains two small vectors, the first of which is named `ID`, and the second `NAME`. Try 
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 x <- 1:4
 y <- c('a', 'b', 'c', 'd')
 my.data <-data.frame(ID=x, NAME=y)
@@ -268,14 +343,15 @@ my.data
 
 We can access the original vector of interest in the following way:
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 my.data$NAME
 ```
 
+## Matrices
 
 There are times when it is useful to convert a data frame into a matrix; we can do this with the `as.matrix()` function.
 
-```{r, fig.show="hide", results='hide'}
+```{r, echo =TRUE, fig.show="hide", results='hide'}
 m <- as.matrix(my.data)
 ```
 
@@ -288,18 +364,25 @@ The internal structure of an R object can be viewed using the diagnostic functio
 
 ## Directories
 
-Directories is a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.
+Directories are a location for storing files on your computer. Information (documents) is stored in folders the location of that folder is called a directory. You can think of this as the address of the file.
 
-![](img/file-cabinet.png)
+![](img/file-cabinet.png){height=4in}
+
+## Directories
 
 ![](img/directory.png)
-For example on my computer my slides for this class are located in a folder called 'slides' inside 'Data_Analysis_course'. The last part of the directory is the most specific folder which is nested inside parent folders.
+
+This full address of the file is also called a path. 
+
+For example on my computer my slides for this class are located in a folder called 'slides' inside 'Data_Analysis_course'. The last part of the path is the most specific folder which is nested inside parent folders.
+
+
 
 ## Set directory in R
 
 In RStudio, set the working directory under the *Session* menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.
 
-```{r}
+```{r, echo=TRUE}
 getwd() # check your working directory
 
 # setwd() # if you know the directory you want R to look in
@@ -307,7 +390,9 @@ getwd() # check your working directory
 
 ## Quarto
 
-This course will be using [Quarto](https://quarto.org/) `*.qmd` files rather than raw `*.R` files. Heard of Rmarkdown? Well, Quarto is the successor to Rmarkdown. So, if you're just starting to use R, then you should begin with Quarto rather than Rmarkdown, because most/all new development will be going into Quarto.
+This course will be using [Quarto](https://quarto.org/) `*.qmd` files rather than raw `*.R` files. 
+
+Quarto is the successor to Rmarkdown. 
 
 Quarto files contain text and code, and can be 'Rendered' to produce a nicely formatted document, usually in HTML or PDF format, containing sections, text, code, plots, and output. Quarto can also be used to make websites; in fact, the website for this course was made using Quarto.
 
@@ -320,11 +405,12 @@ And some other useful tips: <https://r4ds.hadley.nz/quarto>.
 
 Most data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name. 
 
-If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., `mydata.csv` rather than `C:/Users/anhsmith/Work/Project1/data/mydata.csv`). Better yet, [Projects](https://r4ds.hadley.nz/workflow-scripts#projects) make this much easier.
+If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., `mydata.csv` rather than `C:/Users/anhsmith/Work/Project1/data/mydata.csv`). 
+
 
 You can also load data from the web using a URL. For example,
 
-```{r}
+```{r, echo=TRUE}
 #| code-fold: show
 rangitikei <- read_csv("https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv")
 ```
@@ -335,7 +421,11 @@ We usually store the data in an R object, here named `rangitikei`.
 
 The letters after the `.` at the end of a files name are called the extension and tell you the type of file. 
 
-If the data are stored as a `*.csv` or "comma separated values" file, then you can use the `read.csv()` or `read_csv()` function to load the file. If it's a text file (`.txt`) with columns separated by spaces or tabs, you can use `read.table()` or `read_table()` function. The ones with underscores ( `read_csv()` and `read_table()` ) are in the `readr` package, so you'll need to load it first (though `readr` is part of `tidyverse`, so if you load `tidyverse` you're all set). We will introduce `tidyverse` in a moment.
+*"comma separated values"* (`.csv`) : `read.csv()` or `read_csv()` function to load the file. 
+
+*text file* (`.txt`): `read.table()` or `read_table()` function. 
+
+The ones with underscores ( `read_csv()` and `read_table()` ) are in the `readr` package, so you'll need to load it first (though `readr` is part of `tidyverse`, so if you load `tidyverse` you're all set). 
 
 You can also load Microsoft Excel files using functions `read_excel()`, available in the `readxl` package.
 
@@ -346,7 +436,7 @@ Note that Excel files usually contain blanks for missing or unreported data or a
 Many (but not all) R packages are hosted at a repository called CRAN (*C*omprehensive *R* *A*rchive *N*etwork). The package install option within RStudio can download and install these optional packages under the menu `Packages >> Install`. You can also do this using the command
 `install.packages`.
 
-```{r}
+```{r, echo=TRUE}
 #| message: false
 # install.packages('tidyverse')
 library(tidyverse)
@@ -360,7 +450,7 @@ We will be largely using the `tidyverse` suite of packages for data organisation
 
 Let's load that package now:
 
-```{r}
+```{r, echo=TRUE}
 #| message: false
 library(tidyverse)
 ```
@@ -368,7 +458,6 @@ library(tidyverse)
 Recommended reading to accompany this workshop is pages 1-11 of R for Data Science <https://r4ds.hadley.nz/>
 
 ## Tidy data
-
 
 There are three interrelated rules that make a dataset tidy:
 
@@ -382,9 +471,9 @@ There are three interrelated rules that make a dataset tidy:
 
 There are two main advantages:
 
--   There’s a general advantage to picking one consistent way of storing data. If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.
+-   If you have a consistent data structure, it’s easier to learn the tools that work with it because they have an underlying uniformity.
 
--   There’s a specific advantage to placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values. 
+-   Placing variables in columns because it allows R’s vectorized nature to shine. Most built-in R functions work with vectors of values. 
 
 dplyr, ggplot2, and all the other packages in the tidyverse are designed to work with tidy data. 
 
@@ -393,11 +482,21 @@ dplyr, ggplot2, and all the other packages in the tidyverse are designed to work
 
 Summarizing data is a large part of data analysis.
 
+We summarize data in general because it provides us with a way to generalize - that is, to make general statements that extend beyond specific observations. 
+
+What is a summary?
+
+- Tables
+- Frequency distributions 
+- Cumulative distributions
+- Histograms
+
+
 
 ## `dplyr` {.unnumbered}
 
 The following six functions of `dplyr` are very useful for data
-wrangling :
+wrangling:
 
 -   For selecting columns, use `select()`
 -   For subsetting data, use `filter()`
@@ -407,7 +506,11 @@ wrangling :
 -   For group-wise computations (e.g. summary measures), use
     `group_by()`
 
-There are many other functions such as `transmute()` which will add newly calculated columns to the existing data frame but drop all unused columns. The `across()` function  extends `group_by()` and `summarise()` functions for multiple column and function summaries.  For example, you like to report rounded data in a table, which calls for an operation across both rows and columns.
+There are many other functions such as `transmute()` which will add newly calculated columns to the existing data frame but drop all unused columns. 
+
+The `across()` function  extends `group_by()` and `summarise()` functions for multiple column and function summaries.  
+
+For example, you like to report rounded data in a table, which calls for an operation across both rows and columns.
 
 ## Piping
 
@@ -419,16 +522,19 @@ There are many other functions such as `transmute()` which will add newly calcul
 
 The `R` package `magrittr` introduced the pipe operator `%>%` and can be pronounced as "then". In RStudio windows/Linux versions, press `Ctrl+Shift+M` to insert the pipe operator. On a Mac, use `Cmd+Shift+M`. 
 
-`R` also has its own pipe, `|>`, which is an alternative to `%>%`. I tend to use `|>`. If you want to change the pipe inserted automatically with `Ctrl+Shift+M`, find on the menu **Tools > Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". 
+`R` also has its own pipe, `|>`, which is an alternative to `%>%`.  If you want to change the pipe inserted automatically with `Ctrl+Shift+M`, find on the menu **Tools > Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". 
 
 We often pipe the `dplyr` functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework.
 
 
-# Graphing with `ggplot2` {.unnumbered}
+## Graphing with `ggplot2` {.unnumbered}
 
 The R library `ggplot2` is very powerful for plotting but
 you may find the syntax little strange. There are plenty of examples at the [`ggplot2` online help website](https://ggplot2.tidyverse.org/reference/). The `ggplot2` package is loaded as part of the `tidyverse` set of packages.
 
+::::{.columns}
+
+:::{.column}
 Advantages of `ggplot2` are the following:
 
 -   employs the "grammar of graphics" of [@Wilkinson]
@@ -437,6 +543,10 @@ Advantages of `ggplot2` are the following:
 -   theme system for getting attractive plots
 -   Fast growing and actively developed
 
+:::
+
+:::{.column}
+
 Some disadvantages of `ggplot2` are the following:
 
 -   3-dimensional graphics (opt for `rgl` package instead)
@@ -444,12 +554,17 @@ Some disadvantages of `ggplot2` are the following:
     other packages)
 -   Interactive graphics (opt for `plotly`, `ggvis` and other packages)
 
+:::
+
+::::
 
 ## Grammar of Graphics
 
 The main idea behind the grammar of graphics of [@Wilkinson] is to mimic
-the manual graphing approach and define building blocks and combine them
-to create a graphical display. The building blocks of a graph are:
+the manual graphing approach by defining building blocks and combining them
+to create the figure. 
+
+The building blocks of a graph are:
 
 -   data
 -   aesthetic mapping
@@ -506,7 +621,7 @@ This means that most real analyses will require at least a little tidying. You�
 The hospital admissions dataset is untidy because it does allocate many
 columns for a variable.
 
-```{r}
+```{r, echo=TRUE}
 hospital <- read.table(
   "https://www.massey.ac.nz/~anhsmith/data/hospital.txt",
   header=TRUE, sep=",")
@@ -516,9 +631,13 @@ head(hospital)
 
 
 
-The main response variable namely the number of admissions is allocated different columns depending on the North and South locations. This format is also called `wide format` which can be made into a tidy `long format`. We can use the `dplyr` function `pivot_longer()` to change this data into `long format`. Try-
+This format is also called `wide format` which can be made into a tidy `long format`. 
 
-```{r}
+## Tidying data example (cont.)
+
+We can use the `dplyr` function `pivot_longer()` to change this data into `long format`. Try-
+
+```{r, echo=TRUE}
 #| results: hide
 
 hospital |> 
@@ -529,28 +648,22 @@ hospital |>
 
 
 
-
 The command `pivot_wider()` does the opposite to `pivot_longer()`
-
-## Common data issues
-
--   Spelling, capitalization, typos, and white spaces
-
-      there are some handy functions in `stringr` and `janitor` packages
-
--   NAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project
-
-      can remove NAs using `na.omit()`, `!is.na()`, `na.rm=T`, etc. depending on what function you are using. See help menu for more details
-      
--   Multiple types of data in a single column or wrong data type
-
-      can force a data class using `as.numeric()` for example 
 
 ## Joining data
 
-Mutating joins allow you to combine variables from multiple tables. For example, consider the flights and airlines data from the nycflights13 package. In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. You can use a join to add the carrier names to the flight data:
+Sometimes you may want to analyse information that is in multiple tables.
 
-```{r}
+We will introduce a series of functions for joining tables together.
+
+## Joining data: Example
+For example, consider the flights and airlines data from the nycflights13 package. 
+
+In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. 
+
+You can use a join to add the carrier names to the flight data:
+
+```{r, echo=TRUE}
 library(nycflights13)
 # Drop unimportant variables so it's easier to understand the join results.
 flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
@@ -559,9 +672,9 @@ flights2 %>%
   left_join(airlines)
 ```
 
-As well as x and y, each mutating join takes an argument by that controls which variables are used to match observations in the two tables. 
+As well as x and y, each mutating join takes an argument `by` that controls which variables are used to match observations in the two tables. 
 
-# Types of join
+## Types of join
 
 There are four types of mutating join, which differ in their behaviour when a match is not found.
 
@@ -575,130 +688,105 @@ There are four types of mutating join, which differ in their behaviour when a ma
 
 The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.
 
-# A typical data analysis session in R/RStudio {.unnumbered}
+## Importance of Data Quality Control Process 
 
-A data analysis session in R/RStudio involves loading the data,
-graphing, and modelling. You finally save your outputs or produce a
-Report.
+Decision-making: 
 
-When you begin your analysis in RStudio, start it as a new project in the File menu. You can save all your work in one go when you quit the RStudio software. You can always load your project later on to continue the analysis.
+    High-quality data ensures that decisions are based on accurate information.
 
-For the sack of simplicity, let us use an R default dataset called
-`stackloss` giving the operational data of a plant for the oxidation of ammonia to nitric acid.
+Operational Efficiency: 
 
-```{r}
-data("stackloss")
-head(stackloss, 5)
-```
+    Reliable data is crucial for an efficient manufacturing. 
 
-The distribution of the response variable `stack.loss` is explored using
-a histogram below:
+Customer Satisfaction: 
 
-```{r}
-stackloss |> 
-  ggplot() +
-  aes(stack.loss) +
-  geom_histogram(bins = 5)
-```
+    Accurate customer data contributes to improved customer satisfaction.
 
-Histograms are not good displays for small datasets. In order to see the
-size or length of `stack.loss` data, we select the stack.loss variable
-and then summarise the size using the *n()* option.
+Compliance:
 
-```{r}
-stackloss |> 
-  select(stack.loss) |> 
-  summarise(n())
-```
+    Complying with regulations requires accurate and secure data handling. 
 
-The following commands will also work.
+Trust and Credibility: 
 
-```{r}
-length(stackloss$stack.loss)
-
-stackloss |> pull(stack.loss) |> length()
-```
-
-We may also explore how well `stack.loss` is related `Air.Flow` to using
-a scatter plot. For this, we type the command `plot`
-
-```{r}
-stackloss |> 
-  ggplot() +
-  aes(y=stack.loss, x=Air.Flow) +
-  geom_point()
-```
-
-The relationship is roughly linear. So we may fit a straight line model
-using the `lm` command.
-
-```{r}
-st.line.model <- lm(stack.loss~Air.Flow, data=stackloss)
-```
-
-We can query this model asking for its summary using the `summary()`
-function.
-
-```{r}
-summary(st.line.model)
-```
-
-`R` default model summary is bit too long.  We may just glance the overall quality measures of the fitted model as follows:
-
-```{r}
-library(tidyverse)
-library(broom)
-library(kableExtra)
-
-out1 <- st.line.model |> 
-  glance() |> 
-  mutate(across(where(is.numeric), 
-                ~round(., 2))
-         )
-
-out1 |> t() |> kable() 
-```
-
-For processing using Rmarkdown, we may use the codes which will give a tidy tabular output in the word-processed output.
+    Builds trust with stakeholders, customers, and partners.
 
 
-```{r}
-out1 <- st.line.model |> 
-  tidy() |> 
-  mutate(across(where(is.numeric), ~round(., 2)))
+## Data Quality
 
-kable(out1)
-```
+Accuracy: Refers to the correctness of data. 
 
-The fitted model is shown below:
+Completeness: Addresses whether all necessary data is present. 
 
-```{r}
-ggplot(stackloss) + 
-  
-  aes(
-    y = stack.loss, 
-    x = Air.Flow
-    ) +
-  
-  geom_point() + 
-  
-  geom_smooth(
-    method = lm, 
-    se = FALSE
-    )
-```
+Consistency: Ensures uniformity and coherence across data sets. 
 
-The fitted model can also be displayed on the scatter plot using the old style `plot` and `abline` commands.
+Timeliness: Timely data is up-to-date and aligns with the current context. 
 
-```{r, echo=TRUE, fig.show="hide"}
-plot(stack.loss ~ Air.Flow, data=stackloss)
-st.line.model <- lm(stack.loss~Air.Flow, data=stackloss)
-abline(st.line.model)
-```
+Relevance: Relevant data is directly applicable to the analysis or decision-making process.
 
+Validity: Valid data meets the criteria set for its format and structure.
 
+Reliability: Reliable data remains accurate and consistent across various timeframes.
 
+Precision: Precise data is specific and avoids unnecessary granularity or ambiguity.
+
+      
 ## Data Quality Checks {.unnumbered}
+
+-   Inaccurate entries
+
+      Typos, spelling, capitalization
+
+-   Missing data
+
+      Empty cells or rows
+
+-   Outliers/Unrealistic entries
+
+      Large numbers, negative numbers, etc. 
+      Age should fall within a realistic range (e.g., 0 to 120 years)
+      
+
+## Common data issues
+
+-   Spelling, capitalization, typos, and white spaces
+
+      there are some handy functions in `stringr` and `janitor` packages 
+      *case_when()* in dplyr can be very helpful for rename or reclassifying observations
+
+-   NAs: there is a difference between not observed, not recorded, and not applicable. This difference requires understanding of the data and data entry process for that project
+
+      can remove NAs using `na.omit()`, `!is.na()`, `na.rm=T`, etc. depending on what function you are using. See help menu for more details
+      
+-   Multiple types of data in a single column or wrong data type
+
+      can force a data class using `as.numeric()` for example 
+
+-   Multiple entries of the same observation
+
+      `janitor` package has a function get\_dupes() to find duplicate entries 
+      or the distinct() function from dplyr.
+         
+
+## Missing Data {.unnumbered}
+
+*Missing completely at random* (MCAR) is often used to mean
+there is there is no pattern to the missing data themselves or
+alternatively the missingness is not related to any other variable or
+data in the dataset. 
+
+*Missing at random (MAR)* data is data conditionally missing at random. 
+
+For example a particular survey question, the response rate may differ depending on the respondent's gender. In this situation, the actual missingness may be random but still related to the
+gender variable.
+
+*Missing not at random (MNAR)* is the pattern when missingness is
+related to other variables in the dataset, as well as the values of the
+missing data are not random. 
+
+There are also situations such as censoring where we just record a
+single value without actually measuring the variable of interest.
+
+## Data Quality Checks: Example
 
 It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from
 <http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx>
@@ -712,7 +800,7 @@ It is a good idea to check the quality of secondary data sourced from elsewhere.
 
 ```
 
-```{r}
+```{r, echo=TRUE}
 url <- "http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"
 destfile <- "rsos192136_si_001.xlsx"
 
@@ -720,14 +808,14 @@ curl::curl_download(url, destfile)
 ```
 
 
-```{r}
+```{r, echo=TRUE}
 library(readxl)
 rsos192136_si_001 <- read_excel("rsos192136_si_001.xlsx")
 ```
 
 The missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.
 
-```{r, results='hide'}
+```{r, echo=TRUE, results='hide'}
 library(VIM)
 
 res <- rsos192136_si_001 |> 
@@ -736,36 +824,7 @@ res <- rsos192136_si_001 |>
   pluck("combinations")
 ```
 
-or
-
-```{r, fig.show='hide', results='hide'}
-library(naniar)
-gg_miss_var(rsos192136_si_001) 
-```
-
-The term *Missing completely at random* (MCAR) is often used to mean
-there is there is no pattern to the missing data themselves or
-alternatively the missingness is not related to any other variable or
-data in the dataset. In other words, the probability of missingness is
-the same for all units. So no bias is caused by the missing data, and we
-can discard cases with missing data when we fit models.
-
-In practice, we often find missing data do have a relationship with
-other variables in the dataset but the actual missing values are random.
-This situation of data conditionally missing at random is called
-*Missing at random (MAR)* data. For a particular survey question, the
-response rate may differ depending on the respondent's gender. In this
-situation, the actual missingness may be random but still related to the
-gender variable.
-
-*Missing not at random (MNAR)* is the pattern when missingness is
-related to other variables in the dataset, as well as the values of the
-missing data are not random. In other words, there is a predictable
-pattern in the missingness. So we cannot avoid the bias when missing
-cases are omitted.
-
-There are also situations such as censoring where we just record a
-single value without actually measuring the variable of interest.
+## Missing Data {.unnumbered}
 
 Imputation of data can be made except for the case of MCAR type. A
 number of R packages are available for data imputation; see
@@ -773,6 +832,8 @@ number of R packages are available for data imputation; see
 <https://stefvanbuuren.name/fimd/>. We may occasionally cover data
 imputation issue in an assignment question.
 
+
+## Data Quality Checks {.unnumbered}
 There are also R packages to perform automatic investigation for data
 cleaning. Try-
 
@@ -792,13 +853,20 @@ create_report(rsos192136_si_001)
 ```
 
 
-Rule based validation is enabled in the R package *validate*. The R
-package *janitor* has a function get\_dupes() to find duplicate entries
-in the dataset. *Cleaner* package will allow to clean the variables so
-that the columns are consistent in terms of the factor, date, numerical
-variable types. You will be largely using data that are already cleaned
-for your assignments but be aware that you have to perform data cleaning
-and perform necessary quality checks before analysis.
+## Summary
 
+-   Introduction: 
 
-<!-- ricomisc::rstudio_viewer("Chapter-1.html", file_path = NULL) -->
+    What is data analysis? 
+
+-   Tidy data:
+
+    -   Each variable is a column; each column is a variable.
+    -   Each observation is a row; each row is an observation.
+    -   Each value is a cell; each cell is a single value.
+
+-   R programming for data analysis:
+
+    Get practicing with R.
+
+<!-- ricomisc::rstudio_viewer("Chapter-0.html", file_path = NULL) -->

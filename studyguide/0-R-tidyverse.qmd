@@ -40,7 +40,7 @@ R/RStudio can also be run on a cloud platform at <https://rstudio.cloud/> after 
 If you open RStudio, you will see something similar to the screen shot shown 
 in @fig-rstud:
 
-![An RStudio window](img/Rstudio.png){#fig-rstud}
+![An RStudio window](images/Rstudio.png){#fig-rstud}
 
 RStudio has many options, such as uploading files to a server, creating documents, etc. You will be using only a few of the options. You will *not* be using the menus such as *Build*, *Debug*, *Profile* at all in this course.
 
@@ -74,27 +74,27 @@ It is a good idea to get into the habit of using Quarto projects, rather than ju
 
 1. Open RStudio. (Optional: click on the little window symbol at the top and select "Console on Right")
 
-![](img/console_right.png)
+![](images/console_right.png)
 
 2. If you haven't already, make a directory on your computer where you want to keep your code for this course. 
 
 3. Make a new project. Select the "Project" button at the top-right of Rstudio, and select "New Project...".
 
-![](img/open_project.png)
+![](images/open_project.png)
 
 4. In the pop-up window:
 
 - Select "New Directory"
 
-![](img/new_direct.png)
+![](images/new_direct.png)
 
 - Select "Quarto Project"
 
-![](img/quarto_proj.png)
+![](images/quarto_proj.png)
 
 - Choose your directory via the "Browse", and then give the project a name like "161250_workshops"
 
-![](img/dir_name.png)
+![](images/dir_name.png)
 
 - Finish by clicking on "Create Project". 
 
@@ -102,7 +102,7 @@ The project should now be created, and you'll likely have an open \*.qmd file (s
 
 5. Right-click on the qmd tab and select "Rename", and rename it "workshop2.qmd" or something similar. (Alternatively, just make a new file via the menus: *File > New File > Quarto Document*.)
 
-![](img/rename_qmd.png)
+![](images/rename_qmd.png)
 
 Now you have a document for your Workshop work. You can:
 
@@ -112,7 +112,7 @@ Now you have a document for your Workshop work. You can:
 
 Like so:
 
-![](img/chunk.png)
+![](images/chunk.png)
 
 There are lots of tutorials online covering the basics of Quarto, and we'll discuss them during our own workshops. Here are a couple for starters:
 

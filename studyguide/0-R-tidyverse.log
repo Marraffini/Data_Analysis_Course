@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.17)  18 FEB 2025 14:24
+This is XeTeX, Version 3.141592653-2.6-0.999996 (TeX Live 2024) (preloaded format=xelatex 2025.2.17)  18 FEB 2025 16:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1405,16 +1405,16 @@ LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
 LaTeX Warning: Reference `fig-rstud' on page 3 undefined on input line 263.
 
 
-LaTeX Warning: File `img/Rstudio.png' not found on input line 267.
+LaTeX Warning: File `images/Rstudio.png' not found on input line 267.
 
-! Unable to load picture or PDF file 'img/Rstudio.png'.
+! Unable to load picture or PDF file 'images/Rstudio.png'.
 <to be read again> 
                    }
-l.267 ...ntering \includegraphics{img/Rstudio.png}
+l.267 ...ring \includegraphics{images/Rstudio.png}
                                                    
 Here is how much of TeX's memory you used:
  45978 strings out of 475785
- 941796 string characters out of 5771844
+ 941943 string characters out of 5771844
  2079023 words of memory out of 5000000
  68329 multiletter control sequences out of 15000+600000
  565268 words of font info for 86 fonts, out of 8000000 for 9000

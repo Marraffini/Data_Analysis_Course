@@ -9,7 +9,7 @@ format:
     theme: [default, myquarto.scss]
     slide-number: c/t  
     logo: img/L_Color.png
-    footer: "[161250 Data Analysis](https://anhsmith.github.io/161250/slides.html)"
+    footer: "[161250 Data Analysis](https://marraffini.github.io/Data_Analysis_Course/slides.html)"
     styles:
       - revealjs.dark:
         background-color: #222
@@ -206,7 +206,7 @@ ggplot(tea) +
 -   Requires comparison of angles or areas of different shapes
 -   Bar charts are almost always better
 
-<https://shiny.massey.ac.nz/anhsmith/demos/explore.counts.of.factors/>
+
 
 
 ## One-dimensional graphs
