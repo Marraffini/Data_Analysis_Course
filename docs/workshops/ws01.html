@@ -267,7 +267,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-1.8" id="toc-exercise-1.8" class="nav-link" data-scroll-target="#exercise-1.8">Exercise 1.8</a></li>
   <li><a href="#exercise-1.9" id="toc-exercise-1.9" class="nav-link" data-scroll-target="#exercise-1.9">Exercise 1.9</a>
   <ul class="collapse">
-  <li><a href="#tidyr" id="toc-tidyr" class="nav-link" data-scroll-target="#tidyr"><code>tidyr</code></a></li>
   <li><a href="#quarto" id="toc-quarto" class="nav-link" data-scroll-target="#quarto">Quarto</a></li>
   </ul></li>
   </ul>
@@ -935,106 +934,6 @@ $ vehicle &lt;dbl&gt; 15, 6, 31, 27, 2, 23, 8, 26, 3, 45, 7, 53, 22, 18, 10, 3, 
 <p><img src="ws01_files/figure-html/unnamed-chunk-39-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-<section id="tidyr" class="level2 unnumbered">
-<h2 class="unnumbered anchored" data-anchor-id="tidyr"><code>tidyr</code></h2>
-<p>By the phrase <code>tidy data</code>, it is meant the preferred way of arranging data that is easy to analyse. The principles of tidy data are:</p>
-<ul>
-<li>Each variable forms a column.</li>
-<li>Each observation forms a row.</li>
-<li>Each type of observational unit forms a table.</li>
-</ul>
-<p><em>Simple Manipulations</em></p>
-<p>There is always more than one-way of manipulating the data, producing summaries and tables from raw data.</p>
-<p>One of the simplest manipulations on a batch of data we may do is to change the data type say numeric to character. For example, the television viewing time data in the text file <code>tv.csv</code> is read into a dataframe by the command line</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/tv.csv"</span>, </span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span><span class="cn">TRUE</span></span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>We can improve the <code>read.csv</code> command to recognise the data type while reading the table as follows, using the <code>read_csv</code> command from the <code>readr</code> package:</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/tv.csv"</span>, </span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">"nfcc"</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>The argument <code>col_types = "nfcc"</code> stands for {<code>numeric</code>, <code>factor</code>, <code>character</code>, <code>character</code>}, to match the order of the columns.</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>my.data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 46 × 4
-   TELETIME SEX   SCHOOL STANDARD
-      &lt;dbl&gt; &lt;fct&gt; &lt;chr&gt;  &lt;chr&gt;   
- 1     1482 1     1      4       
- 2     2018 1     1      4       
- 3     1849 1     1      4       
- 4      857 1     1      4       
- 5     2027 2     1      4       
- 6     2368 2     1      4       
- 7     1783 2     1      4       
- 8     1769 2     1      4       
- 9     2534 1     1      3       
-10     2366 1     1      3       
-# ℹ 36 more rows</code></pre>
-</div>
-</div>
-<p>We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(my.data)</span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(TELETIME, SCHOOL, summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>We employed the <code>by()</code> command above and instead, we may also use <code>tapply()</code> <code>aggregate()</code> functions:</p>
-<p><code>tapply(TELETIME, SCHOOL, summary)</code></p>
-<p><code>aggregate(TELETIME, list(SCHOOL), summary)</code></p>
-<p>A tabulated summary of categorical data is obtained using the <code>table()</code> command.</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>,</span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>wind <span class="ot">&lt;-</span> my.data <span class="sc">|&gt;</span> <span class="fu">pull</span>(wind)</span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>river <span class="ot">&lt;-</span> my.data <span class="sc">|&gt;</span> <span class="fu">pull</span>(river)</span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wind, river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-<p>It is sometimes convenient to work with matrices for some R functions such as <code>apply()</code>. For example, the number of admissions data in <code>hospital.txt</code> data can be formed as a matrix. Note that this is possible because we have the same number of observations for each hospital location.</p>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
-<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/hospital.txt"</span>,</span>
-<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, </span>
-<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep=</span><span class="st">","</span>)</span>
-<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NORTH1, NORTH2, NORTH3, </span>
-<span id="cb59-8"><a href="#cb59-8" aria-hidden="true" tabindex="-1"></a>         SOUTH1, SOUTH2, SOUTH3) <span class="sc">|&gt;</span> </span>
-<span id="cb59-9"><a href="#cb59-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span>
-<span id="cb59-10"><a href="#cb59-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-11"><a href="#cb59-11" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">apply</span>(M, <span class="dv">1</span>, mean)</span>
-<span id="cb59-12"><a href="#cb59-12" aria-hidden="true" tabindex="-1"></a>sds <span class="ot">&lt;-</span> <span class="fu">apply</span>(M, <span class="dv">1</span>, sd)</span>
-<span id="cb59-13"><a href="#cb59-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb59-14"><a href="#cb59-14" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(means, sds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-</div>
-</section>
 <section id="quarto" class="level2">
 <h2 class="anchored" data-anchor-id="quarto">Quarto</h2>
 <p>Demonstrate how to open a new Quarto document</p>
@@ -1339,587 +1238,495 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb60" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Getting Started With R"</span></span>
-<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Installing `R` and RStudio</span></span>
-<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>If you have not installed R and RStudio, refer to the study guide for some instructions.</span>
-<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>To start this workshop download the source from the class website. You can now save this to your computer and make notes in this document.</span>
-<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Some `R` basics {.unnumbered}</span></span>
-<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>*Working directory*</span>
-<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a>In RStudio, set the working directory under the *Session* menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.</span>
-<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># check your working directory</span></span>
-<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd() # if you know the directory you want R to look in</span></span>
-<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a>*R/RStudio as a calculator*</span>
-<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>*In RStudio, use the File \&gt;\&gt; New File \&gt;\&gt; R Script menu to type or copy and paste the commands and execute them*</span>
-<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>Type <span class="in">`1+1`</span> to see <span class="in">`2`</span> on the console (or <span class="in">`-&gt;Run`</span> the code in RStudio).</span>
-<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span>
-<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a>Type <span class="in">`a=1;b=2;a/b`</span> to see <span class="in">`0.5`</span>.</span>
-<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="dv">1</span>;b<span class="ot">=</span><span class="dv">2</span>;a<span class="sc">/</span>b</span>
-<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>Note that semicolon separates various commands. It is optional to use them as long as you type the commands one by one as follows:</span>
-<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="dv">1</span></span>
-<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a>b<span class="ot">=</span><span class="dv">2</span></span>
-<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a>a<span class="sc">/</span>b</span>
-<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.1 {-}</span></span>
-<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a>There are many built-in functions. Try the following.</span>
-<span id="cb60-58"><a href="#cb60-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-59"><a href="#cb60-59" aria-hidden="true" tabindex="-1"></a><span class="in">`27^3`</span> <span class="in">`sqrt(10)`</span> <span class="in">`round(sqrt(10),2)`</span> <span class="in">`abs(-4)`</span> <span class="in">`log(10)`</span> <span class="in">`exp(10)`</span></span>
-<span id="cb60-60"><a href="#cb60-60" aria-hidden="true" tabindex="-1"></a><span class="in">`rnorm(100)`</span> <span class="in">`mean(rnorm(100))`</span> <span class="in">`sd(rnorm(100))`</span></span>
-<span id="cb60-61"><a href="#cb60-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-64"><a href="#cb60-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-65"><a href="#cb60-65" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb60-66"><a href="#cb60-66" aria-hidden="true" tabindex="-1"></a><span class="co"># make yourself notes about what each of these functions does</span></span>
-<span id="cb60-67"><a href="#cb60-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-68"><a href="#cb60-68" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-69"><a href="#cb60-69" aria-hidden="true" tabindex="-1"></a>You may wonder what was the base used for <span class="in">`log(10)`</span>. A help on this can be obtained by placing a question mark (<span class="in">`?`</span>) before log as <span class="in">`?log`</span> or by <span class="in">`help(log)`</span></span>
-<span id="cb60-70"><a href="#cb60-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-71"><a href="#cb60-71" aria-hidden="true" tabindex="-1"></a>There are a few exceptions. The command <span class="in">`?if`</span> wont work but <span class="in">`?"if"`</span> will. In other words, <span class="in">`?"log"`</span> or <span class="in">`help("log")`</span> are safer ways of getting help on "built-in" functions.</span>
-<span id="cb60-72"><a href="#cb60-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-73"><a href="#cb60-73" aria-hidden="true" tabindex="-1"></a>In RStudio, use the R Editor (menu *File &gt; New Script*) to type the commands and submit them (shortcut: *CNTRL+R*).`</span>
-<span id="cb60-74"><a href="#cb60-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-75"><a href="#cb60-75" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.2 {-}</span></span>
-<span id="cb60-76"><a href="#cb60-76" aria-hidden="true" tabindex="-1"></a>Why does this code not work?</span>
-<span id="cb60-79"><a href="#cb60-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-80"><a href="#cb60-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb60-81"><a href="#cb60-81" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-82"><a href="#cb60-82" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb60-83"><a href="#cb60-83" aria-hidden="true" tabindex="-1"></a>my_varıable</span>
-<span id="cb60-84"><a href="#cb60-84" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-85"><a href="#cb60-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-86"><a href="#cb60-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-87"><a href="#cb60-87" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.3 {-}</span></span>
-<span id="cb60-88"><a href="#cb60-88" aria-hidden="true" tabindex="-1"></a>Make a variable with a sequence of numbers between 1 and 10. Look up the function <span class="in">`seq()`</span> in the help menu for tips.</span>
-<span id="cb60-89"><a href="#cb60-89" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-92"><a href="#cb60-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-93"><a href="#cb60-93" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb60-94"><a href="#cb60-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-95"><a href="#cb60-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-96"><a href="#cb60-96" aria-hidden="true" tabindex="-1"></a>*Default examples*</span>
-<span id="cb60-97"><a href="#cb60-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-98"><a href="#cb60-98" aria-hidden="true" tabindex="-1"></a>The command <span class="in">`example()`</span> will produce the available HELP examples, and will work for most functions. For example, try <span class="in">`example(boxplot)`</span>. You will see many boxplot examples such as the following:</span>
-<span id="cb60-99"><a href="#cb60-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-102"><a href="#cb60-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-103"><a href="#cb60-103" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(count <span class="sc">~</span> spray, <span class="at">data =</span> InsectSprays, <span class="at">col =</span> <span class="st">"lightgray"</span>)</span>
-<span id="cb60-104"><a href="#cb60-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-105"><a href="#cb60-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-106"><a href="#cb60-106" aria-hidden="true" tabindex="-1"></a>There are also demos available, explore using the command <span class="in">`demo()`</span>. The basic R system produces somewhat old style graphs.</span>
-<span id="cb60-107"><a href="#cb60-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-108"><a href="#cb60-108" aria-hidden="true" tabindex="-1"></a>So we will be largely using the newer plotting system **ggplot** which is part of the <span class="in">`tidyverse`</span> suite of packages; see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>.</span>
-<span id="cb60-109"><a href="#cb60-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-110"><a href="#cb60-110" aria-hidden="true" tabindex="-1"></a>Let's load that package now:</span>
-<span id="cb60-111"><a href="#cb60-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-114"><a href="#cb60-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-115"><a href="#cb60-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
-<span id="cb60-116"><a href="#cb60-116" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('tidyverse') # if you do not have tidyverse you will need to install it first</span></span>
-<span id="cb60-117"><a href="#cb60-117" aria-hidden="true" tabindex="-1"></a><span class="co"># you only have to install packages once per machine (computer)</span></span>
-<span id="cb60-118"><a href="#cb60-118" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># you need to load a library every R session</span></span>
-<span id="cb60-119"><a href="#cb60-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-120"><a href="#cb60-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-121"><a href="#cb60-121" aria-hidden="true" tabindex="-1"></a>A huge number of other dedicated packages are available to improve the power of R. Many R packages are hosted at a repository called CRAN (*C*omprehensive *R* *A*rchive *N*etwork). The package install option within RStudio can download and install these optional packages under the menu <span class="in">`Packages &gt;&gt; Install`</span>. You can also do this using the command</span>
-<span id="cb60-122"><a href="#cb60-122" aria-hidden="true" tabindex="-1"></a><span class="in">`install.packages`</span>. For example</span>
-<span id="cb60-123"><a href="#cb60-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-124"><a href="#cb60-124" aria-hidden="true" tabindex="-1"></a><span class="in">`install.packages(c("tidyverse", "car"), dependencies = TRUE)`</span></span>
-<span id="cb60-125"><a href="#cb60-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-126"><a href="#cb60-126" aria-hidden="true" tabindex="-1"></a>This command installs two packages <span class="in">`tidyverse`</span> and <span class="in">`car`</span> in one go.</span>
-<span id="cb60-127"><a href="#cb60-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-128"><a href="#cb60-128" aria-hidden="true" tabindex="-1"></a>Contributed R packages are grouped in various headings at</span>
-<span id="cb60-129"><a href="#cb60-129" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://cran.r-project.org/web/views/&gt;</span>. They can be installed in bulk using the <span class="in">`ctv`</span> package command <span class="in">`install.views()`</span>.</span>
-<span id="cb60-130"><a href="#cb60-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-131"><a href="#cb60-131" aria-hidden="true" tabindex="-1"></a>You might have to install quite a few packages as you work through this course.</span>
-<span id="cb60-132"><a href="#cb60-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-133"><a href="#cb60-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-134"><a href="#cb60-134" aria-hidden="true" tabindex="-1"></a><span class="fu"># Loading/Importing Data {.unnumbered}</span></span>
-<span id="cb60-135"><a href="#cb60-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-136"><a href="#cb60-136" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-137"><a href="#cb60-137" aria-hidden="true" tabindex="-1"></a>If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., <span class="in">`mydata.csv`</span> rather than <span class="in">`C:/Users/anhsmith/Work/Project1/data/mydata.csv`</span>). Better yet, <span class="co">[</span><span class="ot">Projects</span><span class="co">](https://r4ds.hadley.nz/workflow-scripts#projects)</span> make this much easier.</span>
-<span id="cb60-138"><a href="#cb60-138" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-139"><a href="#cb60-139" aria-hidden="true" tabindex="-1"></a>You can also load data from the web using a URL. For example,</span>
-<span id="cb60-140"><a href="#cb60-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-143"><a href="#cb60-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-144"><a href="#cb60-144" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
-<span id="cb60-145"><a href="#cb60-145" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>)</span>
-<span id="cb60-146"><a href="#cb60-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-147"><a href="#cb60-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-148"><a href="#cb60-148" aria-hidden="true" tabindex="-1"></a>We'd usually want to store the data as an object though, like so:</span>
-<span id="cb60-149"><a href="#cb60-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-152"><a href="#cb60-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-153"><a href="#cb60-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
-<span id="cb60-154"><a href="#cb60-154" aria-hidden="true" tabindex="-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>)</span>
-<span id="cb60-155"><a href="#cb60-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-156"><a href="#cb60-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-157"><a href="#cb60-157" aria-hidden="true" tabindex="-1"></a>Now the data are available in R as an object.</span>
-<span id="cb60-158"><a href="#cb60-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-161"><a href="#cb60-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-162"><a href="#cb60-162" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
-<span id="cb60-163"><a href="#cb60-163" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(rangitikei)</span>
-<span id="cb60-164"><a href="#cb60-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-165"><a href="#cb60-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-166"><a href="#cb60-166" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.4 {-}</span></span>
-<span id="cb60-167"><a href="#cb60-167" aria-hidden="true" tabindex="-1"></a>Try importing the Telomeres data file (in Excel format)</span>
-<span id="cb60-168"><a href="#cb60-168" aria-hidden="true" tabindex="-1"></a>available at</span>
-<span id="cb60-169"><a href="#cb60-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-170"><a href="#cb60-170" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://rs.figshare.com/ndownloader/files/22850096&gt;</span></span>
-<span id="cb60-171"><a href="#cb60-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-174"><a href="#cb60-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-175"><a href="#cb60-175" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb60-176"><a href="#cb60-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-177"><a href="#cb60-177" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-178"><a href="#cb60-178" aria-hidden="true" tabindex="-1"></a>Note that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them.</span>
-<span id="cb60-179"><a href="#cb60-179" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-180"><a href="#cb60-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-181"><a href="#cb60-181" aria-hidden="true" tabindex="-1"></a>Consider the study guide dataset <span class="in">`rangitikei.txt`</span> (Recreational Use of</span>
-<span id="cb60-182"><a href="#cb60-182" aria-hidden="true" tabindex="-1"></a>the Rangitikei river) again. The first 10 rows of this dataset are shown</span>
-<span id="cb60-183"><a href="#cb60-183" aria-hidden="true" tabindex="-1"></a>below:</span>
-<span id="cb60-184"><a href="#cb60-184" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-185"><a href="#cb60-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb60-186"><a href="#cb60-186" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb60-187"><a href="#cb60-187" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>, </span>
-<span id="cb60-188"><a href="#cb60-188" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
-<span id="cb60-189"><a href="#cb60-189" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb60-190"><a href="#cb60-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-191"><a href="#cb60-191" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my.data, <span class="dv">10</span>) <span class="co"># shows the first ten rows</span></span>
-<span id="cb60-192"><a href="#cb60-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-193"><a href="#cb60-193" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-194"><a href="#cb60-194" aria-hidden="true" tabindex="-1"></a>The description of the variables is given below:</span>
-<span id="cb60-195"><a href="#cb60-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-196"><a href="#cb60-196" aria-hidden="true" tabindex="-1"></a><span class="in">`loc`</span> - two locations were surveyed, coded 1, 2\</span>
-<span id="cb60-197"><a href="#cb60-197" aria-hidden="true" tabindex="-1"></a><span class="in">`time`</span> - time of day, 1 for morning, 2 for afternoon\</span>
-<span id="cb60-198"><a href="#cb60-198" aria-hidden="true" tabindex="-1"></a><span class="in">`w.e`</span> - coded 1 for weekend, 2 for weekday\</span>
-<span id="cb60-199"><a href="#cb60-199" aria-hidden="true" tabindex="-1"></a><span class="in">`cl`</span>- cloud cover, 1 for <span class="sc">\&gt;</span>50%, 2 for <span class="sc">\&lt;</span>50%\</span>
-<span id="cb60-200"><a href="#cb60-200" aria-hidden="true" tabindex="-1"></a><span class="in">`wind`</span>- coded 1 through 4 for increasing wind speed\</span>
-<span id="cb60-201"><a href="#cb60-201" aria-hidden="true" tabindex="-1"></a><span class="in">`temp`</span> - temperature, 1, 2 or 3 increasing temp\</span>
-<span id="cb60-202"><a href="#cb60-202" aria-hidden="true" tabindex="-1"></a><span class="in">`river`</span>- murkiness of river in 3 increasing categories\</span>
-<span id="cb60-203"><a href="#cb60-203" aria-hidden="true" tabindex="-1"></a><span class="in">`people`</span> - number of people at that location and time\</span>
-<span id="cb60-204"><a href="#cb60-204" aria-hidden="true" tabindex="-1"></a><span class="in">`vehicle`</span>- number of vehicles at that location at that time\</span>
-<span id="cb60-205"><a href="#cb60-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-206"><a href="#cb60-206" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.5 {-}</span></span>
-<span id="cb60-207"><a href="#cb60-207" aria-hidden="true" tabindex="-1"></a>How many rows are in <span class="in">`my.data`</span>? How many columns? How can you find that in R?</span>
-<span id="cb60-208"><a href="#cb60-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-211"><a href="#cb60-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-212"><a href="#cb60-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-213"><a href="#cb60-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-214"><a href="#cb60-214" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
-<span id="cb60-215"><a href="#cb60-215" aria-hidden="true" tabindex="-1"></a>Find the mean of <span class="in">`vehicle`</span> and the median of <span class="in">`people`</span> using built in R functions.</span>
-<span id="cb60-216"><a href="#cb60-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-219"><a href="#cb60-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-220"><a href="#cb60-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-221"><a href="#cb60-221" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-222"><a href="#cb60-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-223"><a href="#cb60-223" aria-hidden="true" tabindex="-1"></a><span class="fu"># Graphing with ggplot2</span></span>
-<span id="cb60-224"><a href="#cb60-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-225"><a href="#cb60-225" aria-hidden="true" tabindex="-1"></a>If have not installed <span class="in">`ggplot2`</span> or <span class="in">`tidyverse`</span>, install it with the</span>
-<span id="cb60-226"><a href="#cb60-226" aria-hidden="true" tabindex="-1"></a>following commands.</span>
-<span id="cb60-227"><a href="#cb60-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-228"><a href="#cb60-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
-<span id="cb60-229"><a href="#cb60-229" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
-<span id="cb60-230"><a href="#cb60-230" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
-<span id="cb60-231"><a href="#cb60-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-232"><a href="#cb60-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-233"><a href="#cb60-233" aria-hidden="true" tabindex="-1"></a>We can now load the <span class="in">`ggplot2`</span> library with the commands:</span>
-<span id="cb60-234"><a href="#cb60-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-235"><a href="#cb60-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warninng=FALSE}</span></span>
-<span id="cb60-236"><a href="#cb60-236" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb60-237"><a href="#cb60-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-238"><a href="#cb60-238" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-239"><a href="#cb60-239" aria-hidden="true" tabindex="-1"></a>In order to work with <span class="in">`ggplot2`</span>, we must have a <span class="in">`data frame`</span> or a <span class="in">`tibble`</span></span>
-<span id="cb60-240"><a href="#cb60-240" aria-hidden="true" tabindex="-1"></a>containing our data. We need to specify the <span class="in">`aesthetics`</span> or how the</span>
-<span id="cb60-241"><a href="#cb60-241" aria-hidden="true" tabindex="-1"></a>columns of our data frame can be translated into positions, colours,</span>
-<span id="cb60-242"><a href="#cb60-242" aria-hidden="true" tabindex="-1"></a>sizes, and shapes of graphical elements.</span>
-<span id="cb60-243"><a href="#cb60-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-246"><a href="#cb60-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-247"><a href="#cb60-247" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-248"><a href="#cb60-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
-<span id="cb60-249"><a href="#cb60-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb60-250"><a href="#cb60-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-251"><a href="#cb60-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-252"><a href="#cb60-252" aria-hidden="true" tabindex="-1"></a>The <span class="in">`aes`</span> part defines the "aesthetics", which is how columns of the dataframe map to graphical attributes such as x and y position, colour, size, etc. An aesthetic can be either numeric or categorical and an appropriate scale will be used. After this, we add layers of graphics. <span class="in">`geom_point`</span> layer is employed to map x and y and we need not specify all the options for <span class="in">`geom_point`</span>.</span>
-<span id="cb60-253"><a href="#cb60-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-254"><a href="#cb60-254" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
-<span id="cb60-255"><a href="#cb60-255" aria-hidden="true" tabindex="-1"></a>Why does the following give an error and how would you fix it?</span>
-<span id="cb60-256"><a href="#cb60-256" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-259"><a href="#cb60-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-260"><a href="#cb60-260" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
-<span id="cb60-261"><a href="#cb60-261" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> my.data) <span class="sc">+</span> </span>
-<span id="cb60-262"><a href="#cb60-262" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb60-263"><a href="#cb60-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-264"><a href="#cb60-264" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-265"><a href="#cb60-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-266"><a href="#cb60-266" aria-hidden="true" tabindex="-1"></a>We can add a title using *labs()* or *ggtitle()* functions. Try-</span>
-<span id="cb60-267"><a href="#cb60-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-268"><a href="#cb60-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide"}</span></span>
-<span id="cb60-269"><a href="#cb60-269" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-270"><a href="#cb60-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> river) <span class="sc">+</span></span>
-<span id="cb60-271"><a href="#cb60-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb60-272"><a href="#cb60-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"No. of people vs No. of vehicles"</span>)</span>
-<span id="cb60-273"><a href="#cb60-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-274"><a href="#cb60-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-275"><a href="#cb60-275" aria-hidden="true" tabindex="-1"></a>or</span>
-<span id="cb60-276"><a href="#cb60-276" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-277"><a href="#cb60-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide"}</span></span>
-<span id="cb60-278"><a href="#cb60-278" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data)<span class="sc">+</span></span>
-<span id="cb60-279"><a href="#cb60-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
-<span id="cb60-280"><a href="#cb60-280" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb60-281"><a href="#cb60-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"No. of people vs No. of vehicles"</span>)</span>
-<span id="cb60-282"><a href="#cb60-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-283"><a href="#cb60-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-284"><a href="#cb60-284" aria-hidden="true" tabindex="-1"></a>Note that *labs()* allows captions and subtitles.</span>
-<span id="cb60-285"><a href="#cb60-285" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-286"><a href="#cb60-286" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.7 {-}</span></span>
-<span id="cb60-287"><a href="#cb60-287" aria-hidden="true" tabindex="-1"></a>Remake the above graph, adjusting the x axis to say <span class="in">`Vehicles`</span> using the <span class="in">`labs()`</span> function. </span>
-<span id="cb60-288"><a href="#cb60-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-291"><a href="#cb60-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-292"><a href="#cb60-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-293"><a href="#cb60-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-294"><a href="#cb60-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-295"><a href="#cb60-295" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_smooth`</span> is additionally used to show trends.</span>
-<span id="cb60-296"><a href="#cb60-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-299"><a href="#cb60-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-300"><a href="#cb60-300" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-301"><a href="#cb60-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
-<span id="cb60-302"><a href="#cb60-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb60-303"><a href="#cb60-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
-<span id="cb60-304"><a href="#cb60-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-305"><a href="#cb60-305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-306"><a href="#cb60-306" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.8 {-}</span></span>
-<span id="cb60-307"><a href="#cb60-307" aria-hidden="true" tabindex="-1"></a>Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</span>
-<span id="cb60-308"><a href="#cb60-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-311"><a href="#cb60-311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-312"><a href="#cb60-312" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-313"><a href="#cb60-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
-<span id="cb60-314"><a href="#cb60-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb60-315"><a href="#cb60-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb60-316"><a href="#cb60-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-317"><a href="#cb60-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-318"><a href="#cb60-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-319"><a href="#cb60-319" aria-hidden="true" tabindex="-1"></a>Similar to <span class="in">`geom_smooth`</span>, a variety of <span class="in">`geoms`</span> are available.</span>
-<span id="cb60-320"><a href="#cb60-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-323"><a href="#cb60-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-324"><a href="#cb60-324" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
-<span id="cb60-325"><a href="#cb60-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(wind), <span class="at">y =</span> people) <span class="sc">+</span></span>
-<span id="cb60-326"><a href="#cb60-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
-<span id="cb60-327"><a href="#cb60-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-328"><a href="#cb60-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-329"><a href="#cb60-329" aria-hidden="true" tabindex="-1"></a>Each <span class="in">`geom`</span> accepts a particular set of mappings;for example</span>
-<span id="cb60-330"><a href="#cb60-330" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_text()`</span> accepts a <span class="in">`labels`</span> mapping. Try-</span>
-<span id="cb60-331"><a href="#cb60-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-332"><a href="#cb60-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide"}</span></span>
-<span id="cb60-333"><a href="#cb60-333" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-334"><a href="#cb60-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
-<span id="cb60-335"><a href="#cb60-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb60-336"><a href="#cb60-336" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> w.e), </span>
-<span id="cb60-337"><a href="#cb60-337" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">5</span>)</span>
-<span id="cb60-338"><a href="#cb60-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-339"><a href="#cb60-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-340"><a href="#cb60-340" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.9 {-}</span></span>
-<span id="cb60-341"><a href="#cb60-341" aria-hidden="true" tabindex="-1"></a>Will these two graphs look different? Why/why not?</span>
-<span id="cb60-342"><a href="#cb60-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-345"><a href="#cb60-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-346"><a href="#cb60-346" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
-<span id="cb60-347"><a href="#cb60-347" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> my.data,</span>
-<span id="cb60-348"><a href="#cb60-348" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)</span>
-<span id="cb60-349"><a href="#cb60-349" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
-<span id="cb60-350"><a href="#cb60-350" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb60-351"><a href="#cb60-351" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
-<span id="cb60-352"><a href="#cb60-352" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-353"><a href="#cb60-353" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
-<span id="cb60-354"><a href="#cb60-354" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb60-355"><a href="#cb60-355" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> my.data,</span>
-<span id="cb60-356"><a href="#cb60-356" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)</span>
-<span id="cb60-357"><a href="#cb60-357" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb60-358"><a href="#cb60-358" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
-<span id="cb60-359"><a href="#cb60-359" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> my.data,</span>
-<span id="cb60-360"><a href="#cb60-360" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)</span>
-<span id="cb60-361"><a href="#cb60-361" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb60-362"><a href="#cb60-362" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-363"><a href="#cb60-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-364"><a href="#cb60-364" aria-hidden="true" tabindex="-1"></a>The faceting option allows a collection of small plots with the same</span>
-<span id="cb60-365"><a href="#cb60-365" aria-hidden="true" tabindex="-1"></a>scales. Try-</span>
-<span id="cb60-366"><a href="#cb60-366" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-369"><a href="#cb60-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-370"><a href="#cb60-370" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-371"><a href="#cb60-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>vehicle, <span class="at">y=</span>people) <span class="sc">+</span> </span>
-<span id="cb60-372"><a href="#cb60-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb60-373"><a href="#cb60-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> river) </span>
-<span id="cb60-374"><a href="#cb60-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-375"><a href="#cb60-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-376"><a href="#cb60-376" aria-hidden="true" tabindex="-1"></a>Faceting is the <span class="in">`ggplot2`</span> option to create separate graphs for subsets</span>
-<span id="cb60-377"><a href="#cb60-377" aria-hidden="true" tabindex="-1"></a>of data. <span class="in">`ggplot2`</span> offers two functions for creating small multiples:</span>
-<span id="cb60-378"><a href="#cb60-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-379"><a href="#cb60-379" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`facet_wrap()`</span>: define subsets as the levels of a single grouping variable</span>
-<span id="cb60-380"><a href="#cb60-380" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="in">`facet_grid()`</span>: define subsets as the crossing of two grouping variables</span>
-<span id="cb60-381"><a href="#cb60-381" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-382"><a href="#cb60-382" aria-hidden="true" tabindex="-1"></a>The following arguments are common to most scales in <span class="in">`ggplot2`</span>:</span>
-<span id="cb60-383"><a href="#cb60-383" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-384"><a href="#cb60-384" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**name:** the first argument gives the axis or legend title</span>
-<span id="cb60-385"><a href="#cb60-385" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**limits:** the minimum and maximum of the scale</span>
-<span id="cb60-386"><a href="#cb60-386" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**breaks:** the points along the scale where labels should appear</span>
-<span id="cb60-387"><a href="#cb60-387" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**labels:** the labels that appear at each break</span>
-<span id="cb60-388"><a href="#cb60-388" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-389"><a href="#cb60-389" aria-hidden="true" tabindex="-1"></a>Specific scale functions may have additional arguments. Some of the</span>
-<span id="cb60-390"><a href="#cb60-390" aria-hidden="true" tabindex="-1"></a>available Scales are:</span>
-<span id="cb60-391"><a href="#cb60-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-392"><a href="#cb60-392" aria-hidden="true" tabindex="-1"></a>| **Scale**         | **Examples**              |</span>
-<span id="cb60-393"><a href="#cb60-393" aria-hidden="true" tabindex="-1"></a>|-------------------|---------------------------|</span>
-<span id="cb60-394"><a href="#cb60-394" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_color_`</span>    | <span class="in">`scale_color_discrete`</span>    |</span>
-<span id="cb60-395"><a href="#cb60-395" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_fill_`</span>     | <span class="in">`scale_fill_continuous`</span>   |</span>
-<span id="cb60-396"><a href="#cb60-396" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_size_`</span>     | <span class="in">`scale_size_manual`</span>       |</span>
-<span id="cb60-397"><a href="#cb60-397" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_size_discrete`</span>     |</span>
-<span id="cb60-398"><a href="#cb60-398" aria-hidden="true" tabindex="-1"></a>|                   |                           |</span>
-<span id="cb60-399"><a href="#cb60-399" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_shape_`</span>    | <span class="in">`scale_shape_discrete`</span>    |</span>
-<span id="cb60-400"><a href="#cb60-400" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_shape_manual`</span>      |</span>
-<span id="cb60-401"><a href="#cb60-401" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_linetype_`</span> | <span class="in">`scale_linetype_discrete`</span> |</span>
-<span id="cb60-402"><a href="#cb60-402" aria-hidden="true" tabindex="-1"></a>|                   |                           |</span>
-<span id="cb60-403"><a href="#cb60-403" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_x_`</span>        | <span class="in">`scale_x_continuous`</span>      |</span>
-<span id="cb60-404"><a href="#cb60-404" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_x_log`</span>             |</span>
-<span id="cb60-405"><a href="#cb60-405" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_x_date`</span>            |</span>
-<span id="cb60-406"><a href="#cb60-406" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_y_`</span>        | <span class="in">`scale_y_reverse`</span>         |</span>
-<span id="cb60-407"><a href="#cb60-407" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_y_discrete`</span>        |</span>
-<span id="cb60-408"><a href="#cb60-408" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_y_datetime`</span>        |</span>
-<span id="cb60-409"><a href="#cb60-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-410"><a href="#cb60-410" aria-hidden="true" tabindex="-1"></a>In RStudio, we can type <span class="in">`scale_`</span> followed by TAB to get the whole list</span>
-<span id="cb60-411"><a href="#cb60-411" aria-hidden="true" tabindex="-1"></a>of available scales.</span>
-<span id="cb60-412"><a href="#cb60-412" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-413"><a href="#cb60-413" aria-hidden="true" tabindex="-1"></a>Try-</span>
-<span id="cb60-414"><a href="#cb60-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-417"><a href="#cb60-417" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-418"><a href="#cb60-418" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
-<span id="cb60-419"><a href="#cb60-419" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
-<span id="cb60-420"><a href="#cb60-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb60-421"><a href="#cb60-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"No. of Vehicles"</span>) <span class="sc">+</span> </span>
-<span id="cb60-422"><a href="#cb60-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"No. of people"</span>) <span class="sc">+</span> </span>
-<span id="cb60-423"><a href="#cb60-423" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"Temperature"</span>)</span>
-<span id="cb60-424"><a href="#cb60-424" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-425"><a href="#cb60-425" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-426"><a href="#cb60-426" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-427"><a href="#cb60-427" aria-hidden="true" tabindex="-1"></a>The other coding option is shown below:</span>
-<span id="cb60-428"><a href="#cb60-428" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-429"><a href="#cb60-429" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show = 'hide'}</span></span>
-<span id="cb60-430"><a href="#cb60-430" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
-<span id="cb60-431"><a href="#cb60-431" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
-<span id="cb60-432"><a href="#cb60-432" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb60-433"><a href="#cb60-433" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"No. of Vehicles"</span>) <span class="sc">+</span> </span>
-<span id="cb60-434"><a href="#cb60-434" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"No. of people"</span>) <span class="sc">+</span> </span>
-<span id="cb60-435"><a href="#cb60-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour=</span><span class="st">"Temperature"</span>) </span>
-<span id="cb60-436"><a href="#cb60-436" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-437"><a href="#cb60-437" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-438"><a href="#cb60-438" aria-hidden="true" tabindex="-1"></a>Note that a desired graph can be obtained in more than one way.</span>
-<span id="cb60-439"><a href="#cb60-439" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-440"><a href="#cb60-440" aria-hidden="true" tabindex="-1"></a>The <span class="in">`ggplot2`</span> theme system handles plot elements (not data based) such</span>
-<span id="cb60-441"><a href="#cb60-441" aria-hidden="true" tabindex="-1"></a>as</span>
-<span id="cb60-442"><a href="#cb60-442" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-443"><a href="#cb60-443" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Axis labels</span>
-<span id="cb60-444"><a href="#cb60-444" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Plot background</span>
-<span id="cb60-445"><a href="#cb60-445" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Facet label background</span>
-<span id="cb60-446"><a href="#cb60-446" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Legend appearance</span>
-<span id="cb60-447"><a href="#cb60-447" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-448"><a href="#cb60-448" aria-hidden="true" tabindex="-1"></a>Built-in themes include:</span>
-<span id="cb60-449"><a href="#cb60-449" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-450"><a href="#cb60-450" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_gray()`</span> (default)</span>
-<span id="cb60-451"><a href="#cb60-451" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_bw()`</span></span>
-<span id="cb60-452"><a href="#cb60-452" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_minimal()`</span></span>
-<span id="cb60-453"><a href="#cb60-453" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_classic()`</span></span>
-<span id="cb60-454"><a href="#cb60-454" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-457"><a href="#cb60-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-458"><a href="#cb60-458" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
-<span id="cb60-459"><a href="#cb60-459" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
-<span id="cb60-460"><a href="#cb60-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb60-461"><a href="#cb60-461" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-462"><a href="#cb60-462" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-463"><a href="#cb60-463" aria-hidden="true" tabindex="-1"></a>Note that the graph is assigned an object name <span class="in">`p1`</span> and nothing will be</span>
-<span id="cb60-464"><a href="#cb60-464" aria-hidden="true" tabindex="-1"></a>printed unless we then print the object <span class="in">`p1`</span>.</span>
-<span id="cb60-465"><a href="#cb60-465" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-468"><a href="#cb60-468" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-469"><a href="#cb60-469" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
-<span id="cb60-470"><a href="#cb60-470" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
-<span id="cb60-471"><a href="#cb60-471" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb60-472"><a href="#cb60-472" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-473"><a href="#cb60-473" aria-hidden="true" tabindex="-1"></a>p1</span>
-<span id="cb60-474"><a href="#cb60-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-475"><a href="#cb60-475" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-476"><a href="#cb60-476" aria-hidden="true" tabindex="-1"></a>Try-</span>
-<span id="cb60-477"><a href="#cb60-477" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-480"><a href="#cb60-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-481"><a href="#cb60-481" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_light</span>()</span>
-<span id="cb60-482"><a href="#cb60-482" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-483"><a href="#cb60-483" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-486"><a href="#cb60-486" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-487"><a href="#cb60-487" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_bw</span>()</span>
-<span id="cb60-488"><a href="#cb60-488" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-489"><a href="#cb60-489" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-490"><a href="#cb60-490" aria-hidden="true" tabindex="-1"></a>Specific theme elements can be overridden using <span class="in">`theme()`</span>. For example:</span>
-<span id="cb60-491"><a href="#cb60-491" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-494"><a href="#cb60-494" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-495"><a href="#cb60-495" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb60-496"><a href="#cb60-496" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"red"</span>))</span>
-<span id="cb60-497"><a href="#cb60-497" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-498"><a href="#cb60-498" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-499"><a href="#cb60-499" aria-hidden="true" tabindex="-1"></a>All theme options can be seen with <span class="in">`?theme`</span>.</span>
-<span id="cb60-500"><a href="#cb60-500" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-501"><a href="#cb60-501" aria-hidden="true" tabindex="-1"></a>To specify a theme for a whole document, use</span>
-<span id="cb60-502"><a href="#cb60-502" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-505"><a href="#cb60-505" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-506"><a href="#cb60-506" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
-<span id="cb60-507"><a href="#cb60-507" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-508"><a href="#cb60-508" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-509"><a href="#cb60-509" aria-hidden="true" tabindex="-1"></a>*Minimal graphing* can be done using the <span class="in">`qplot`</span> option that will</span>
-<span id="cb60-510"><a href="#cb60-510" aria-hidden="true" tabindex="-1"></a>produce a few standard formatted graphs quickly.</span>
-<span id="cb60-511"><a href="#cb60-511" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-514"><a href="#cb60-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-515"><a href="#cb60-515" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(people, vehicle, <span class="at">data =</span> my.data, <span class="at">colour =</span> river)</span>
-<span id="cb60-516"><a href="#cb60-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-517"><a href="#cb60-517" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-518"><a href="#cb60-518" aria-hidden="true" tabindex="-1"></a>Try-</span>
-<span id="cb60-519"><a href="#cb60-519" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-520"><a href="#cb60-520" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(people, data = my.data)`</span></span>
-<span id="cb60-521"><a href="#cb60-521" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-522"><a href="#cb60-522" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(people, fill=factor(river), data=my.data)`</span></span>
-<span id="cb60-523"><a href="#cb60-523" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-524"><a href="#cb60-524" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(people, data = my.data, geom = "dotplot")`</span></span>
-<span id="cb60-525"><a href="#cb60-525" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-526"><a href="#cb60-526" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(factor(river), people, data = my.data, geom = "boxplot")`</span></span>
-<span id="cb60-527"><a href="#cb60-527" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-528"><a href="#cb60-528" aria-hidden="true" tabindex="-1"></a>A cheat sheet for <span class="in">`ggplot2`</span> is available at</span>
-<span id="cb60-529"><a href="#cb60-529" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://www.rstudio.com/resources/cheatsheets/&gt;</span> (optional to download).</span>
-<span id="cb60-530"><a href="#cb60-530" aria-hidden="true" tabindex="-1"></a>There are many other packages which incorporate <span class="in">`ggplot2`</span> based graphs or</span>
-<span id="cb60-531"><a href="#cb60-531" aria-hidden="true" tabindex="-1"></a>dependent on it.</span>
-<span id="cb60-532"><a href="#cb60-532" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-533"><a href="#cb60-533" aria-hidden="true" tabindex="-1"></a>The library *patchwork* allows complex composition arbitrary plots,</span>
-<span id="cb60-534"><a href="#cb60-534" aria-hidden="true" tabindex="-1"></a>which are not produced using the faceting option. Try</span>
-<span id="cb60-535"><a href="#cb60-535" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-538"><a href="#cb60-538" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-539"><a href="#cb60-539" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb60-540"><a href="#cb60-540" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-541"><a href="#cb60-541" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(people, <span class="at">data =</span> my.data, <span class="at">geom =</span> <span class="st">"dotplot"</span>)</span>
-<span id="cb60-542"><a href="#cb60-542" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(people, <span class="at">data =</span> my.data, <span class="at">geom =</span> <span class="st">"boxplot"</span>)</span>
-<span id="cb60-543"><a href="#cb60-543" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my.data, <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb60-544"><a href="#cb60-544" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-545"><a href="#cb60-545" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">+</span> </span>
-<span id="cb60-546"><a href="#cb60-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="st">"My title"</span>, <span class="at">caption =</span> <span class="st">"My caption"</span>)</span>
-<span id="cb60-547"><a href="#cb60-547" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-548"><a href="#cb60-548" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-549"><a href="#cb60-549" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-550"><a href="#cb60-550" aria-hidden="true" tabindex="-1"></a><span class="fu">## `tidyr` {.unnumbered}</span></span>
-<span id="cb60-551"><a href="#cb60-551" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-552"><a href="#cb60-552" aria-hidden="true" tabindex="-1"></a>By the phrase <span class="in">`tidy data`</span>, it is meant the preferred way of arranging</span>
-<span id="cb60-553"><a href="#cb60-553" aria-hidden="true" tabindex="-1"></a>data that is easy to analyse. The principles of tidy data are:</span>
-<span id="cb60-554"><a href="#cb60-554" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-555"><a href="#cb60-555" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each variable forms a column.</span>
-<span id="cb60-556"><a href="#cb60-556" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each observation forms a row.</span>
-<span id="cb60-557"><a href="#cb60-557" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Each type of observational unit forms a table.</span>
-<span id="cb60-558"><a href="#cb60-558" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-559"><a href="#cb60-559" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-560"><a href="#cb60-560" aria-hidden="true" tabindex="-1"></a>*Simple Manipulations*</span>
-<span id="cb60-561"><a href="#cb60-561" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-562"><a href="#cb60-562" aria-hidden="true" tabindex="-1"></a>There is always more than one-way of manipulating the data, producing summaries and tables from raw data.</span>
-<span id="cb60-563"><a href="#cb60-563" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-564"><a href="#cb60-564" aria-hidden="true" tabindex="-1"></a>One of the simplest manipulations on a batch of data we may do is to</span>
-<span id="cb60-565"><a href="#cb60-565" aria-hidden="true" tabindex="-1"></a>change the data type say numeric to character. For example, the</span>
-<span id="cb60-566"><a href="#cb60-566" aria-hidden="true" tabindex="-1"></a>television viewing time data in the text file <span class="in">`tv.csv`</span> is read into a dataframe by the command line</span>
-<span id="cb60-567"><a href="#cb60-567" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-568"><a href="#cb60-568" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide", results='hide'}</span></span>
-<span id="cb60-569"><a href="#cb60-569" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb60-570"><a href="#cb60-570" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/tv.csv"</span>, </span>
-<span id="cb60-571"><a href="#cb60-571" aria-hidden="true" tabindex="-1"></a>  <span class="at">header =</span><span class="cn">TRUE</span></span>
-<span id="cb60-572"><a href="#cb60-572" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb60-573"><a href="#cb60-573" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-574"><a href="#cb60-574" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-575"><a href="#cb60-575" aria-hidden="true" tabindex="-1"></a>We can improve the <span class="in">`read.csv`</span> command to recognise the data type while reading the table as follows, using the <span class="in">`read_csv`</span> command from the <span class="in">`readr`</span> package:</span>
-<span id="cb60-576"><a href="#cb60-576" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-579"><a href="#cb60-579" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-580"><a href="#cb60-580" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
-<span id="cb60-581"><a href="#cb60-581" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/tv.csv"</span>, </span>
-<span id="cb60-582"><a href="#cb60-582" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">"nfcc"</span></span>
-<span id="cb60-583"><a href="#cb60-583" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb60-584"><a href="#cb60-584" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-585"><a href="#cb60-585" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-586"><a href="#cb60-586" aria-hidden="true" tabindex="-1"></a>The argument <span class="in">`col_types = "nfcc"`</span> stands for <span class="sc">\{</span><span class="in">`numeric`</span>, <span class="in">`factor`</span>, <span class="in">`character`</span>, <span class="in">`character`</span><span class="sc">\}</span>, to match the order of the columns.</span>
-<span id="cb60-587"><a href="#cb60-587" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-590"><a href="#cb60-590" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb60-591"><a href="#cb60-591" aria-hidden="true" tabindex="-1"></a>my.data</span>
-<span id="cb60-592"><a href="#cb60-592" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-593"><a href="#cb60-593" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-594"><a href="#cb60-594" aria-hidden="true" tabindex="-1"></a>We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands</span>
-<span id="cb60-595"><a href="#cb60-595" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-596"><a href="#cb60-596" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide", results='hide'}</span></span>
-<span id="cb60-597"><a href="#cb60-597" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(my.data)</span>
-<span id="cb60-598"><a href="#cb60-598" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(TELETIME, SCHOOL, summary)</span>
-<span id="cb60-599"><a href="#cb60-599" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-600"><a href="#cb60-600" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-601"><a href="#cb60-601" aria-hidden="true" tabindex="-1"></a>We employed the <span class="in">`by()`</span> command above and instead, we may also use</span>
-<span id="cb60-602"><a href="#cb60-602" aria-hidden="true" tabindex="-1"></a><span class="in">`tapply()`</span> <span class="in">`aggregate()`</span> functions:</span>
-<span id="cb60-603"><a href="#cb60-603" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-604"><a href="#cb60-604" aria-hidden="true" tabindex="-1"></a><span class="in">`tapply(TELETIME, SCHOOL, summary)`</span></span>
-<span id="cb60-605"><a href="#cb60-605" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-606"><a href="#cb60-606" aria-hidden="true" tabindex="-1"></a><span class="in">`aggregate(TELETIME, list(SCHOOL), summary)`</span></span>
-<span id="cb60-607"><a href="#cb60-607" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-608"><a href="#cb60-608" aria-hidden="true" tabindex="-1"></a>A tabulated summary of categorical data is obtained using the <span class="in">`table()`</span></span>
-<span id="cb60-609"><a href="#cb60-609" aria-hidden="true" tabindex="-1"></a>command.</span>
-<span id="cb60-610"><a href="#cb60-610" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-611"><a href="#cb60-611" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide", results='hide'}</span></span>
-<span id="cb60-612"><a href="#cb60-612" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
-<span id="cb60-613"><a href="#cb60-613" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>,</span>
-<span id="cb60-614"><a href="#cb60-614" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
-<span id="cb60-615"><a href="#cb60-615" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb60-616"><a href="#cb60-616" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-617"><a href="#cb60-617" aria-hidden="true" tabindex="-1"></a>wind <span class="ot">&lt;-</span> my.data <span class="sc">|&gt;</span> <span class="fu">pull</span>(wind)</span>
-<span id="cb60-618"><a href="#cb60-618" aria-hidden="true" tabindex="-1"></a>river <span class="ot">&lt;-</span> my.data <span class="sc">|&gt;</span> <span class="fu">pull</span>(river)</span>
-<span id="cb60-619"><a href="#cb60-619" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-620"><a href="#cb60-620" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wind, river)</span>
-<span id="cb60-621"><a href="#cb60-621" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-622"><a href="#cb60-622" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-623"><a href="#cb60-623" aria-hidden="true" tabindex="-1"></a>It is sometimes convenient to work with matrices for some R functions</span>
-<span id="cb60-624"><a href="#cb60-624" aria-hidden="true" tabindex="-1"></a>such as <span class="in">`apply()`</span>. For example, the number of admissions data in</span>
-<span id="cb60-625"><a href="#cb60-625" aria-hidden="true" tabindex="-1"></a><span class="in">`hospital.txt`</span> data can be formed as a matrix. Note that this is</span>
-<span id="cb60-626"><a href="#cb60-626" aria-hidden="true" tabindex="-1"></a>possible because we have the same number of observations for each</span>
-<span id="cb60-627"><a href="#cb60-627" aria-hidden="true" tabindex="-1"></a>hospital location.</span>
-<span id="cb60-628"><a href="#cb60-628" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-629"><a href="#cb60-629" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide", results='hide'}</span></span>
-<span id="cb60-630"><a href="#cb60-630" aria-hidden="true" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
-<span id="cb60-631"><a href="#cb60-631" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/hospital.txt"</span>,</span>
-<span id="cb60-632"><a href="#cb60-632" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, </span>
-<span id="cb60-633"><a href="#cb60-633" aria-hidden="true" tabindex="-1"></a>  <span class="at">sep=</span><span class="st">","</span>)</span>
-<span id="cb60-634"><a href="#cb60-634" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-635"><a href="#cb60-635" aria-hidden="true" tabindex="-1"></a>M <span class="ot">&lt;-</span> data <span class="sc">|&gt;</span> </span>
-<span id="cb60-636"><a href="#cb60-636" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(NORTH1, NORTH2, NORTH3, </span>
-<span id="cb60-637"><a href="#cb60-637" aria-hidden="true" tabindex="-1"></a>         SOUTH1, SOUTH2, SOUTH3) <span class="sc">|&gt;</span> </span>
-<span id="cb60-638"><a href="#cb60-638" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sqrt</span>()</span>
-<span id="cb60-639"><a href="#cb60-639" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-640"><a href="#cb60-640" aria-hidden="true" tabindex="-1"></a>means <span class="ot">&lt;-</span> <span class="fu">apply</span>(M, <span class="dv">1</span>, mean)</span>
-<span id="cb60-641"><a href="#cb60-641" aria-hidden="true" tabindex="-1"></a>sds <span class="ot">&lt;-</span> <span class="fu">apply</span>(M, <span class="dv">1</span>, sd)</span>
-<span id="cb60-642"><a href="#cb60-642" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-643"><a href="#cb60-643" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(means, sds)</span>
-<span id="cb60-644"><a href="#cb60-644" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb60-645"><a href="#cb60-645" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-646"><a href="#cb60-646" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quarto</span></span>
-<span id="cb60-647"><a href="#cb60-647" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb60-648"><a href="#cb60-648" aria-hidden="true" tabindex="-1"></a>Demonstrate how to open a new Quarto document</span>
-<span id="cb60-649"><a href="#cb60-649" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode" id="cb53" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Getting Started With R"</span></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="fu"># Installing `R` and RStudio</span></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>If you have not installed R and RStudio, refer to the study guide for some instructions.</span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>To start this workshop download the source from the class website. You can now save this to your computer and make notes in this document.</span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a><span class="fu"># Some `R` basics {.unnumbered}</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>*Working directory*</span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>In RStudio, set the working directory under the *Session* menu. It is a good idea to start your analysis as a new project in the File menu so that the entire work and data files can be saved and re-opened easily later on.</span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>() <span class="co"># check your working directory</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a><span class="co"># setwd() # if you know the directory you want R to look in</span></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>*R/RStudio as a calculator*</span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>*In RStudio, use the File \&gt;\&gt; New File \&gt;\&gt; R Script menu to type or copy and paste the commands and execute them*</span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>Type <span class="in">`1+1`</span> to see <span class="in">`2`</span> on the console (or <span class="in">`-&gt;Run`</span> the code in RStudio).</span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span><span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a>Type <span class="in">`a=1;b=2;a/b`</span> to see <span class="in">`0.5`</span>.</span>
+<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-43"><a href="#cb53-43" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="dv">1</span>;b<span class="ot">=</span><span class="dv">2</span>;a<span class="sc">/</span>b</span>
+<span id="cb53-44"><a href="#cb53-44" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a>Note that semicolon separates various commands. It is optional to use them as long as you type the commands one by one as follows:</span>
+<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a>a<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a>b<span class="ot">=</span><span class="dv">2</span></span>
+<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a>a<span class="sc">/</span>b</span>
+<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-56"><a href="#cb53-56" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.1 {-}</span></span>
+<span id="cb53-57"><a href="#cb53-57" aria-hidden="true" tabindex="-1"></a>There are many built-in functions. Try the following.</span>
+<span id="cb53-58"><a href="#cb53-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-59"><a href="#cb53-59" aria-hidden="true" tabindex="-1"></a><span class="in">`27^3`</span> <span class="in">`sqrt(10)`</span> <span class="in">`round(sqrt(10),2)`</span> <span class="in">`abs(-4)`</span> <span class="in">`log(10)`</span> <span class="in">`exp(10)`</span></span>
+<span id="cb53-60"><a href="#cb53-60" aria-hidden="true" tabindex="-1"></a><span class="in">`rnorm(100)`</span> <span class="in">`mean(rnorm(100))`</span> <span class="in">`sd(rnorm(100))`</span></span>
+<span id="cb53-61"><a href="#cb53-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-64"><a href="#cb53-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-65"><a href="#cb53-65" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb53-66"><a href="#cb53-66" aria-hidden="true" tabindex="-1"></a><span class="co"># make yourself notes about what each of these functions does</span></span>
+<span id="cb53-67"><a href="#cb53-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-68"><a href="#cb53-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-69"><a href="#cb53-69" aria-hidden="true" tabindex="-1"></a>You may wonder what was the base used for <span class="in">`log(10)`</span>. A help on this can be obtained by placing a question mark (<span class="in">`?`</span>) before log as <span class="in">`?log`</span> or by <span class="in">`help(log)`</span></span>
+<span id="cb53-70"><a href="#cb53-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-71"><a href="#cb53-71" aria-hidden="true" tabindex="-1"></a>There are a few exceptions. The command <span class="in">`?if`</span> wont work but <span class="in">`?"if"`</span> will. In other words, <span class="in">`?"log"`</span> or <span class="in">`help("log")`</span> are safer ways of getting help on "built-in" functions.</span>
+<span id="cb53-72"><a href="#cb53-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-73"><a href="#cb53-73" aria-hidden="true" tabindex="-1"></a>In RStudio, use the R Editor (menu *File &gt; New Script*) to type the commands and submit them (shortcut: *CNTRL+R*).`</span>
+<span id="cb53-74"><a href="#cb53-74" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-75"><a href="#cb53-75" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.2 {-}</span></span>
+<span id="cb53-76"><a href="#cb53-76" aria-hidden="true" tabindex="-1"></a>Why does this code not work?</span>
+<span id="cb53-79"><a href="#cb53-79" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-80"><a href="#cb53-80" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb53-81"><a href="#cb53-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-82"><a href="#cb53-82" aria-hidden="true" tabindex="-1"></a>my_variable <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb53-83"><a href="#cb53-83" aria-hidden="true" tabindex="-1"></a>my_varıable</span>
+<span id="cb53-84"><a href="#cb53-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-85"><a href="#cb53-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-86"><a href="#cb53-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-87"><a href="#cb53-87" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.3 {-}</span></span>
+<span id="cb53-88"><a href="#cb53-88" aria-hidden="true" tabindex="-1"></a>Make a variable with a sequence of numbers between 1 and 10. Look up the function <span class="in">`seq()`</span> in the help menu for tips.</span>
+<span id="cb53-89"><a href="#cb53-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-92"><a href="#cb53-92" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-93"><a href="#cb53-93" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb53-94"><a href="#cb53-94" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-95"><a href="#cb53-95" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-96"><a href="#cb53-96" aria-hidden="true" tabindex="-1"></a>*Default examples*</span>
+<span id="cb53-97"><a href="#cb53-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-98"><a href="#cb53-98" aria-hidden="true" tabindex="-1"></a>The command <span class="in">`example()`</span> will produce the available HELP examples, and will work for most functions. For example, try <span class="in">`example(boxplot)`</span>. You will see many boxplot examples such as the following:</span>
+<span id="cb53-99"><a href="#cb53-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-102"><a href="#cb53-102" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-103"><a href="#cb53-103" aria-hidden="true" tabindex="-1"></a><span class="fu">boxplot</span>(count <span class="sc">~</span> spray, <span class="at">data =</span> InsectSprays, <span class="at">col =</span> <span class="st">"lightgray"</span>)</span>
+<span id="cb53-104"><a href="#cb53-104" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-105"><a href="#cb53-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-106"><a href="#cb53-106" aria-hidden="true" tabindex="-1"></a>There are also demos available, explore using the command <span class="in">`demo()`</span>. The basic R system produces somewhat old style graphs.</span>
+<span id="cb53-107"><a href="#cb53-107" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-108"><a href="#cb53-108" aria-hidden="true" tabindex="-1"></a>So we will be largely using the newer plotting system **ggplot** which is part of the <span class="in">`tidyverse`</span> suite of packages; see <span class="ot">&lt;https://www.tidyverse.org/&gt;</span>.</span>
+<span id="cb53-109"><a href="#cb53-109" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-110"><a href="#cb53-110" aria-hidden="true" tabindex="-1"></a>Let's load that package now:</span>
+<span id="cb53-111"><a href="#cb53-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-114"><a href="#cb53-114" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-115"><a href="#cb53-115" aria-hidden="true" tabindex="-1"></a><span class="co">#| message: false</span></span>
+<span id="cb53-116"><a href="#cb53-116" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages('tidyverse') # if you do not have tidyverse you will need to install it first</span></span>
+<span id="cb53-117"><a href="#cb53-117" aria-hidden="true" tabindex="-1"></a><span class="co"># you only have to install packages once per machine (computer)</span></span>
+<span id="cb53-118"><a href="#cb53-118" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse) <span class="co"># you need to load a library every R session</span></span>
+<span id="cb53-119"><a href="#cb53-119" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-120"><a href="#cb53-120" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-121"><a href="#cb53-121" aria-hidden="true" tabindex="-1"></a>A huge number of other dedicated packages are available to improve the power of R. Many R packages are hosted at a repository called CRAN (*C*omprehensive *R* *A*rchive *N*etwork). The package install option within RStudio can download and install these optional packages under the menu <span class="in">`Packages &gt;&gt; Install`</span>. You can also do this using the command</span>
+<span id="cb53-122"><a href="#cb53-122" aria-hidden="true" tabindex="-1"></a><span class="in">`install.packages`</span>. For example</span>
+<span id="cb53-123"><a href="#cb53-123" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-124"><a href="#cb53-124" aria-hidden="true" tabindex="-1"></a><span class="in">`install.packages(c("tidyverse", "car"), dependencies = TRUE)`</span></span>
+<span id="cb53-125"><a href="#cb53-125" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-126"><a href="#cb53-126" aria-hidden="true" tabindex="-1"></a>This command installs two packages <span class="in">`tidyverse`</span> and <span class="in">`car`</span> in one go.</span>
+<span id="cb53-127"><a href="#cb53-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-128"><a href="#cb53-128" aria-hidden="true" tabindex="-1"></a>Contributed R packages are grouped in various headings at</span>
+<span id="cb53-129"><a href="#cb53-129" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://cran.r-project.org/web/views/&gt;</span>. They can be installed in bulk using the <span class="in">`ctv`</span> package command <span class="in">`install.views()`</span>.</span>
+<span id="cb53-130"><a href="#cb53-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-131"><a href="#cb53-131" aria-hidden="true" tabindex="-1"></a>You might have to install quite a few packages as you work through this course.</span>
+<span id="cb53-132"><a href="#cb53-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-133"><a href="#cb53-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-134"><a href="#cb53-134" aria-hidden="true" tabindex="-1"></a><span class="fu"># Loading/Importing Data {.unnumbered}</span></span>
+<span id="cb53-135"><a href="#cb53-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-136"><a href="#cb53-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-137"><a href="#cb53-137" aria-hidden="true" tabindex="-1"></a>If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., <span class="in">`mydata.csv`</span> rather than <span class="in">`C:/Users/anhsmith/Work/Project1/data/mydata.csv`</span>). Better yet, <span class="co">[</span><span class="ot">Projects</span><span class="co">](https://r4ds.hadley.nz/workflow-scripts#projects)</span> make this much easier.</span>
+<span id="cb53-138"><a href="#cb53-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-139"><a href="#cb53-139" aria-hidden="true" tabindex="-1"></a>You can also load data from the web using a URL. For example,</span>
+<span id="cb53-140"><a href="#cb53-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-143"><a href="#cb53-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-144"><a href="#cb53-144" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
+<span id="cb53-145"><a href="#cb53-145" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>)</span>
+<span id="cb53-146"><a href="#cb53-146" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-147"><a href="#cb53-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-148"><a href="#cb53-148" aria-hidden="true" tabindex="-1"></a>We'd usually want to store the data as an object though, like so:</span>
+<span id="cb53-149"><a href="#cb53-149" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-152"><a href="#cb53-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-153"><a href="#cb53-153" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
+<span id="cb53-154"><a href="#cb53-154" aria-hidden="true" tabindex="-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>)</span>
+<span id="cb53-155"><a href="#cb53-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-156"><a href="#cb53-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-157"><a href="#cb53-157" aria-hidden="true" tabindex="-1"></a>Now the data are available in R as an object.</span>
+<span id="cb53-158"><a href="#cb53-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-161"><a href="#cb53-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-162"><a href="#cb53-162" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-fold: show</span></span>
+<span id="cb53-163"><a href="#cb53-163" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(rangitikei)</span>
+<span id="cb53-164"><a href="#cb53-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-165"><a href="#cb53-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-166"><a href="#cb53-166" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.4 {-}</span></span>
+<span id="cb53-167"><a href="#cb53-167" aria-hidden="true" tabindex="-1"></a>Try importing the Telomeres data file (in Excel format)</span>
+<span id="cb53-168"><a href="#cb53-168" aria-hidden="true" tabindex="-1"></a>available at</span>
+<span id="cb53-169"><a href="#cb53-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-170"><a href="#cb53-170" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://rs.figshare.com/ndownloader/files/22850096&gt;</span></span>
+<span id="cb53-171"><a href="#cb53-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-174"><a href="#cb53-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-175"><a href="#cb53-175" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb53-176"><a href="#cb53-176" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-177"><a href="#cb53-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-178"><a href="#cb53-178" aria-hidden="true" tabindex="-1"></a>Note that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them.</span>
+<span id="cb53-179"><a href="#cb53-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-180"><a href="#cb53-180" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-181"><a href="#cb53-181" aria-hidden="true" tabindex="-1"></a>Consider the study guide dataset <span class="in">`rangitikei.txt`</span> (Recreational Use of</span>
+<span id="cb53-182"><a href="#cb53-182" aria-hidden="true" tabindex="-1"></a>the Rangitikei river) again. The first 10 rows of this dataset are shown</span>
+<span id="cb53-183"><a href="#cb53-183" aria-hidden="true" tabindex="-1"></a>below:</span>
+<span id="cb53-184"><a href="#cb53-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-185"><a href="#cb53-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
+<span id="cb53-186"><a href="#cb53-186" aria-hidden="true" tabindex="-1"></a>my.data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb53-187"><a href="#cb53-187" aria-hidden="true" tabindex="-1"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>, </span>
+<span id="cb53-188"><a href="#cb53-188" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span></span>
+<span id="cb53-189"><a href="#cb53-189" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-190"><a href="#cb53-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-191"><a href="#cb53-191" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(my.data, <span class="dv">10</span>) <span class="co"># shows the first ten rows</span></span>
+<span id="cb53-192"><a href="#cb53-192" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-193"><a href="#cb53-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-194"><a href="#cb53-194" aria-hidden="true" tabindex="-1"></a>The description of the variables is given below:</span>
+<span id="cb53-195"><a href="#cb53-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-196"><a href="#cb53-196" aria-hidden="true" tabindex="-1"></a><span class="in">`loc`</span> - two locations were surveyed, coded 1, 2\</span>
+<span id="cb53-197"><a href="#cb53-197" aria-hidden="true" tabindex="-1"></a><span class="in">`time`</span> - time of day, 1 for morning, 2 for afternoon\</span>
+<span id="cb53-198"><a href="#cb53-198" aria-hidden="true" tabindex="-1"></a><span class="in">`w.e`</span> - coded 1 for weekend, 2 for weekday\</span>
+<span id="cb53-199"><a href="#cb53-199" aria-hidden="true" tabindex="-1"></a><span class="in">`cl`</span>- cloud cover, 1 for <span class="sc">\&gt;</span>50%, 2 for <span class="sc">\&lt;</span>50%\</span>
+<span id="cb53-200"><a href="#cb53-200" aria-hidden="true" tabindex="-1"></a><span class="in">`wind`</span>- coded 1 through 4 for increasing wind speed\</span>
+<span id="cb53-201"><a href="#cb53-201" aria-hidden="true" tabindex="-1"></a><span class="in">`temp`</span> - temperature, 1, 2 or 3 increasing temp\</span>
+<span id="cb53-202"><a href="#cb53-202" aria-hidden="true" tabindex="-1"></a><span class="in">`river`</span>- murkiness of river in 3 increasing categories\</span>
+<span id="cb53-203"><a href="#cb53-203" aria-hidden="true" tabindex="-1"></a><span class="in">`people`</span> - number of people at that location and time\</span>
+<span id="cb53-204"><a href="#cb53-204" aria-hidden="true" tabindex="-1"></a><span class="in">`vehicle`</span>- number of vehicles at that location at that time\</span>
+<span id="cb53-205"><a href="#cb53-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-206"><a href="#cb53-206" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.5 {-}</span></span>
+<span id="cb53-207"><a href="#cb53-207" aria-hidden="true" tabindex="-1"></a>How many rows are in <span class="in">`my.data`</span>? How many columns? How can you find that in R?</span>
+<span id="cb53-208"><a href="#cb53-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-211"><a href="#cb53-211" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-212"><a href="#cb53-212" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-213"><a href="#cb53-213" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-214"><a href="#cb53-214" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
+<span id="cb53-215"><a href="#cb53-215" aria-hidden="true" tabindex="-1"></a>Find the mean of <span class="in">`vehicle`</span> and the median of <span class="in">`people`</span> using built in R functions.</span>
+<span id="cb53-216"><a href="#cb53-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-219"><a href="#cb53-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-220"><a href="#cb53-220" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-221"><a href="#cb53-221" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-222"><a href="#cb53-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-223"><a href="#cb53-223" aria-hidden="true" tabindex="-1"></a><span class="fu"># Graphing with ggplot2</span></span>
+<span id="cb53-224"><a href="#cb53-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-225"><a href="#cb53-225" aria-hidden="true" tabindex="-1"></a>If have not installed <span class="in">`ggplot2`</span> or <span class="in">`tidyverse`</span>, install it with the</span>
+<span id="cb53-226"><a href="#cb53-226" aria-hidden="true" tabindex="-1"></a>following commands.</span>
+<span id="cb53-227"><a href="#cb53-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-228"><a href="#cb53-228" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval=FALSE}</span></span>
+<span id="cb53-229"><a href="#cb53-229" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"ggplot2"</span>)</span>
+<span id="cb53-230"><a href="#cb53-230" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb53-231"><a href="#cb53-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-232"><a href="#cb53-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-233"><a href="#cb53-233" aria-hidden="true" tabindex="-1"></a>We can now load the <span class="in">`ggplot2`</span> library with the commands:</span>
+<span id="cb53-234"><a href="#cb53-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-235"><a href="#cb53-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, warninng=FALSE}</span></span>
+<span id="cb53-236"><a href="#cb53-236" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb53-237"><a href="#cb53-237" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-238"><a href="#cb53-238" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-239"><a href="#cb53-239" aria-hidden="true" tabindex="-1"></a>In order to work with <span class="in">`ggplot2`</span>, we must have a <span class="in">`data frame`</span> or a <span class="in">`tibble`</span></span>
+<span id="cb53-240"><a href="#cb53-240" aria-hidden="true" tabindex="-1"></a>containing our data. We need to specify the <span class="in">`aesthetics`</span> or how the</span>
+<span id="cb53-241"><a href="#cb53-241" aria-hidden="true" tabindex="-1"></a>columns of our data frame can be translated into positions, colours,</span>
+<span id="cb53-242"><a href="#cb53-242" aria-hidden="true" tabindex="-1"></a>sizes, and shapes of graphical elements.</span>
+<span id="cb53-243"><a href="#cb53-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-246"><a href="#cb53-246" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-247"><a href="#cb53-247" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-248"><a href="#cb53-248" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
+<span id="cb53-249"><a href="#cb53-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb53-250"><a href="#cb53-250" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-251"><a href="#cb53-251" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-252"><a href="#cb53-252" aria-hidden="true" tabindex="-1"></a>The <span class="in">`aes`</span> part defines the "aesthetics", which is how columns of the dataframe map to graphical attributes such as x and y position, colour, size, etc. An aesthetic can be either numeric or categorical and an appropriate scale will be used. After this, we add layers of graphics. <span class="in">`geom_point`</span> layer is employed to map x and y and we need not specify all the options for <span class="in">`geom_point`</span>.</span>
+<span id="cb53-253"><a href="#cb53-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-254"><a href="#cb53-254" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
+<span id="cb53-255"><a href="#cb53-255" aria-hidden="true" tabindex="-1"></a>Why does the following give an error and how would you fix it?</span>
+<span id="cb53-256"><a href="#cb53-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-259"><a href="#cb53-259" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-260"><a href="#cb53-260" aria-hidden="true" tabindex="-1"></a><span class="co">#| eval: false</span></span>
+<span id="cb53-261"><a href="#cb53-261" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> my.data) <span class="sc">+</span> </span>
+<span id="cb53-262"><a href="#cb53-262" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb53-263"><a href="#cb53-263" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-264"><a href="#cb53-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-265"><a href="#cb53-265" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-266"><a href="#cb53-266" aria-hidden="true" tabindex="-1"></a>We can add a title using *labs()* or *ggtitle()* functions. Try-</span>
+<span id="cb53-267"><a href="#cb53-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-268"><a href="#cb53-268" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide"}</span></span>
+<span id="cb53-269"><a href="#cb53-269" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-270"><a href="#cb53-270" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> river) <span class="sc">+</span></span>
+<span id="cb53-271"><a href="#cb53-271" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb53-272"><a href="#cb53-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">"No. of people vs No. of vehicles"</span>)</span>
+<span id="cb53-273"><a href="#cb53-273" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-274"><a href="#cb53-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-275"><a href="#cb53-275" aria-hidden="true" tabindex="-1"></a>or</span>
+<span id="cb53-276"><a href="#cb53-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-277"><a href="#cb53-277" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide"}</span></span>
+<span id="cb53-278"><a href="#cb53-278" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data)<span class="sc">+</span></span>
+<span id="cb53-279"><a href="#cb53-279" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
+<span id="cb53-280"><a href="#cb53-280" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb53-281"><a href="#cb53-281" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"No. of people vs No. of vehicles"</span>)</span>
+<span id="cb53-282"><a href="#cb53-282" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-283"><a href="#cb53-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-284"><a href="#cb53-284" aria-hidden="true" tabindex="-1"></a>Note that *labs()* allows captions and subtitles.</span>
+<span id="cb53-285"><a href="#cb53-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-286"><a href="#cb53-286" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.7 {-}</span></span>
+<span id="cb53-287"><a href="#cb53-287" aria-hidden="true" tabindex="-1"></a>Remake the above graph, adjusting the x axis to say <span class="in">`Vehicles`</span> using the <span class="in">`labs()`</span> function. </span>
+<span id="cb53-288"><a href="#cb53-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-291"><a href="#cb53-291" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-292"><a href="#cb53-292" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-293"><a href="#cb53-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-294"><a href="#cb53-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-295"><a href="#cb53-295" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_smooth`</span> is additionally used to show trends.</span>
+<span id="cb53-296"><a href="#cb53-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-299"><a href="#cb53-299" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-300"><a href="#cb53-300" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-301"><a href="#cb53-301" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
+<span id="cb53-302"><a href="#cb53-302" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb53-303"><a href="#cb53-303" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
+<span id="cb53-304"><a href="#cb53-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-305"><a href="#cb53-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-306"><a href="#cb53-306" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.8 {-}</span></span>
+<span id="cb53-307"><a href="#cb53-307" aria-hidden="true" tabindex="-1"></a>Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.</span>
+<span id="cb53-308"><a href="#cb53-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-311"><a href="#cb53-311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-312"><a href="#cb53-312" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-313"><a href="#cb53-313" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
+<span id="cb53-314"><a href="#cb53-314" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
+<span id="cb53-315"><a href="#cb53-315" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">se =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb53-316"><a href="#cb53-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-317"><a href="#cb53-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-318"><a href="#cb53-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-319"><a href="#cb53-319" aria-hidden="true" tabindex="-1"></a>Similar to <span class="in">`geom_smooth`</span>, a variety of <span class="in">`geoms`</span> are available.</span>
+<span id="cb53-320"><a href="#cb53-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-323"><a href="#cb53-323" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-324"><a href="#cb53-324" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
+<span id="cb53-325"><a href="#cb53-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> <span class="fu">factor</span>(wind), <span class="at">y =</span> people) <span class="sc">+</span></span>
+<span id="cb53-326"><a href="#cb53-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>()</span>
+<span id="cb53-327"><a href="#cb53-327" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-328"><a href="#cb53-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-329"><a href="#cb53-329" aria-hidden="true" tabindex="-1"></a>Each <span class="in">`geom`</span> accepts a particular set of mappings;for example</span>
+<span id="cb53-330"><a href="#cb53-330" aria-hidden="true" tabindex="-1"></a><span class="in">`geom_text()`</span> accepts a <span class="in">`labels`</span> mapping. Try-</span>
+<span id="cb53-331"><a href="#cb53-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-332"><a href="#cb53-332" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide"}</span></span>
+<span id="cb53-333"><a href="#cb53-333" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-334"><a href="#cb53-334" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people) <span class="sc">+</span></span>
+<span id="cb53-335"><a href="#cb53-335" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb53-336"><a href="#cb53-336" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="fu">aes</span>(<span class="at">label =</span> w.e), </span>
+<span id="cb53-337"><a href="#cb53-337" aria-hidden="true" tabindex="-1"></a>            <span class="at">size =</span> <span class="dv">5</span>)</span>
+<span id="cb53-338"><a href="#cb53-338" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-339"><a href="#cb53-339" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-340"><a href="#cb53-340" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.9 {-}</span></span>
+<span id="cb53-341"><a href="#cb53-341" aria-hidden="true" tabindex="-1"></a>Will these two graphs look different? Why/why not?</span>
+<span id="cb53-342"><a href="#cb53-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-345"><a href="#cb53-345" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-346"><a href="#cb53-346" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(</span>
+<span id="cb53-347"><a href="#cb53-347" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> my.data,</span>
+<span id="cb53-348"><a href="#cb53-348" aria-hidden="true" tabindex="-1"></a>  <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)</span>
+<span id="cb53-349"><a href="#cb53-349" aria-hidden="true" tabindex="-1"></a>) <span class="sc">+</span></span>
+<span id="cb53-350"><a href="#cb53-350" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-351"><a href="#cb53-351" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
+<span id="cb53-352"><a href="#cb53-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-353"><a href="#cb53-353" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb53-354"><a href="#cb53-354" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb53-355"><a href="#cb53-355" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> my.data,</span>
+<span id="cb53-356"><a href="#cb53-356" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)</span>
+<span id="cb53-357"><a href="#cb53-357" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb53-358"><a href="#cb53-358" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb53-359"><a href="#cb53-359" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> my.data,</span>
+<span id="cb53-360"><a href="#cb53-360" aria-hidden="true" tabindex="-1"></a>    <span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)</span>
+<span id="cb53-361"><a href="#cb53-361" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb53-362"><a href="#cb53-362" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-363"><a href="#cb53-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-364"><a href="#cb53-364" aria-hidden="true" tabindex="-1"></a>The faceting option allows a collection of small plots with the same</span>
+<span id="cb53-365"><a href="#cb53-365" aria-hidden="true" tabindex="-1"></a>scales. Try-</span>
+<span id="cb53-366"><a href="#cb53-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-369"><a href="#cb53-369" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-370"><a href="#cb53-370" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-371"><a href="#cb53-371" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>vehicle, <span class="at">y=</span>people) <span class="sc">+</span> </span>
+<span id="cb53-372"><a href="#cb53-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb53-373"><a href="#cb53-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span> river) </span>
+<span id="cb53-374"><a href="#cb53-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-375"><a href="#cb53-375" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-376"><a href="#cb53-376" aria-hidden="true" tabindex="-1"></a>Faceting is the <span class="in">`ggplot2`</span> option to create separate graphs for subsets</span>
+<span id="cb53-377"><a href="#cb53-377" aria-hidden="true" tabindex="-1"></a>of data. <span class="in">`ggplot2`</span> offers two functions for creating small multiples:</span>
+<span id="cb53-378"><a href="#cb53-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-379"><a href="#cb53-379" aria-hidden="true" tabindex="-1"></a><span class="ss">1. </span><span class="in">`facet_wrap()`</span>: define subsets as the levels of a single grouping variable</span>
+<span id="cb53-380"><a href="#cb53-380" aria-hidden="true" tabindex="-1"></a><span class="ss">2. </span><span class="in">`facet_grid()`</span>: define subsets as the crossing of two grouping variables</span>
+<span id="cb53-381"><a href="#cb53-381" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-382"><a href="#cb53-382" aria-hidden="true" tabindex="-1"></a>The following arguments are common to most scales in <span class="in">`ggplot2`</span>:</span>
+<span id="cb53-383"><a href="#cb53-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-384"><a href="#cb53-384" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**name:** the first argument gives the axis or legend title</span>
+<span id="cb53-385"><a href="#cb53-385" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**limits:** the minimum and maximum of the scale</span>
+<span id="cb53-386"><a href="#cb53-386" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**breaks:** the points along the scale where labels should appear</span>
+<span id="cb53-387"><a href="#cb53-387" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>**labels:** the labels that appear at each break</span>
+<span id="cb53-388"><a href="#cb53-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-389"><a href="#cb53-389" aria-hidden="true" tabindex="-1"></a>Specific scale functions may have additional arguments. Some of the</span>
+<span id="cb53-390"><a href="#cb53-390" aria-hidden="true" tabindex="-1"></a>available Scales are:</span>
+<span id="cb53-391"><a href="#cb53-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-392"><a href="#cb53-392" aria-hidden="true" tabindex="-1"></a>| **Scale**         | **Examples**              |</span>
+<span id="cb53-393"><a href="#cb53-393" aria-hidden="true" tabindex="-1"></a>|-------------------|---------------------------|</span>
+<span id="cb53-394"><a href="#cb53-394" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_color_`</span>    | <span class="in">`scale_color_discrete`</span>    |</span>
+<span id="cb53-395"><a href="#cb53-395" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_fill_`</span>     | <span class="in">`scale_fill_continuous`</span>   |</span>
+<span id="cb53-396"><a href="#cb53-396" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_size_`</span>     | <span class="in">`scale_size_manual`</span>       |</span>
+<span id="cb53-397"><a href="#cb53-397" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_size_discrete`</span>     |</span>
+<span id="cb53-398"><a href="#cb53-398" aria-hidden="true" tabindex="-1"></a>|                   |                           |</span>
+<span id="cb53-399"><a href="#cb53-399" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_shape_`</span>    | <span class="in">`scale_shape_discrete`</span>    |</span>
+<span id="cb53-400"><a href="#cb53-400" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_shape_manual`</span>      |</span>
+<span id="cb53-401"><a href="#cb53-401" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_linetype_`</span> | <span class="in">`scale_linetype_discrete`</span> |</span>
+<span id="cb53-402"><a href="#cb53-402" aria-hidden="true" tabindex="-1"></a>|                   |                           |</span>
+<span id="cb53-403"><a href="#cb53-403" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_x_`</span>        | <span class="in">`scale_x_continuous`</span>      |</span>
+<span id="cb53-404"><a href="#cb53-404" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_x_log`</span>             |</span>
+<span id="cb53-405"><a href="#cb53-405" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_x_date`</span>            |</span>
+<span id="cb53-406"><a href="#cb53-406" aria-hidden="true" tabindex="-1"></a>| <span class="in">`scale_y_`</span>        | <span class="in">`scale_y_reverse`</span>         |</span>
+<span id="cb53-407"><a href="#cb53-407" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_y_discrete`</span>        |</span>
+<span id="cb53-408"><a href="#cb53-408" aria-hidden="true" tabindex="-1"></a>|                   | <span class="in">`scale_y_datetime`</span>        |</span>
+<span id="cb53-409"><a href="#cb53-409" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-410"><a href="#cb53-410" aria-hidden="true" tabindex="-1"></a>In RStudio, we can type <span class="in">`scale_`</span> followed by TAB to get the whole list</span>
+<span id="cb53-411"><a href="#cb53-411" aria-hidden="true" tabindex="-1"></a>of available scales.</span>
+<span id="cb53-412"><a href="#cb53-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-413"><a href="#cb53-413" aria-hidden="true" tabindex="-1"></a>Try-</span>
+<span id="cb53-414"><a href="#cb53-414" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-417"><a href="#cb53-417" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-418"><a href="#cb53-418" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
+<span id="cb53-419"><a href="#cb53-419" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
+<span id="cb53-420"><a href="#cb53-420" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb53-421"><a href="#cb53-421" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">name =</span> <span class="st">"No. of Vehicles"</span>) <span class="sc">+</span> </span>
+<span id="cb53-422"><a href="#cb53-422" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">name =</span> <span class="st">"No. of people"</span>) <span class="sc">+</span> </span>
+<span id="cb53-423"><a href="#cb53-423" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_discrete</span>(<span class="at">name =</span> <span class="st">"Temperature"</span>)</span>
+<span id="cb53-424"><a href="#cb53-424" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-425"><a href="#cb53-425" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-426"><a href="#cb53-426" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-427"><a href="#cb53-427" aria-hidden="true" tabindex="-1"></a>The other coding option is shown below:</span>
+<span id="cb53-428"><a href="#cb53-428" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-429"><a href="#cb53-429" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show = 'hide'}</span></span>
+<span id="cb53-430"><a href="#cb53-430" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(my.data) <span class="sc">+</span></span>
+<span id="cb53-431"><a href="#cb53-431" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
+<span id="cb53-432"><a href="#cb53-432" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb53-433"><a href="#cb53-433" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">"No. of Vehicles"</span>) <span class="sc">+</span> </span>
+<span id="cb53-434"><a href="#cb53-434" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ylab</span>(<span class="st">"No. of people"</span>) <span class="sc">+</span> </span>
+<span id="cb53-435"><a href="#cb53-435" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">colour=</span><span class="st">"Temperature"</span>) </span>
+<span id="cb53-436"><a href="#cb53-436" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-437"><a href="#cb53-437" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-438"><a href="#cb53-438" aria-hidden="true" tabindex="-1"></a>Note that a desired graph can be obtained in more than one way.</span>
+<span id="cb53-439"><a href="#cb53-439" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-440"><a href="#cb53-440" aria-hidden="true" tabindex="-1"></a>The <span class="in">`ggplot2`</span> theme system handles plot elements (not data based) such</span>
+<span id="cb53-441"><a href="#cb53-441" aria-hidden="true" tabindex="-1"></a>as</span>
+<span id="cb53-442"><a href="#cb53-442" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-443"><a href="#cb53-443" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Axis labels</span>
+<span id="cb53-444"><a href="#cb53-444" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Plot background</span>
+<span id="cb53-445"><a href="#cb53-445" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Facet label background</span>
+<span id="cb53-446"><a href="#cb53-446" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Legend appearance</span>
+<span id="cb53-447"><a href="#cb53-447" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-448"><a href="#cb53-448" aria-hidden="true" tabindex="-1"></a>Built-in themes include:</span>
+<span id="cb53-449"><a href="#cb53-449" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-450"><a href="#cb53-450" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_gray()`</span> (default)</span>
+<span id="cb53-451"><a href="#cb53-451" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_bw()`</span></span>
+<span id="cb53-452"><a href="#cb53-452" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_minimal()`</span></span>
+<span id="cb53-453"><a href="#cb53-453" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`theme_classic()`</span></span>
+<span id="cb53-454"><a href="#cb53-454" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-457"><a href="#cb53-457" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-458"><a href="#cb53-458" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
+<span id="cb53-459"><a href="#cb53-459" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
+<span id="cb53-460"><a href="#cb53-460" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb53-461"><a href="#cb53-461" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-462"><a href="#cb53-462" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-463"><a href="#cb53-463" aria-hidden="true" tabindex="-1"></a>Note that the graph is assigned an object name <span class="in">`p1`</span> and nothing will be</span>
+<span id="cb53-464"><a href="#cb53-464" aria-hidden="true" tabindex="-1"></a>printed unless we then print the object <span class="in">`p1`</span>.</span>
+<span id="cb53-465"><a href="#cb53-465" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-468"><a href="#cb53-468" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-469"><a href="#cb53-469" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my.data) <span class="sc">+</span> </span>
+<span id="cb53-470"><a href="#cb53-470" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people, <span class="at">color =</span> <span class="fu">factor</span>(temp)) <span class="sc">+</span> </span>
+<span id="cb53-471"><a href="#cb53-471" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb53-472"><a href="#cb53-472" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-473"><a href="#cb53-473" aria-hidden="true" tabindex="-1"></a>p1</span>
+<span id="cb53-474"><a href="#cb53-474" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-475"><a href="#cb53-475" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-476"><a href="#cb53-476" aria-hidden="true" tabindex="-1"></a>Try-</span>
+<span id="cb53-477"><a href="#cb53-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-480"><a href="#cb53-480" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-481"><a href="#cb53-481" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_light</span>()</span>
+<span id="cb53-482"><a href="#cb53-482" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-483"><a href="#cb53-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-486"><a href="#cb53-486" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-487"><a href="#cb53-487" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_bw</span>()</span>
+<span id="cb53-488"><a href="#cb53-488" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-489"><a href="#cb53-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-490"><a href="#cb53-490" aria-hidden="true" tabindex="-1"></a>Specific theme elements can be overridden using <span class="in">`theme()`</span>. For example:</span>
+<span id="cb53-491"><a href="#cb53-491" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-494"><a href="#cb53-494" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-495"><a href="#cb53-495" aria-hidden="true" tabindex="-1"></a>p1 <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb53-496"><a href="#cb53-496" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">text =</span> <span class="fu">element_text</span>(<span class="at">color =</span> <span class="st">"red"</span>))</span>
+<span id="cb53-497"><a href="#cb53-497" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-498"><a href="#cb53-498" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-499"><a href="#cb53-499" aria-hidden="true" tabindex="-1"></a>All theme options can be seen with <span class="in">`?theme`</span>.</span>
+<span id="cb53-500"><a href="#cb53-500" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-501"><a href="#cb53-501" aria-hidden="true" tabindex="-1"></a>To specify a theme for a whole document, use</span>
+<span id="cb53-502"><a href="#cb53-502" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-505"><a href="#cb53-505" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-506"><a href="#cb53-506" aria-hidden="true" tabindex="-1"></a><span class="fu">theme_set</span>(<span class="fu">theme_minimal</span>())</span>
+<span id="cb53-507"><a href="#cb53-507" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-508"><a href="#cb53-508" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-509"><a href="#cb53-509" aria-hidden="true" tabindex="-1"></a>*Minimal graphing* can be done using the <span class="in">`qplot`</span> option that will</span>
+<span id="cb53-510"><a href="#cb53-510" aria-hidden="true" tabindex="-1"></a>produce a few standard formatted graphs quickly.</span>
+<span id="cb53-511"><a href="#cb53-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-514"><a href="#cb53-514" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-515"><a href="#cb53-515" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(people, vehicle, <span class="at">data =</span> my.data, <span class="at">colour =</span> river)</span>
+<span id="cb53-516"><a href="#cb53-516" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-517"><a href="#cb53-517" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-518"><a href="#cb53-518" aria-hidden="true" tabindex="-1"></a>Try-</span>
+<span id="cb53-519"><a href="#cb53-519" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-520"><a href="#cb53-520" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(people, data = my.data)`</span></span>
+<span id="cb53-521"><a href="#cb53-521" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-522"><a href="#cb53-522" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(people, fill=factor(river), data=my.data)`</span></span>
+<span id="cb53-523"><a href="#cb53-523" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-524"><a href="#cb53-524" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(people, data = my.data, geom = "dotplot")`</span></span>
+<span id="cb53-525"><a href="#cb53-525" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-526"><a href="#cb53-526" aria-hidden="true" tabindex="-1"></a><span class="in">`qplot(factor(river), people, data = my.data, geom = "boxplot")`</span></span>
+<span id="cb53-527"><a href="#cb53-527" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-528"><a href="#cb53-528" aria-hidden="true" tabindex="-1"></a>A cheat sheet for <span class="in">`ggplot2`</span> is available at</span>
+<span id="cb53-529"><a href="#cb53-529" aria-hidden="true" tabindex="-1"></a><span class="ot">&lt;https://www.rstudio.com/resources/cheatsheets/&gt;</span> (optional to download).</span>
+<span id="cb53-530"><a href="#cb53-530" aria-hidden="true" tabindex="-1"></a>There are many other packages which incorporate <span class="in">`ggplot2`</span> based graphs or</span>
+<span id="cb53-531"><a href="#cb53-531" aria-hidden="true" tabindex="-1"></a>dependent on it.</span>
+<span id="cb53-532"><a href="#cb53-532" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-533"><a href="#cb53-533" aria-hidden="true" tabindex="-1"></a>The library *patchwork* allows complex composition arbitrary plots,</span>
+<span id="cb53-534"><a href="#cb53-534" aria-hidden="true" tabindex="-1"></a>which are not produced using the faceting option. Try</span>
+<span id="cb53-535"><a href="#cb53-535" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-538"><a href="#cb53-538" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb53-539"><a href="#cb53-539" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb53-540"><a href="#cb53-540" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-541"><a href="#cb53-541" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(people, <span class="at">data =</span> my.data, <span class="at">geom =</span> <span class="st">"dotplot"</span>)</span>
+<span id="cb53-542"><a href="#cb53-542" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">qplot</span>(people, <span class="at">data =</span> my.data, <span class="at">geom =</span> <span class="st">"boxplot"</span>)</span>
+<span id="cb53-543"><a href="#cb53-543" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(my.data, <span class="fu">aes</span>(<span class="at">x =</span> vehicle, <span class="at">y =</span> people)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb53-544"><a href="#cb53-544" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-545"><a href="#cb53-545" aria-hidden="true" tabindex="-1"></a>(p1 <span class="sc">+</span> p2) <span class="sc">/</span> p3 <span class="sc">+</span> </span>
+<span id="cb53-546"><a href="#cb53-546" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="st">"My title"</span>, <span class="at">caption =</span> <span class="st">"My caption"</span>)</span>
+<span id="cb53-547"><a href="#cb53-547" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb53-548"><a href="#cb53-548" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-549"><a href="#cb53-549" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-550"><a href="#cb53-550" aria-hidden="true" tabindex="-1"></a><span class="fu">## Quarto</span></span>
+<span id="cb53-551"><a href="#cb53-551" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-552"><a href="#cb53-552" aria-hidden="true" tabindex="-1"></a>Demonstrate how to open a new Quarto document</span>
+<span id="cb53-553"><a href="#cb53-553" aria-hidden="true" tabindex="-1"></a></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
