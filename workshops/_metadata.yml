@@ -5,6 +5,7 @@ format:
     code-fold: show
     code-tools: true
     cite-method: citeproc
+    code-copy: true
        
   pdf: 
     documentclass: scrreprt
