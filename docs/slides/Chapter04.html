@@ -506,7 +506,7 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># A single sample</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">sample</span>(qd_long, <span class="at">size =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 39 38 41 42 41 38</code></pre>
+<pre><code>[1] 40 39 43 38 38 38</code></pre>
 </div>
 </div>
 </div>
@@ -516,25 +516,25 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="sc">~</span> <span class="fu">sample</span>(qd_long, <span class="at">size =</span> <span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 36 40 41 43 37 38
+[1] 40 40 42 39 42 40
 
 [[2]]
-[1] 40 43 40 41 39 41
+[1] 41 37 43 39 39 43
 
 [[3]]
-[1] 42 37 39 42 40 38
+[1] 40 40 36 40 41 41
 
 [[4]]
-[1] 41 40 39 41 41 43
+[1] 39 40 39 43 41 39
 
 [[5]]
-[1] 40 40 45 39 41 38
+[1] 39 41 44 39 40 38
 
 [[6]]
-[1] 38 37 44 40 40 39
+[1] 37 41 39 38 37 40
 
 [[7]]
-[1] 40 40 39 36 39 39</code></pre>
+[1] 39 38 38 42 42 39</code></pre>
 </div>
 </div>
 </div>
@@ -560,21 +560,21 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <pre><code># A tibble: 15 × 2
    sample values
    &lt;fct&gt;   &lt;int&gt;
- 1 1          37
- 2 1          43
- 3 1          43
- 4 1          38
- 5 1          38
- 6 1          40
+ 1 1          40
+ 2 1          38
+ 3 1          38
+ 4 1          39
+ 5 1          43
+ 6 1          42
  7 2          39
- 8 2          38
- 9 2          44
-10 2          38
-11 2          40
-12 2          41
-13 3          37
-14 3          39
-15 3          40</code></pre>
+ 8 2          37
+ 9 2          36
+10 2          42
+11 2          45
+12 2          39
+13 3          38
+14 3          42
+15 3          39</code></pre>
 </div>
 </div>
 </div>
@@ -606,16 +606,16 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <pre><code># A tibble: 10 × 2
    sample  mean
    &lt;fct&gt;  &lt;dbl&gt;
- 1 1       39.7
- 2 2       40.3
- 3 3       39.3
- 4 4       41  
- 5 5       41.3
- 6 6       40.8
- 7 7       39.3
- 8 8       40.5
- 9 9       39.2
-10 10      40.8</code></pre>
+ 1 1       39.5
+ 2 2       40.8
+ 3 3       39  
+ 4 4       38  
+ 5 5       38.7
+ 6 6       39.3
+ 7 7       40.2
+ 8 8       39.8
+ 9 9       40.7
+10 10      39.2</code></pre>
 </div>
 </div>
 </div>
@@ -1822,7 +1822,7 @@ F-statistic: 0.5255 on 1 and 44 DF,  p-value: 0.4723 </code></pre>
 
 
 <img src="img/L_Color.png" class="slide-logo r-stretch"><div class="footer footer-default">
-<p><a href="https:https://marraffini.github.io/Data_Analysis_Course/slides.html">161250 Data Analysis</a></p>
+<p><a href="https://marraffini.github.io/Data_Analysis_Course/slides.html">161250 Data Analysis</a></p>
 </div>
 </section></section>
     </div>
