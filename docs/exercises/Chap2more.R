@@ -1,3 +1,44 @@
+
+# Dataset *diamonds*
+# We will now use the built in dataset on diamond price and measurements for some more exercises. See`?diamonds` more information.
+
+# Exercise: Outliers are observations that are unusual; data points that don’t seem to fit the pattern.
+# Sometimes outliers are data entry errors, sometimes they are simply values at the extremes that happened to be observed in this data collection, and other times they suggest important new discoveries. 
+# Describe the distribution of the `y` variable from the diamonds dataset.
+
+
+ggplot(diamonds) +
+  aes(x = y) +
+  geom_histogram(binwidth = 0.5)
+
+
+# The only evidence of outliers is the unusually wide limits on the x-axis.
+
+# There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you’ll spot something). We can change the `binwidth=` to help with this. We can also zoom in on the y axis using `coord_cartesian()`.
+
+
+ggplot(diamonds) + 
+  aes(x = y) +
+  geom_histogram(binwidth = 0.5) +
+  coord_cartesian(ylim = c(0, 50)) # also has an xlim() option
+
+
+# Exercise: Make a new dataset that includes these unusual values using dplyr.
+
+unusual <- diamonds |> 
+  filter(y < 3 | y > 20) |> 
+  select(price, x, y, z) |>
+  arrange(y)
+unusual
+
+# Exercise: How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
+
+carat_0.99 <- diamonds %>% 
+  filter(carat == 0.99)
+
+carat_1 <- diamonds %>% 
+  filter(carat == 1)
+
 library(carData)
 # data on migraine treatments collected by Tammy Kostecki-Dillon
 help("KosteckiDillon")

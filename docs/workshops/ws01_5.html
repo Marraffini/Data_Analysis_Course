@@ -255,11 +255,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#tidyr" id="toc-tidyr" class="nav-link active" data-scroll-target="#tidyr"><code>tidyr</code></a></li>
   <li><a href="#introduction-to-the-tidyverse" id="toc-introduction-to-the-tidyverse" class="nav-link" data-scroll-target="#introduction-to-the-tidyverse">Introduction to the tidyverse</a></li>
-  <li><a href="#datset" id="toc-datset" class="nav-link" data-scroll-target="#datset">Datset</a></li>
-  <li><a href="#exercise-1.1" id="toc-exercise-1.1" class="nav-link" data-scroll-target="#exercise-1.1">Exercise 1.1</a>
+  <li><a href="#datset" id="toc-datset" class="nav-link" data-scroll-target="#datset">Datset</a>
   <ul class="collapse">
-  <li><a href="#piping" id="toc-piping" class="nav-link" data-scroll-target="#piping">Piping</a></li>
+  <li><a href="#exercise-1.1" id="toc-exercise-1.1" class="nav-link" data-scroll-target="#exercise-1.1">Exercise 1.1</a></li>
   </ul></li>
+  <li><a href="#piping" id="toc-piping" class="nav-link" data-scroll-target="#piping">Piping</a>
+  <ul class="collapse">
   <li><a href="#exercise-1.2" id="toc-exercise-1.2" class="nav-link" data-scroll-target="#exercise-1.2">Exercise 1.2</a></li>
   <li><a href="#exercise-1.3" id="toc-exercise-1.3" class="nav-link" data-scroll-target="#exercise-1.3">Exercise 1.3</a></li>
   <li><a href="#exercise-1.4" id="toc-exercise-1.4" class="nav-link" data-scroll-target="#exercise-1.4">Exercise 1.4</a></li>
@@ -269,6 +270,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#exercise-1.8" id="toc-exercise-1.8" class="nav-link" data-scroll-target="#exercise-1.8">Exercise 1.8</a></li>
   <li><a href="#exercise-1.9" id="toc-exercise-1.9" class="nav-link" data-scroll-target="#exercise-1.9">Exercise 1.9</a></li>
   <li><a href="#exercise-1.10" id="toc-exercise-1.10" class="nav-link" data-scroll-target="#exercise-1.10">Exercise 1.10</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ws01_5.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
@@ -369,15 +371,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 6 China        2000 213766/1280428583</code></pre>
 </div>
 </div>
-</section>
-<section id="exercise-1.1" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.1</h1>
+<section id="exercise-1.1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.1">Exercise 1.1</h2>
 <p>For each of the sample tables, describe what each observation and each column represents. Which is the most <code>tidy</code>?</p>
 <div id="answer">
 
 </div>
-<section id="piping" class="level2">
-<h2 class="anchored" data-anchor-id="piping">Piping</h2>
+</section>
+</section>
+<section id="piping" class="level1">
+<h1>Piping</h1>
 <div class="callout callout-style-default callout-tip callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -620,10 +623,8 @@ Tip
 </div>
 </div>
 <p>The <code>count()</code> is useful to check the balanced nature of the data when many subgroups are involved.</p>
-</section>
-</section>
-<section id="exercise-1.2" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.2</h1>
+<section id="exercise-1.2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.2">Exercise 1.2</h2>
 <p>Generate a summary table to show the average number of people observed at each of the three rivers.</p>
 <div id="answer">
 <div class="cell">
@@ -634,8 +635,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="exercise-1.3" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.3</h1>
+<section id="exercise-1.3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.3">Exercise 1.3</h2>
 <p>Generate a summary table to show the average number of vehicles observed at each of the three wind levels.</p>
 <div id="answer">
 <div class="cell">
@@ -646,8 +647,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="exercise-1.4" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.4</h1>
+<section id="exercise-1.4" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.4">Exercise 1.4</h2>
 <p>Repeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river.</p>
 <div id="answer">
 <div class="cell">
@@ -658,16 +659,16 @@ Tip
 </div>
 </div>
 </section>
-<section id="exercise-1.5" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.5</h1>
+<section id="exercise-1.5" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.5">Exercise 1.5</h2>
 <p>Use the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?</p>
 <div id="answer">
 
 </div>
 <p>Now let’s practice using these functions using the TB data.</p>
 </section>
-<section id="exercise-1.6" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.6</h1>
+<section id="exercise-1.6" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.6">Exercise 1.6</h2>
 <p>Using <code>table1</code>, compute rate of TB cases per 10,000 and the total cases per year</p>
 <div id="answer">
 <div class="cell">
@@ -678,8 +679,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="exercise-1.7" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.7</h1>
+<section id="exercise-1.7" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.7">Exercise 1.7</h2>
 <p>Generate a summary table to show the total cases in each country. Your table should have 6 rows.</p>
 <div id="answer">
 <div class="cell">
@@ -690,8 +691,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="exercise-1.8" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.8</h1>
+<section id="exercise-1.8" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.8">Exercise 1.8</h2>
 <p>For <code>table2</code>, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these.</p>
 <ol type="a">
 <li>Extract the number of TB cases per country per year.</li>
@@ -718,8 +719,8 @@ Tip
 
 </div>
 </section>
-<section id="exercise-1.9" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.9</h1>
+<section id="exercise-1.9" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.9">Exercise 1.9</h2>
 <p>What does <code>na.rm = TRUE</code> do in the functions mean() and sum()?</p>
 <div id="answer">
 <div class="cell">
@@ -730,8 +731,8 @@ Tip
 </div>
 </div>
 </section>
-<section id="exercise-1.10" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 1.10</h1>
+<section id="exercise-1.10" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-1.10">Exercise 1.10</h2>
 <p>What does the function <code>na.omit()</code> do? Why would you add it to a piping sequence of code when tidying data?</p>
 <div id="answer">
 <div class="cell">
@@ -745,6 +746,7 @@ Tip
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1086,7 +1088,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.1 {-}</span></span>
+<span id="cb35-47"><a href="#cb35-47" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.1 {-}</span></span>
 <span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a>For each of the sample tables, describe what each observation and each column represents. Which is the most <span class="in">`tidy`</span>?</span>
 <span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a></span>
@@ -1095,7 +1097,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a><span class="fu">## Piping</span></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a><span class="fu"># Piping</span></span>
 <span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>::: {.callout-tip}</span>
 <span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a></span>
@@ -1245,7 +1247,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-223"><a href="#cb35-223" aria-hidden="true" tabindex="-1"></a>The <span class="in">`count()`</span> is useful to check the balanced nature of the data when</span>
 <span id="cb35-224"><a href="#cb35-224" aria-hidden="true" tabindex="-1"></a>many subgroups are involved.</span>
 <span id="cb35-225"><a href="#cb35-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-226"><a href="#cb35-226" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.2 {-}</span></span>
+<span id="cb35-226"><a href="#cb35-226" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.2 {-}</span></span>
 <span id="cb35-227"><a href="#cb35-227" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-228"><a href="#cb35-228" aria-hidden="true" tabindex="-1"></a>Generate a summary table to show the average number of people observed at each of the three rivers.</span>
 <span id="cb35-229"><a href="#cb35-229" aria-hidden="true" tabindex="-1"></a></span>
@@ -1258,7 +1260,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-238"><a href="#cb35-238" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb35-239"><a href="#cb35-239" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-240"><a href="#cb35-240" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-241"><a href="#cb35-241" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.3 {-}</span></span>
+<span id="cb35-241"><a href="#cb35-241" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.3 {-}</span></span>
 <span id="cb35-242"><a href="#cb35-242" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-243"><a href="#cb35-243" aria-hidden="true" tabindex="-1"></a>Generate a summary table to show the average number of vehicles observed at each of the three wind levels.</span>
 <span id="cb35-244"><a href="#cb35-244" aria-hidden="true" tabindex="-1"></a></span>
@@ -1270,7 +1272,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-252"><a href="#cb35-252" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-253"><a href="#cb35-253" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb35-254"><a href="#cb35-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-255"><a href="#cb35-255" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.4 {-}</span></span>
+<span id="cb35-255"><a href="#cb35-255" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.4 {-}</span></span>
 <span id="cb35-256"><a href="#cb35-256" aria-hidden="true" tabindex="-1"></a>Repeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river.</span>
 <span id="cb35-257"><a href="#cb35-257" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-258"><a href="#cb35-258" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
@@ -1280,98 +1282,99 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-264"><a href="#cb35-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-265"><a href="#cb35-265" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-266"><a href="#cb35-266" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-267"><a href="#cb35-267" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.5 {-}</span></span>
-<span id="cb35-268"><a href="#cb35-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-269"><a href="#cb35-269" aria-hidden="true" tabindex="-1"></a>Use the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?</span>
-<span id="cb35-270"><a href="#cb35-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-271"><a href="#cb35-271" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-272"><a href="#cb35-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-273"><a href="#cb35-273" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-274"><a href="#cb35-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-267"><a href="#cb35-267" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-268"><a href="#cb35-268" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.5 {-}</span></span>
+<span id="cb35-269"><a href="#cb35-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-270"><a href="#cb35-270" aria-hidden="true" tabindex="-1"></a>Use the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?</span>
+<span id="cb35-271"><a href="#cb35-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-272"><a href="#cb35-272" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb35-273"><a href="#cb35-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-274"><a href="#cb35-274" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb35-275"><a href="#cb35-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-276"><a href="#cb35-276" aria-hidden="true" tabindex="-1"></a>Now let's practice using these functions using the TB data.</span>
-<span id="cb35-277"><a href="#cb35-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-278"><a href="#cb35-278" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.6 {-}</span></span>
-<span id="cb35-279"><a href="#cb35-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`table1`</span>, compute rate of TB cases per 10,000 and the total cases per year</span>
-<span id="cb35-281"><a href="#cb35-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-282"><a href="#cb35-282" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-283"><a href="#cb35-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-286"><a href="#cb35-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-287"><a href="#cb35-287" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb35-288"><a href="#cb35-288" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-289"><a href="#cb35-289" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-291"><a href="#cb35-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-276"><a href="#cb35-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-277"><a href="#cb35-277" aria-hidden="true" tabindex="-1"></a>Now let's practice using these functions using the TB data.</span>
+<span id="cb35-278"><a href="#cb35-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-279"><a href="#cb35-279" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.6 {-}</span></span>
+<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-281"><a href="#cb35-281" aria-hidden="true" tabindex="-1"></a>Using <span class="in">`table1`</span>, compute rate of TB cases per 10,000 and the total cases per year</span>
+<span id="cb35-282"><a href="#cb35-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-283"><a href="#cb35-283" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb35-284"><a href="#cb35-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-287"><a href="#cb35-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-288"><a href="#cb35-288" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb35-289"><a href="#cb35-289" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-291"><a href="#cb35-291" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb35-292"><a href="#cb35-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-293"><a href="#cb35-293" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.7 {-}</span></span>
-<span id="cb35-294"><a href="#cb35-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-295"><a href="#cb35-295" aria-hidden="true" tabindex="-1"></a>Generate a summary table to show the total cases in each country. Your table should have 6 rows.</span>
-<span id="cb35-296"><a href="#cb35-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-297"><a href="#cb35-297" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-298"><a href="#cb35-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-301"><a href="#cb35-301" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-302"><a href="#cb35-302" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb35-303"><a href="#cb35-303" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-304"><a href="#cb35-304" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-305"><a href="#cb35-305" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-306"><a href="#cb35-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-307"><a href="#cb35-307" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.8 {-}</span></span>
-<span id="cb35-308"><a href="#cb35-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a>For <span class="in">`table2`</span>, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. </span>
-<span id="cb35-310"><a href="#cb35-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-311"><a href="#cb35-311" aria-hidden="true" tabindex="-1"></a>a) Extract the number of TB cases per country per year.</span>
-<span id="cb35-312"><a href="#cb35-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-313"><a href="#cb35-313" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-314"><a href="#cb35-314" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-293"><a href="#cb35-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-294"><a href="#cb35-294" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.7 {-}</span></span>
+<span id="cb35-295"><a href="#cb35-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-296"><a href="#cb35-296" aria-hidden="true" tabindex="-1"></a>Generate a summary table to show the total cases in each country. Your table should have 6 rows.</span>
+<span id="cb35-297"><a href="#cb35-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-298"><a href="#cb35-298" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb35-299"><a href="#cb35-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-302"><a href="#cb35-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-303"><a href="#cb35-303" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb35-304"><a href="#cb35-304" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-305"><a href="#cb35-305" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-306"><a href="#cb35-306" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb35-307"><a href="#cb35-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-308"><a href="#cb35-308" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.8 {-}</span></span>
+<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-310"><a href="#cb35-310" aria-hidden="true" tabindex="-1"></a>For <span class="in">`table2`</span>, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. </span>
+<span id="cb35-311"><a href="#cb35-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-312"><a href="#cb35-312" aria-hidden="true" tabindex="-1"></a>a) Extract the number of TB cases per country per year.</span>
+<span id="cb35-313"><a href="#cb35-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-314"><a href="#cb35-314" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
 <span id="cb35-315"><a href="#cb35-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-316"><a href="#cb35-316" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-317"><a href="#cb35-317" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-318"><a href="#cb35-318" aria-hidden="true" tabindex="-1"></a>b) Extract the matching population per country per year.</span>
-<span id="cb35-319"><a href="#cb35-319" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-320"><a href="#cb35-320" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-321"><a href="#cb35-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-316"><a href="#cb35-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-317"><a href="#cb35-317" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb35-318"><a href="#cb35-318" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-319"><a href="#cb35-319" aria-hidden="true" tabindex="-1"></a>b) Extract the matching population per country per year.</span>
+<span id="cb35-320"><a href="#cb35-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-321"><a href="#cb35-321" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
 <span id="cb35-322"><a href="#cb35-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-323"><a href="#cb35-323" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-324"><a href="#cb35-324" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-325"><a href="#cb35-325" aria-hidden="true" tabindex="-1"></a>c) Divide cases by population, and multiply by 10000.</span>
-<span id="cb35-326"><a href="#cb35-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-327"><a href="#cb35-327" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-328"><a href="#cb35-328" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-323"><a href="#cb35-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-324"><a href="#cb35-324" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb35-325"><a href="#cb35-325" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-326"><a href="#cb35-326" aria-hidden="true" tabindex="-1"></a>c) Divide cases by population, and multiply by 10000.</span>
+<span id="cb35-327"><a href="#cb35-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-328"><a href="#cb35-328" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
 <span id="cb35-329"><a href="#cb35-329" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-330"><a href="#cb35-330" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-331"><a href="#cb35-331" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-332"><a href="#cb35-332" aria-hidden="true" tabindex="-1"></a>d) Store back in the appropriate place.</span>
-<span id="cb35-333"><a href="#cb35-333" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-334"><a href="#cb35-334" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-335"><a href="#cb35-335" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-330"><a href="#cb35-330" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-331"><a href="#cb35-331" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb35-332"><a href="#cb35-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-333"><a href="#cb35-333" aria-hidden="true" tabindex="-1"></a>d) Store back in the appropriate place.</span>
+<span id="cb35-334"><a href="#cb35-334" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-335"><a href="#cb35-335" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
 <span id="cb35-336"><a href="#cb35-336" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-337"><a href="#cb35-337" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-338"><a href="#cb35-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-337"><a href="#cb35-337" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-338"><a href="#cb35-338" aria-hidden="true" tabindex="-1"></a>:::</span>
 <span id="cb35-339"><a href="#cb35-339" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-340"><a href="#cb35-340" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-341"><a href="#cb35-341" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.9 {-}</span></span>
-<span id="cb35-342"><a href="#cb35-342" aria-hidden="true" tabindex="-1"></a>What does <span class="in">`na.rm = TRUE`</span> do in the functions mean() and sum()?</span>
-<span id="cb35-343"><a href="#cb35-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-344"><a href="#cb35-344" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-345"><a href="#cb35-345" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-348"><a href="#cb35-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-349"><a href="#cb35-349" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb35-350"><a href="#cb35-350" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-351"><a href="#cb35-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-352"><a href="#cb35-352" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb35-353"><a href="#cb35-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-354"><a href="#cb35-354" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 1.10 {-}</span></span>
-<span id="cb35-355"><a href="#cb35-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-356"><a href="#cb35-356" aria-hidden="true" tabindex="-1"></a>What does the function <span class="in">`na.omit()`</span> do? Why would you add it to a piping sequence of code when tidying data?</span>
-<span id="cb35-357"><a href="#cb35-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-358"><a href="#cb35-358" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
-<span id="cb35-359"><a href="#cb35-359" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-362"><a href="#cb35-362" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-363"><a href="#cb35-363" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
-<span id="cb35-364"><a href="#cb35-364" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-365"><a href="#cb35-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-366"><a href="#cb35-366" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb35-341"><a href="#cb35-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-342"><a href="#cb35-342" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.9 {-}</span></span>
+<span id="cb35-343"><a href="#cb35-343" aria-hidden="true" tabindex="-1"></a>What does <span class="in">`na.rm = TRUE`</span> do in the functions mean() and sum()?</span>
+<span id="cb35-344"><a href="#cb35-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-345"><a href="#cb35-345" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb35-346"><a href="#cb35-346" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-349"><a href="#cb35-349" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-350"><a href="#cb35-350" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb35-351"><a href="#cb35-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-352"><a href="#cb35-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-353"><a href="#cb35-353" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb35-354"><a href="#cb35-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-355"><a href="#cb35-355" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 1.10 {-}</span></span>
+<span id="cb35-356"><a href="#cb35-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-357"><a href="#cb35-357" aria-hidden="true" tabindex="-1"></a>What does the function <span class="in">`na.omit()`</span> do? Why would you add it to a piping sequence of code when tidying data?</span>
+<span id="cb35-358"><a href="#cb35-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-359"><a href="#cb35-359" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb35-360"><a href="#cb35-360" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-363"><a href="#cb35-363" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-364"><a href="#cb35-364" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb35-365"><a href="#cb35-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-366"><a href="#cb35-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-367"><a href="#cb35-367" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

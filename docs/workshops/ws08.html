@@ -728,19 +728,21 @@ F-E  2.2091561  1.4562430  2.9620693 0.0000000</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>oys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/oystergrowth.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>oys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/oystergrowth.csv"</span>)</span>
 <span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(oys)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [60 × 4] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+<pre><code>spc_tbl_ [60 × 5] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
  $ ...1       : num [1:60] 1 2 3 4 5 6 7 8 9 10 ...
+ $ ...2       : num [1:60] 1 2 3 4 5 6 7 8 9 10 ...
  $ Growth     : num [1:60] 5.93 5.48 5.65 6.28 6.31 ...
  $ Salinity   : chr [1:60] "Low" "Low" "Low" "Low" ...
  $ Temperature: chr [1:60] "Low" "Low" "Low" "Low" ...
  - attr(*, "spec")=
   .. cols(
   ..   ...1 = col_double(),
+  ..   ...2 = col_double(),
   ..   Growth = col_double(),
   ..   Salinity = col_character(),
   ..   Temperature = col_character()
@@ -1033,21 +1035,15 @@ High:High-Low:High -2.8265815 -3.48456541 -2.16859767 0.0000000</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>goat <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/goats.txt"</span>)</span>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>goat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/goats.txt"</span> , <span class="at">sep=</span><span class="st">""</span>)</span>
 <span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(goat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
-<pre><code>spc_tbl_ [40 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
- $ Tmt      : chr [1:40] "standard" "standard" "standard" "standard" ...
- $ WtGain   : num [1:40] 5 3 8 7 6 4 8 6 7 5 ...
- $ InitialWt: num [1:40] 21 24 21 22 23 26 22 23 24 20 ...
- - attr(*, "spec")=
-  .. cols(
-  ..   Tmt = col_character(),
-  ..   WtGain = col_double(),
-  ..   InitialWt = col_double()
-  .. )</code></pre>
+<pre><code>'data.frame':   40 obs. of  3 variables:
+ $ Tmt      : chr  "standard" "standard" "standard" "standard" ...
+ $ WtGain   : int  5 3 8 7 6 4 8 6 7 5 ...
+ $ InitialWt: int  21 24 21 22 23 26 22 23 24 20 ...</code></pre>
 </div>
 </div>
 <p>The initial weight is included because of commonly observed biological phenomenon known as “regression to the norm”, where lighter animals even the ledger by gaining more weight than the heavier animals. By using an ANCOVA model that incorporates the initial weight as a covariate can therefore give us more power to detect an effect of the treatment.</p>
@@ -2193,7 +2189,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb109-318"><a href="#cb109-318" aria-hidden="true" tabindex="-1"></a><span class="fu">## Load data</span></span>
 <span id="cb109-319"><a href="#cb109-319" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-322"><a href="#cb109-322" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb109-323"><a href="#cb109-323" aria-hidden="true" tabindex="-1"></a>oys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/oystergrowth.csv"</span>)</span>
+<span id="cb109-323"><a href="#cb109-323" aria-hidden="true" tabindex="-1"></a>oys <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/oystergrowth.csv"</span>)</span>
 <span id="cb109-324"><a href="#cb109-324" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-325"><a href="#cb109-325" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(oys)</span>
 <span id="cb109-326"><a href="#cb109-326" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -2392,7 +2388,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb109-547"><a href="#cb109-547" aria-hidden="true" tabindex="-1"></a><span class="fu">## Load the data</span></span>
 <span id="cb109-548"><a href="#cb109-548" aria-hidden="true" tabindex="-1"></a> </span>
 <span id="cb109-551"><a href="#cb109-551" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb109-552"><a href="#cb109-552" aria-hidden="true" tabindex="-1"></a>goat <span class="ot">&lt;-</span> <span class="fu">read_table</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/goats.txt"</span>)</span>
+<span id="cb109-552"><a href="#cb109-552" aria-hidden="true" tabindex="-1"></a>goat <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"../data/goats.txt"</span> , <span class="at">sep=</span><span class="st">""</span>)</span>
 <span id="cb109-553"><a href="#cb109-553" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-554"><a href="#cb109-554" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(goat)</span>
 <span id="cb109-555"><a href="#cb109-555" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>

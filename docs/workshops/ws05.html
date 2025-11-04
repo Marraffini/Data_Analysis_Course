@@ -253,10 +253,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#dataset-toxaemia" id="toc-dataset-toxaemia" class="nav-link active" data-scroll-target="#dataset-toxaemia">Dataset <code>Toxaemia</code></a></li>
+  <li><a href="#summarising-data" id="toc-summarising-data" class="nav-link active" data-scroll-target="#summarising-data">Summarising data</a>
+  <ul class="collapse">
   <li><a href="#exercise-5.1" id="toc-exercise-5.1" class="nav-link" data-scroll-target="#exercise-5.1">Exercise 5.1</a></li>
   <li><a href="#exercise-5.2" id="toc-exercise-5.2" class="nav-link" data-scroll-target="#exercise-5.2">Exercise 5.2</a></li>
   <li><a href="#exercise-5.3" id="toc-exercise-5.3" class="nav-link" data-scroll-target="#exercise-5.3">Exercise 5.3</a></li>
+  <li><a href="#exercise-5.4" id="toc-exercise-5.4" class="nav-link" data-scroll-target="#exercise-5.4">Exercise 5.4</a></li>
+  </ul></li>
+  <li><a href="#tidying-data" id="toc-tidying-data" class="nav-link" data-scroll-target="#tidying-data">Tidying data</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.5" id="toc-exercise-5.5" class="nav-link" data-scroll-target="#exercise-5.5">Exercise 5.5</a></li>
+  </ul></li>
+  <li><a href="#combining-datasets" id="toc-combining-datasets" class="nav-link" data-scroll-target="#combining-datasets">Combining datasets</a></li>
+  <li><a href="#specifying-join-keys" id="toc-specifying-join-keys" class="nav-link" data-scroll-target="#specifying-join-keys">Specifying join keys</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.6" id="toc-exercise-5.6" class="nav-link" data-scroll-target="#exercise-5.6">Exercise 5.6</a></li>
+  <li><a href="#exercise-5.7" id="toc-exercise-5.7" class="nav-link" data-scroll-target="#exercise-5.7">Exercise 5.7</a></li>
+  </ul></li>
+  <li><a href="#case_when" id="toc-case_when" class="nav-link" data-scroll-target="#case_when">case_when()</a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.8" id="toc-exercise-5.8" class="nav-link" data-scroll-target="#exercise-5.8">Exercise 5.8</a></li>
+  </ul></li>
+  <li><a href="#dataset-toxaemia" id="toc-dataset-toxaemia" class="nav-link" data-scroll-target="#dataset-toxaemia">Dataset <code>Toxaemia</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.9" id="toc-exercise-5.9" class="nav-link" data-scroll-target="#exercise-5.9">Exercise 5.9</a></li>
+  <li><a href="#exercise-5.10" id="toc-exercise-5.10" class="nav-link" data-scroll-target="#exercise-5.10">Exercise 5.10</a></li>
+  </ul></li>
+  <li><a href="#data-diamonds" id="toc-data-diamonds" class="nav-link" data-scroll-target="#data-diamonds">Data <code>diamonds</code></a>
+  <ul class="collapse">
+  <li><a href="#exercise-5.11" id="toc-exercise-5.11" class="nav-link" data-scroll-target="#exercise-5.11">Exercise 5.11</a></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="ws05.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
@@ -280,6 +306,421 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<section id="summarising-data" class="level1">
+<h1>Summarising data</h1>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>my.tv.data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../data/tv.csv"</span>, </span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">"nfcc"</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>The argument <code>col_types = "nfcc"</code> stands for {<code>numeric</code>, <code>factor</code>, <code>character</code>, <code>character</code>}, to match the order of the columns.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my.tv.data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 46 × 5
+    ...1 TELETIME SEX   SCHOOL STANDARD
+   &lt;dbl&gt; &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;     &lt;dbl&gt;
+ 1     1 1482     1     1             4
+ 2     2 2018     1     1             4
+ 3     3 1849     1     1             4
+ 4     4 857      1     1             4
+ 5     5 2027     2     1             4
+ 6     6 2368     2     1             4
+ 7     7 1783     2     1             4
+ 8     8 1769     2     1             4
+ 9     9 2534     1     1             3
+10    10 2366     1     1             3
+# ℹ 36 more rows</code></pre>
+</div>
+</div>
+<p>We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(my.tv.data<span class="sc">$</span>TELETIME, my.tv.data<span class="sc">$</span>SCHOOL, summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>We employed the <code>by()</code> command above and instead, we may also use <code>tapply()</code> <code>aggregate()</code> functions:</p>
+<p><code>tapply(my.data$TELETIME, my.data$SCHOOL, summary)</code></p>
+<p><code>aggregate(my.data$TELETIME, list(my.data$SCHOOL), summary)</code></p>
+<p>A tabulated summary of categorical data is obtained using the <code>table()</code> command. You can also use the tidyverse employing functions like filter, group_by, and summarise.</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../data/rangitikei.csv"</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, </span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="dv">1</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>wind <span class="ot">&lt;-</span> rangitikei <span class="sc">|&gt;</span> <span class="fu">pull</span>(wind)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>river <span class="ot">&lt;-</span> rangitikei <span class="sc">|&gt;</span> <span class="fu">pull</span>(river)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wind, river)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<section id="exercise-5.1" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.1">Exercise 5.1</h2>
+<p>Describe the table generated above. What does it tell you?</p>
+<div id="answer">
+
+</div>
+</section>
+<section id="exercise-5.2" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.2">Exercise 5.2</h2>
+<p>Generate a table that summarizes the mean number of vehicles at each level of wind and temperature. What does this table tell you about the data?</p>
+<div id="answer">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+<section id="exercise-5.3" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.3">Exercise 5.3</h2>
+<p>Now repeat this for the average people observed. What does this tell you about the data?</p>
+<div id="answer">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+<section id="exercise-5.4" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.4">Exercise 5.4</h2>
+<p>Given the two tables you produced describe patterns of people and vehicles at Rangitikei rivers.</p>
+<div id="answer">
+
+</div>
+</section>
+</section>
+<section id="tidying-data" class="level1">
+<h1>Tidying data</h1>
+<p>Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.</p>
+<p>The <code>billboard</code> dataset records the billboard rank of songs in the year 2000:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>billboard</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 317 × 79
+   artist     track date.entered   wk1   wk2   wk3   wk4   wk5   wk6   wk7   wk8
+   &lt;chr&gt;      &lt;chr&gt; &lt;date&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 2 Pac      Baby… 2000-02-26      87    82    72    77    87    94    99    NA
+ 2 2Ge+her    The … 2000-09-02      91    87    92    NA    NA    NA    NA    NA
+ 3 3 Doors D… Kryp… 2000-04-08      81    70    68    67    66    57    54    53
+ 4 3 Doors D… Loser 2000-10-21      76    76    72    69    67    65    55    59
+ 5 504 Boyz   Wobb… 2000-04-15      57    34    25    17    17    31    36    49
+ 6 98^0       Give… 2000-08-19      51    39    34    26    26    19     2     2
+ 7 A*Teens    Danc… 2000-07-08      97    97    96    95   100    NA    NA    NA
+ 8 Aaliyah    I Do… 2000-01-29      84    62    51    41    38    35    35    38
+ 9 Aaliyah    Try … 2000-03-18      59    53    38    28    21    18    16    14
+10 Adams, Yo… Open… 2000-08-26      76    76    74    69    68    67    61    58
+# ℹ 307 more rows
+# ℹ 68 more variables: wk9 &lt;dbl&gt;, wk10 &lt;dbl&gt;, wk11 &lt;dbl&gt;, wk12 &lt;dbl&gt;,
+#   wk13 &lt;dbl&gt;, wk14 &lt;dbl&gt;, wk15 &lt;dbl&gt;, wk16 &lt;dbl&gt;, wk17 &lt;dbl&gt;, wk18 &lt;dbl&gt;,
+#   wk19 &lt;dbl&gt;, wk20 &lt;dbl&gt;, wk21 &lt;dbl&gt;, wk22 &lt;dbl&gt;, wk23 &lt;dbl&gt;, wk24 &lt;dbl&gt;,
+#   wk25 &lt;dbl&gt;, wk26 &lt;dbl&gt;, wk27 &lt;dbl&gt;, wk28 &lt;dbl&gt;, wk29 &lt;dbl&gt;, wk30 &lt;dbl&gt;,
+#   wk31 &lt;dbl&gt;, wk32 &lt;dbl&gt;, wk33 &lt;dbl&gt;, wk34 &lt;dbl&gt;, wk35 &lt;dbl&gt;, wk36 &lt;dbl&gt;,
+#   wk37 &lt;dbl&gt;, wk38 &lt;dbl&gt;, wk39 &lt;dbl&gt;, wk40 &lt;dbl&gt;, wk41 &lt;dbl&gt;, wk42 &lt;dbl&gt;, …</code></pre>
+</div>
+</div>
+<p>In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).</p>
+<section id="exercise-5.5" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.5">Exercise 5.5</h2>
+<p>Use <code>pivot_longer()</code> to tidy this data</p>
+<div id="answer">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+</section>
+<section id="combining-datasets" class="level1">
+<h1>Combining datasets</h1>
+<p>Two tables can be connected through a pair of keys, within each table.</p>
+<p>Every join involves a pair of keys: a primary key and a foreign key. A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound key.</p>
+<p>There are four types of joins, we will illustrate them using a simple example:</p>
+<p>First lets make some data:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">y =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">a =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="st">"a"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Now join the two datasets using the different join functions:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(df2) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    
+2     2     1    NA &lt;NA&gt; </code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    
+2     3    NA    10 a    </code></pre>
+</div>
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 4
+      x     a b         y
+  &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt; &lt;int&gt;
+1     3    10 a        NA
+2     1    10 a         2</code></pre>
+</div>
+</div>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(df2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 4
+      x     y     a b    
+  &lt;dbl&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;
+1     1     2    10 a    
+2     2     1    NA &lt;NA&gt; 
+3     3    NA    10 a    </code></pre>
+</div>
+</div>
+<p>What are the differences between the join functions?</p>
+</section>
+<section id="specifying-join-keys" class="level1">
+<h1>Specifying join keys</h1>
+<p>By default, left_join() will use all variables that appear in both data frames as the join key, but it doesn’t always work.</p>
+<p>For example lets look at some airline data:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13) <span class="co"># data package</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> </span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, time_hour, origin, dest, tailnum, carrier)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>flights2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 6
+    year time_hour           origin dest  tailnum carrier
+   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;  
+ 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA     
+ 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA     
+ 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA     
+ 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6     
+ 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL     
+ 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA     
+ 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6     
+ 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV     
+ 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6     
+10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA     
+# ℹ 336,766 more rows</code></pre>
+</div>
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>planes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3,322 × 9
+   tailnum  year type              manufacturer model engines seats speed engine
+   &lt;chr&gt;   &lt;int&gt; &lt;chr&gt;             &lt;chr&gt;        &lt;chr&gt;   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;chr&gt; 
+ 1 N10156   2004 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+ 2 N102UW   1998 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 3 N103US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 4 N104UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 5 N10575   2002 Fixed wing multi… EMBRAER      EMB-…       2    55    NA Turbo…
+ 6 N105UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 7 N107US   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 8 N108UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+ 9 N109UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+10 N110UW   1999 Fixed wing multi… AIRBUS INDU… A320…       2   182    NA Turbo…
+# ℹ 3,312 more rows</code></pre>
+</div>
+</div>
+<p>We are going to try to going flight data to data about types of planes</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 13
+    year time_hour           origin dest  tailnum carrier type  manufacturer
+   &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt; &lt;chr&gt;       
+ 1  2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA      &lt;NA&gt;  &lt;NA&gt;        
+ 2  2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA      &lt;NA&gt;  &lt;NA&gt;        
+ 3  2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA      &lt;NA&gt;  &lt;NA&gt;        
+ 4  2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6      &lt;NA&gt;  &lt;NA&gt;        
+ 5  2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL      &lt;NA&gt;  &lt;NA&gt;        
+ 6  2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA      &lt;NA&gt;  &lt;NA&gt;        
+ 7  2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6      &lt;NA&gt;  &lt;NA&gt;        
+ 8  2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV      &lt;NA&gt;  &lt;NA&gt;        
+ 9  2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6      &lt;NA&gt;  &lt;NA&gt;        
+10  2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA      &lt;NA&gt;  &lt;NA&gt;        
+# ℹ 336,766 more rows
+# ℹ 5 more variables: model &lt;chr&gt;, engines &lt;int&gt;, seats &lt;int&gt;, speed &lt;int&gt;,
+#   engine &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>We get a lot of missing matches because our join is trying to use tailnum and year as a compound key. Both flights and planes have a year column but they mean different things: <code>flights$year</code> is the year the flight occurred and <code>planes$year</code> is the year the plane was built.</p>
+<p>Since these represent different types of data and we might want to keep both, we can be explicit about how to join the two data tables:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes, <span class="fu">join_by</span>(tailnum))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 14
+   year.x time_hour           origin dest  tailnum carrier year.y type          
+    &lt;int&gt; &lt;dttm&gt;              &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;         
+ 1   2013 2013-01-01 05:00:00 EWR    IAH   N14228  UA        1999 Fixed wing mu…
+ 2   2013 2013-01-01 05:00:00 LGA    IAH   N24211  UA        1998 Fixed wing mu…
+ 3   2013 2013-01-01 05:00:00 JFK    MIA   N619AA  AA        1990 Fixed wing mu…
+ 4   2013 2013-01-01 05:00:00 JFK    BQN   N804JB  B6        2012 Fixed wing mu…
+ 5   2013 2013-01-01 06:00:00 LGA    ATL   N668DN  DL        1991 Fixed wing mu…
+ 6   2013 2013-01-01 05:00:00 EWR    ORD   N39463  UA        2012 Fixed wing mu…
+ 7   2013 2013-01-01 06:00:00 EWR    FLL   N516JB  B6        2000 Fixed wing mu…
+ 8   2013 2013-01-01 06:00:00 LGA    IAD   N829AS  EV        1998 Fixed wing mu…
+ 9   2013 2013-01-01 06:00:00 JFK    MCO   N593JB  B6        2004 Fixed wing mu…
+10   2013 2013-01-01 06:00:00 LGA    ORD   N3ALAA  AA          NA &lt;NA&gt;          
+# ℹ 336,766 more rows
+# ℹ 6 more variables: manufacturer &lt;chr&gt;, model &lt;chr&gt;, engines &lt;int&gt;,
+#   seats &lt;int&gt;, speed &lt;int&gt;, engine &lt;chr&gt;</code></pre>
+</div>
+</div>
+<p>Now by default there is a year.x and year.y coming from the flights and planes data respectively. You can change this using the <code>suffix</code> argument in join or by renaming the columns after the join.</p>
+<section id="exercise-5.6" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.6">Exercise 5.6</h2>
+<p>Imagine you’ve found the top 10 most popular destinations using this code:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>top_dest <span class="ot">&lt;-</span> flights2 <span class="sc">|&gt;</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(dest, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>How can you find all flights to those destinations?</p>
+<div id="answer">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+<section id="exercise-5.7" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.7">Exercise 5.7</h2>
+<p>What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)</p>
+<div id="answer">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+</section>
+<section id="case_when" class="level1">
+<h1>case_when()</h1>
+<p>Sometimes you want to add a new variable to your data based on existing variables.</p>
+<p>dplyr’s case_when() is inspired by SQL’s CASE statement and provides a flexible way of performing different computations for different conditions. It has a special syntax that unfortunately looks like nothing else you’ll use in the tidyverse. It takes pairs that look like condition ~ output. condition must be a logical vector; when it’s TRUE, output will be used.</p>
+<p>This can take the place of if_else() statements.</p>
+<p>For example:</p>
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">status =</span> <span class="fu">case_when</span>( <span class="co"># make a new variable status based on the flights arrival delay</span></span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(arr_delay)      <span class="sc">~</span> <span class="st">"cancelled"</span>,</span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">30</span>       <span class="sc">~</span> <span class="st">"very early"</span>,</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">15</span>       <span class="sc">~</span> <span class="st">"early"</span>,</span>
+<span id="cb33-7"><a href="#cb33-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">abs</span>(arr_delay) <span class="sc">&lt;=</span> <span class="dv">15</span>  <span class="sc">~</span> <span class="st">"on time"</span>,</span>
+<span id="cb33-8"><a href="#cb33-8" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="dv">60</span>        <span class="sc">~</span> <span class="st">"late"</span>,</span>
+<span id="cb33-9"><a href="#cb33-9" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="cn">Inf</span>       <span class="sc">~</span> <span class="st">"very late"</span>,</span>
+<span id="cb33-10"><a href="#cb33-10" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb33-11"><a href="#cb33-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">.keep =</span> <span class="st">"used"</span></span>
+<span id="cb33-12"><a href="#cb33-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 336,776 × 2
+   arr_delay status 
+       &lt;dbl&gt; &lt;chr&gt;  
+ 1        11 on time
+ 2        20 late   
+ 3        33 late   
+ 4       -18 early  
+ 5       -25 early  
+ 6        12 on time
+ 7        19 late   
+ 8       -14 on time
+ 9        -8 on time
+10         8 on time
+# ℹ 336,766 more rows</code></pre>
+</div>
+</div>
+<section id="exercise-5.8" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.8">Exercise 5.8</h2>
+<p>Write a case_when() statement that uses the month and day columns from flights to label a selection of important US holidays (e.g., New Years Day, 4th of July, Thanksgiving, and Christmas). First create a logical column that is either TRUE or FALSE, and then create a character column that either gives the name of the holiday or is NA.</p>
+<div id="answer">
+<div class="cell">
+<details open="">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</div>
+</section>
+</section>
 <section id="dataset-toxaemia" class="level1">
 <h1>Dataset <code>Toxaemia</code></h1>
 <p>This dataset is from the <code>vcdExtra</code> package. Two signs of <em>toxaemia</em>, an abnormal condition during pregnancy characterized by high blood pressure (hypertension) and high levels of protein in the urine. If untreated, both the mother and baby are at risk of complications or death. The dataset <code>Toxaemia</code> represents 13384 expectant mothers in Bradford, England in their first pregnancy, who were also classified according to social class and the number of cigarettes smoked per day.</p>
@@ -289,92 +730,91 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><code>hyper</code> - Hypertension level, a factor with levels: Low, High</p>
 <p><code>urea</code> - Protein urea level, a factor with levels: Low, High</p>
 <p><code>Freq</code> - frequency in each cell, a numeric vector</p>
-</section>
-<section id="exercise-5.1" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 5.1</h1>
+<section id="exercise-5.9" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.9">Exercise 5.9</h2>
 <p>Obtain relevant graphical displays for this dataset.</p>
 <p>Bar charts-</p>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Toxaemia)</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Toxaemia)</span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, </span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>           )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span><span class="st">'identity'</span>, </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(urea <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span><span class="st">'identity'</span>, </span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(urea <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Mosaic type charts</p>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>tab.data <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Freq <span class="sc">~</span> smoke <span class="sc">+</span> hyper <span class="sc">+</span> urea, <span class="at">data=</span>Toxaemia)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>tab.data <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Freq <span class="sc">~</span> smoke <span class="sc">+</span> hyper <span class="sc">+</span> urea, <span class="at">data=</span>Toxaemia)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assoc</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assoc</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strucplot</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strucplot</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sieve</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sieve</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>The full dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables. For this question we will focus on two categorical variables from this dataset, <code>hyper</code> and <code>urea</code>. This forms a 2 x 2 contingency table since these variables each have two levels.</p>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the data</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>tox_2 <span class="ot">&lt;-</span> Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(hyper, urea, Freq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the data</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>tox_2 <span class="ot">&lt;-</span> Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(hyper, urea, Freq)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the tidyverse way</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tox_display <span class="ot">&lt;-</span> tox_2 <span class="sc">|&gt;</span> </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> urea, </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> Freq,</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fn =</span> sum) <span class="sc">|&gt;</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>( <span class="at">var =</span> <span class="st">"hyper"</span>) <span class="co"># make values of hyper column row names</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>tox_display</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the tidyverse way</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>tox_display <span class="ot">&lt;-</span> tox_2 <span class="sc">|&gt;</span> </span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> urea, </span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> Freq,</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fn =</span> sum) <span class="sc">|&gt;</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>( <span class="at">var =</span> <span class="st">"hyper"</span>) <span class="co"># make values of hyper column row names</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>tox_display</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     High  Low
@@ -383,7 +823,7 @@ Low   589 9415</code></pre>
 </div>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># xtabs() </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co"># xtabs() </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>Two signs of <em>toxaemia</em>, are high blood pressure (hypertension) and high levels of protein in the urine. We want to ask if in our sample of expectant mothers in Bradford, England, is high blood pressure related to high protein levels? If these two variables are associated this may indicate the presence of toxaemia in the sample, if they are independent toxaemia may not be present.</p>
@@ -395,7 +835,7 @@ Low   589 9415</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -410,7 +850,7 @@ X-squared = 563.9, df = 1, p-value &lt; 2.2e-16</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         High      Low
@@ -419,8 +859,8 @@ Low  937.3144 9066.686</code></pre>
 </div>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compared to our observed</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>tox_display</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compared to our observed</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>tox_display</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>     High  Low
@@ -429,12 +869,12 @@ Low   589 9415</code></pre>
 </div>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total counts 13384</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb54"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="co"># total counts 13384</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
-<section id="exercise-5.2" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 5.2</h1>
+<section id="exercise-5.10" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.10">Exercise 5.10</h2>
 <p>The genetic information of an organism is stored in its Deoxyribonucleic acid (DNA). DNA is a double stranded helix made up of four different nucleotides. These nucleotides differ in which of the four bases Adenine (A), Guanine (G), Cytosine (C), or Thymine (T) they contain. Nucleotides combine to form amino acids which are the building blocks of proteins. Simply put, three nucleotides form an amino acid and the specific order of a combination dictates what amino acid is formed. A simple pattern that we may want to detect in a DNA sequence is that of the nucleotide at position <code>i+1</code> based on the nucleotide at position <code>i</code>. The nucleotide positional data collected by a researcher in a particular case is given in the following table:</p>
 <table class="table">
 <thead>
@@ -481,19 +921,19 @@ Low   589 9415</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>tabledata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="fu">c</span>(<span class="dv">622</span>, <span class="dv">428</span>, <span class="dv">354</span>, <span class="dv">396</span>),</span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">C =</span> <span class="fu">c</span>(<span class="dv">316</span>, <span class="dv">262</span>, <span class="dv">294</span>, <span class="dv">330</span>),</span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">G =</span> <span class="fu">c</span>(<span class="dv">328</span>, <span class="dv">204</span>, <span class="dv">174</span>, <span class="dv">382</span>),</span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">T =</span> <span class="fu">c</span>(<span class="dv">536</span>, <span class="dv">306</span>, <span class="dv">266</span>, <span class="dv">648</span>), </span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"G"</span>, <span class="st">"T"</span>)</span>
-<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>tabledata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="fu">c</span>(<span class="dv">622</span>, <span class="dv">428</span>, <span class="dv">354</span>, <span class="dv">396</span>),</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">C =</span> <span class="fu">c</span>(<span class="dv">316</span>, <span class="dv">262</span>, <span class="dv">294</span>, <span class="dv">330</span>),</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">G =</span> <span class="fu">c</span>(<span class="dv">328</span>, <span class="dv">204</span>, <span class="dv">174</span>, <span class="dv">382</span>),</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">T =</span> <span class="fu">c</span>(<span class="dv">536</span>, <span class="dv">306</span>, <span class="dv">266</span>, <span class="dv">648</span>), </span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"G"</span>, <span class="st">"T"</span>)</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)<span class="sc">$</span>exp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)<span class="sc">$</span>exp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>         A        C        G        T
@@ -504,7 +944,7 @@ T 540.6774 361.0523 326.8094 527.4608</code></pre>
 </div>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -515,7 +955,7 @@ X-squared = 153.21, df = 9, p-value &lt; 2.2e-16</code></pre>
 </div>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata, <span class="at">simulate.p.value =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata, <span class="at">simulate.p.value =</span> T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>
@@ -529,9 +969,9 @@ X-squared = 153.21, df = NA, p-value = 0.0004998</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if there is an association we can examine patterns </span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="fu">corresp</span>(tabledata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb62"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="co"># if there is an association we can examine patterns </span></span>
+<span id="cb62-2"><a href="#cb62-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb62-3"><a href="#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="fu">corresp</span>(tabledata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>First canonical correlation(s): 0.1443355 
@@ -548,17 +988,17 @@ X-squared = 153.21, df = NA, p-value = 0.0004998</code></pre>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">corresp</span>(tabledata, <span class="at">nf=</span><span class="dv">2</span>))</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">corresp</span>(tabledata, <span class="at">nf=</span><span class="dv">2</span>))</span>
+<span id="cb64-2"><a href="#cb64-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>)</span>
+<span id="cb64-3"><a href="#cb64-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co">#or</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="fu">CA</span>(tabledata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb65"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="co">#or</span></span>
+<span id="cb65-2"><a href="#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb65-3"><a href="#cb65-3" aria-hidden="true" tabindex="-1"></a><span class="fu">CA</span>(tabledata)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code>**Results of the Correspondence Analysis (CA)**
@@ -582,15 +1022,15 @@ The chi square of independence between the two variables is equal to 153.2146 (p
 </div>
 </div>
 </section>
-<section id="exercise-5.3" class="level1 unnumbered">
-<h1 class="unnumbered">Exercise 5.3</h1>
+</section>
+<section id="data-diamonds" class="level1">
+<h1>Data <code>diamonds</code></h1>
 <p>The <code>diamonds</code> dataset contains the prices and other attributes of almost 54,000 diamonds. Use <code>?diamonds</code> to see information for each variable.</p>
-<p>We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot.</p>
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>)</span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(diamonds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(diamonds)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stdout">
 <pre><code> [1] "carat"   "cut"     "color"   "clarity" "depth"   "table"   "price"  
@@ -598,122 +1038,28 @@ The chi square of independence between the two variables is equal to 153.2146 (p
 </div>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Some EDA plots</span></span>
-<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>cut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Some EDA plots</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>cut)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb70"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
+<section id="exercise-5.11" class="level2 unnumbered">
+<h2 class="unnumbered anchored" data-anchor-id="exercise-5.11">Exercise 5.11</h2>
+<p>We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot. Write your hypotheses, perform the test, make a decision based on the results of the test, and report a conclusion in context.</p>
+<div id="answer">
 <div class="cell">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative coding for making a table of data to count observations of each category</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>cont.table <span class="ot">&lt;-</span> <span class="fu">table</span>(diamonds<span class="sc">$</span>cut, diamonds<span class="sc">$</span>color)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a><span class="co"># EDA </span></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>tab.data <span class="ot">&lt;-</span> <span class="fu">xtabs</span>( <span class="sc">~</span> cut<span class="sc">+</span>color, <span class="at">data =</span> diamonds)</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># A test of association</span></span>
-<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test
-
-data:  tab.data
-X-squared = 310.32, df = 24, p-value &lt; 2.2e-16</code></pre>
-</div>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data)<span class="sc">$</span>expected</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>           color
-cut                 D         E         F         G         H         I
-  Fair       202.2201  292.4207  284.8094  337.0434  247.8576  161.8357
-  Good       616.2060  891.0657  867.8727 1027.0403  755.2730  493.1467
-  Very Good 1517.5297 2194.4263 2137.3089 2529.2908 1860.0098 1214.4717
-  Premium   1732.1844 2504.8281 2439.6315 2887.0592 2123.1083 1386.2588
-  Ideal     2706.8599 3914.2593 3812.3775 4511.5664 3317.7513 2166.2870
-           color
-cut                  J
-  Fair        83.81313
-  Good       255.39577
-  Very Good  628.96285
-  Premium    717.92970
-  Ideal     1121.89855</code></pre>
-</div>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data)<span class="sc">$</span>stdres</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>           color
-cut                  D          E          F          G          H          I
-  Fair      -2.9944825 -4.4904291  1.8029978 -1.4331431  3.8660384  1.1077538
-  Good       2.0691800  1.6287194  1.6139239 -5.7432258 -2.2103621  1.4368735
-  Very Good -0.1411592  5.5067817  0.7223909 -5.8458749 -1.0304594 -0.3596617
-  Premium   -3.8474818 -4.2965348 -2.8098650  0.8961959  6.4786345  1.3701384
-  Ideal      3.3724986 -0.2567250  0.3138264  8.0472595 -4.9385571 -2.1425443
-           color
-cut                  J
-  Fair       4.0078721
-  Good       3.4785185
-  Very Good  2.2797544
-  Premium    4.0019148
-  Ideal     -8.9392779</code></pre>
-</div>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data, <span class="at">simulate.p.value =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-    Pearson's Chi-squared test with simulated p-value (based on 2000
-    replicates)
-
-data:  tab.data
-X-squared = 310.32, df = NA, p-value = 0.0004998</code></pre>
-</div>
-</div>
-<div class="cell">
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="co"># plots below are expecting an xtabs object, additional arguments would have to be added for other data formats</span></span>
-<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="fu">assoc</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">strucplot</span>(tab.data, <span class="at">core =</span> struc_assoc, )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sieve</span>(tab.data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
-<details open="">
-<summary>Code</summary>
-<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
-<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>gplots<span class="sc">::</span><span class="fu">balloonplot</span>(tab.data, <span class="at">main =</span><span class="st">"Balloon Plot"</span>, <span class="at">xlab =</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>,</span>
-<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">label =</span> <span class="cn">FALSE</span>, <span class="at">show.margins =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</details>
 </div>
 <ul>
 <li>More R code examples are <a href="../exercises/Chap5more.R">here</a></li>
@@ -722,6 +1068,7 @@ X-squared = 310.32, df = NA, p-value = 0.0004998</code></pre>
 
 <!-- -->
 
+</section>
 </section>
 
 </main> <!-- /main -->
@@ -1021,243 +1368,454 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
-<div class="sourceCode" id="cb51" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Chapter 5 Workshop"</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, message=FALSE}</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>, <span class="at">comment=</span><span class="cn">NA</span>, <span class="at">fig.show=</span><span class="st">"hide"</span>)</span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset `Toxaemia`</span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>This dataset is from the <span class="in">`vcdExtra`</span> package. Two signs of *toxaemia*, an abnormal condition during pregnancy characterized by high blood pressure (hypertension) and high levels of protein in the urine. If untreated, both the mother and baby are at risk of complications or death. The dataset <span class="in">`Toxaemia`</span> represents 13384 expectant mothers in Bradford, England in their first pregnancy, who were also classified according to social class and the number of cigarettes smoked per day.</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>The dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables:</span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a><span class="in">`class`</span> - Social class of mother, a factor with levels: 1, 2, 3, 4, 5</span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a><span class="in">`smoke`</span> - Cigarettes smoked per day during pregnancy, a factor with levels: 0, 1-19, 20+</span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a><span class="in">`hyper`</span> - Hypertension level, a factor with levels: Low, High</span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a><span class="in">`urea`</span> - Protein urea level, a factor with levels: Low, High</span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a><span class="in">`Freq`</span> - frequency in each cell, a numeric vector</span>
-<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 5.1 {-}</span></span>
-<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>Obtain relevant graphical displays for this dataset.</span>
-<span id="cb51-28"><a href="#cb51-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-29"><a href="#cb51-29" aria-hidden="true" tabindex="-1"></a>Bar charts-</span>
-<span id="cb51-30"><a href="#cb51-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-33"><a href="#cb51-33" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-34"><a href="#cb51-34" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb51-35"><a href="#cb51-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-36"><a href="#cb51-36" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
-<span id="cb51-37"><a href="#cb51-37" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Toxaemia)</span>
-<span id="cb51-38"><a href="#cb51-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-39"><a href="#cb51-39" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb51-40"><a href="#cb51-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb51-41"><a href="#cb51-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
-<span id="cb51-42"><a href="#cb51-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>)</span>
-<span id="cb51-43"><a href="#cb51-43" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-44"><a href="#cb51-44" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-47"><a href="#cb51-47" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-48"><a href="#cb51-48" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb51-49"><a href="#cb51-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb51-50"><a href="#cb51-50" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
-<span id="cb51-51"><a href="#cb51-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, </span>
-<span id="cb51-52"><a href="#cb51-52" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span></span>
-<span id="cb51-53"><a href="#cb51-53" aria-hidden="true" tabindex="-1"></a>           )</span>
-<span id="cb51-54"><a href="#cb51-54" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-55"><a href="#cb51-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-56"><a href="#cb51-56" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-59"><a href="#cb51-59" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-60"><a href="#cb51-60" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb51-61"><a href="#cb51-61" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb51-62"><a href="#cb51-62" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
-<span id="cb51-63"><a href="#cb51-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span><span class="st">'identity'</span>, </span>
-<span id="cb51-64"><a href="#cb51-64" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
-<span id="cb51-65"><a href="#cb51-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(urea <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span>
-<span id="cb51-66"><a href="#cb51-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-67"><a href="#cb51-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-68"><a href="#cb51-68" aria-hidden="true" tabindex="-1"></a>Mosaic type charts</span>
-<span id="cb51-69"><a href="#cb51-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-70"><a href="#cb51-70" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show='hide', results='hide'}</span></span>
-<span id="cb51-71"><a href="#cb51-71" aria-hidden="true" tabindex="-1"></a>tab.data <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Freq <span class="sc">~</span> smoke <span class="sc">+</span> hyper <span class="sc">+</span> urea, <span class="at">data=</span>Toxaemia)</span>
-<span id="cb51-72"><a href="#cb51-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-73"><a href="#cb51-73" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tab.data)</span>
-<span id="cb51-74"><a href="#cb51-74" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-75"><a href="#cb51-75" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>)</span>
-<span id="cb51-76"><a href="#cb51-76" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-77"><a href="#cb51-77" aria-hidden="true" tabindex="-1"></a><span class="fu">assoc</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>) </span>
-<span id="cb51-78"><a href="#cb51-78" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-79"><a href="#cb51-79" aria-hidden="true" tabindex="-1"></a><span class="fu">strucplot</span>(tab.data)</span>
-<span id="cb51-80"><a href="#cb51-80" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-81"><a href="#cb51-81" aria-hidden="true" tabindex="-1"></a><span class="fu">sieve</span>(tab.data)</span>
-<span id="cb51-82"><a href="#cb51-82" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-83"><a href="#cb51-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-84"><a href="#cb51-84" aria-hidden="true" tabindex="-1"></a>The full dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables.</span>
-<span id="cb51-85"><a href="#cb51-85" aria-hidden="true" tabindex="-1"></a>For this question we will focus on two categorical variables from this dataset, <span class="in">`hyper`</span> and <span class="in">`urea`</span>. This forms a 2 x 2 contingency table since these variables each have two levels. </span>
-<span id="cb51-86"><a href="#cb51-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-89"><a href="#cb51-89" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-90"><a href="#cb51-90" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the data</span></span>
-<span id="cb51-91"><a href="#cb51-91" aria-hidden="true" tabindex="-1"></a>tox_2 <span class="ot">&lt;-</span> Toxaemia <span class="sc">|&gt;</span> </span>
-<span id="cb51-92"><a href="#cb51-92" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(hyper, urea, Freq)</span>
-<span id="cb51-93"><a href="#cb51-93" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-94"><a href="#cb51-94" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-95"><a href="#cb51-95" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-98"><a href="#cb51-98" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-99"><a href="#cb51-99" aria-hidden="true" tabindex="-1"></a><span class="co"># the tidyverse way</span></span>
-<span id="cb51-100"><a href="#cb51-100" aria-hidden="true" tabindex="-1"></a>tox_display <span class="ot">&lt;-</span> tox_2 <span class="sc">|&gt;</span> </span>
-<span id="cb51-101"><a href="#cb51-101" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> urea, </span>
-<span id="cb51-102"><a href="#cb51-102" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> Freq,</span>
-<span id="cb51-103"><a href="#cb51-103" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fn =</span> sum) <span class="sc">|&gt;</span></span>
-<span id="cb51-104"><a href="#cb51-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>( <span class="at">var =</span> <span class="st">"hyper"</span>) <span class="co"># make values of hyper column row names</span></span>
-<span id="cb51-105"><a href="#cb51-105" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-106"><a href="#cb51-106" aria-hidden="true" tabindex="-1"></a>tox_display</span>
-<span id="cb51-107"><a href="#cb51-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-108"><a href="#cb51-108" aria-hidden="true" tabindex="-1"></a><span class="co"># xtabs() </span></span>
-<span id="cb51-109"><a href="#cb51-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-110"><a href="#cb51-110" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-111"><a href="#cb51-111" aria-hidden="true" tabindex="-1"></a>Two signs of *toxaemia*, are high blood pressure (hypertension) and high levels of protein in the urine. We want to ask if in our sample of expectant mothers in Bradford, England, is high blood pressure related to high protein levels? If these two variables are associated this may indicate the presence of toxaemia in the sample, if they are independent toxaemia may not be present. </span>
-<span id="cb51-112"><a href="#cb51-112" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-113"><a href="#cb51-113" aria-hidden="true" tabindex="-1"></a>We can test this question using a Chi-squared test.</span>
-<span id="cb51-114"><a href="#cb51-114" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-115"><a href="#cb51-115" aria-hidden="true" tabindex="-1"></a>The null hypothesis of the chi-squared these is that the two variables are independent and the alternative hypothesis is that the two variables are not independent.</span>
-<span id="cb51-116"><a href="#cb51-116" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-117"><a href="#cb51-117" aria-hidden="true" tabindex="-1"></a>Our null hypothesis is that Hypertension level and the Protein urea level in expectant mothers in Bradford, England are independent. </span>
-<span id="cb51-118"><a href="#cb51-118" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-119"><a href="#cb51-119" aria-hidden="true" tabindex="-1"></a>Our alternative hypothesis that Hypertension level and the Protein urea level in expectant mothers in Bradford, England are *not* independent. </span>
-<span id="cb51-120"><a href="#cb51-120" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-121"><a href="#cb51-121" aria-hidden="true" tabindex="-1"></a>Set our alpha = 0.05</span>
-<span id="cb51-124"><a href="#cb51-124" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-125"><a href="#cb51-125" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)</span>
-<span id="cb51-126"><a href="#cb51-126" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-127"><a href="#cb51-127" aria-hidden="true" tabindex="-1"></a>Since our p-value is less than our alpha level we reject the null hypothesis and conclude that the two variables (hyper &amp; urea) are not independent. We found evidence of an association between hypertension levels and protein in urine levels in our sample of expectant mothers in in Bradford, England.</span>
-<span id="cb51-128"><a href="#cb51-128" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-129"><a href="#cb51-129" aria-hidden="true" tabindex="-1"></a>We can see the expected counts</span>
-<span id="cb51-132"><a href="#cb51-132" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-133"><a href="#cb51-133" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)<span class="sc">$</span>expected</span>
-<span id="cb51-134"><a href="#cb51-134" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-135"><a href="#cb51-135" aria-hidden="true" tabindex="-1"></a><span class="co"># compared to our observed</span></span>
-<span id="cb51-136"><a href="#cb51-136" aria-hidden="true" tabindex="-1"></a>tox_display</span>
-<span id="cb51-137"><a href="#cb51-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-138"><a href="#cb51-138" aria-hidden="true" tabindex="-1"></a><span class="co"># total counts 13384</span></span>
-<span id="cb51-139"><a href="#cb51-139" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-140"><a href="#cb51-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-141"><a href="#cb51-141" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 5.2 {-}</span></span>
-<span id="cb51-142"><a href="#cb51-142" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-143"><a href="#cb51-143" aria-hidden="true" tabindex="-1"></a>The genetic information of an organism is stored in its Deoxyribonucleic acid (DNA). DNA is a double stranded helix made up of four different nucleotides. These nucleotides differ in which of the four bases Adenine (A), Guanine (G), Cytosine (C), or Thymine (T) they contain. Nucleotides combine to form amino acids which are the building blocks of proteins. Simply put, three nucleotides form an amino acid and the specific order of a combination dictates what amino acid is formed. A simple pattern that we may want to detect in a DNA sequence is that of the nucleotide at position <span class="in">`i+1`</span> based on the nucleotide at position <span class="in">`i`</span>. The nucleotide positional data collected by a researcher in a particular case is given in the following table:</span>
-<span id="cb51-144"><a href="#cb51-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-145"><a href="#cb51-145" aria-hidden="true" tabindex="-1"></a>| <span class="in">`i\(i+1)`</span> | A   | C   | G   | T   |</span>
-<span id="cb51-146"><a href="#cb51-146" aria-hidden="true" tabindex="-1"></a>|-----------|-----|-----|-----|-----|</span>
-<span id="cb51-147"><a href="#cb51-147" aria-hidden="true" tabindex="-1"></a>| A         | 622 | 316 | 328 | 536 |</span>
-<span id="cb51-148"><a href="#cb51-148" aria-hidden="true" tabindex="-1"></a>| C         | 428 | 262 | 204 | 306 |</span>
-<span id="cb51-149"><a href="#cb51-149" aria-hidden="true" tabindex="-1"></a>| G         | 354 | 294 | 174 | 266 |</span>
-<span id="cb51-150"><a href="#cb51-150" aria-hidden="true" tabindex="-1"></a>| T         | 396 | 330 | 382 | 648 |</span>
-<span id="cb51-151"><a href="#cb51-151" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-152"><a href="#cb51-152" aria-hidden="true" tabindex="-1"></a>Perform a test of association and then obtain the symmetric plot.</span>
-<span id="cb51-153"><a href="#cb51-153" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-156"><a href="#cb51-156" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-157"><a href="#cb51-157" aria-hidden="true" tabindex="-1"></a>tabledata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb51-158"><a href="#cb51-158" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="fu">c</span>(<span class="dv">622</span>, <span class="dv">428</span>, <span class="dv">354</span>, <span class="dv">396</span>),</span>
-<span id="cb51-159"><a href="#cb51-159" aria-hidden="true" tabindex="-1"></a>  <span class="at">C =</span> <span class="fu">c</span>(<span class="dv">316</span>, <span class="dv">262</span>, <span class="dv">294</span>, <span class="dv">330</span>),</span>
-<span id="cb51-160"><a href="#cb51-160" aria-hidden="true" tabindex="-1"></a>  <span class="at">G =</span> <span class="fu">c</span>(<span class="dv">328</span>, <span class="dv">204</span>, <span class="dv">174</span>, <span class="dv">382</span>),</span>
-<span id="cb51-161"><a href="#cb51-161" aria-hidden="true" tabindex="-1"></a>  <span class="at">T =</span> <span class="fu">c</span>(<span class="dv">536</span>, <span class="dv">306</span>, <span class="dv">266</span>, <span class="dv">648</span>), </span>
-<span id="cb51-162"><a href="#cb51-162" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"G"</span>, <span class="st">"T"</span>)</span>
-<span id="cb51-163"><a href="#cb51-163" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb51-164"><a href="#cb51-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-165"><a href="#cb51-165" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-168"><a href="#cb51-168" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-169"><a href="#cb51-169" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)<span class="sc">$</span>exp</span>
-<span id="cb51-170"><a href="#cb51-170" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)</span>
-<span id="cb51-171"><a href="#cb51-171" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata, <span class="at">simulate.p.value =</span> T)</span>
-<span id="cb51-172"><a href="#cb51-172" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-173"><a href="#cb51-173" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-174"><a href="#cb51-174" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-177"><a href="#cb51-177" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-178"><a href="#cb51-178" aria-hidden="true" tabindex="-1"></a><span class="co"># if there is an association we can examine patterns </span></span>
-<span id="cb51-179"><a href="#cb51-179" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb51-180"><a href="#cb51-180" aria-hidden="true" tabindex="-1"></a><span class="fu">corresp</span>(tabledata)</span>
-<span id="cb51-181"><a href="#cb51-181" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-182"><a href="#cb51-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-185"><a href="#cb51-185" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-186"><a href="#cb51-186" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">corresp</span>(tabledata, <span class="at">nf=</span><span class="dv">2</span>))</span>
-<span id="cb51-187"><a href="#cb51-187" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>)</span>
-<span id="cb51-188"><a href="#cb51-188" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span>
-<span id="cb51-189"><a href="#cb51-189" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-190"><a href="#cb51-190" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-193"><a href="#cb51-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-194"><a href="#cb51-194" aria-hidden="true" tabindex="-1"></a><span class="co">#or</span></span>
-<span id="cb51-195"><a href="#cb51-195" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
-<span id="cb51-196"><a href="#cb51-196" aria-hidden="true" tabindex="-1"></a><span class="fu">CA</span>(tabledata)</span>
-<span id="cb51-197"><a href="#cb51-197" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-198"><a href="#cb51-198" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-199"><a href="#cb51-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-200"><a href="#cb51-200" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-201"><a href="#cb51-201" aria-hidden="true" tabindex="-1"></a><span class="fu"># Exercise 5.3 {-}</span></span>
-<span id="cb51-202"><a href="#cb51-202" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-203"><a href="#cb51-203" aria-hidden="true" tabindex="-1"></a>The <span class="in">`diamonds`</span> dataset contains the prices and other attributes of almost 54,000 diamonds. Use <span class="in">`?diamonds`</span> to see information for each variable.</span>
-<span id="cb51-204"><a href="#cb51-204" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-205"><a href="#cb51-205" aria-hidden="true" tabindex="-1"></a>We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot.</span>
-<span id="cb51-206"><a href="#cb51-206" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-209"><a href="#cb51-209" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-210"><a href="#cb51-210" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>)</span>
-<span id="cb51-211"><a href="#cb51-211" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(diamonds)</span>
-<span id="cb51-212"><a href="#cb51-212" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-213"><a href="#cb51-213" aria-hidden="true" tabindex="-1"></a><span class="do">## Some EDA plots</span></span>
-<span id="cb51-214"><a href="#cb51-214" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>cut)</span>
-<span id="cb51-215"><a href="#cb51-215" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))</span>
-<span id="cb51-216"><a href="#cb51-216" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity)</span>
-<span id="cb51-217"><a href="#cb51-217" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-218"><a href="#cb51-218" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-219"><a href="#cb51-219" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-220"><a href="#cb51-220" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-221"><a href="#cb51-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r contingency table}</span></span>
-<span id="cb51-222"><a href="#cb51-222" aria-hidden="true" tabindex="-1"></a><span class="co"># alternative coding for making a table of data to count observations of each category</span></span>
-<span id="cb51-223"><a href="#cb51-223" aria-hidden="true" tabindex="-1"></a>cont.table <span class="ot">&lt;-</span> <span class="fu">table</span>(diamonds<span class="sc">$</span>cut, diamonds<span class="sc">$</span>color)</span>
-<span id="cb51-224"><a href="#cb51-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-225"><a href="#cb51-225" aria-hidden="true" tabindex="-1"></a><span class="co"># EDA </span></span>
-<span id="cb51-226"><a href="#cb51-226" aria-hidden="true" tabindex="-1"></a>tab.data <span class="ot">&lt;-</span> <span class="fu">xtabs</span>( <span class="sc">~</span> cut<span class="sc">+</span>color, <span class="at">data =</span> diamonds)</span>
-<span id="cb51-227"><a href="#cb51-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-228"><a href="#cb51-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-229"><a href="#cb51-229" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tab.data)</span>
-<span id="cb51-230"><a href="#cb51-230" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-231"><a href="#cb51-231" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-232"><a href="#cb51-232" aria-hidden="true" tabindex="-1"></a><span class="in">```{r chi sq}</span></span>
-<span id="cb51-233"><a href="#cb51-233" aria-hidden="true" tabindex="-1"></a><span class="co"># A test of association</span></span>
-<span id="cb51-234"><a href="#cb51-234" aria-hidden="true" tabindex="-1"></a><span class="co"># </span></span>
-<span id="cb51-235"><a href="#cb51-235" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data)</span>
-<span id="cb51-236"><a href="#cb51-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-237"><a href="#cb51-237" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data)<span class="sc">$</span>expected</span>
-<span id="cb51-238"><a href="#cb51-238" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data)<span class="sc">$</span>stdres</span>
-<span id="cb51-239"><a href="#cb51-239" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-240"><a href="#cb51-240" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tab.data, <span class="at">simulate.p.value =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb51-241"><a href="#cb51-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-242"><a href="#cb51-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-243"><a href="#cb51-243" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-244"><a href="#cb51-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-247"><a href="#cb51-247" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb51-248"><a href="#cb51-248" aria-hidden="true" tabindex="-1"></a><span class="co"># plots below are expecting an xtabs object, additional arguments would have to be added for other data formats</span></span>
-<span id="cb51-249"><a href="#cb51-249" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>)</span>
-<span id="cb51-250"><a href="#cb51-250" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-251"><a href="#cb51-251" aria-hidden="true" tabindex="-1"></a><span class="fu">assoc</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>) </span>
-<span id="cb51-252"><a href="#cb51-252" aria-hidden="true" tabindex="-1"></a><span class="fu">strucplot</span>(tab.data, <span class="at">core =</span> struc_assoc, )</span>
-<span id="cb51-253"><a href="#cb51-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-254"><a href="#cb51-254" aria-hidden="true" tabindex="-1"></a><span class="fu">sieve</span>(tab.data)</span>
-<span id="cb51-255"><a href="#cb51-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-256"><a href="#cb51-256" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gplots)</span>
-<span id="cb51-257"><a href="#cb51-257" aria-hidden="true" tabindex="-1"></a>gplots<span class="sc">::</span><span class="fu">balloonplot</span>(tab.data, <span class="at">main =</span><span class="st">"Balloon Plot"</span>, <span class="at">xlab =</span><span class="st">""</span>, <span class="at">ylab=</span><span class="st">""</span>,</span>
-<span id="cb51-258"><a href="#cb51-258" aria-hidden="true" tabindex="-1"></a>                    <span class="at">label =</span> <span class="cn">FALSE</span>, <span class="at">show.margins =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb51-259"><a href="#cb51-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-260"><a href="#cb51-260" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-261"><a href="#cb51-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-262"><a href="#cb51-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE}</span></span>
-<span id="cb51-263"><a href="#cb51-263" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">warn=</span><span class="dv">0</span>) </span>
-<span id="cb51-264"><a href="#cb51-264" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb51-265"><a href="#cb51-265" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>More R code examples are  <span class="co">[</span><span class="ot">here</span><span class="co">](../exercises/Chap5more.R)</span></span>
+<div class="sourceCode" id="cb73" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Chapter 5 Workshop"</span></span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, message=FALSE}</span></span>
+<span id="cb73-6"><a href="#cb73-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>, <span class="at">warning=</span><span class="cn">FALSE</span>, <span class="at">message=</span><span class="cn">FALSE</span>, <span class="at">comment=</span><span class="cn">NA</span>, <span class="at">fig.show=</span><span class="st">"hide"</span>)</span>
+<span id="cb73-7"><a href="#cb73-7" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-8"><a href="#cb73-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-9"><a href="#cb73-9" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summarising data</span></span>
+<span id="cb73-10"><a href="#cb73-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-13"><a href="#cb73-13" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-14"><a href="#cb73-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb73-15"><a href="#cb73-15" aria-hidden="true" tabindex="-1"></a>my.tv.data <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(</span>
+<span id="cb73-16"><a href="#cb73-16" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../data/tv.csv"</span>, </span>
+<span id="cb73-17"><a href="#cb73-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">col_types =</span> <span class="st">"nfcc"</span></span>
+<span id="cb73-18"><a href="#cb73-18" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-19"><a href="#cb73-19" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-20"><a href="#cb73-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-21"><a href="#cb73-21" aria-hidden="true" tabindex="-1"></a>The argument <span class="in">`col_types = "nfcc"`</span> stands for <span class="sc">\{</span><span class="in">`numeric`</span>, <span class="in">`factor`</span>, <span class="in">`character`</span>, <span class="in">`character`</span><span class="sc">\}</span>, to match the order of the columns.</span>
+<span id="cb73-22"><a href="#cb73-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-25"><a href="#cb73-25" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-26"><a href="#cb73-26" aria-hidden="true" tabindex="-1"></a>my.tv.data</span>
+<span id="cb73-27"><a href="#cb73-27" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-28"><a href="#cb73-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-29"><a href="#cb73-29" aria-hidden="true" tabindex="-1"></a>We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands</span>
+<span id="cb73-30"><a href="#cb73-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-31"><a href="#cb73-31" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide", results='hide'}</span></span>
+<span id="cb73-32"><a href="#cb73-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-33"><a href="#cb73-33" aria-hidden="true" tabindex="-1"></a><span class="fu">by</span>(my.tv.data<span class="sc">$</span>TELETIME, my.tv.data<span class="sc">$</span>SCHOOL, summary)</span>
+<span id="cb73-34"><a href="#cb73-34" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-35"><a href="#cb73-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-36"><a href="#cb73-36" aria-hidden="true" tabindex="-1"></a>We employed the <span class="in">`by()`</span> command above and instead, we may also use</span>
+<span id="cb73-37"><a href="#cb73-37" aria-hidden="true" tabindex="-1"></a><span class="in">`tapply()`</span> <span class="in">`aggregate()`</span> functions:</span>
+<span id="cb73-38"><a href="#cb73-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-39"><a href="#cb73-39" aria-hidden="true" tabindex="-1"></a><span class="in">`tapply(my.data$TELETIME, my.data$SCHOOL, summary)`</span></span>
+<span id="cb73-40"><a href="#cb73-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-41"><a href="#cb73-41" aria-hidden="true" tabindex="-1"></a><span class="in">`aggregate(my.data$TELETIME, list(my.data$SCHOOL), summary)`</span></span>
+<span id="cb73-42"><a href="#cb73-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-43"><a href="#cb73-43" aria-hidden="true" tabindex="-1"></a>A tabulated summary of categorical data is obtained using the <span class="in">`table()`</span></span>
+<span id="cb73-44"><a href="#cb73-44" aria-hidden="true" tabindex="-1"></a>command. You can also use the tidyverse employing functions like filter, group_by, and summarise.</span>
+<span id="cb73-45"><a href="#cb73-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-46"><a href="#cb73-46" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show="hide", results='hide'}</span></span>
+<span id="cb73-47"><a href="#cb73-47" aria-hidden="true" tabindex="-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(</span>
+<span id="cb73-48"><a href="#cb73-48" aria-hidden="true" tabindex="-1"></a>  <span class="st">"../data/rangitikei.csv"</span>,</span>
+<span id="cb73-49"><a href="#cb73-49" aria-hidden="true" tabindex="-1"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, </span>
+<span id="cb73-50"><a href="#cb73-50" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="dv">1</span></span>
+<span id="cb73-51"><a href="#cb73-51" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-52"><a href="#cb73-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-53"><a href="#cb73-53" aria-hidden="true" tabindex="-1"></a>wind <span class="ot">&lt;-</span> rangitikei <span class="sc">|&gt;</span> <span class="fu">pull</span>(wind)</span>
+<span id="cb73-54"><a href="#cb73-54" aria-hidden="true" tabindex="-1"></a>river <span class="ot">&lt;-</span> rangitikei <span class="sc">|&gt;</span> <span class="fu">pull</span>(river)</span>
+<span id="cb73-55"><a href="#cb73-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-56"><a href="#cb73-56" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(wind, river)</span>
+<span id="cb73-57"><a href="#cb73-57" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-58"><a href="#cb73-58" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.1 {-}</span></span>
+<span id="cb73-59"><a href="#cb73-59" aria-hidden="true" tabindex="-1"></a>Describe the table generated above. What does it tell you?</span>
+<span id="cb73-60"><a href="#cb73-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-61"><a href="#cb73-61" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-62"><a href="#cb73-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-63"><a href="#cb73-63" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-64"><a href="#cb73-64" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-65"><a href="#cb73-65" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.2 {-}</span></span>
+<span id="cb73-66"><a href="#cb73-66" aria-hidden="true" tabindex="-1"></a>Generate a table that summarizes the mean number of vehicles at each level of wind and temperature.</span>
+<span id="cb73-67"><a href="#cb73-67" aria-hidden="true" tabindex="-1"></a>What does this table tell you about the data?</span>
+<span id="cb73-68"><a href="#cb73-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-69"><a href="#cb73-69" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-70"><a href="#cb73-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-73"><a href="#cb73-73" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-74"><a href="#cb73-74" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-75"><a href="#cb73-75" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-76"><a href="#cb73-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-77"><a href="#cb73-77" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-78"><a href="#cb73-78" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-79"><a href="#cb73-79" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.3 {-}</span></span>
+<span id="cb73-80"><a href="#cb73-80" aria-hidden="true" tabindex="-1"></a>Now repeat this for the average people observed. What does this tell you about the data? </span>
+<span id="cb73-81"><a href="#cb73-81" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-82"><a href="#cb73-82" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-83"><a href="#cb73-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-86"><a href="#cb73-86" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-87"><a href="#cb73-87" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-88"><a href="#cb73-88" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-89"><a href="#cb73-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-90"><a href="#cb73-90" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-91"><a href="#cb73-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-92"><a href="#cb73-92" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.4 {-}</span></span>
+<span id="cb73-93"><a href="#cb73-93" aria-hidden="true" tabindex="-1"></a>Given the two tables you produced describe patterns of people and vehicles at Rangitikei rivers.</span>
+<span id="cb73-94"><a href="#cb73-94" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-95"><a href="#cb73-95" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-96"><a href="#cb73-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-97"><a href="#cb73-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-98"><a href="#cb73-98" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-99"><a href="#cb73-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-100"><a href="#cb73-100" aria-hidden="true" tabindex="-1"></a><span class="fu"># Tidying data</span></span>
+<span id="cb73-101"><a href="#cb73-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-102"><a href="#cb73-102" aria-hidden="true" tabindex="-1"></a>Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.</span>
+<span id="cb73-103"><a href="#cb73-103" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-104"><a href="#cb73-104" aria-hidden="true" tabindex="-1"></a>The <span class="in">`billboard`</span> dataset records the billboard rank of songs in the year 2000:</span>
+<span id="cb73-105"><a href="#cb73-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-108"><a href="#cb73-108" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-109"><a href="#cb73-109" aria-hidden="true" tabindex="-1"></a>billboard</span>
+<span id="cb73-110"><a href="#cb73-110" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-111"><a href="#cb73-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-112"><a href="#cb73-112" aria-hidden="true" tabindex="-1"></a>In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).</span>
+<span id="cb73-113"><a href="#cb73-113" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-114"><a href="#cb73-114" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.5 {-}</span></span>
+<span id="cb73-115"><a href="#cb73-115" aria-hidden="true" tabindex="-1"></a>Use <span class="in">`pivot_longer()`</span> to tidy this data</span>
+<span id="cb73-116"><a href="#cb73-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-117"><a href="#cb73-117" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-118"><a href="#cb73-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-121"><a href="#cb73-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-122"><a href="#cb73-122" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-123"><a href="#cb73-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-124"><a href="#cb73-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-125"><a href="#cb73-125" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-126"><a href="#cb73-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-127"><a href="#cb73-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-128"><a href="#cb73-128" aria-hidden="true" tabindex="-1"></a><span class="fu"># Combining datasets</span></span>
+<span id="cb73-129"><a href="#cb73-129" aria-hidden="true" tabindex="-1"></a>Two tables can be connected through a pair of keys, within each table.</span>
+<span id="cb73-130"><a href="#cb73-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-131"><a href="#cb73-131" aria-hidden="true" tabindex="-1"></a>Every join involves a pair of keys: a primary key and a foreign key. A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound key. </span>
+<span id="cb73-132"><a href="#cb73-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-133"><a href="#cb73-133" aria-hidden="true" tabindex="-1"></a>There are four types of joins, we will illustrate them using a simple example:</span>
+<span id="cb73-134"><a href="#cb73-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-135"><a href="#cb73-135" aria-hidden="true" tabindex="-1"></a>First lets make some data:</span>
+<span id="cb73-138"><a href="#cb73-138" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-139"><a href="#cb73-139" aria-hidden="true" tabindex="-1"></a>df1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">y =</span> <span class="dv">2</span><span class="sc">:</span><span class="dv">1</span>)</span>
+<span id="cb73-140"><a href="#cb73-140" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">1</span>), <span class="at">a =</span> <span class="dv">10</span>, <span class="at">b =</span> <span class="st">"a"</span>)</span>
+<span id="cb73-141"><a href="#cb73-141" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-142"><a href="#cb73-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-143"><a href="#cb73-143" aria-hidden="true" tabindex="-1"></a>Now join the two datasets using the different join functions:</span>
+<span id="cb73-144"><a href="#cb73-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-147"><a href="#cb73-147" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-148"><a href="#cb73-148" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">inner_join</span>(df2) </span>
+<span id="cb73-149"><a href="#cb73-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-150"><a href="#cb73-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-153"><a href="#cb73-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-154"><a href="#cb73-154" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df2)</span>
+<span id="cb73-155"><a href="#cb73-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-156"><a href="#cb73-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-159"><a href="#cb73-159" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-160"><a href="#cb73-160" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">right_join</span>(df2)</span>
+<span id="cb73-161"><a href="#cb73-161" aria-hidden="true" tabindex="-1"></a>df2 <span class="sc">%&gt;%</span> <span class="fu">left_join</span>(df1)</span>
+<span id="cb73-162"><a href="#cb73-162" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-163"><a href="#cb73-163" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-166"><a href="#cb73-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-167"><a href="#cb73-167" aria-hidden="true" tabindex="-1"></a>df1 <span class="sc">%&gt;%</span> <span class="fu">full_join</span>(df2)</span>
+<span id="cb73-168"><a href="#cb73-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-169"><a href="#cb73-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-170"><a href="#cb73-170" aria-hidden="true" tabindex="-1"></a>What are the differences between the join functions?</span>
+<span id="cb73-171"><a href="#cb73-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-172"><a href="#cb73-172" aria-hidden="true" tabindex="-1"></a><span class="fu"># Specifying join keys</span></span>
+<span id="cb73-173"><a href="#cb73-173" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-174"><a href="#cb73-174" aria-hidden="true" tabindex="-1"></a>By default, left_join() will use all variables that appear in both data frames as the join key, but it doesn’t always work.</span>
+<span id="cb73-175"><a href="#cb73-175" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-176"><a href="#cb73-176" aria-hidden="true" tabindex="-1"></a>For example lets look at some airline data:</span>
+<span id="cb73-177"><a href="#cb73-177" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-180"><a href="#cb73-180" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-181"><a href="#cb73-181" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nycflights13) <span class="co"># data package</span></span>
+<span id="cb73-182"><a href="#cb73-182" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-183"><a href="#cb73-183" aria-hidden="true" tabindex="-1"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">|&gt;</span> </span>
+<span id="cb73-184"><a href="#cb73-184" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, time_hour, origin, dest, tailnum, carrier)</span>
+<span id="cb73-185"><a href="#cb73-185" aria-hidden="true" tabindex="-1"></a>flights2</span>
+<span id="cb73-186"><a href="#cb73-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-187"><a href="#cb73-187" aria-hidden="true" tabindex="-1"></a>planes</span>
+<span id="cb73-188"><a href="#cb73-188" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-189"><a href="#cb73-189" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-190"><a href="#cb73-190" aria-hidden="true" tabindex="-1"></a>We are going to try to going flight data to data about types of planes</span>
+<span id="cb73-191"><a href="#cb73-191" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-194"><a href="#cb73-194" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-195"><a href="#cb73-195" aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb73-196"><a href="#cb73-196" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes)</span>
+<span id="cb73-197"><a href="#cb73-197" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-198"><a href="#cb73-198" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-199"><a href="#cb73-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-200"><a href="#cb73-200" aria-hidden="true" tabindex="-1"></a>We get a lot of missing matches because our join is trying to use tailnum and year as a compound key. Both flights and planes have a year column but they mean different things: <span class="in">`flights$year`</span> is the year the flight occurred and <span class="in">`planes$year`</span> is the year the plane was built.</span>
+<span id="cb73-201"><a href="#cb73-201" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-202"><a href="#cb73-202" aria-hidden="true" tabindex="-1"></a>Since these represent different types of data and we might want to keep both, we can be explicit about how to join the two data tables:</span>
+<span id="cb73-203"><a href="#cb73-203" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-206"><a href="#cb73-206" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-207"><a href="#cb73-207" aria-hidden="true" tabindex="-1"></a>flights2 <span class="sc">|&gt;</span> </span>
+<span id="cb73-208"><a href="#cb73-208" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(planes, <span class="fu">join_by</span>(tailnum))</span>
+<span id="cb73-209"><a href="#cb73-209" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-210"><a href="#cb73-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-211"><a href="#cb73-211" aria-hidden="true" tabindex="-1"></a>Now by default there is a year.x and year.y coming from the flights and planes data respectively. You can change this using the <span class="in">`suffix`</span> argument in join or by renaming the columns after the join.</span>
+<span id="cb73-212"><a href="#cb73-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-213"><a href="#cb73-213" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.6 {-}</span></span>
+<span id="cb73-214"><a href="#cb73-214" aria-hidden="true" tabindex="-1"></a>Imagine you’ve found the top 10 most popular destinations using this code:</span>
+<span id="cb73-217"><a href="#cb73-217" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-218"><a href="#cb73-218" aria-hidden="true" tabindex="-1"></a>top_dest <span class="ot">&lt;-</span> flights2 <span class="sc">|&gt;</span></span>
+<span id="cb73-219"><a href="#cb73-219" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(dest, <span class="at">sort =</span> <span class="cn">TRUE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb73-220"><a href="#cb73-220" aria-hidden="true" tabindex="-1"></a>  <span class="fu">head</span>(<span class="dv">10</span>)</span>
+<span id="cb73-221"><a href="#cb73-221" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-222"><a href="#cb73-222" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-223"><a href="#cb73-223" aria-hidden="true" tabindex="-1"></a>How can you find all flights to those destinations?</span>
+<span id="cb73-224"><a href="#cb73-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-225"><a href="#cb73-225" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-226"><a href="#cb73-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-229"><a href="#cb73-229" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-230"><a href="#cb73-230" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-231"><a href="#cb73-231" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-232"><a href="#cb73-232" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-233"><a href="#cb73-233" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-234"><a href="#cb73-234" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-235"><a href="#cb73-235" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.7 {-}</span></span>
+<span id="cb73-236"><a href="#cb73-236" aria-hidden="true" tabindex="-1"></a>What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)</span>
+<span id="cb73-237"><a href="#cb73-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-238"><a href="#cb73-238" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-239"><a href="#cb73-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-242"><a href="#cb73-242" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-243"><a href="#cb73-243" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-244"><a href="#cb73-244" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-245"><a href="#cb73-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-246"><a href="#cb73-246" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-247"><a href="#cb73-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-248"><a href="#cb73-248" aria-hidden="true" tabindex="-1"></a><span class="fu"># case_when()</span></span>
+<span id="cb73-249"><a href="#cb73-249" aria-hidden="true" tabindex="-1"></a>Sometimes you want to add a new variable to your data based on existing variables. </span>
+<span id="cb73-250"><a href="#cb73-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-251"><a href="#cb73-251" aria-hidden="true" tabindex="-1"></a>dplyr’s case_when() is inspired by SQL’s CASE statement and provides a flexible way of performing different computations for different conditions. It has a special syntax that unfortunately looks like nothing else you’ll use in the tidyverse. It takes pairs that look like condition ~ output. condition must be a logical vector; when it’s TRUE, output will be used.</span>
+<span id="cb73-252"><a href="#cb73-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-253"><a href="#cb73-253" aria-hidden="true" tabindex="-1"></a>This can take the place of if_else() statements.</span>
+<span id="cb73-254"><a href="#cb73-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-255"><a href="#cb73-255" aria-hidden="true" tabindex="-1"></a>For example:</span>
+<span id="cb73-258"><a href="#cb73-258" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-259"><a href="#cb73-259" aria-hidden="true" tabindex="-1"></a>flights <span class="sc">|&gt;</span> </span>
+<span id="cb73-260"><a href="#cb73-260" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb73-261"><a href="#cb73-261" aria-hidden="true" tabindex="-1"></a>    <span class="at">status =</span> <span class="fu">case_when</span>( <span class="co"># make a new variable status based on the flights arrival delay</span></span>
+<span id="cb73-262"><a href="#cb73-262" aria-hidden="true" tabindex="-1"></a>      <span class="fu">is.na</span>(arr_delay)      <span class="sc">~</span> <span class="st">"cancelled"</span>,</span>
+<span id="cb73-263"><a href="#cb73-263" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">30</span>       <span class="sc">~</span> <span class="st">"very early"</span>,</span>
+<span id="cb73-264"><a href="#cb73-264" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="sc">-</span><span class="dv">15</span>       <span class="sc">~</span> <span class="st">"early"</span>,</span>
+<span id="cb73-265"><a href="#cb73-265" aria-hidden="true" tabindex="-1"></a>      <span class="fu">abs</span>(arr_delay) <span class="sc">&lt;=</span> <span class="dv">15</span>  <span class="sc">~</span> <span class="st">"on time"</span>,</span>
+<span id="cb73-266"><a href="#cb73-266" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="dv">60</span>        <span class="sc">~</span> <span class="st">"late"</span>,</span>
+<span id="cb73-267"><a href="#cb73-267" aria-hidden="true" tabindex="-1"></a>      arr_delay <span class="sc">&lt;</span> <span class="cn">Inf</span>       <span class="sc">~</span> <span class="st">"very late"</span>,</span>
+<span id="cb73-268"><a href="#cb73-268" aria-hidden="true" tabindex="-1"></a>    ),</span>
+<span id="cb73-269"><a href="#cb73-269" aria-hidden="true" tabindex="-1"></a>    <span class="at">.keep =</span> <span class="st">"used"</span></span>
+<span id="cb73-270"><a href="#cb73-270" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-271"><a href="#cb73-271" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-272"><a href="#cb73-272" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-273"><a href="#cb73-273" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.8 {-}</span></span>
+<span id="cb73-274"><a href="#cb73-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-275"><a href="#cb73-275" aria-hidden="true" tabindex="-1"></a>Write a case_when() statement that uses the month and day columns from flights to label a selection of important US holidays (e.g., New Years Day, 4th of July, Thanksgiving, and Christmas). First create a logical column that is either TRUE or FALSE, and then create a character column that either gives the name of the holiday or is NA.</span>
+<span id="cb73-276"><a href="#cb73-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-277"><a href="#cb73-277" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-278"><a href="#cb73-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-281"><a href="#cb73-281" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-282"><a href="#cb73-282" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-283"><a href="#cb73-283" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-284"><a href="#cb73-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-285"><a href="#cb73-285" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-286"><a href="#cb73-286" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-287"><a href="#cb73-287" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset `Toxaemia`</span></span>
+<span id="cb73-288"><a href="#cb73-288" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-289"><a href="#cb73-289" aria-hidden="true" tabindex="-1"></a>This dataset is from the <span class="in">`vcdExtra`</span> package. Two signs of *toxaemia*, an abnormal condition during pregnancy characterized by high blood pressure (hypertension) and high levels of protein in the urine. If untreated, both the mother and baby are at risk of complications or death. The dataset <span class="in">`Toxaemia`</span> represents 13384 expectant mothers in Bradford, England in their first pregnancy, who were also classified according to social class and the number of cigarettes smoked per day.</span>
+<span id="cb73-290"><a href="#cb73-290" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-291"><a href="#cb73-291" aria-hidden="true" tabindex="-1"></a>The dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables:</span>
+<span id="cb73-292"><a href="#cb73-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-293"><a href="#cb73-293" aria-hidden="true" tabindex="-1"></a><span class="in">`class`</span> - Social class of mother, a factor with levels: 1, 2, 3, 4, 5</span>
+<span id="cb73-294"><a href="#cb73-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-295"><a href="#cb73-295" aria-hidden="true" tabindex="-1"></a><span class="in">`smoke`</span> - Cigarettes smoked per day during pregnancy, a factor with levels: 0, 1-19, 20+</span>
+<span id="cb73-296"><a href="#cb73-296" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-297"><a href="#cb73-297" aria-hidden="true" tabindex="-1"></a><span class="in">`hyper`</span> - Hypertension level, a factor with levels: Low, High</span>
+<span id="cb73-298"><a href="#cb73-298" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-299"><a href="#cb73-299" aria-hidden="true" tabindex="-1"></a><span class="in">`urea`</span> - Protein urea level, a factor with levels: Low, High</span>
+<span id="cb73-300"><a href="#cb73-300" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-301"><a href="#cb73-301" aria-hidden="true" tabindex="-1"></a><span class="in">`Freq`</span> - frequency in each cell, a numeric vector</span>
+<span id="cb73-302"><a href="#cb73-302" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-303"><a href="#cb73-303" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.9 {-}</span></span>
+<span id="cb73-304"><a href="#cb73-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-305"><a href="#cb73-305" aria-hidden="true" tabindex="-1"></a>Obtain relevant graphical displays for this dataset.</span>
+<span id="cb73-306"><a href="#cb73-306" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-307"><a href="#cb73-307" aria-hidden="true" tabindex="-1"></a>Bar charts-</span>
+<span id="cb73-308"><a href="#cb73-308" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-311"><a href="#cb73-311" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-312"><a href="#cb73-312" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb73-313"><a href="#cb73-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-314"><a href="#cb73-314" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(vcdExtra)</span>
+<span id="cb73-315"><a href="#cb73-315" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Toxaemia)</span>
+<span id="cb73-316"><a href="#cb73-316" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-317"><a href="#cb73-317" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb73-318"><a href="#cb73-318" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb73-319"><a href="#cb73-319" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
+<span id="cb73-320"><a href="#cb73-320" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>)</span>
+<span id="cb73-321"><a href="#cb73-321" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-322"><a href="#cb73-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-325"><a href="#cb73-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-326"><a href="#cb73-326" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb73-327"><a href="#cb73-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb73-328"><a href="#cb73-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
+<span id="cb73-329"><a href="#cb73-329" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat=</span><span class="st">'identity'</span>, </span>
+<span id="cb73-330"><a href="#cb73-330" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span></span>
+<span id="cb73-331"><a href="#cb73-331" aria-hidden="true" tabindex="-1"></a>           )</span>
+<span id="cb73-332"><a href="#cb73-332" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-333"><a href="#cb73-333" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-334"><a href="#cb73-334" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-337"><a href="#cb73-337" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-338"><a href="#cb73-338" aria-hidden="true" tabindex="-1"></a>Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb73-339"><a href="#cb73-339" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb73-340"><a href="#cb73-340" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>smoke, <span class="at">y=</span>Freq, <span class="at">fill=</span>hyper) <span class="sc">+</span> </span>
+<span id="cb73-341"><a href="#cb73-341" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span><span class="st">'identity'</span>, </span>
+<span id="cb73-342"><a href="#cb73-342" aria-hidden="true" tabindex="-1"></a>           <span class="at">position =</span> <span class="st">"dodge"</span>) <span class="sc">+</span> </span>
+<span id="cb73-343"><a href="#cb73-343" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(urea <span class="sc">~</span> ., <span class="at">scales =</span> <span class="st">"free"</span>)</span>
+<span id="cb73-344"><a href="#cb73-344" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-345"><a href="#cb73-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-346"><a href="#cb73-346" aria-hidden="true" tabindex="-1"></a>Mosaic type charts</span>
+<span id="cb73-347"><a href="#cb73-347" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-348"><a href="#cb73-348" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show='hide', results='hide'}</span></span>
+<span id="cb73-349"><a href="#cb73-349" aria-hidden="true" tabindex="-1"></a>tab.data <span class="ot">&lt;-</span> <span class="fu">xtabs</span>(Freq <span class="sc">~</span> smoke <span class="sc">+</span> hyper <span class="sc">+</span> urea, <span class="at">data=</span>Toxaemia)</span>
+<span id="cb73-350"><a href="#cb73-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-351"><a href="#cb73-351" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tab.data)</span>
+<span id="cb73-352"><a href="#cb73-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-353"><a href="#cb73-353" aria-hidden="true" tabindex="-1"></a><span class="fu">mosaic</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>, <span class="at">legend=</span><span class="cn">TRUE</span>)</span>
+<span id="cb73-354"><a href="#cb73-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-355"><a href="#cb73-355" aria-hidden="true" tabindex="-1"></a><span class="fu">assoc</span>(tab.data, <span class="at">shade=</span><span class="cn">TRUE</span>) </span>
+<span id="cb73-356"><a href="#cb73-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-357"><a href="#cb73-357" aria-hidden="true" tabindex="-1"></a><span class="fu">strucplot</span>(tab.data)</span>
+<span id="cb73-358"><a href="#cb73-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-359"><a href="#cb73-359" aria-hidden="true" tabindex="-1"></a><span class="fu">sieve</span>(tab.data)</span>
+<span id="cb73-360"><a href="#cb73-360" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-361"><a href="#cb73-361" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-362"><a href="#cb73-362" aria-hidden="true" tabindex="-1"></a>The full dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables.</span>
+<span id="cb73-363"><a href="#cb73-363" aria-hidden="true" tabindex="-1"></a>For this question we will focus on two categorical variables from this dataset, <span class="in">`hyper`</span> and <span class="in">`urea`</span>. This forms a 2 x 2 contingency table since these variables each have two levels. </span>
+<span id="cb73-364"><a href="#cb73-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-367"><a href="#cb73-367" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-368"><a href="#cb73-368" aria-hidden="true" tabindex="-1"></a><span class="co"># subset the data</span></span>
+<span id="cb73-369"><a href="#cb73-369" aria-hidden="true" tabindex="-1"></a>tox_2 <span class="ot">&lt;-</span> Toxaemia <span class="sc">|&gt;</span> </span>
+<span id="cb73-370"><a href="#cb73-370" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(hyper, urea, Freq)</span>
+<span id="cb73-371"><a href="#cb73-371" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-372"><a href="#cb73-372" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-373"><a href="#cb73-373" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-376"><a href="#cb73-376" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-377"><a href="#cb73-377" aria-hidden="true" tabindex="-1"></a><span class="co"># the tidyverse way</span></span>
+<span id="cb73-378"><a href="#cb73-378" aria-hidden="true" tabindex="-1"></a>tox_display <span class="ot">&lt;-</span> tox_2 <span class="sc">|&gt;</span> </span>
+<span id="cb73-379"><a href="#cb73-379" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> urea, </span>
+<span id="cb73-380"><a href="#cb73-380" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_from =</span> Freq,</span>
+<span id="cb73-381"><a href="#cb73-381" aria-hidden="true" tabindex="-1"></a>              <span class="at">values_fn =</span> sum) <span class="sc">|&gt;</span></span>
+<span id="cb73-382"><a href="#cb73-382" aria-hidden="true" tabindex="-1"></a>  <span class="fu">column_to_rownames</span>( <span class="at">var =</span> <span class="st">"hyper"</span>) <span class="co"># make values of hyper column row names</span></span>
+<span id="cb73-383"><a href="#cb73-383" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-384"><a href="#cb73-384" aria-hidden="true" tabindex="-1"></a>tox_display</span>
+<span id="cb73-385"><a href="#cb73-385" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-386"><a href="#cb73-386" aria-hidden="true" tabindex="-1"></a><span class="co"># xtabs() </span></span>
+<span id="cb73-387"><a href="#cb73-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-388"><a href="#cb73-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-389"><a href="#cb73-389" aria-hidden="true" tabindex="-1"></a>Two signs of *toxaemia*, are high blood pressure (hypertension) and high levels of protein in the urine. We want to ask if in our sample of expectant mothers in Bradford, England, is high blood pressure related to high protein levels? If these two variables are associated this may indicate the presence of toxaemia in the sample, if they are independent toxaemia may not be present. </span>
+<span id="cb73-390"><a href="#cb73-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-391"><a href="#cb73-391" aria-hidden="true" tabindex="-1"></a>We can test this question using a Chi-squared test.</span>
+<span id="cb73-392"><a href="#cb73-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-393"><a href="#cb73-393" aria-hidden="true" tabindex="-1"></a>The null hypothesis of the chi-squared these is that the two variables are independent and the alternative hypothesis is that the two variables are not independent.</span>
+<span id="cb73-394"><a href="#cb73-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-395"><a href="#cb73-395" aria-hidden="true" tabindex="-1"></a>Our null hypothesis is that Hypertension level and the Protein urea level in expectant mothers in Bradford, England are independent. </span>
+<span id="cb73-396"><a href="#cb73-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-397"><a href="#cb73-397" aria-hidden="true" tabindex="-1"></a>Our alternative hypothesis that Hypertension level and the Protein urea level in expectant mothers in Bradford, England are *not* independent. </span>
+<span id="cb73-398"><a href="#cb73-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-399"><a href="#cb73-399" aria-hidden="true" tabindex="-1"></a>Set our alpha = 0.05</span>
+<span id="cb73-402"><a href="#cb73-402" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-403"><a href="#cb73-403" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)</span>
+<span id="cb73-404"><a href="#cb73-404" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-405"><a href="#cb73-405" aria-hidden="true" tabindex="-1"></a>Since our p-value is less than our alpha level we reject the null hypothesis and conclude that the two variables (hyper &amp; urea) are not independent. We found evidence of an association between hypertension levels and protein in urine levels in our sample of expectant mothers in in Bradford, England.</span>
+<span id="cb73-406"><a href="#cb73-406" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-407"><a href="#cb73-407" aria-hidden="true" tabindex="-1"></a>We can see the expected counts</span>
+<span id="cb73-410"><a href="#cb73-410" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-411"><a href="#cb73-411" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tox_display)<span class="sc">$</span>expected</span>
+<span id="cb73-412"><a href="#cb73-412" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-413"><a href="#cb73-413" aria-hidden="true" tabindex="-1"></a><span class="co"># compared to our observed</span></span>
+<span id="cb73-414"><a href="#cb73-414" aria-hidden="true" tabindex="-1"></a>tox_display</span>
+<span id="cb73-415"><a href="#cb73-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-416"><a href="#cb73-416" aria-hidden="true" tabindex="-1"></a><span class="co"># total counts 13384</span></span>
+<span id="cb73-417"><a href="#cb73-417" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-418"><a href="#cb73-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-419"><a href="#cb73-419" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.10 {-}</span></span>
+<span id="cb73-420"><a href="#cb73-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-421"><a href="#cb73-421" aria-hidden="true" tabindex="-1"></a>The genetic information of an organism is stored in its Deoxyribonucleic acid (DNA). DNA is a double stranded helix made up of four different nucleotides. These nucleotides differ in which of the four bases Adenine (A), Guanine (G), Cytosine (C), or Thymine (T) they contain. Nucleotides combine to form amino acids which are the building blocks of proteins. Simply put, three nucleotides form an amino acid and the specific order of a combination dictates what amino acid is formed. A simple pattern that we may want to detect in a DNA sequence is that of the nucleotide at position <span class="in">`i+1`</span> based on the nucleotide at position <span class="in">`i`</span>. The nucleotide positional data collected by a researcher in a particular case is given in the following table:</span>
+<span id="cb73-422"><a href="#cb73-422" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-423"><a href="#cb73-423" aria-hidden="true" tabindex="-1"></a>| <span class="in">`i\(i+1)`</span> | A   | C   | G   | T   |</span>
+<span id="cb73-424"><a href="#cb73-424" aria-hidden="true" tabindex="-1"></a>|-----------|-----|-----|-----|-----|</span>
+<span id="cb73-425"><a href="#cb73-425" aria-hidden="true" tabindex="-1"></a>| A         | 622 | 316 | 328 | 536 |</span>
+<span id="cb73-426"><a href="#cb73-426" aria-hidden="true" tabindex="-1"></a>| C         | 428 | 262 | 204 | 306 |</span>
+<span id="cb73-427"><a href="#cb73-427" aria-hidden="true" tabindex="-1"></a>| G         | 354 | 294 | 174 | 266 |</span>
+<span id="cb73-428"><a href="#cb73-428" aria-hidden="true" tabindex="-1"></a>| T         | 396 | 330 | 382 | 648 |</span>
+<span id="cb73-429"><a href="#cb73-429" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-430"><a href="#cb73-430" aria-hidden="true" tabindex="-1"></a>Perform a test of association and then obtain the symmetric plot.</span>
+<span id="cb73-431"><a href="#cb73-431" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-434"><a href="#cb73-434" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-435"><a href="#cb73-435" aria-hidden="true" tabindex="-1"></a>tabledata <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb73-436"><a href="#cb73-436" aria-hidden="true" tabindex="-1"></a>  <span class="at">A =</span> <span class="fu">c</span>(<span class="dv">622</span>, <span class="dv">428</span>, <span class="dv">354</span>, <span class="dv">396</span>),</span>
+<span id="cb73-437"><a href="#cb73-437" aria-hidden="true" tabindex="-1"></a>  <span class="at">C =</span> <span class="fu">c</span>(<span class="dv">316</span>, <span class="dv">262</span>, <span class="dv">294</span>, <span class="dv">330</span>),</span>
+<span id="cb73-438"><a href="#cb73-438" aria-hidden="true" tabindex="-1"></a>  <span class="at">G =</span> <span class="fu">c</span>(<span class="dv">328</span>, <span class="dv">204</span>, <span class="dv">174</span>, <span class="dv">382</span>),</span>
+<span id="cb73-439"><a href="#cb73-439" aria-hidden="true" tabindex="-1"></a>  <span class="at">T =</span> <span class="fu">c</span>(<span class="dv">536</span>, <span class="dv">306</span>, <span class="dv">266</span>, <span class="dv">648</span>), </span>
+<span id="cb73-440"><a href="#cb73-440" aria-hidden="true" tabindex="-1"></a>  <span class="at">row.names =</span> <span class="fu">c</span>(<span class="st">"A"</span>, <span class="st">"C"</span>, <span class="st">"G"</span>, <span class="st">"T"</span>)</span>
+<span id="cb73-441"><a href="#cb73-441" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb73-442"><a href="#cb73-442" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-443"><a href="#cb73-443" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-446"><a href="#cb73-446" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-447"><a href="#cb73-447" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)<span class="sc">$</span>exp</span>
+<span id="cb73-448"><a href="#cb73-448" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata)</span>
+<span id="cb73-449"><a href="#cb73-449" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(tabledata, <span class="at">simulate.p.value =</span> T)</span>
+<span id="cb73-450"><a href="#cb73-450" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-451"><a href="#cb73-451" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-452"><a href="#cb73-452" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-455"><a href="#cb73-455" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-456"><a href="#cb73-456" aria-hidden="true" tabindex="-1"></a><span class="co"># if there is an association we can examine patterns </span></span>
+<span id="cb73-457"><a href="#cb73-457" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb73-458"><a href="#cb73-458" aria-hidden="true" tabindex="-1"></a><span class="fu">corresp</span>(tabledata)</span>
+<span id="cb73-459"><a href="#cb73-459" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-460"><a href="#cb73-460" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-461"><a href="#cb73-461" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-464"><a href="#cb73-464" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-465"><a href="#cb73-465" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">corresp</span>(tabledata, <span class="at">nf=</span><span class="dv">2</span>))</span>
+<span id="cb73-466"><a href="#cb73-466" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="dv">0</span>)</span>
+<span id="cb73-467"><a href="#cb73-467" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span>
+<span id="cb73-468"><a href="#cb73-468" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-469"><a href="#cb73-469" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-472"><a href="#cb73-472" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-473"><a href="#cb73-473" aria-hidden="true" tabindex="-1"></a><span class="co">#or</span></span>
+<span id="cb73-474"><a href="#cb73-474" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(FactoMineR)</span>
+<span id="cb73-475"><a href="#cb73-475" aria-hidden="true" tabindex="-1"></a><span class="fu">CA</span>(tabledata)</span>
+<span id="cb73-476"><a href="#cb73-476" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-477"><a href="#cb73-477" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-478"><a href="#cb73-478" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-479"><a href="#cb73-479" aria-hidden="true" tabindex="-1"></a><span class="fu"># Data `diamonds`</span></span>
+<span id="cb73-480"><a href="#cb73-480" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-481"><a href="#cb73-481" aria-hidden="true" tabindex="-1"></a>The <span class="in">`diamonds`</span> dataset contains the prices and other attributes of almost 54,000 diamonds. Use <span class="in">`?diamonds`</span> to see information for each variable.</span>
+<span id="cb73-482"><a href="#cb73-482" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-483"><a href="#cb73-483" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-486"><a href="#cb73-486" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-487"><a href="#cb73-487" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"diamonds"</span>)</span>
+<span id="cb73-488"><a href="#cb73-488" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(diamonds)</span>
+<span id="cb73-489"><a href="#cb73-489" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-490"><a href="#cb73-490" aria-hidden="true" tabindex="-1"></a><span class="do">## Some EDA plots</span></span>
+<span id="cb73-491"><a href="#cb73-491" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>cut)</span>
+<span id="cb73-492"><a href="#cb73-492" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))</span>
+<span id="cb73-493"><a href="#cb73-493" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(diamonds, <span class="fu">aes</span>(color))<span class="sc">+</span><span class="fu">geom_bar</span>(<span class="fu">aes</span>(<span class="at">fill=</span>cut))<span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>clarity)</span>
+<span id="cb73-494"><a href="#cb73-494" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-495"><a href="#cb73-495" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-496"><a href="#cb73-496" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-497"><a href="#cb73-497" aria-hidden="true" tabindex="-1"></a><span class="fu">## Exercise 5.11 {-}</span></span>
+<span id="cb73-498"><a href="#cb73-498" aria-hidden="true" tabindex="-1"></a>We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot. Write your hypotheses, perform the test, make a decision based on the results of the test, and report a conclusion in context.</span>
+<span id="cb73-499"><a href="#cb73-499" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-500"><a href="#cb73-500" aria-hidden="true" tabindex="-1"></a>::: {#answer}</span>
+<span id="cb73-501"><a href="#cb73-501" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-504"><a href="#cb73-504" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb73-505"><a href="#cb73-505" aria-hidden="true" tabindex="-1"></a><span class="co"># your code goes here</span></span>
+<span id="cb73-506"><a href="#cb73-506" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb73-507"><a href="#cb73-507" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-508"><a href="#cb73-508" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb73-509"><a href="#cb73-509" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-510"><a href="#cb73-510" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-511"><a href="#cb73-511" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-512"><a href="#cb73-512" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-513"><a href="#cb73-513" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb73-514"><a href="#cb73-514" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>More R code examples are  <span class="co">[</span><span class="ot">here</span><span class="co">](../exercises/Chap5more.R)</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

@@ -506,7 +506,7 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a><span class="co"># A single sample</span></span>
 <span id="cb3-2"><a href="#cb3-2"></a><span class="fu">sample</span>(qd_long, <span class="at">size =</span> <span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 40 39 43 38 38 38</code></pre>
+<pre><code>[1] 41 42 41 40 38 43</code></pre>
 </div>
 </div>
 </div>
@@ -516,25 +516,25 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <span id="cb5-2"><a href="#cb5-2"></a><span class="fu">map</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">7</span>, <span class="sc">~</span> <span class="fu">sample</span>(qd_long, <span class="at">size =</span> <span class="dv">6</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[[1]]
-[1] 40 40 42 39 42 40
+[1] 39 42 42 36 37 41
 
 [[2]]
-[1] 41 37 43 39 39 43
+[1] 39 41 41 36 42 41
 
 [[3]]
-[1] 40 40 36 40 41 41
+[1] 40 39 43 40 41 39
 
 [[4]]
-[1] 39 40 39 43 41 39
+[1] 36 43 38 37 38 40
 
 [[5]]
-[1] 39 41 44 39 40 38
+[1] 36 43 37 39 40 42
 
 [[6]]
-[1] 37 41 39 38 37 40
+[1] 37 39 42 42 35 38
 
 [[7]]
-[1] 39 38 38 42 42 39</code></pre>
+[1] 37 38 39 39 37 40</code></pre>
 </div>
 </div>
 </div>
@@ -561,20 +561,20 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
    sample values
    &lt;fct&gt;   &lt;int&gt;
  1 1          40
- 2 1          38
- 3 1          38
+ 2 1          37
+ 3 1          42
  4 1          39
- 5 1          43
- 6 1          42
+ 5 1          40
+ 6 1          43
  7 2          39
- 8 2          37
- 9 2          36
-10 2          42
-11 2          45
-12 2          39
-13 3          38
-14 3          42
-15 3          39</code></pre>
+ 8 2          39
+ 9 2          37
+10 2          46
+11 2          40
+12 2          42
+13 3          39
+14 3          41
+15 3          37</code></pre>
 </div>
 </div>
 </div>
@@ -606,16 +606,16 @@ standard deviation <span class="math inline">\(\sigma\)</span>.</p>
 <pre><code># A tibble: 10 × 2
    sample  mean
    &lt;fct&gt;  &lt;dbl&gt;
- 1 1       39.5
- 2 2       40.8
- 3 3       39  
- 4 4       38  
- 5 5       38.7
- 6 6       39.3
+ 1 1       39.7
+ 2 2       40.7
+ 3 3       40.2
+ 4 4       40.2
+ 5 5       39.3
+ 6 6       39.2
  7 7       40.2
- 8 8       39.8
- 9 9       40.7
-10 10      39.2</code></pre>
+ 8 8       40.2
+ 9 9       39  
+10 10      40.2</code></pre>
 </div>
 </div>
 </div>
@@ -1217,7 +1217,7 @@ we simply use <span class="math inline">\(s^2_1\)</span> and <span class="math i
 <h2>Validity of equal variance assumption</h2>
 <p>We can test the null hypothesis that the variances are equal using either a Bartlett’s test or Levene’s test. Levene’s is generally favourable over Bartlett’s.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>tv <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/tv.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a>tv <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"../data/tv.csv"</span>)</span>
 <span id="cb45-2"><a href="#cb45-2"></a>car<span class="sc">::</span><span class="fu">leveneTest</span>(TELETIME<span class="sc">~</span><span class="fu">factor</span>(SEX), <span class="at">data=</span>tv)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Levene's Test for Homogeneity of Variance (center = median)
@@ -1400,7 +1400,7 @@ alternative hypothesis: two-sided</code></pre>
 <section id="can-also-use-plots-to-assess-normality" class="slide level2">
 <h2>Can also use plots to assess normality</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>tv <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/tv.csv"</span>)</span>
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1"></a>tv <span class="ot">=</span> <span class="fu">read_csv</span>(<span class="st">"../data/tv.csv"</span>)</span>
 <span id="cb63-2"><a href="#cb63-2"></a></span>
 <span id="cb63-3"><a href="#cb63-3"></a><span class="fu">ggplot</span>(tv, <span class="fu">aes</span>(<span class="at">sample =</span> TELETIME)) <span class="sc">+</span> </span>
 <span id="cb63-4"><a href="#cb63-4"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>

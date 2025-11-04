@@ -658,11 +658,10 @@ If you have not installed R and R studio on your computer please see the resourc
 <h2>Loading data</h2>
 <p>Most data sets we shall consider in this course are in a tabular form. This means that each variable is a column, each row is an observation, columns are separated by white space (or comma), and each column or row may have a name.</p>
 <p>If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., <code>mydata.csv</code> rather than <code>C:/Users/anhsmith/Work/Project1/data/mydata.csv</code>).</p>
-<p>You can also load data from the web using a URL. For example,</p>
 <div class="cell" data-layout-align="center">
 <details open="">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1"></a>rangitikei <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../data/rangitikei.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 <p>We usually store the data in an R object, here named <code>rangitikei</code>.</p>
@@ -759,68 +758,6 @@ If you have not installed R and R studio on your computer please see the resourc
 <p><code>R</code> also has its own pipe, <code>|&gt;</code>, which is an alternative to <code>%&gt;%</code>. If you want to change the pipe inserted automatically with <code>Ctrl+Shift+M</code>, find on the menu <strong>Tools &gt; Global Options</strong>, then click on <strong>Code</strong> and check the box that says “<strong>Use Native Pipe Operator</strong>”.</p>
 <p>We often pipe the <code>dplyr</code> functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework.</p>
 </section>
-<section id="graphing-with-ggplot2" class="slide level2 unnumbered">
-<h2>Graphing with <code>ggplot2</code></h2>
-<p>The R library <code>ggplot2</code> is very powerful for plotting but you may find the syntax little strange. There are plenty of examples at the <a href="https://ggplot2.tidyverse.org/reference/"><code>ggplot2</code> online help website</a>. The <code>ggplot2</code> package is loaded as part of the <code>tidyverse</code> set of packages.</p>
-<div class="columns">
-<div class="column">
-<p>Advantages of <code>ggplot2</code> are the following:</p>
-<ul>
-<li>employs the “grammar of graphics” of <span class="citation" data-cites="Wilkinson">[@Wilkinson]</span></li>
-<li>plotting involves a high level of abstraction</li>
-<li>very flexible and complete graphics system</li>
-<li>theme system for getting attractive plots</li>
-<li>Fast growing and actively developed</li>
-</ul>
-</div><div class="column">
-<p>Some disadvantages of <code>ggplot2</code> are the following:</p>
-<ul>
-<li>3-dimensional graphics (opt for <code>rgl</code> package instead)</li>
-<li>Graph-theory type graphs (nodes/edges layout; opt for <code>igraph</code> and other packages)</li>
-<li>Interactive graphics (opt for <code>plotly</code>, <code>ggvis</code> and other packages)</li>
-</ul>
-</div>
-</div>
-</section>
-<section id="grammar-of-graphics" class="slide level2">
-<h2>Grammar of Graphics</h2>
-<p>The main idea behind the grammar of graphics of <span class="citation" data-cites="Wilkinson">[@Wilkinson]</span> is to mimic the manual graphing approach by defining building blocks and combining them to create the figure.</p>
-<p>The building blocks of a graph are:</p>
-<ul>
-<li>data</li>
-<li>aesthetic mapping</li>
-<li>geometric object</li>
-<li>transformation or re-expression of data</li>
-<li>scales</li>
-<li>coordinate system</li>
-<li>position adjustments</li>
-<li>faceting</li>
-</ul>
-</section>
-<section id="aesthetic-mapping-aes" class="slide level2">
-<h2>Aesthetic Mapping (<code>aes</code>)</h2>
-<p>In ggplot land <em>aesthetic</em> means visualisation features or aesthetics. These are</p>
-<ul>
-<li>position (i.e., on the x and y axes)</li>
-<li>color (“outside” color)</li>
-<li>fill (“inside” color)</li>
-<li>shape (of points)</li>
-<li>linetype</li>
-<li>size</li>
-</ul>
-<p>Aesthetic mappings are set with the <code>aes()</code> function.</p>
-</section>
-<section id="geometric-objects-geom" class="slide level2">
-<h2>Geometric Objects (<code>geom</code>)</h2>
-<p>Geometric objects or <code>geoms</code> are the actual marking or inking on a plot such as:</p>
-<ul>
-<li>points (<code>geom_point</code>, for scatter plots, dot plots, etc)</li>
-<li>lines (<code>geom_line</code>, for time series, trend lines, etc)</li>
-<li>boxplot (<code>geom_boxplot</code>, for boxplots)</li>
-</ul>
-<p><em>A plot must have at least one <code>geom</code> but there is no upper limit.</em> In order to add a <code>geom</code> to a plot, the <code>+</code> operator is employed. A list of available geometric objects can be obtained by typing <code>geom_&lt;tab&gt;</code> in Rstudio. The following command can also be used which will open a Help window.</p>
-<pre><code>help.search("geom_", package = "ggplot2")</code></pre>
-</section>
 <section id="tidying-data" class="slide level2">
 <h2>Tidying data</h2>
 <p>The principles of tidy data might seem so obvious that you wonder if you’ll ever encounter a dataset that isn’t tidy. Unfortunately, however, most real data is (very) untidy. There are two main reasons:</p>
@@ -834,11 +771,11 @@ If you have not installed R and R studio on your computer please see the resourc
 <h2>Tidying data example</h2>
 <p>The hospital admissions dataset is untidy because it does allocate many columns for a variable.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1"></a>hospital <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
-<span id="cb33-2"><a href="#cb33-2"></a>  <span class="st">"https://www.massey.ac.nz/~anhsmith/data/hospital.txt"</span>,</span>
-<span id="cb33-3"><a href="#cb33-3"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">","</span>)</span>
-<span id="cb33-4"><a href="#cb33-4"></a>  </span>
-<span id="cb33-5"><a href="#cb33-5"></a><span class="fu">head</span>(hospital)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>hospital <span class="ot">&lt;-</span> <span class="fu">read.table</span>(</span>
+<span id="cb32-2"><a href="#cb32-2"></a>  <span class="st">"../data/hospital.txt"</span>,</span>
+<span id="cb32-3"><a href="#cb32-3"></a>  <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">","</span>)</span>
+<span id="cb32-4"><a href="#cb32-4"></a>  </span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="fu">head</span>(hospital)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  YEAR PERI NORTH1 NORTH2 NORTH3 SOUTH1 SOUTH2 SOUTH3
 1 1980    1      0      4     27      4     16     27
@@ -855,10 +792,10 @@ If you have not installed R and R studio on your computer please see the resourc
 <h2>Tidying data example (cont.)</h2>
 <p>We can use the <code>dplyr</code> function <code>pivot_longer()</code> to change this data into <code>long format</code>. Try-</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a>hospital <span class="sc">|&gt;</span> </span>
-<span id="cb35-2"><a href="#cb35-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> NORTH1<span class="sc">:</span>SOUTH3, </span>
-<span id="cb35-3"><a href="#cb35-3"></a>               <span class="at">names_to =</span> <span class="st">"location"</span>, </span>
-<span id="cb35-4"><a href="#cb35-4"></a>               <span class="at">values_to =</span> <span class="st">"Admissions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>hospital <span class="sc">|&gt;</span> </span>
+<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> NORTH1<span class="sc">:</span>SOUTH3, </span>
+<span id="cb34-3"><a href="#cb34-3"></a>               <span class="at">names_to =</span> <span class="st">"location"</span>, </span>
+<span id="cb34-4"><a href="#cb34-4"></a>               <span class="at">values_to =</span> <span class="st">"Admissions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The command <code>pivot_wider()</code> does the opposite to <code>pivot_longer()</code></p>
 </section>
@@ -873,12 +810,12 @@ If you have not installed R and R studio on your computer please see the resourc
 <p>In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names.</p>
 <p>You can use a join to add the carrier names to the flight data:</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb36-1"><a href="#cb36-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="co"># Drop unimportant variables so it's easier to understand the join results.</span></span>
-<span id="cb36-3"><a href="#cb36-3"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, dest, tailnum, carrier)</span>
-<span id="cb36-4"><a href="#cb36-4"></a></span>
-<span id="cb36-5"><a href="#cb36-5"></a>flights2 <span class="sc">%&gt;%</span> </span>
-<span id="cb36-6"><a href="#cb36-6"></a>  <span class="fu">left_join</span>(airlines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">library</span>(nycflights13)</span>
+<span id="cb35-2"><a href="#cb35-2"></a><span class="co"># Drop unimportant variables so it's easier to understand the join results.</span></span>
+<span id="cb35-3"><a href="#cb35-3"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, dest, tailnum, carrier)</span>
+<span id="cb35-4"><a href="#cb35-4"></a></span>
+<span id="cb35-5"><a href="#cb35-5"></a>flights2 <span class="sc">%&gt;%</span> </span>
+<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">left_join</span>(airlines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 × 9
     year month   day  hour origin dest  tailnum carrier name                    
@@ -967,25 +904,25 @@ If you have not installed R and R studio on your computer please see the resourc
 </section>
 <section id="data-quality-checks-example" class="slide level2">
 <h2>Data Quality Checks: Example</h2>
-<p>It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from <a href="http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx" class="uri">http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx</a></p>
+<p>It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from <a href="https://rs.figshare.com/ndownloader/files/22850096" class="uri">https://rs.figshare.com/ndownloader/files/22850096</a></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a>url <span class="ot">&lt;-</span> <span class="st">"http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>destfile <span class="ot">&lt;-</span> <span class="st">"rsos192136_si_001.xlsx"</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a></span>
-<span id="cb43-4"><a href="#cb43-4"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://rs.figshare.com/ndownloader/files/22850096"</span></span>
+<span id="cb42-2"><a href="#cb42-2"></a>destfile <span class="ot">&lt;-</span> <span class="st">"rsos192136_si_001.xlsx"</span></span>
+<span id="cb42-3"><a href="#cb42-3"></a></span>
+<span id="cb42-4"><a href="#cb42-4"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb44-2"><a href="#cb44-2"></a>rsos192136_si_001 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rsos192136_si_001.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb43-2"><a href="#cb43-2"></a>rsos192136_si_001 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rsos192136_si_001.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1"></a><span class="fu">library</span>(VIM)</span>
-<span id="cb45-2"><a href="#cb45-2"></a></span>
-<span id="cb45-3"><a href="#cb45-3"></a>res <span class="ot">&lt;-</span> rsos192136_si_001 <span class="sc">|&gt;</span> </span>
-<span id="cb45-4"><a href="#cb45-4"></a>  <span class="fu">aggr</span>(<span class="at">sortVar=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb45-5"><a href="#cb45-5"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb45-6"><a href="#cb45-6"></a>  <span class="fu">pluck</span>(<span class="st">"combinations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(VIM)</span>
+<span id="cb44-2"><a href="#cb44-2"></a></span>
+<span id="cb44-3"><a href="#cb44-3"></a>res <span class="ot">&lt;-</span> rsos192136_si_001 <span class="sc">|&gt;</span> </span>
+<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">aggr</span>(<span class="at">sortVar=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb44-5"><a href="#cb44-5"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb44-6"><a href="#cb44-6"></a>  <span class="fu">pluck</span>(<span class="st">"combinations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-30-1.png" width="576" class="r-stretch quarto-figure-center"></section>

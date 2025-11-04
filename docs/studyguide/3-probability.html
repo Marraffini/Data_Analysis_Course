@@ -225,7 +225,7 @@ div.csl-indent {
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../studyguide/0-R-tidyverse.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Tidy data</span></a>
+ <span class="menu-text">Chapter 0 R quarto and Tidy data</span></a>
   </div>
 </li>
           <li class="sidebar-item">
@@ -1037,22 +1037,18 @@ div.csl-indent {
 <div class="cell">
 <details>
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"http://www.massey.ac.nz/~anhsmith/data/rangitikei.RData"</span>,</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"rangitikei.RData"</span>)</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"rangitikei.RData"</span>)</span>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/rangitikei.RData"</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">sample =</span> people) <span class="sc">+</span> </span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>()</span>
 <span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">sample =</span> people) <span class="sc">+</span> </span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>()</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">y=</span>people, <span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> </span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol=</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">y=</span>people, <span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol=</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div id="fig-normqqP" class="quarto-figure quarto-figure-center anchored">
@@ -2329,67 +2325,62 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb24-978"><a href="#cb24-978" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-normqqP</span></span>
 <span id="cb24-979"><a href="#cb24-979" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: true</span></span>
 <span id="cb24-980"><a href="#cb24-980" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Normal Quantile-Quantile Plot for Checking Normality'</span></span>
-<span id="cb24-981"><a href="#cb24-981" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-982"><a href="#cb24-982" aria-hidden="true" tabindex="-1"></a><span class="fu">download.file</span>(</span>
-<span id="cb24-983"><a href="#cb24-983" aria-hidden="true" tabindex="-1"></a>  <span class="at">url =</span> <span class="st">"http://www.massey.ac.nz/~anhsmith/data/rangitikei.RData"</span>,</span>
-<span id="cb24-984"><a href="#cb24-984" aria-hidden="true" tabindex="-1"></a>  <span class="at">destfile =</span> <span class="st">"rangitikei.RData"</span>)</span>
-<span id="cb24-985"><a href="#cb24-985" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-986"><a href="#cb24-986" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"rangitikei.RData"</span>)</span>
-<span id="cb24-987"><a href="#cb24-987" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-988"><a href="#cb24-988" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span></span>
-<span id="cb24-989"><a href="#cb24-989" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">sample =</span> people) <span class="sc">+</span> </span>
-<span id="cb24-990"><a href="#cb24-990" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>()</span>
+<span id="cb24-981"><a href="#cb24-981" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../data/rangitikei.RData"</span>)</span>
+<span id="cb24-982"><a href="#cb24-982" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-983"><a href="#cb24-983" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span></span>
+<span id="cb24-984"><a href="#cb24-984" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">sample =</span> people) <span class="sc">+</span> </span>
+<span id="cb24-985"><a href="#cb24-985" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>()</span>
+<span id="cb24-986"><a href="#cb24-986" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-987"><a href="#cb24-987" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">y=</span>people, <span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
+<span id="cb24-988"><a href="#cb24-988" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb24-989"><a href="#cb24-989" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> </span>
+<span id="cb24-990"><a href="#cb24-990" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
 <span id="cb24-991"><a href="#cb24-991" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-992"><a href="#cb24-992" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(rangitikei) <span class="sc">+</span> <span class="fu">aes</span>(<span class="at">y=</span>people, <span class="at">x=</span><span class="st">""</span>) <span class="sc">+</span></span>
-<span id="cb24-993"><a href="#cb24-993" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb24-994"><a href="#cb24-994" aria-hidden="true" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">""</span>) <span class="sc">+</span> </span>
-<span id="cb24-995"><a href="#cb24-995" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span>
+<span id="cb24-992"><a href="#cb24-992" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol=</span><span class="dv">1</span>) </span>
+<span id="cb24-993"><a href="#cb24-993" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-994"><a href="#cb24-994" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-995"><a href="#cb24-995" aria-hidden="true" tabindex="-1"></a>@fig-normqqP shows the normal Q-Q plot for the number of people who made use of a recreational facility (**rangitikei**). This plot clearly reveals that the data are not normal. The plotted points show a curved but asymmetric pattern. This pattern matches with the right skewness seen in the data (see the boxplot given in @fig-normqqP.</span>
 <span id="cb24-996"><a href="#cb24-996" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-997"><a href="#cb24-997" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1, p2, <span class="at">ncol=</span><span class="dv">1</span>) </span>
-<span id="cb24-998"><a href="#cb24-998" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb24-999"><a href="#cb24-999" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1000"><a href="#cb24-1000" aria-hidden="true" tabindex="-1"></a>@fig-normqqP shows the normal Q-Q plot for the number of people who made use of a recreational facility (**rangitikei**). This plot clearly reveals that the data are not normal. The plotted points show a curved but asymmetric pattern. This pattern matches with the right skewness seen in the data (see the boxplot given in @fig-normqqP.</span>
-<span id="cb24-1001"><a href="#cb24-1001" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1002"><a href="#cb24-1002" aria-hidden="true" tabindex="-1"></a>Note that **normality and symmetry are not the same**. If the true distribution of the data is symmetric such as uniform, rectangular or triangular distributions, then the normal Q-Q plot will show a symmetric pattern for the plotted points but they will not plot on a straight line. As an example, the normal Q-Q plots for batches of random data from Student's $t$ (to be covered later in the next Chapter) and few other symmetric distributions is shown in @fig-normqqsym. Clearly normality is rejected for other symmetric non-normal distributions.</span>
-<span id="cb24-1003"><a href="#cb24-1003" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1006"><a href="#cb24-1006" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb24-1007"><a href="#cb24-1007" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-normqqsym</span></span>
-<span id="cb24-1008"><a href="#cb24-1008" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
-<span id="cb24-1009"><a href="#cb24-1009" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Normal Quantile-Quantile Plot for Checking Normality'</span></span>
-<span id="cb24-1010"><a href="#cb24-1010" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
-<span id="cb24-1011"><a href="#cb24-1011" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
-<span id="cb24-1012"><a href="#cb24-1012" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1013"><a href="#cb24-1013" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb24-1014"><a href="#cb24-1014" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1015"><a href="#cb24-1015" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rt</span>(<span class="dv">500</span>, <span class="dv">2</span>) </span>
-<span id="cb24-1016"><a href="#cb24-1016" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb24-1017"><a href="#cb24-1017" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Student t data with 2 df - n=500"</span>)</span>
-<span id="cb24-1018"><a href="#cb24-1018" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">runif</span>(<span class="dv">500</span>) </span>
-<span id="cb24-1019"><a href="#cb24-1019" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb24-1020"><a href="#cb24-1020" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Uniform data - n=500"</span>)</span>
+<span id="cb24-997"><a href="#cb24-997" aria-hidden="true" tabindex="-1"></a>Note that **normality and symmetry are not the same**. If the true distribution of the data is symmetric such as uniform, rectangular or triangular distributions, then the normal Q-Q plot will show a symmetric pattern for the plotted points but they will not plot on a straight line. As an example, the normal Q-Q plots for batches of random data from Student's $t$ (to be covered later in the next Chapter) and few other symmetric distributions is shown in @fig-normqqsym. Clearly normality is rejected for other symmetric non-normal distributions.</span>
+<span id="cb24-998"><a href="#cb24-998" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1001"><a href="#cb24-1001" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb24-1002"><a href="#cb24-1002" aria-hidden="true" tabindex="-1"></a><span class="co">#| label: fig-normqqsym</span></span>
+<span id="cb24-1003"><a href="#cb24-1003" aria-hidden="true" tabindex="-1"></a><span class="co">#| echo: false</span></span>
+<span id="cb24-1004"><a href="#cb24-1004" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-cap: 'Normal Quantile-Quantile Plot for Checking Normality'</span></span>
+<span id="cb24-1005"><a href="#cb24-1005" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-height: 6</span></span>
+<span id="cb24-1006"><a href="#cb24-1006" aria-hidden="true" tabindex="-1"></a><span class="co">#| fig-width: 6</span></span>
+<span id="cb24-1007"><a href="#cb24-1007" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1008"><a href="#cb24-1008" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb24-1009"><a href="#cb24-1009" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1010"><a href="#cb24-1010" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rt</span>(<span class="dv">500</span>, <span class="dv">2</span>) </span>
+<span id="cb24-1011"><a href="#cb24-1011" aria-hidden="true" tabindex="-1"></a>p1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb24-1012"><a href="#cb24-1012" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Student t data with 2 df - n=500"</span>)</span>
+<span id="cb24-1013"><a href="#cb24-1013" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">runif</span>(<span class="dv">500</span>) </span>
+<span id="cb24-1014"><a href="#cb24-1014" aria-hidden="true" tabindex="-1"></a>p2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb24-1015"><a href="#cb24-1015" aria-hidden="true" tabindex="-1"></a>      <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Uniform data - n=500"</span>)</span>
+<span id="cb24-1016"><a href="#cb24-1016" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1017"><a href="#cb24-1017" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rbeta</span>(<span class="dv">500</span>, <span class="dv">2</span>,<span class="dv">2</span>) </span>
+<span id="cb24-1018"><a href="#cb24-1018" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span> </span>
+<span id="cb24-1019"><a href="#cb24-1019" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb24-1020"><a href="#cb24-1020" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Beta(2,2) data - n=500"</span>)</span>
 <span id="cb24-1021"><a href="#cb24-1021" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1022"><a href="#cb24-1022" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  <span class="fu">rbeta</span>(<span class="dv">500</span>, <span class="dv">2</span>,<span class="dv">2</span>) </span>
-<span id="cb24-1023"><a href="#cb24-1023" aria-hidden="true" tabindex="-1"></a>p3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span> </span>
-<span id="cb24-1024"><a href="#cb24-1024" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq</span>() <span class="sc">+</span> <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb24-1025"><a href="#cb24-1025" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Beta(2,2) data - n=500"</span>)</span>
-<span id="cb24-1026"><a href="#cb24-1026" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1027"><a href="#cb24-1027" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  extraDistr<span class="sc">::</span><span class="fu">rlaplace</span>(<span class="dv">500</span>) </span>
-<span id="cb24-1028"><a href="#cb24-1028" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1029"><a href="#cb24-1029" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span>  <span class="fu">stat_qq</span>() <span class="sc">+</span> </span>
-<span id="cb24-1030"><a href="#cb24-1030" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
-<span id="cb24-1031"><a href="#cb24-1031" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Laplace data - n=500"</span>)</span>
-<span id="cb24-1032"><a href="#cb24-1032" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1033"><a href="#cb24-1033" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1,p2, p3, p4, <span class="at">ncol=</span><span class="dv">2</span>) </span>
-<span id="cb24-1034"><a href="#cb24-1034" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-1022"><a href="#cb24-1022" aria-hidden="true" tabindex="-1"></a>x  <span class="ot">&lt;-</span>  extraDistr<span class="sc">::</span><span class="fu">rlaplace</span>(<span class="dv">500</span>) </span>
+<span id="cb24-1023"><a href="#cb24-1023" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1024"><a href="#cb24-1024" aria-hidden="true" tabindex="-1"></a>p4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(x), <span class="fu">aes</span>(<span class="at">sample =</span> x)) <span class="sc">+</span>  <span class="fu">stat_qq</span>() <span class="sc">+</span> </span>
+<span id="cb24-1025"><a href="#cb24-1025" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stat_qq_line</span>() <span class="sc">+</span></span>
+<span id="cb24-1026"><a href="#cb24-1026" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Laplace data - n=500"</span>)</span>
+<span id="cb24-1027"><a href="#cb24-1027" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1028"><a href="#cb24-1028" aria-hidden="true" tabindex="-1"></a>gridExtra<span class="sc">::</span><span class="fu">grid.arrange</span>(p1,p2, p3, p4, <span class="at">ncol=</span><span class="dv">2</span>) </span>
+<span id="cb24-1029"><a href="#cb24-1029" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb24-1030"><a href="#cb24-1030" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1031"><a href="#cb24-1031" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1032"><a href="#cb24-1032" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summary</span></span>
+<span id="cb24-1033"><a href="#cb24-1033" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1034"><a href="#cb24-1034" aria-hidden="true" tabindex="-1"></a>This Chapter provided a revision of probability concepts usually covered the first year level covered at the seventh form level or in a first year Statistics course.  A few popular probability distributions are also introduced.</span>
 <span id="cb24-1035"><a href="#cb24-1035" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1036"><a href="#cb24-1036" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1037"><a href="#cb24-1037" aria-hidden="true" tabindex="-1"></a><span class="fu"># Summary</span></span>
-<span id="cb24-1038"><a href="#cb24-1038" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1039"><a href="#cb24-1039" aria-hidden="true" tabindex="-1"></a>This Chapter provided a revision of probability concepts usually covered the first year level covered at the seventh form level or in a first year Statistics course.  A few popular probability distributions are also introduced.</span>
-<span id="cb24-1040"><a href="#cb24-1040" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1041"><a href="#cb24-1041" aria-hidden="true" tabindex="-1"></a>Identification of a probability distribution is not an easy task for a set of observed data. This issue is not settled purely on statistical grounds.  EDA helps to short-list distributions fitting reasonably well to the data.  For regression type of models fitted to continuous responses, the normal distribution works generally well.</span>
-<span id="cb24-1042"><a href="#cb24-1042" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-1043"><a href="#cb24-1043" aria-hidden="true" tabindex="-1"></a>The material covered in this Chapter forms the foundation for many of the inferential methods.</span>
+<span id="cb24-1036"><a href="#cb24-1036" aria-hidden="true" tabindex="-1"></a>Identification of a probability distribution is not an easy task for a set of observed data. This issue is not settled purely on statistical grounds.  EDA helps to short-list distributions fitting reasonably well to the data.  For regression type of models fitted to continuous responses, the normal distribution works generally well.</span>
+<span id="cb24-1037"><a href="#cb24-1037" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-1038"><a href="#cb24-1038" aria-hidden="true" tabindex="-1"></a>The material covered in this Chapter forms the foundation for many of the inferential methods.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
