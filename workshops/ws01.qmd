@@ -84,19 +84,64 @@ Make a variable with a sequence of numbers between 1 and 10. Look up the functio
 The command `example()` will produce the available HELP examples, and will work for most functions. For example, try `example(boxplot)`. You will see many boxplot examples such as the following:
 
 ```{r}
-boxplot(count ~ spray, data = InsectSprays, col = "lightgray")
+example("boxplot")
 ```
 
-There are also demos available, explore using the command `demo()`. The basic R system produces somewhat old style graphs.
 
-So we will be largely using the newer plotting system **ggplot** which is part of the `tidyverse` suite of packages; see <https://www.tidyverse.org/>.
+# Exercise 1.4 {-}
+Explore the help menu for the function `plot` Generic X-Y Plotting. What line of code can you use to access this file?
+
+```{r}
+# your code goes here
+```
+
+
+# Exercise 1.5 {-}
+Write code to generate an example of the function `plot` using a built in dataset `InsectSprays`. You can use `?InsectSprays` to find out more about this data.
+
+```{r}
+# your code goes here
+```
+
+
+# Exercise 1.6 {-}
+How would you generate a plot with lines for your data? Use the help menu to find the argument you might need to change and what you would change it to. Explain in words and then in code.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Exercise 1.7 {-}
+Use your answers to the previous three exercises to write a short description of what the function `plot` does. Include what information you need to put into the function and what you might expect it to return.
+
+::: {#answer}
+
+:::
+
+## Libraries and packages
+
+So far we have seen base R. These are the built in functions available on R. Since R is a free computing resource people have developed additional functions which they package in a library. Majority of libraries are housed on CRAN and you can install them using the function `install.packages()`.
+
+
+# `tidyverse`
+So we will be largely using the `tidyverse` suite of packages; see <https://www.tidyverse.org/>.
 
 Let's load that package now:
 
+```{r eval=FALSE}
+#| message: false
+install.packages('tidyverse') # if you do not have tidyverse you will need to install it first
+# you only have to install packages once per machine (computer)
+# notice eval= FALSE in the chunk so this code does not run everytime this document is rendered
+
+```
+
 ```{r}
 #| message: false
-# install.packages('tidyverse') # if you do not have tidyverse you will need to install it first
-# you only have to install packages once per machine (computer)
 library(tidyverse) # you need to load a library every R session
 ```
 
@@ -115,21 +160,25 @@ You might have to install quite a few packages as you work through this course.
 
 # Loading/Importing Data {.unnumbered}
 
+Change this to load in data stored on their computer
+Can I have a folder of data on the github?
 
 If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., `mydata.csv` rather than `C:/Users/anhsmith/Work/Project1/data/mydata.csv`). Better yet, [Projects](https://r4ds.hadley.nz/workflow-scripts#projects) make this much easier.
 
-You can also load data from the web using a URL. For example,
+
+For example,
 
 ```{r}
 #| code-fold: show
-read_csv("https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv")
+read_csv("../data/rangitikei.csv")
 ```
 
 We'd usually want to store the data as an object though, like so:
 
 ```{r}
 #| code-fold: show
-rangitikei <- read_csv("https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv")
+
+rangitikei <- read_csv("../data/rangitikei.csv")
 ```
 
 Now the data are available in R as an object.
@@ -139,26 +188,52 @@ Now the data are available in R as an object.
 glimpse(rangitikei)
 ```
 
-# Exercise 1.4 {-}
-Try importing the Telomeres data file (in Excel format)
-available at
+## File types
 
-<https://rs.figshare.com/ndownloader/files/22850096>
+The above example uses a file that says .csv this is called a file extension. CSV stands for comma seperated values. The data is stored on the computer as a series of values (numbers or text) with commas in between. The file extension tells the computer how to read the document, it then puts each value in a cell of a table.
+
+Other common file types include .txt or .xlxs. Txt stands for a tab delineated file and xlxs are for files generated with excel. 
+
+
+# Exercise 1.8 {-}
+In R you can use multiple functions to read in data including `read.csv`, `read_csv`, `read.table` and `read_excel`. `read_csv` is in the readr library and  `read_excel` is in the readxl library. Load these library, then explore the help menu for each of these four function, what are the differences?
+
+Note: that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them. Is there anything in the help menu you can do to help avoid this?
+
+::: {#answer}
 
 ```{r}
 # your code goes here
 ```
 
-Note that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them.
+:::
 
 
-Consider the study guide dataset `rangitikei.txt` (Recreational Use of
+# Exercise 1.9 {-}
+Try importing the Telomeres data file (in Excel format)
+available at
+
+<https://rs.figshare.com/ndownloader/files/22850096>
+
+First download the data, put it in a directory with this quarto document. Then write code to import the file into R and save it as `telomers`.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+
+Consider the study guide dataset `rangitikei.csv` (Recreational Use of
 the Rangitikei river) again. The first 10 rows of this dataset are shown
 below:
 
 ```{r, echo=FALSE}
 my.data <- read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv", 
+  "../data/rangitikei.csv", 
   header=TRUE
   )
 
@@ -177,317 +252,51 @@ The description of the variables is given below:
 `people` - number of people at that location and time\
 `vehicle`- number of vehicles at that location at that time\
 
-# Exercise 1.5 {-}
+# Exercise 1.10 {-}
 How many rows are in `my.data`? How many columns? How can you find that in R?
 
 ```{r}
 
 ```
 
-# Exercise 1.6 {-}
+# Exercise 1.11 {-}
 Find the mean of `vehicle` and the median of `people` using built in R functions.
 
 ```{r}
-
+# your code goes here
 ```
 
 
-# Graphing with ggplot2
+One of the simplest manipulations on a batch of data we may do is to
+change the data type say numeric to character. For example, the
+television viewing time data in the text file `tv.csv` is read into a dataframe by the command line
 
-If have not installed `ggplot2` or `tidyverse`, install it with the
-following commands.
-
-```{r, eval=FALSE}
-install.packages("ggplot2")
-install.packages("tidyverse")
-```
-
-We can now load the `ggplot2` library with the commands:
-
-```{r, warninng=FALSE}
-library(ggplot2)
-```
-
-In order to work with `ggplot2`, we must have a `data frame` or a `tibble`
-containing our data. We need to specify the `aesthetics` or how the
-columns of our data frame can be translated into positions, colours,
-sizes, and shapes of graphical elements.
-
-```{r}
-ggplot(my.data) +
-  aes(x = vehicle, y = people) +
-  geom_point()
-```
-
-The `aes` part defines the "aesthetics", which is how columns of the dataframe map to graphical attributes such as x and y position, colour, size, etc. An aesthetic can be either numeric or categorical and an appropriate scale will be used. After this, we add layers of graphics. `geom_point` layer is employed to map x and y and we need not specify all the options for `geom_point`.
-
-# Exercise 1.6 {-}
-Why does the following give an error and how would you fix it?
-
-```{r}
-#| eval: false
-ggplot(data = my.data) + 
-  geom_point()
-```
-
-
-We can add a title using *labs()* or *ggtitle()* functions. Try-
-
-```{r, fig.show="hide"}
-ggplot(my.data) +
-  aes(x = vehicle, y = people, color = river) +
-  geom_point() + 
-  ggtitle("No. of people vs No. of vehicles")
-```
-
-or
-
-```{r, fig.show="hide"}
-ggplot(my.data)+
-  aes(x = vehicle, y = people) +
-  geom_point() + 
-  labs(title = "No. of people vs No. of vehicles")
-```
-
-Note that *labs()* allows captions and subtitles.
-
-# Exercise 1.7 {-}
-Remake the above graph, adjusting the x axis to say `Vehicles` using the `labs()` function. 
-
-```{r}
-
-```
-
-
-`geom_smooth` is additionally used to show trends.
-
-```{r}
-ggplot(my.data) +
-  aes(x = vehicle, y = people) +
-  geom_point() + 
-  geom_smooth()
-```
-
-# Exercise 1.8 {-}
-Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
-
-```{r}
-ggplot(my.data) +
-  aes(x = vehicle, y = people) +
-  geom_point()+
-  geom_smooth(se = FALSE)
-```
-
-
-Similar to `geom_smooth`, a variety of `geoms` are available.
-
-```{r}
-ggplot(my.data) + 
-  aes(x = factor(wind), y = people) +
-  geom_boxplot()
-```
-
-Each `geom` accepts a particular set of mappings;for example
-`geom_text()` accepts a `labels` mapping. Try-
-
-```{r, fig.show="hide"}
-ggplot(my.data) +
-  aes(x = vehicle, y = people) +
-  geom_point() + 
-  geom_text(aes(label = w.e), 
-            size = 5)
-```
-
-# Exercise 1.9 {-}
-Will these two graphs look different? Why/why not?
-
-```{r}
-ggplot(
-  data = my.data,
-  mapping = aes(x = vehicle, y = people)
-) +
-  geom_point() +
-  geom_smooth()
-
-ggplot() +
-  geom_point(
-    data = my.data,
-    mapping = aes(x = vehicle, y = people)
-  ) +
-  geom_smooth(
-    data = my.data,
-    mapping = aes(x = vehicle, y = people)
+```{r, fig.show="hide", results='hide'}
+my.tv.data <- read.csv(
+  "../data/tv.csv", 
+  header =TRUE
   )
 ```
 
-The faceting option allows a collection of small plots with the same
-scales. Try-
+We can improve the `read.csv` command to recognise the data type while reading the table as follows, using the `read_csv` command from the `readr` package:
 
 ```{r}
-ggplot(my.data) +
-  aes(x=vehicle, y=people) + 
-  geom_point() +
-  facet_wrap(~ river) 
+my.tv.data2 <- read_csv(
+  "~/Documents/Classes/161.250/tv.csv", 
+  col_types = "nfcc"
+  )
+
+# check if it worked
+glimpse(my.tv.data2)
 ```
 
-Faceting is the `ggplot2` option to create separate graphs for subsets
-of data. `ggplot2` offers two functions for creating small multiples:
+The argument `col_types = "nfcc"` stands for \{`numeric`, `factor`, `character`, `character`\}, to match the order of the columns.
 
-1. `facet_wrap()`: define subsets as the levels of a single grouping variable
-2. `facet_grid()`: define subsets as the crossing of two grouping variables
-
-The following arguments are common to most scales in `ggplot2`:
-
--   **name:** the first argument gives the axis or legend title
--   **limits:** the minimum and maximum of the scale
--   **breaks:** the points along the scale where labels should appear
--   **labels:** the labels that appear at each break
-
-Specific scale functions may have additional arguments. Some of the
-available Scales are:
-
-| **Scale**         | **Examples**              |
-|-------------------|---------------------------|
-| `scale_color_`    | `scale_color_discrete`    |
-| `scale_fill_`     | `scale_fill_continuous`   |
-| `scale_size_`     | `scale_size_manual`       |
-|                   | `scale_size_discrete`     |
-|                   |                           |
-| `scale_shape_`    | `scale_shape_discrete`    |
-|                   | `scale_shape_manual`      |
-| `scale_linetype_` | `scale_linetype_discrete` |
-|                   |                           |
-| `scale_x_`        | `scale_x_continuous`      |
-|                   | `scale_x_log`             |
-|                   | `scale_x_date`            |
-| `scale_y_`        | `scale_y_reverse`         |
-|                   | `scale_y_discrete`        |
-|                   | `scale_y_datetime`        |
-
-In RStudio, we can type `scale_` followed by TAB to get the whole list
-of available scales.
-
-Try-
-
-```{r}
-ggplot(my.data) + 
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point() + 
-  scale_x_continuous(name = "No. of Vehicles") + 
-  scale_y_continuous(name = "No. of people") + 
-  scale_color_discrete(name = "Temperature")
-
-```
-
-The other coding option is shown below:
-
-```{r, fig.show = 'hide'}
-ggplot(my.data) +
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point() + 
-  xlab("No. of Vehicles") + 
-  ylab("No. of people") + 
-  labs(colour="Temperature") 
-```
-
-Note that a desired graph can be obtained in more than one way.
-
-The `ggplot2` theme system handles plot elements (not data based) such
-as
-
--   Axis labels
--   Plot background
--   Facet label background
--   Legend appearance
-
-Built-in themes include:
-
--   `theme_gray()` (default)
--   `theme_bw()`
--   `theme_minimal()`
--   `theme_classic()`
-
-```{r}
-p1 <- ggplot(my.data) + 
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point()
-```
-
-Note that the graph is assigned an object name `p1` and nothing will be
-printed unless we then print the object `p1`.
-
-```{r}
-p1 <- ggplot(my.data) + 
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point()
-
-p1
-```
-
-Try-
-
-```{r}
-p1 + theme_light()
-```
-
-```{r}
-p1 + theme_bw()
-```
-
-Specific theme elements can be overridden using `theme()`. For example:
-
-```{r}
-p1 + theme_minimal() +
-  theme(text = element_text(color = "red"))
-```
-
-All theme options can be seen with `?theme`.
-
-To specify a theme for a whole document, use
-
-```{r}
-theme_set(theme_minimal())
-```
-
-*Minimal graphing* can be done using the `qplot` option that will
-produce a few standard formatted graphs quickly.
-
-```{r}
-qplot(people, vehicle, data = my.data, colour = river)
-```
-
-Try-
-
-`qplot(people, data = my.data)`
-
-`qplot(people, fill=factor(river), data=my.data)`
-
-`qplot(people, data = my.data, geom = "dotplot")`
-
-`qplot(factor(river), people, data = my.data, geom = "boxplot")`
-
-A cheat sheet for `ggplot2` is available at
-<https://www.rstudio.com/resources/cheatsheets/> (optional to download).
-There are many other packages which incorporate `ggplot2` based graphs or
-dependent on it.
-
-The library *patchwork* allows complex composition arbitrary plots,
-which are not produced using the faceting option. Try
-
-```{r}
-library(patchwork)
-
-p1 <- qplot(people, data = my.data, geom = "dotplot")
-p2 <- qplot(people, data = my.data, geom = "boxplot")
-p3 <- ggplot(my.data, aes(x = vehicle, y = people)) + geom_point()
-
-(p1 + p2) / p3 + 
-  plot_annotation("My title", caption = "My caption")
-```
 
 
 ## Quarto
 
-Demonstrate how to open a new Quarto document
+Demonstrate how to open a new Quarto document.
+
 
 

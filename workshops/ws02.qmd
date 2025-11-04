@@ -3,6 +3,313 @@ title: "Chapter 2 Workshop"
 ---
 
 
+# Graphing with ggplot2
+`ggplot2` is now part of the `tidyverse`. We have installed `tidyverse` in a previous workshop so you will not need to install it again. 
+
+We can now load the `ggplot2` library with the commands:
+
+```{r, warninng=FALSE}
+library(tidyverse)
+```
+
+In order to work with `ggplot2`, we must have a `data frame` or a `tibble`
+containing our data. We need to specify the `aesthetics` or how the
+columns of our data frame can be translated into positions, colours,
+sizes, and shapes of graphical elements.
+
+Let's start with the rangitikei data we used in an earlier workshop
+
+```{r load in rangitikei data}
+rangitikei <- read.csv(
+  "../data/rangitikei.csv",
+  header=TRUE, 
+  row.names = 1
+  )
+```
+
+```{r}
+ggplot(rangitikei) +
+  aes(x = vehicle, y = people) +
+  geom_point()
+```
+
+The `aes` part defines the "aesthetics", which is how columns of the dataframe map to graphical attributes such as x and y position, colour, size, etc. An aesthetic can be either numeric or categorical and an appropriate scale will be used. After this, we add layers of graphics called `geom_`s. `geom_point` layer is employed to map x and y and we need not specify all the options for `geom_point`.
+
+
+# Exercise 2.1 {-}
+Why does the following give an error and how would you fix it?
+
+```{r}
+#| eval: false
+ggplot(data = rangitikei) + 
+  geom_point()
+```
+
+## Adding layers
+
+ggplot works by adding layers to your plots. Your plots must include `aes()` and a `geom_`; after that we can add extras.
+
+We can add a title using *labs()* or *ggtitle()* functions. Try-
+
+```{r, fig.show="hide"}
+ggplot(rangitikei) +
+  aes(x = vehicle, y = people, color = river) +
+  geom_point() + 
+  ggtitle("No. of people vs No. of vehicles")
+```
+
+or
+
+```{r, fig.show="hide"}
+ggplot(rangitikei)+
+  aes(x = vehicle, y = people) +
+  geom_point() + 
+  labs(title = "No. of people vs No. of vehicles")
+```
+
+Note that *labs()* allows captions and subtitles. Check out `?labs()` for all the options.
+
+# Exercise 2.2 {-}
+Remake the above graph, adjusting the x axis to say `Vehicles` using the `labs()` function. 
+
+```{r}
+
+```
+
+
+`geom_smooth` is additionally used to show trends.
+
+```{r}
+ggplot(rangitikei) +
+  aes(x = vehicle, y = people) +
+  geom_point() + 
+  geom_smooth()
+```
+
+# Exercise 2.3 {-}
+Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
+
+```{r}
+ggplot(rangitikei) +
+  aes(x = vehicle, y = people) +
+  geom_point()+
+  geom_smooth(se = FALSE)
+```
+
+::: {#answer}
+
+
+:::
+
+
+Similar to `geom_smooth`, a variety of other `geoms` are available. For example, `geom_boxplot()`:
+
+```{r}
+ggplot(rangitikei) + 
+  aes(x = factor(wind), y = people) +
+  geom_boxplot()
+```
+
+You can add additional information to your graph by using multiple `geom`s. Each `geom` accepts a particular set of mappings; for example `geom_text()` accepts a `labels` mapping. Try-
+
+```{r, fig.show="hide"}
+ggplot(rangitikei) +
+  aes(x = vehicle, y = people) +
+  geom_point() + 
+  geom_text(aes(label = w.e), 
+            size = 5)
+```
+
+# Exercise 2.4 {-}
+Will these two graphs look different? Why/why not? What happens when you run the code? 
+
+```{r}
+ggplot(
+  data = rangitikei,
+  mapping = aes(x = vehicle, y = people)
+) +
+  geom_point() +
+  geom_smooth()
+
+ggplot() +
+  geom_point(
+    data = rangitikei,
+    mapping = aes(x = vehicle, y = people)
+  ) +
+  geom_smooth(
+    data = rangitikei,
+    mapping = aes(x = vehicle, y = people)
+  )
+```
+
+
+::: {#answer}
+
+
+:::
+
+Explore multiple `geom`s and thing about how different types of data might be displayed in each.
+
+## Panels
+
+The faceting option allows a collection of small plots with the same
+scales. Try-
+
+```{r}
+ggplot(rangitikei) +
+  aes(x=vehicle, y=people) + 
+  geom_point() +
+  facet_wrap(~ river) 
+```
+
+Faceting is the `ggplot2` option to create separate graphs for subsets
+of data. `ggplot2` offers two functions for creating small multiples:
+
+1. `facet_wrap()`: define subsets as the levels of a single grouping variable
+2. `facet_grid()`: define subsets as the crossing of two grouping variables
+
+The following arguments are common to most scales in `ggplot2`:
+
+-   **name:** the first argument gives the axis or legend title
+-   **limits:** the minimum and maximum of the scale
+-   **breaks:** the points along the scale where labels should appear
+-   **labels:** the labels that appear at each break
+
+## Adjusting scales 
+
+Specific scale functions may have additional arguments. Some of the
+available Scales are:
+
+| **Scale**         | **Examples**              |
+|-------------------|---------------------------|
+| `scale_color_`    | `scale_color_discrete`    |
+| `scale_fill_`     | `scale_fill_continuous`   |
+| `scale_size_`     | `scale_size_manual`       |
+|                   | `scale_size_discrete`     |
+|                   |                           |
+| `scale_shape_`    | `scale_shape_discrete`    |
+|                   | `scale_shape_manual`      |
+| `scale_linetype_` | `scale_linetype_discrete` |
+|                   |                           |
+| `scale_x_`        | `scale_x_continuous`      |
+|                   | `scale_x_log`             |
+|                   | `scale_x_date`            |
+| `scale_y_`        | `scale_y_reverse`         |
+|                   | `scale_y_discrete`        |
+|                   | `scale_y_datetime`        |
+
+In RStudio, we can type `scale_` followed by TAB to get the whole list
+of available scales.
+
+Try-
+
+```{r}
+ggplot(rangitikei) + 
+  aes(x = vehicle, y = people, color = factor(temp)) + 
+  geom_point() + 
+  scale_x_continuous(name = "No. of Vehicles") + 
+  scale_y_continuous(name = "No. of people") + 
+  scale_color_discrete(name = "Temperature")
+
+```
+
+The other coding option is shown below:
+
+```{r, fig.show = 'hide'}
+ggplot(rangitikei) +
+  aes(x = vehicle, y = people, color = factor(temp)) + 
+  geom_point() + 
+  xlab("No. of Vehicles") + 
+  ylab("No. of people") + 
+  labs(colour="Temperature") 
+```
+
+Note that a desired graph can be obtained in more than one way.
+
+## Themes
+Themes can help adjust different pieces of your graphs to make them publication or presentation ready. Here you can adjust font, size, axis features, etc.
+
+The `ggplot2` theme system handles plot elements (not data based) such
+as
+
+-   Axis labels
+-   Plot background
+-   Facet label background
+-   Legend appearance
+
+Built-in themes include:
+
+-   `theme_gray()` (default)
+-   `theme_bw()`
+-   `theme_minimal()`
+-   `theme_classic()`
+
+
+```{r}
+p1 <- ggplot(rangitikei) + 
+  aes(x = vehicle, y = people, color = factor(temp)) + 
+  geom_point()
+```
+
+Note that the graph is assigned an object name `p1` and nothing will be
+printed unless we then print the object `p1`. Here, the plot is assigned to an object to make applying and comparing different themes simple.
+
+```{r}
+p1 <- ggplot(rangitikei) + 
+  aes(x = vehicle, y = people, color = factor(temp)) + 
+  geom_point()
+
+p1
+```
+
+Try-
+
+```{r}
+p1 + theme_light()
+```
+
+```{r}
+p1 + theme_bw()
+```
+
+Specific theme elements can be overridden using `theme()`. For example:
+
+```{r}
+p1 + theme_minimal() +
+  theme(text = element_text(color = "red"))
+```
+
+All theme options can be seen with `?theme`.
+
+To specify a theme for a whole document, use
+
+```{r}
+theme_set(theme_minimal())
+```
+
+
+A cheat sheet for `ggplot2` is available at
+<https://www.rstudio.com/resources/cheatsheets/> (optional to download).
+There are many other packages which incorporate `ggplot2` based graphs or
+dependent on it.
+
+## Multiple plots
+ 
+Sometimes you want to creat a figure with multiple plots. Rather than trying to combine the data and then faceting, you may need to save each as an object and combine with a helper library. The library *patchwork* allows complex composition arbitrary plots, which are not produced using the faceting option. Try
+
+```{r}
+library(patchwork)
+
+p1 <- qplot(people, data = rangitikei, geom = "dotplot") # change this to a ggplot
+p2 <- qplot(people, data = rangitikei, geom = "boxplot")
+p3 <- ggplot(rangitikei, aes(x = vehicle, y = people)) + geom_point()
+
+(p1 + p2) / p3 + 
+  plot_annotation("My title", caption = "My caption")
+```
+
+Have a quick google of the library `ggpubr` for the function `ggarrange` as another option for combining plots.
+
 # Dataset **`Prestige`**
 
 As you work through this workshop, you can copy the code and paste it into a code chunk. Write notes and observations to your self as you go. 
@@ -41,7 +348,7 @@ data(Prestige)
 ```
 
 
-# Exercise 2.1 {-}
+# Exercise 2.5 {-}
 
 Draw a bar chart for `type`. These plots show the count or relative frequency of blue collar (`bc`), professional (`prof`), and white collar (`wc`) professions in the dataset. 
 
@@ -56,25 +363,8 @@ p <- Prestige |>
 p
 ```
 
-Or with `plotly` (which works for HTML, not for PDF)
 
-```{r}
-library(plotly)
-
-ggplotly(p)
-```
-
-Or with old-style R plot
-
-```{r}
-# or
-library(car)
-barplot(table(Prestige$type))
-```
-
-
-
-# Exercise 2.2 {-}
+# Exercise 2.6 {-}
 
 Draw a histogram of `prestige`. 
 
@@ -125,15 +415,6 @@ ggplot() +
 
 
 # or
-# library(plotly)
-# p <- Prestige |> 
-#   ggplot() +
-#   aes(prestige) +
-#   geom_histogram(bins=10)
-# 
-# ggplotly(p)
-
-# or
 # hist(Prestige$prestige)
 ```
 
@@ -177,7 +458,7 @@ Prestige |>
 ```
 
 
-# Exercise 2.3 {-}
+# Exercise 2.7 {-}
 
 a) Obtain some summary statistics for `prestige`. There are a few options for this.
 
@@ -195,11 +476,11 @@ describeBy(education + income + women + prestige ~ type,
 b) Make a summary dataset, average variable for each type of occupation.
 
 ```{r}
-
+# your code goes here
 ```
 
 
-# Exercise 2.4 {-}
+# Exercise 2.8 {-}
 
 Make a boxplot of `prestige ~ type`:
 
@@ -208,16 +489,6 @@ Prestige |>
   ggplot() +
   aes(y=prestige, x=type) +
   geom_boxplot()
-
-# or
-# library(plotly)
-# p <- Prestige |> ggplot() + 
-#   aes(y=prestige, x=type) + geom_boxplot()
-# ggplotly(p)
-
-# or
-# library(lattice)
-# bwplot(prestige ~ type, data=Prestige)
 
 # as violin plots
 Prestige |> 
@@ -236,7 +507,7 @@ Prestige |>
 ```
 
 
-# Exercise 2.5 {-}
+# Exercise 2.9 {-}
 
 Obtain the Empirical Cumulative Distribution Function (ECDF) graphs of `prestige ~ type`:
 
@@ -272,7 +543,7 @@ Prestige |>
 
 With which plot – the ECDF or the density plot – is it easier to compare the distributions of prestige scores among these groups?
 
-# Exercise 2.6 {-}
+# Exercise 2.10 {-}
 
 Obtain the \{0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95\} quantiles of `prestige`:
 
@@ -290,7 +561,7 @@ quantile(Prestige$prestige, pr)
 ```
 
 
-# Exercise 2.7 {-}
+# Exercise 2.11 {-}
 
 Obtain the scatter plot (with and without marginal boxplots) **prestige vs. education **: How can you describe the relationship implied by the pattern?
 
@@ -317,7 +588,7 @@ scatterplot(education ~ prestige, data = Prestige)
 
 The later plot will show prediction interval ribbon while the first plot will show the confidence interval ribbon.
 
-# Exercise 2.8 {-}
+# Exercise 2.12 {-}
 
 Obtain the bubble or balloon plot  **prestige vs. education vs. income** (income forming the bubble size):
 
@@ -329,60 +600,16 @@ Prestige |>
   aes(x = education, y = prestige, size = income) +
   geom_point()
 
-
-# or
-
-library(plotly)
-
-p <- Prestige |>
-  ggplot() + 
-  aes(x = education, y = prestige, size = income) +
-  geom_point()
-
-ggplotly(p)
 ```
 Make a different scatter plot using the same three variables. Keep `x = education, y = prestige` but use a different option to illustrate the influence of income.
 
 ```{r}
-
+# your code goes here
 ```
 
 
-# Exercise 2.9 {-}
 
-Obtain the contour plot  **prestige vs. education vs. income** :
-
-```{r, eval = knitr::is_latex_output()}
-#| results: hide
-
-library(plotly)
-
-plot_ly(type = 'contour', 
-        x = Prestige$education, 
-        y = Prestige$income, 
-        z = Prestige$prestige)
-```
-
-To add axes labels and titles, try-
-
-```{r, eval = knitr::is_latex_output()}
-#| results: hide
-
-plot_ly(
-  Prestige,
-  type = 'contour',
-  x = Prestige$education,
-  y = Prestige$income,
-  z = Prestige$prestige
-) |> layout(
-  title = 'Contour Plot of prestige scores',
-  xaxis = list(title = 'education'),
-  yaxis = list(title = 'income')
-)
-```
-
-
-# Exercise 2.10 {-}
+# Exercise 2.13 {-}
 
 Create `prestige ~ education | type` graphs.  That is, `prestige ~ education` grouped by `type` as colours and/or panels.
 
@@ -394,16 +621,6 @@ Prestige |>
   geom_point() + 
   facet_wrap(~ type)
 
-# or
-# library(plotly)
-#
-# p <- Prestige |> 
-#   ggplot() + 
-#   aes(x = education, y = prestige, color = type) +
-#   geom_point() + 
-#   facet_wrap(~ type)
-# 
-# ggplotly(p)
 ```
 
 
@@ -414,30 +631,6 @@ p <- Prestige |>
   geom_point()
 
 p
-
-# OR
-#
-# library(plotly)
-# ggplotly(p)
-```
-
-# Make it fancy
-
-## Adjusting labels
-
-```{r, eval = FALSE}
-?labs()
-```
-
-## color pallets 
-
-```{r}
-
-```
-
-## themes
-
-```{r}
 
 ```
 

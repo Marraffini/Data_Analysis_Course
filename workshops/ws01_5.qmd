@@ -2,6 +2,7 @@
 title: "Tidy data"
 ---
 
+Copy this code and paste it into a new quarto document in R. We will be using quarto for assignments, it is good to practice using it with each workshop.
 
 ## `tidyr` {.unnumbered}
 
@@ -13,95 +14,12 @@ data that is easy to analyse. The principles of tidy data are:
 -   Each type of observational unit forms a table.
 
 
-*Simple Manipulations*
-
-There is always more than one-way of manipulating the data, producing summaries and tables from raw data.
-
-One of the simplest manipulations on a batch of data we may do is to
-change the data type say numeric to character. For example, the
-television viewing time data in the text file `tv.csv` is read into a dataframe by the command line
-
-```{r, fig.show="hide", results='hide'}
-my.data <- read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/tv.csv", 
-  header =TRUE
-  )
-```
-
-We can improve the `read.csv` command to recognise the data type while reading the table as follows, using the `read_csv` command from the `readr` package:
-
-```{r}
-library(tidyverse)
-my.data <- read_csv(
-  "https://www.massey.ac.nz/~anhsmith/data/tv.csv", 
-  col_types = "nfcc"
-  )
-```
-
-The argument `col_types = "nfcc"` stands for \{`numeric`, `factor`, `character`, `character`\}, to match the order of the columns.
-
-```{r}
-my.data
-```
-
-We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands
-
-```{r, fig.show="hide", results='hide'}
-
-by(my.data$TELETIME, my.data$SCHOOL, summary)
-```
-
-We employed the `by()` command above and instead, we may also use
-`tapply()` `aggregate()` functions:
-
-`tapply(my.data$TELETIME, my.data$SCHOOL, summary)`
-
-`aggregate(my.data$TELETIME, list(my.data$SCHOOL), summary)`
-
-A tabulated summary of categorical data is obtained using the `table()`
-command.
-
-```{r, fig.show="hide", results='hide'}
-my.data <- read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv",
-  header=TRUE
-  )
-
-wind <- my.data |> pull(wind)
-river <- my.data |> pull(river)
-
-table(wind, river)
-```
-
-It is sometimes convenient to work with matrices for some R functions
-such as `apply()`. For example, the number of admissions data in
-`hospital.txt` data can be formed as a matrix. Note that this is
-possible because we have the same number of observations for each
-hospital location.
-
-```{r, fig.show="hide", results='hide'}
-data <- read.table(
-  "https://www.massey.ac.nz/~anhsmith/data/hospital.txt",
-  header=TRUE, 
-  sep=",")
-
-M <- data |> 
-  select(NORTH1, NORTH2, NORTH3, 
-         SOUTH1, SOUTH2, SOUTH3) |> 
-  sqrt()
-
-means <- apply(M, 1, mean)
-sds <- apply(M, 1, sd)
-
-plot(means, sds)
-```
-
 # Introduction to the tidyverse
 
 We will be largely using the `tidyverse` suite of packages for data organisation, summarizing, and plotting; see <https://www.tidyverse.org/>.
 
 Let's load that package now:
-Remember if you have not installed it you will need to use `install.packages()` first.
+Remember if you have not installed it you will need to use `install.packages()` first. We installed it in the first workshop so you can return to that code to see how we did it.
 
 ```{r}
 #| message: false
@@ -144,17 +62,18 @@ The `R` package `magrittr` introduced the pipe operator `%>%` and can be pronoun
 `R` also has its own pipe, `|>`, which is an alternative to `%>%`. You will see both used in this course. If you want to change the pipe inserted automatically with `Ctrl+Shift+M`, find on the menu **Tools > Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". 
 
 
-Consider the study guide dataset `rangitikei.txt` (Recreational Use of
+Consider the study guide dataset `rangitikei.csv` (Recreational Use of
 the Rangitikei river). The first 10 rows of this dataset are shown
 below:
 
 ```{r, echo=FALSE}
-my.data <- read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv", 
-  header=TRUE
+rangitikei <- read.csv(
+  "../data/rangitikei.csv",
+  header=TRUE, 
+  row.names = 1 # when you save data from R it keeps row names by default, this line tells R that they are row names not data 
   )
 
-head(my.data, 10) # shows the first ten rows
+head(rangitikei, 10) # shows the first ten rows
 ```
 
 Try the following examples after loading the `rangitikei` dataset.
@@ -162,7 +81,7 @@ Try the following examples after loading the `rangitikei` dataset.
 `select()`
 
 ```{r}
-new.data <- my.data |> 
+new.data <- rangitikei |> 
   select(people, vehicle)
 
 names(new.data)
@@ -171,7 +90,7 @@ names(new.data)
 What does `select()` do?
 
 ```{r}
-my.data |> 
+rangitikei |> 
   select(people, vehicle) |> # select columns
   ggplot() + # make a plot using those columns
   aes(x=people, y=vehicle) + 
@@ -185,7 +104,7 @@ Now try another function:
 `filter()`
 
 ```{r}
-my.data |> 
+rangitikei |> 
   filter(wind==1) |> 
   select(people, vehicle) |> 
   ggplot() +
@@ -201,7 +120,7 @@ vehicle against people. `filter()` subsets the data for all observations matchin
 `arrange()`
 
 ```{r}
-my.data |> 
+rangitikei |> 
   filter(wind==1) |> 
   arrange(w.e) |> 
   select(w.e, people, vehicle)
@@ -213,7 +132,7 @@ Assume that a \$10 levy is collected for each vehicle. We can create
 this new `levy` column as follows.
 
 ```{r}
-my.data |> 
+rangitikei |> 
   mutate(levy = vehicle*10) |> 
   select(people, levy) |> 
   ggplot() +
@@ -227,7 +146,7 @@ newly created column.
 `summarise()`
 
 ```{r}
-my.data |> 
+rangitikei |> 
   summarise(total = n(), 
             avg = mean(people)
             )
@@ -237,7 +156,7 @@ We obtain the selected summary measures namely the total and the mean
 number of people. Try-
 
 ```{r}
-my.data |> 
+rangitikei |> 
   filter(wind == 1) |> 
   summarise(total = n(), 
             avg = mean(people)
@@ -249,7 +168,7 @@ my.data |>
 We obtain the wind group-wise summaries below:
 
 ```{r}
-my.data |> 
+rangitikei |> 
   group_by(wind) |> 
   summarise(total=n(), 
             avg=mean(people))
@@ -259,7 +178,7 @@ There are many more commands such as the `transmute` function which
 conserves the only the needed columns. Try
 
 ```{r}
-my.data |> 
+rangitikei |> 
   group_by(wind, w.e) |> 
   transmute(total=n(), 
             avg=mean(people))
@@ -268,11 +187,11 @@ my.data |>
 A simple frequency table is found using `count()`. Try-
 
 ```{r}
-my.data |> 
+rangitikei |> 
   group_by(wind, w.e) |> 
   count(temp)
 
-my.data |> 
+rangitikei |> 
   group_by(wind, w.e) |> 
   count(temp, river)
 ```
@@ -280,225 +199,131 @@ my.data |>
 The `count()` is useful to check the balanced nature of the data when
 many subgroups are involved.
 
-Now let's practice using these functions.
-
 # Exercise 1.2 {-}
+
+Generate a summary table to show the average number of people observed at each of the three rivers.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+# Exercise 1.3 {-}
+
+Generate a summary table to show the average number of vehicles observed at each of the three wind levels.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Exercise 1.4 {-}
+Repeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+# Exercise 1.5 {-}
+
+Use the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?
+
+::: {#answer}
+
+:::
+
+
+Now let's practice using these functions using the TB data.
+
+# Exercise 1.6 {-}
 
 Using `table1`, compute rate of TB cases per 10,000 and the total cases per year
 
-```{r}
-table1 |>
-  mutate(rate = cases / population * 10000)
-```
+::: {#answer}
 
 ```{r}
-table1 |> 
-  group_by(year) |> 
-  summarize(total_cases = sum(cases))
+# your code goes here
 ```
 
-# Exercise 1.3 {-}
+:::
+
+
+# Exercise 1.7 {-}
+
+Generate a summary table to show the total cases in each country. Your table should have 6 rows.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Exercise 1.8 {-}
 
 For `table2`, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. 
 
 a) Extract the number of TB cases per country per year.
 
+::: {#answer}
+
+
+:::
+
 b) Extract the matching population per country per year.
+
+::: {#answer}
+
+
+:::
 
 c) Divide cases by population, and multiply by 10000.
 
+::: {#answer}
+
+
+:::
+
 d) Store back in the appropriate place.
 
-
-# Dataset *diamonds*
-We will now use the built in dataset on diamond price and measurements for some more exercises. See`?diamonds` more information.
-
-# Exercise 1.4 {-}
-
-Outliers are observations that are unusual; data points that don’t seem to fit the pattern. Sometimes outliers are data entry errors, sometimes they are simply values at the extremes that happened to be observed in this data collection, and other times they suggest important new discoveries. 
-
-Describe the distribution of the `y` variable from the diamonds dataset.
-
-```{r}
-ggplot(diamonds) +
-  aes(x = y) +
-  geom_histogram(binwidth = 0.5)
-```
-
-The only evidence of outliers is the unusually wide limits on the x-axis.
-
-There are so many observations in the common bins that the rare bins are very short, making it very difficult to see them (although maybe if you stare intently at 0 you’ll spot something). We can change the `binwidth=` to help with this. We can also zoom in on the y axis using `coord_cartesian()`.
-
-```{r}
-ggplot(diamonds) + 
-  aes(x = y) +
-  geom_histogram(binwidth = 0.5) +
-  coord_cartesian(ylim = c(0, 50)) # also has an xlim() option
-```
-
-# Exercise 1.5 {-}
-
-Make a new dataset that includes these unusual values using dplyr.
-
-```{r}
-unusual <- diamonds |> 
-  filter(y < 3 | y > 20) |> 
-  select(price, x, y, z) |>
-  arrange(y)
-unusual
-```
-
-# Exercise 1.6 {-}
-
-How many diamonds are 0.99 carat? How many are 1 carat? What do you think is the cause of the difference?
-
-```{r}
-# your code goes here
-```
-
-# Exercise 1.7 {-}
-What does `na.rm = TRUE` do in mean() and sum()?
-
-```{r}
-# your code goes here
-```
-
-# Tidying data
-
-Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.
-
-The `billboard` dataset records the billboard rank of songs in the year 2000:
-
-```{r}
-billboard
-```
-
-In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).
-
-# Exercise 1.8 {-}
-Use `pivot_longer()` to tidy this data
-
-```{r}
-# your code goes here
-```
+::: {#answer}
 
 
+:::
 
-## Combining datasets
-Two tables can be connected through a pair of keys, within each table.
 
-Every join involves a pair of keys: a primary key and a foreign key. A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound key. 
-
-There are four types of joins, we will illustrate them using a simple example:
-
-First lets make some data:
-```{r}
-df1 <- tibble(x = c(1, 2), y = 2:1)
-df2 <- tibble(x = c(3, 1), a = 10, b = "a")
-```
-
-Now join the two datasets using the different join functions:
-
-```{r}
-df1 %>% inner_join(df2) 
-```
-
-```{r}
-df1 %>% left_join(df2)
-```
-
-```{r}
-df1 %>% right_join(df2)
-df2 %>% left_join(df1)
-```
-
-```{r}
-df1 %>% full_join(df2)
-```
-
-What are the differences between the join functions?
-
-# Specifying join keys
-
-By default, left_join() will use all variables that appear in both data frames as the join key, but it doesn’t always work.
-
-For example lets look at some airline data:
-
-```{r}
-library(nycflights13) # data package
-
-flights2 <- flights |> 
-  select(year, time_hour, origin, dest, tailnum, carrier)
-flights2
-
-planes
-```
-
-We are going to try to going flight data to data about types of planes
-
-```{r}
-flights2 |> 
-  left_join(planes)
-
-```
-
-We get a lot of missing matches because our join is trying to use tailnum and year as a compound key. Both flights and planes have a year column but they mean different things: `flights$year` is the year the flight occurred and `planes$year` is the year the plane was built.
-
-Since these represent different types of data and we might want to keep both, we can be explicit about how to join the two data tables:
-
-```{r}
-flights2 |> 
-  left_join(planes, join_by(tailnum))
-```
-
-Now by default there is a year.x and year.y coming from the flights and planes data respectively. You can change this using the `suffix` argument in join or by renaming the columns after the join.
 
 # Exercise 1.9 {-}
-Imagine you’ve found the top 10 most popular destinations using this code:
-```{r}
-top_dest <- flights2 |>
-  count(dest, sort = TRUE) |>
-  head(10)
-```
+What does `na.rm = TRUE` do in the functions mean() and sum()?
 
-How can you find all flights to those destinations?
+::: {#answer}
 
 ```{r}
 # your code goes here
 ```
 
+:::
+
 # Exercise 1.10 {-}
-What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
 
+What does the function `na.omit()` do? Why would you add it to a piping sequence of code when tidying data?
 
-# case_when()
-Sometimes you want to add a new variable to your data based on existing variables. 
-
-dplyr’s case_when() is inspired by SQL’s CASE statement and provides a flexible way of performing different computations for different conditions. It has a special syntax that unfortunately looks like nothing else you’ll use in the tidyverse. It takes pairs that look like condition ~ output. condition must be a logical vector; when it’s TRUE, output will be used.
-
-This can take the place of if_else() statements.
-
-For example:
-```{r}
-flights |> 
-  mutate(
-    status = case_when( # make a new variable status based on the flights arrival delay
-      is.na(arr_delay)      ~ "cancelled",
-      arr_delay < -30       ~ "very early",
-      arr_delay < -15       ~ "early",
-      abs(arr_delay) <= 15  ~ "on time",
-      arr_delay < 60        ~ "late",
-      arr_delay < Inf       ~ "very late",
-    ),
-    .keep = "used"
-  )
-```
-
-# Exercise 1.11 {-}
-
-Write a case_when() statement that uses the month and day columns from flights to label a selection of important US holidays (e.g., New Years Day, 4th of July, Thanksgiving, and Christmas). First create a logical column that is either TRUE or FALSE, and then create a character column that either gives the name of the holiday or is NA.
+::: {#answer}
 
 ```{r}
-
+# your code goes here
 ```
+
+:::
 
