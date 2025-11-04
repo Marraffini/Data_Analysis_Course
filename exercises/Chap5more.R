@@ -1,5 +1,24 @@
 # Chapter 5 examples
 
+# making tables -----------------------------------------------------------
+
+library(carData)
+# data on migraine treatments collected by Tammy Kostecki-Dillon
+help("KosteckiDillon")
+data(KosteckiDillon)
+
+## simple table
+table(KosteckiDillon$sex, KosteckiDillon$headache)
+
+## ---- mosaic plot-------------------------
+tab <- table(KosteckiDillon$sex, KosteckiDillon$headache)
+mosaicplot(tab, main="sex*headache counts", ylab="headache")
+
+## ----Association  plot-----------------------
+library(vcd)
+assoc(tab, shade=TRUE, legend=TRUE) 
+
+
 library(tidyverse)
 names(diamonds)
 
