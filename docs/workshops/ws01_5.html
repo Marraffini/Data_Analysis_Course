@@ -131,6 +131,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="../workshops/ws01.html" rel="" target="" aria-current="page">
  <span class="menu-text">Workshops</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data/" rel="" target="">
+ <span class="menu-text">Data</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-code" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Extra Code</span>
@@ -204,43 +208,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 2 Workshop</span></a>
+ <span class="menu-text">Exploratory Data Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 3 Workshop</span></a>
+ <span class="menu-text">Probability Concepts and Distributions</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 4 Workshop</span></a>
+ <span class="menu-text">Statistical Inference</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 5 Workshop</span></a>
+ <span class="menu-text">Tabulated Counts</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws06.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 6 Workshop</span></a>
+ <span class="menu-text">Models with a singular predictor</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 7 Workshop</span></a>
+ <span class="menu-text">Models with Multiple Predictors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 8 Workshop</span></a>
+ <span class="menu-text">ANOVA and ANCOVA</span></a>
   </div>
 </li>
     </ul>
@@ -255,7 +259,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#tidyr" id="toc-tidyr" class="nav-link active" data-scroll-target="#tidyr"><code>tidyr</code></a></li>
   <li><a href="#introduction-to-the-tidyverse" id="toc-introduction-to-the-tidyverse" class="nav-link" data-scroll-target="#introduction-to-the-tidyverse">Introduction to the tidyverse</a></li>
-  <li><a href="#datset" id="toc-datset" class="nav-link" data-scroll-target="#datset">Datset</a>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset">Dataset</a>
   <ul class="collapse">
   <li><a href="#exercise-1.1" id="toc-exercise-1.1" class="nav-link" data-scroll-target="#exercise-1.1">Exercise 1.1</a></li>
   </ul></li>
@@ -315,8 +319,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 </section>
-<section id="datset" class="level1">
-<h1>Datset</h1>
+<section id="dataset" class="level1">
+<h1>Dataset</h1>
 <p>For this workshop we will use some tidyverse built in datasets. Each dataset below shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way. Take a look at these datasets by typing their names into a code chunk or directly into the console. You can also try your hand at the functions <code>head()</code> and <code>summary()</code>.</p>
 <div class="cell">
 <details open="">
@@ -1042,7 +1046,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   </div>
   <div class="nav-page nav-page-next">
       <a href="../workshops/ws02.html" class="pagination-link">
-        <span class="nav-page-text">Chapter 2 Workshop</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">Exploratory Data Analysis</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
@@ -1074,7 +1078,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
 <span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="fu"># Datset</span></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset</span></span>
 <span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>For this workshop we will use some tidyverse built in datasets. Each dataset below shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way. Take a look at these datasets by typing their names into a code chunk or directly into the console. You can also try your hand at the functions <span class="in">`head()`</span> and <span class="in">`summary()`</span>. </span>
 <span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>

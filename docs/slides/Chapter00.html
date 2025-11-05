@@ -786,65 +786,7 @@ If you have not installed R and R studio on your computer please see the resourc
 6 1980    6      3      8     28     31     20     30</code></pre>
 </div>
 </div>
-<p>This format is also called <code>wide format</code> which can be made into a tidy <code>long format</code>.</p>
-</section>
-<section id="tidying-data-example-cont." class="slide level2">
-<h2>Tidying data example (cont.)</h2>
-<p>We can use the <code>dplyr</code> function <code>pivot_longer()</code> to change this data into <code>long format</code>. Try-</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1"></a>hospital <span class="sc">|&gt;</span> </span>
-<span id="cb34-2"><a href="#cb34-2"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> NORTH1<span class="sc">:</span>SOUTH3, </span>
-<span id="cb34-3"><a href="#cb34-3"></a>               <span class="at">names_to =</span> <span class="st">"location"</span>, </span>
-<span id="cb34-4"><a href="#cb34-4"></a>               <span class="at">values_to =</span> <span class="st">"Admissions"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The command <code>pivot_wider()</code> does the opposite to <code>pivot_longer()</code></p>
-</section>
-<section id="joining-data" class="slide level2">
-<h2>Joining data</h2>
-<p>Sometimes you may want to analyse information that is in multiple tables.</p>
-<p>We will introduce a series of functions for joining tables together.</p>
-</section>
-<section id="joining-data-example" class="slide level2">
-<h2>Joining data: Example</h2>
-<p>For example, consider the flights and airlines data from the nycflights13 package.</p>
-<p>In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names.</p>
-<p>You can use a join to add the carrier names to the flight data:</p>
-<div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1"></a><span class="fu">library</span>(nycflights13)</span>
-<span id="cb35-2"><a href="#cb35-2"></a><span class="co"># Drop unimportant variables so it's easier to understand the join results.</span></span>
-<span id="cb35-3"><a href="#cb35-3"></a>flights2 <span class="ot">&lt;-</span> flights <span class="sc">%&gt;%</span> <span class="fu">select</span>(year<span class="sc">:</span>day, hour, origin, dest, tailnum, carrier)</span>
-<span id="cb35-4"><a href="#cb35-4"></a></span>
-<span id="cb35-5"><a href="#cb35-5"></a>flights2 <span class="sc">%&gt;%</span> </span>
-<span id="cb35-6"><a href="#cb35-6"></a>  <span class="fu">left_join</span>(airlines)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code># A tibble: 336,776 × 9
-    year month   day  hour origin dest  tailnum carrier name                    
-   &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;chr&gt;  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt;   &lt;chr&gt;                   
- 1  2013     1     1     5 EWR    IAH   N14228  UA      United Air Lines Inc.   
- 2  2013     1     1     5 LGA    IAH   N24211  UA      United Air Lines Inc.   
- 3  2013     1     1     5 JFK    MIA   N619AA  AA      American Airlines Inc.  
- 4  2013     1     1     5 JFK    BQN   N804JB  B6      JetBlue Airways         
- 5  2013     1     1     6 LGA    ATL   N668DN  DL      Delta Air Lines Inc.    
- 6  2013     1     1     5 EWR    ORD   N39463  UA      United Air Lines Inc.   
- 7  2013     1     1     6 EWR    FLL   N516JB  B6      JetBlue Airways         
- 8  2013     1     1     6 LGA    IAD   N829AS  EV      ExpressJet Airlines Inc.
- 9  2013     1     1     6 JFK    MCO   N593JB  B6      JetBlue Airways         
-10  2013     1     1     6 LGA    ORD   N3ALAA  AA      American Airlines Inc.  
-# ℹ 336,766 more rows</code></pre>
-</div>
-</div>
-<p>As well as x and y, each mutating join takes an argument <code>by</code> that controls which variables are used to match observations in the two tables.</p>
-</section>
-<section id="types-of-join" class="slide level2">
-<h2>Types of join</h2>
-<p>There are four types of mutating join, which differ in their behaviour when a match is not found.</p>
-<ul>
-<li><p><code>inner_join(x, y)</code> only includes observations that match in both x and y.</p></li>
-<li><p><code>left_join(x, y)</code> includes all observations in <code>x</code>, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table.</p></li>
-<li><p><code>right_join(x, y)</code> includes all observations in <code>y</code>. It’s equivalent to <code>left_join(y, x)</code>, but the columns and rows will be ordered differently.</p></li>
-<li><p><code>full_join()</code> includes all observations from x and y.</p></li>
-</ul>
-<p>The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.</p>
+<p>This format is also called <code>wide format</code> which can be made into a tidy <code>long format</code>. We will discuss this more later in the course.</p>
 </section>
 <section id="importance-of-data-quality-control-process" class="slide level2">
 <h2>Importance of Data Quality Control Process</h2>
@@ -906,26 +848,26 @@ If you have not installed R and R studio on your computer please see the resourc
 <h2>Data Quality Checks: Example</h2>
 <p>It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from <a href="https://rs.figshare.com/ndownloader/files/22850096" class="uri">https://rs.figshare.com/ndownloader/files/22850096</a></p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://rs.figshare.com/ndownloader/files/22850096"</span></span>
-<span id="cb42-2"><a href="#cb42-2"></a>destfile <span class="ot">&lt;-</span> <span class="st">"rsos192136_si_001.xlsx"</span></span>
-<span id="cb42-3"><a href="#cb42-3"></a></span>
-<span id="cb42-4"><a href="#cb42-4"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1"></a>url <span class="ot">&lt;-</span> <span class="st">"https://rs.figshare.com/ndownloader/files/22850096"</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>destfile <span class="ot">&lt;-</span> <span class="st">"rsos192136_si_001.xlsx"</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a></span>
+<span id="cb39-4"><a href="#cb39-4"></a>curl<span class="sc">::</span><span class="fu">curl_download</span>(url, destfile)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb43-2"><a href="#cb43-2"></a>rsos192136_si_001 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rsos192136_si_001.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb40-2"><a href="#cb40-2"></a>rsos192136_si_001 <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"rsos192136_si_001.xlsx"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a><span class="fu">library</span>(VIM)</span>
-<span id="cb44-2"><a href="#cb44-2"></a></span>
-<span id="cb44-3"><a href="#cb44-3"></a>res <span class="ot">&lt;-</span> rsos192136_si_001 <span class="sc">|&gt;</span> </span>
-<span id="cb44-4"><a href="#cb44-4"></a>  <span class="fu">aggr</span>(<span class="at">sortVar=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb44-5"><a href="#cb44-5"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb44-6"><a href="#cb44-6"></a>  <span class="fu">pluck</span>(<span class="st">"combinations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1"></a><span class="fu">library</span>(VIM)</span>
+<span id="cb41-2"><a href="#cb41-2"></a></span>
+<span id="cb41-3"><a href="#cb41-3"></a>res <span class="ot">&lt;-</span> rsos192136_si_001 <span class="sc">|&gt;</span> </span>
+<span id="cb41-4"><a href="#cb41-4"></a>  <span class="fu">aggr</span>(<span class="at">sortVar=</span><span class="cn">TRUE</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb41-5"><a href="#cb41-5"></a>  <span class="fu">summary</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb41-6"><a href="#cb41-6"></a>  <span class="fu">pluck</span>(<span class="st">"combinations"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-30-1.png" width="576" class="r-stretch quarto-figure-center"></section>
+<img data-src="Chapter00_files/figure-revealjs/unnamed-chunk-28-1.png" width="576" class="r-stretch quarto-figure-center"></section>
 <section id="missing-data-1" class="slide level2 unnumbered">
 <h2>Missing Data</h2>
 <p>Imputation of data can be made except for the case of MCAR type. A number of R packages are available for data imputation; see <a href="https://cran.r-project.org/web/views/MissingData.html" class="uri">https://cran.r-project.org/web/views/MissingData.html</a> or <a href="https://stefvanbuuren.name/fimd/" class="uri">https://stefvanbuuren.name/fimd/</a>. We may occasionally cover data imputation issue in an assignment question.</p>

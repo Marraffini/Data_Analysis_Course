@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>161250 Data Analysis - Chapter 6 Workshop</title>
+<title>161250 Data Analysis - Models with a singular predictor</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -133,6 +133,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="../workshops/ws01.html" rel="" target="" aria-current="page">
  <span class="menu-text">Workshops</span></a>
   </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../data/" rel="" target="">
+ <span class="menu-text">Data</span></a>
+  </li>  
   <li class="nav-item dropdown ">
     <a class="nav-link dropdown-toggle" href="#" id="nav-menu-extra-code" role="button" data-bs-toggle="dropdown" aria-expanded="false" rel="" target="">
  <span class="menu-text">Extra Code</span>
@@ -179,7 +183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../workshops/ws06.html">Chapter 6 Workshop</a></li></ol></nav>
+      <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../workshops/ws06.html">Models with a singular predictor</a></li></ol></nav>
       <a class="flex-grow-1" role="button" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar,#quarto-sidebar-glass" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
       </a>
     </div>
@@ -206,43 +210,43 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws02.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 2 Workshop</span></a>
+ <span class="menu-text">Exploratory Data Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws03.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 3 Workshop</span></a>
+ <span class="menu-text">Probability Concepts and Distributions</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws04.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 4 Workshop</span></a>
+ <span class="menu-text">Statistical Inference</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws05.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 5 Workshop</span></a>
+ <span class="menu-text">Tabulated Counts</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws06.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Chapter 6 Workshop</span></a>
+ <span class="menu-text">Models with a singular predictor</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws07.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 7 Workshop</span></a>
+ <span class="menu-text">Models with Multiple Predictors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../workshops/ws08.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Chapter 8 Workshop</span></a>
+ <span class="menu-text">ANOVA and ANCOVA</span></a>
   </div>
 </li>
     </ul>
@@ -282,7 +286,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<div class="quarto-title-block"><div><h1 class="title">Chapter 6 Workshop</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
+<div class="quarto-title-block"><div><h1 class="title">Models with a singular predictor</h1><button type="button" class="btn code-tools-button dropdown-toggle" id="quarto-code-tools-menu" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi"></i> Code</button><ul class="dropdown-menu dropdown-menu-end" aria-labelelledby="quarto-code-tools-menu"><li><a id="quarto-show-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Show All Code</a></li><li><a id="quarto-hide-all-code" class="dropdown-item" href="javascript:void(0)" role="button">Hide All Code</a></li><li><hr class="dropdown-divider"></li><li><a id="quarto-view-source" class="dropdown-item" href="javascript:void(0)" role="button">View Source</a></li></ul></div></div>
 </div>
 
 
@@ -334,7 +338,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> degC, <span class="at">y =</span> chirps) <span class="sc">+</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
@@ -347,7 +351,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> degC, <span class="at">y =</span> chirps) <span class="sc">+</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -361,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> degC, <span class="at">y =</span> chirps) <span class="sc">+</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
@@ -1314,17 +1318,17 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <nav class="page-navigation">
   <div class="nav-page nav-page-previous">
       <a href="../workshops/ws05.html" class="pagination-link">
-        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Chapter 5 Workshop</span>
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Tabulated Counts</span>
       </a>          
   </div>
   <div class="nav-page nav-page-next">
       <a href="../workshops/ws07.html" class="pagination-link">
-        <span class="nav-page-text">Chapter 7 Workshop</span> <i class="bi bi-arrow-right-short"></i>
+        <span class="nav-page-text">Models with Multiple Predictors</span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="">
 <div class="sourceCode" id="cb48" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Chapter 6 Workshop"</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> "Models with a singular predictor"</span></span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
 <span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, echo=FALSE, message=FALSE}</span></span>
@@ -1368,7 +1372,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb48-49"><a href="#cb48-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb48-50"><a href="#cb48-50" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
 <span id="cb48-51"><a href="#cb48-51" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb48-52"><a href="#cb48-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> degC, <span class="at">y =</span> chirps) <span class="sc">+</span></span>
 <span id="cb48-53"><a href="#cb48-53" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
 <span id="cb48-54"><a href="#cb48-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-55"><a href="#cb48-55" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
@@ -1378,7 +1382,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb48-61"><a href="#cb48-61" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb48-62"><a href="#cb48-62" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
 <span id="cb48-63"><a href="#cb48-63" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-64"><a href="#cb48-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb48-64"><a href="#cb48-64" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> degC, <span class="at">y =</span> chirps) <span class="sc">+</span></span>
 <span id="cb48-65"><a href="#cb48-65" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb48-66"><a href="#cb48-66" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
 <span id="cb48-67"><a href="#cb48-67" aria-hidden="true" tabindex="-1"></a></span>
@@ -1389,300 +1393,301 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb48-74"><a href="#cb48-74" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
 <span id="cb48-75"><a href="#cb48-75" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
 <span id="cb48-76"><a href="#cb48-76" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-77"><a href="#cb48-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb48-77"><a href="#cb48-77" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x =</span> degC, <span class="at">y =</span> chirps) <span class="sc">+</span></span>
 <span id="cb48-78"><a href="#cb48-78" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
 <span id="cb48-79"><a href="#cb48-79" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">'lm'</span>)</span>
 <span id="cb48-80"><a href="#cb48-80" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-81"><a href="#cb48-81" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-82"><a href="#cb48-82" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear model</span></span>
-<span id="cb48-83"><a href="#cb48-83" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-84"><a href="#cb48-84" aria-hidden="true" tabindex="-1"></a>Now let’s fit a linear model and print it. (Just typing an object’s name is the same as applying the function <span class="in">`print`</span>.)</span>
-<span id="cb48-85"><a href="#cb48-85" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-86"><a href="#cb48-86" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fitting linear model</span></span>
-<span id="cb48-87"><a href="#cb48-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-90"><a href="#cb48-90" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-91"><a href="#cb48-91" aria-hidden="true" tabindex="-1"></a>chm <span class="ot">&lt;-</span> <span class="fu">lm</span>(chirps <span class="sc">~</span> degC, <span class="at">data =</span> ch)</span>
-<span id="cb48-92"><a href="#cb48-92" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-93"><a href="#cb48-93" aria-hidden="true" tabindex="-1"></a>chm</span>
-<span id="cb48-94"><a href="#cb48-94" aria-hidden="true" tabindex="-1"></a><span class="co"># or print(chm)</span></span>
-<span id="cb48-95"><a href="#cb48-95" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-96"><a href="#cb48-96" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-97"><a href="#cb48-97" aria-hidden="true" tabindex="-1"></a>This object contains a lot of information, but just printing it doesn’t show us all of it. Each object in R has a 'class', which you can reveal like so. </span>
-<span id="cb48-98"><a href="#cb48-98" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-99"><a href="#cb48-99" aria-hidden="true" tabindex="-1"></a><span class="fu">### Class</span></span>
-<span id="cb48-100"><a href="#cb48-100" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-103"><a href="#cb48-103" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-104"><a href="#cb48-104" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(chm)</span>
-<span id="cb48-105"><a href="#cb48-105" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-106"><a href="#cb48-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-82"><a href="#cb48-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-83"><a href="#cb48-83" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear model</span></span>
+<span id="cb48-84"><a href="#cb48-84" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-85"><a href="#cb48-85" aria-hidden="true" tabindex="-1"></a>Now let’s fit a linear model and print it. (Just typing an object’s name is the same as applying the function <span class="in">`print`</span>.)</span>
+<span id="cb48-86"><a href="#cb48-86" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-87"><a href="#cb48-87" aria-hidden="true" tabindex="-1"></a><span class="fu">### Fitting linear model</span></span>
+<span id="cb48-88"><a href="#cb48-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-91"><a href="#cb48-91" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-92"><a href="#cb48-92" aria-hidden="true" tabindex="-1"></a>chm <span class="ot">&lt;-</span> <span class="fu">lm</span>(chirps <span class="sc">~</span> degC, <span class="at">data =</span> ch)</span>
+<span id="cb48-93"><a href="#cb48-93" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-94"><a href="#cb48-94" aria-hidden="true" tabindex="-1"></a>chm</span>
+<span id="cb48-95"><a href="#cb48-95" aria-hidden="true" tabindex="-1"></a><span class="co"># or print(chm)</span></span>
+<span id="cb48-96"><a href="#cb48-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-97"><a href="#cb48-97" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-98"><a href="#cb48-98" aria-hidden="true" tabindex="-1"></a>This object contains a lot of information, but just printing it doesn’t show us all of it. Each object in R has a 'class', which you can reveal like so. </span>
+<span id="cb48-99"><a href="#cb48-99" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-100"><a href="#cb48-100" aria-hidden="true" tabindex="-1"></a><span class="fu">### Class</span></span>
+<span id="cb48-101"><a href="#cb48-101" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-104"><a href="#cb48-104" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-105"><a href="#cb48-105" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(chm)</span>
+<span id="cb48-106"><a href="#cb48-106" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-107"><a href="#cb48-107" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-108"><a href="#cb48-108" aria-hidden="true" tabindex="-1"></a>The model object created by the function <span class="in">`lm()`</span> has class <span class="in">`lm`</span>. If you <span class="in">`unclass()`</span> this object, you will see all the information it contains. </span>
-<span id="cb48-109"><a href="#cb48-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-112"><a href="#cb48-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-113"><a href="#cb48-113" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(chm)</span>
-<span id="cb48-114"><a href="#cb48-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-115"><a href="#cb48-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-116"><a href="#cb48-116" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attributes</span></span>
-<span id="cb48-117"><a href="#cb48-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-118"><a href="#cb48-118" aria-hidden="true" tabindex="-1"></a>Big compound objects such as a <span class="in">`lm`</span> are often organised into sections called "attributes", which you can view with this function. </span>
-<span id="cb48-121"><a href="#cb48-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-122"><a href="#cb48-122" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(chm)</span>
-<span id="cb48-123"><a href="#cb48-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-124"><a href="#cb48-124" aria-hidden="true" tabindex="-1"></a>The attributes under the section "names" can be accessed using the dollar (<span class="in">`$`</span>) notation, and often with specific formulae. You can read what each of these represent in the help file of <span class="in">`lm`</span> (<span class="in">`?lm`</span>). Many of them aren’t that useful, but the following ones certainly are. </span>
-<span id="cb48-125"><a href="#cb48-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-128"><a href="#cb48-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-129"><a href="#cb48-129" aria-hidden="true" tabindex="-1"></a>chm<span class="sc">$</span>coefficients</span>
-<span id="cb48-130"><a href="#cb48-130" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-131"><a href="#cb48-131" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
-<span id="cb48-132"><a href="#cb48-132" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-133"><a href="#cb48-133" aria-hidden="true" tabindex="-1"></a><span class="co"># coef(chm)</span></span>
-<span id="cb48-134"><a href="#cb48-134" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-135"><a href="#cb48-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-136"><a href="#cb48-136" aria-hidden="true" tabindex="-1"></a>This shows us $a$ and $b$, the sample estimates of the population parameters, $\alpha$ and $\beta$. The model we have fit to this dataset is thus $Y = 6.47 + 0.38X$. </span>
-<span id="cb48-137"><a href="#cb48-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-138"><a href="#cb48-138" aria-hidden="true" tabindex="-1"></a>We can also extract the fitted values and residuals for the model.</span>
-<span id="cb48-139"><a href="#cb48-139" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-142"><a href="#cb48-142" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-143"><a href="#cb48-143" aria-hidden="true" tabindex="-1"></a>chm<span class="sc">$</span>fitted.values</span>
-<span id="cb48-144"><a href="#cb48-144" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-145"><a href="#cb48-145" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
-<span id="cb48-146"><a href="#cb48-146" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-147"><a href="#cb48-147" aria-hidden="true" tabindex="-1"></a><span class="co"># fitted(chm)</span></span>
-<span id="cb48-148"><a href="#cb48-148" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-149"><a href="#cb48-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-152"><a href="#cb48-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-153"><a href="#cb48-153" aria-hidden="true" tabindex="-1"></a><span class="fu">resid</span>(chm)</span>
-<span id="cb48-154"><a href="#cb48-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-155"><a href="#cb48-155" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary of a linear model</span></span>
-<span id="cb48-156"><a href="#cb48-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-157"><a href="#cb48-157" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`summary()`</span> shows us a useful display of the most important information from the model.</span>
-<span id="cb48-158"><a href="#cb48-158" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-161"><a href="#cb48-161" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-162"><a href="#cb48-162" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chm)</span>
-<span id="cb48-163"><a href="#cb48-163" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-164"><a href="#cb48-164" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-165"><a href="#cb48-165" aria-hidden="true" tabindex="-1"></a>This presents a summary of the residuals; the estimates, standard errors, and t-tests for the coefficients $\alpha$ and $\beta$; the residual standard error; the coefficient of determination; and the F-test. We can see that the p-values for the F-test and the t-test for the regression coefficient ($\beta$) are the same: we can conclude that temperature has a highly significant effect on the frequency of chirps, accounting for around 70% of the variation. For every degree increase in temperature, the number of chirps per second is expected to increase by 0.38.</span>
-<span id="cb48-166"><a href="#cb48-166" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-167"><a href="#cb48-167" aria-hidden="true" tabindex="-1"></a>We cannot just stop there, however. We need to examine the model and check the assumptions. </span>
-<span id="cb48-168"><a href="#cb48-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-169"><a href="#cb48-169" aria-hidden="true" tabindex="-1"></a>Plot the data again, this time with a linear regression line. </span>
-<span id="cb48-170"><a href="#cb48-170" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-173"><a href="#cb48-173" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-174"><a href="#cb48-174" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
-<span id="cb48-175"><a href="#cb48-175" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-176"><a href="#cb48-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
-<span id="cb48-177"><a href="#cb48-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb48-178"><a href="#cb48-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(</span>
-<span id="cb48-179"><a href="#cb48-179" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept =</span> <span class="fl">6.47246</span>,</span>
-<span id="cb48-180"><a href="#cb48-180" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope =</span> <span class="fl">0.38146</span></span>
-<span id="cb48-181"><a href="#cb48-181" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb48-182"><a href="#cb48-182" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-183"><a href="#cb48-183" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-184"><a href="#cb48-184" aria-hidden="true" tabindex="-1"></a>We can also use the function <span class="in">`predict()`</span> to extract the fitted values, with confidence or prediction intervals for each data point. </span>
-<span id="cb48-185"><a href="#cb48-185" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-188"><a href="#cb48-188" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-189"><a href="#cb48-189" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(chm, <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
-<span id="cb48-190"><a href="#cb48-190" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-191"><a href="#cb48-191" aria-hidden="true" tabindex="-1"></a>This gives the predictions for each of the original data points, along with and interval in which the mean prediction lies with 95% confidence (i.e., if we took many many samples and fit a regression model to each, 95% of so-constructed confidence intervals will include the true mean of $Y$ for this value of $X$).</span>
-<span id="cb48-192"><a href="#cb48-192" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-193"><a href="#cb48-193" aria-hidden="true" tabindex="-1"></a>This is not to be confused with a "prediction" interval, which is expected to contain 95% of the actual values of $Y$ for this value of $X$, rather than the mean value. They are thus wider than confidence intervals.</span>
-<span id="cb48-194"><a href="#cb48-194" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-197"><a href="#cb48-197" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-198"><a href="#cb48-198" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(chm, <span class="at">interval=</span><span class="st">"prediction"</span>)</span>
-<span id="cb48-199"><a href="#cb48-199" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-200"><a href="#cb48-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-108"><a href="#cb48-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-109"><a href="#cb48-109" aria-hidden="true" tabindex="-1"></a>The model object created by the function <span class="in">`lm()`</span> has class <span class="in">`lm`</span>. If you <span class="in">`unclass()`</span> this object, you will see all the information it contains. </span>
+<span id="cb48-110"><a href="#cb48-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-113"><a href="#cb48-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-114"><a href="#cb48-114" aria-hidden="true" tabindex="-1"></a><span class="fu">unclass</span>(chm)</span>
+<span id="cb48-115"><a href="#cb48-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-116"><a href="#cb48-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-117"><a href="#cb48-117" aria-hidden="true" tabindex="-1"></a><span class="fu">### Attributes</span></span>
+<span id="cb48-118"><a href="#cb48-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-119"><a href="#cb48-119" aria-hidden="true" tabindex="-1"></a>Big compound objects such as a <span class="in">`lm`</span> are often organised into sections called "attributes", which you can view with this function. </span>
+<span id="cb48-122"><a href="#cb48-122" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-123"><a href="#cb48-123" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(chm)</span>
+<span id="cb48-124"><a href="#cb48-124" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-125"><a href="#cb48-125" aria-hidden="true" tabindex="-1"></a>The attributes under the section "names" can be accessed using the dollar (<span class="in">`$`</span>) notation, and often with specific formulae. You can read what each of these represent in the help file of <span class="in">`lm`</span> (<span class="in">`?lm`</span>). Many of them aren’t that useful, but the following ones certainly are. </span>
+<span id="cb48-126"><a href="#cb48-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-129"><a href="#cb48-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-130"><a href="#cb48-130" aria-hidden="true" tabindex="-1"></a>chm<span class="sc">$</span>coefficients</span>
+<span id="cb48-131"><a href="#cb48-131" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-132"><a href="#cb48-132" aria-hidden="true" tabindex="-1"></a><span class="co"># or </span></span>
+<span id="cb48-133"><a href="#cb48-133" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-134"><a href="#cb48-134" aria-hidden="true" tabindex="-1"></a><span class="co"># coef(chm)</span></span>
+<span id="cb48-135"><a href="#cb48-135" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-136"><a href="#cb48-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-137"><a href="#cb48-137" aria-hidden="true" tabindex="-1"></a>This shows us $a$ and $b$, the sample estimates of the population parameters, $\alpha$ and $\beta$. The model we have fit to this dataset is thus $Y = 6.47 + 0.38X$. </span>
+<span id="cb48-138"><a href="#cb48-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-139"><a href="#cb48-139" aria-hidden="true" tabindex="-1"></a>We can also extract the fitted values and residuals for the model.</span>
+<span id="cb48-140"><a href="#cb48-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-143"><a href="#cb48-143" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-144"><a href="#cb48-144" aria-hidden="true" tabindex="-1"></a>chm<span class="sc">$</span>fitted.values</span>
+<span id="cb48-145"><a href="#cb48-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-146"><a href="#cb48-146" aria-hidden="true" tabindex="-1"></a><span class="co"># or</span></span>
+<span id="cb48-147"><a href="#cb48-147" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-148"><a href="#cb48-148" aria-hidden="true" tabindex="-1"></a><span class="co"># fitted(chm)</span></span>
+<span id="cb48-149"><a href="#cb48-149" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-150"><a href="#cb48-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-153"><a href="#cb48-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-154"><a href="#cb48-154" aria-hidden="true" tabindex="-1"></a><span class="fu">resid</span>(chm)</span>
+<span id="cb48-155"><a href="#cb48-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-156"><a href="#cb48-156" aria-hidden="true" tabindex="-1"></a><span class="fu">### Summary of a linear model</span></span>
+<span id="cb48-157"><a href="#cb48-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-158"><a href="#cb48-158" aria-hidden="true" tabindex="-1"></a>The function <span class="in">`summary()`</span> shows us a useful display of the most important information from the model.</span>
+<span id="cb48-159"><a href="#cb48-159" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-162"><a href="#cb48-162" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-163"><a href="#cb48-163" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chm)</span>
+<span id="cb48-164"><a href="#cb48-164" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-165"><a href="#cb48-165" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-166"><a href="#cb48-166" aria-hidden="true" tabindex="-1"></a>This presents a summary of the residuals; the estimates, standard errors, and t-tests for the coefficients $\alpha$ and $\beta$; the residual standard error; the coefficient of determination; and the F-test. We can see that the p-values for the F-test and the t-test for the regression coefficient ($\beta$) are the same: we can conclude that temperature has a highly significant effect on the frequency of chirps, accounting for around 70% of the variation. For every degree increase in temperature, the number of chirps per second is expected to increase by 0.38.</span>
+<span id="cb48-167"><a href="#cb48-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-168"><a href="#cb48-168" aria-hidden="true" tabindex="-1"></a>We cannot just stop there, however. We need to examine the model and check the assumptions. </span>
+<span id="cb48-169"><a href="#cb48-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-170"><a href="#cb48-170" aria-hidden="true" tabindex="-1"></a>Plot the data again, this time with a linear regression line. </span>
+<span id="cb48-171"><a href="#cb48-171" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-174"><a href="#cb48-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-175"><a href="#cb48-175" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
+<span id="cb48-176"><a href="#cb48-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb48-177"><a href="#cb48-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb48-178"><a href="#cb48-178" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb48-179"><a href="#cb48-179" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_abline</span>(</span>
+<span id="cb48-180"><a href="#cb48-180" aria-hidden="true" tabindex="-1"></a>    <span class="at">intercept =</span> <span class="fl">6.47246</span>,</span>
+<span id="cb48-181"><a href="#cb48-181" aria-hidden="true" tabindex="-1"></a>    <span class="at">slope =</span> <span class="fl">0.38146</span></span>
+<span id="cb48-182"><a href="#cb48-182" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb48-183"><a href="#cb48-183" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-184"><a href="#cb48-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-185"><a href="#cb48-185" aria-hidden="true" tabindex="-1"></a>We can also use the function <span class="in">`predict()`</span> to extract the fitted values, with confidence or prediction intervals for each data point. </span>
+<span id="cb48-186"><a href="#cb48-186" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-189"><a href="#cb48-189" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-190"><a href="#cb48-190" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(chm, <span class="at">interval=</span><span class="st">"confidence"</span>)</span>
+<span id="cb48-191"><a href="#cb48-191" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-192"><a href="#cb48-192" aria-hidden="true" tabindex="-1"></a>This gives the predictions for each of the original data points, along with and interval in which the mean prediction lies with 95% confidence (i.e., if we took many many samples and fit a regression model to each, 95% of so-constructed confidence intervals will include the true mean of $Y$ for this value of $X$).</span>
+<span id="cb48-193"><a href="#cb48-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-194"><a href="#cb48-194" aria-hidden="true" tabindex="-1"></a>This is not to be confused with a "prediction" interval, which is expected to contain 95% of the actual values of $Y$ for this value of $X$, rather than the mean value. They are thus wider than confidence intervals.</span>
+<span id="cb48-195"><a href="#cb48-195" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-198"><a href="#cb48-198" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-199"><a href="#cb48-199" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(chm, <span class="at">interval=</span><span class="st">"prediction"</span>)</span>
+<span id="cb48-200"><a href="#cb48-200" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-201"><a href="#cb48-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-202"><a href="#cb48-202" aria-hidden="true" tabindex="-1"></a>:::{.callout-important}</span>
-<span id="cb48-203"><a href="#cb48-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-204"><a href="#cb48-204" aria-hidden="true" tabindex="-1"></a><span class="fu">### The distinction between confidence and prediction intervals </span></span>
-<span id="cb48-205"><a href="#cb48-205" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-206"><a href="#cb48-206" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 95% confidence interval refers to a mean. It is an interval in which the mean of Y, for a given value of X, is expected to lie with 95% confidence. </span>
-<span id="cb48-207"><a href="#cb48-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-208"><a href="#cb48-208" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 95% prediction interval is an interval in which 95% of Y values are expected to lie for a given value of X. Prediction intervals are broader than confidence intervals.</span>
-<span id="cb48-209"><a href="#cb48-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-210"><a href="#cb48-210" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb48-211"><a href="#cb48-211" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-212"><a href="#cb48-212" aria-hidden="true" tabindex="-1"></a><span class="fu">### Predicting for new data</span></span>
-<span id="cb48-213"><a href="#cb48-213" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-214"><a href="#cb48-214" aria-hidden="true" tabindex="-1"></a>You can also use the model to make predictions for new values of $X$. To do this, first create a data frame object with a column of the same name as the $X$ variable used in the model (i.e., <span class="in">`degC`</span>), and then enter this object as the newdata argument for the predict function.</span>
-<span id="cb48-215"><a href="#cb48-215" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-218"><a href="#cb48-218" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-219"><a href="#cb48-219" aria-hidden="true" tabindex="-1"></a>newdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">degC =</span> <span class="dv">20</span><span class="sc">:</span><span class="dv">34</span>)</span>
-<span id="cb48-220"><a href="#cb48-220" aria-hidden="true" tabindex="-1"></a>prednew <span class="ot">&lt;-</span> <span class="fu">predict</span>(chm, <span class="at">newdata =</span> newdat, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span>
-<span id="cb48-221"><a href="#cb48-221" aria-hidden="true" tabindex="-1"></a>prednew</span>
-<span id="cb48-222"><a href="#cb48-222" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-223"><a href="#cb48-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-224"><a href="#cb48-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-202"><a href="#cb48-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-203"><a href="#cb48-203" aria-hidden="true" tabindex="-1"></a>:::{.callout-important}</span>
+<span id="cb48-204"><a href="#cb48-204" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-205"><a href="#cb48-205" aria-hidden="true" tabindex="-1"></a><span class="fu">### The distinction between confidence and prediction intervals </span></span>
+<span id="cb48-206"><a href="#cb48-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-207"><a href="#cb48-207" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 95% confidence interval refers to a mean. It is an interval in which the mean of Y, for a given value of X, is expected to lie with 95% confidence. </span>
+<span id="cb48-208"><a href="#cb48-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-209"><a href="#cb48-209" aria-hidden="true" tabindex="-1"></a><span class="ss">- </span>A 95% prediction interval is an interval in which 95% of Y values are expected to lie for a given value of X. Prediction intervals are broader than confidence intervals.</span>
+<span id="cb48-210"><a href="#cb48-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-211"><a href="#cb48-211" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb48-212"><a href="#cb48-212" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-213"><a href="#cb48-213" aria-hidden="true" tabindex="-1"></a><span class="fu">### Predicting for new data</span></span>
+<span id="cb48-214"><a href="#cb48-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-215"><a href="#cb48-215" aria-hidden="true" tabindex="-1"></a>You can also use the model to make predictions for new values of $X$. To do this, first create a data frame object with a column of the same name as the $X$ variable used in the model (i.e., <span class="in">`degC`</span>), and then enter this object as the newdata argument for the predict function.</span>
+<span id="cb48-216"><a href="#cb48-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-219"><a href="#cb48-219" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-220"><a href="#cb48-220" aria-hidden="true" tabindex="-1"></a>newdat <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">degC =</span> <span class="dv">20</span><span class="sc">:</span><span class="dv">34</span>)</span>
+<span id="cb48-221"><a href="#cb48-221" aria-hidden="true" tabindex="-1"></a>prednew <span class="ot">&lt;-</span> <span class="fu">predict</span>(chm, <span class="at">newdata =</span> newdat, <span class="at">interval =</span> <span class="st">"confidence"</span>)</span>
+<span id="cb48-222"><a href="#cb48-222" aria-hidden="true" tabindex="-1"></a>prednew</span>
+<span id="cb48-223"><a href="#cb48-223" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-224"><a href="#cb48-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-225"><a href="#cb48-225" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-226"><a href="#cb48-226" aria-hidden="true" tabindex="-1"></a>These correspond to the predicted means and confidence intervals for $Y$, for $X$ values of 20 to 34.</span>
-<span id="cb48-227"><a href="#cb48-227" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-228"><a href="#cb48-228" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plotting confidence intervals</span></span>
-<span id="cb48-229"><a href="#cb48-229" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-230"><a href="#cb48-230" aria-hidden="true" tabindex="-1"></a>We can automatically plot confidence intervals for a linear fit like so:</span>
-<span id="cb48-231"><a href="#cb48-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-226"><a href="#cb48-226" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-227"><a href="#cb48-227" aria-hidden="true" tabindex="-1"></a>These correspond to the predicted means and confidence intervals for $Y$, for $X$ values of 20 to 34.</span>
+<span id="cb48-228"><a href="#cb48-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-229"><a href="#cb48-229" aria-hidden="true" tabindex="-1"></a><span class="fu">### Plotting confidence intervals</span></span>
+<span id="cb48-230"><a href="#cb48-230" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-231"><a href="#cb48-231" aria-hidden="true" tabindex="-1"></a>We can automatically plot confidence intervals for a linear fit like so:</span>
 <span id="cb48-232"><a href="#cb48-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-235"><a href="#cb48-235" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-236"><a href="#cb48-236" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
-<span id="cb48-237"><a href="#cb48-237" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-238"><a href="#cb48-238" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
-<span id="cb48-239"><a href="#cb48-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb48-240"><a href="#cb48-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
-<span id="cb48-241"><a href="#cb48-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-242"><a href="#cb48-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-243"><a href="#cb48-243" aria-hidden="true" tabindex="-1"></a>Or with the <span class="in">`visreg`</span> package.</span>
-<span id="cb48-244"><a href="#cb48-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-247"><a href="#cb48-247" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-248"><a href="#cb48-248" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
-<span id="cb48-249"><a href="#cb48-249" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-250"><a href="#cb48-250" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(chm, <span class="at">gg=</span>T)</span>
-<span id="cb48-251"><a href="#cb48-251" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-252"><a href="#cb48-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-253"><a href="#cb48-253" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-254"><a href="#cb48-254" aria-hidden="true" tabindex="-1"></a>Note that the mean is most certain (i.e., the interval is tighter) around the centre of the data and less so around the extremes.</span>
-<span id="cb48-255"><a href="#cb48-255" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-256"><a href="#cb48-256" aria-hidden="true" tabindex="-1"></a><span class="fu">### Residual plots</span></span>
-<span id="cb48-257"><a href="#cb48-257" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-258"><a href="#cb48-258" aria-hidden="true" tabindex="-1"></a>The linear regression model looks like it provides a reasonable fit to the data. We should just check the residuals though.</span>
-<span id="cb48-259"><a href="#cb48-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-262"><a href="#cb48-262" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-263"><a href="#cb48-263" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-264"><a href="#cb48-264" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(chm<span class="sc">$</span>fitted.values, chm<span class="sc">$</span>residuals) <span class="sc">+</span></span>
-<span id="cb48-265"><a href="#cb48-265" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb48-266"><a href="#cb48-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)</span>
-<span id="cb48-267"><a href="#cb48-267" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-268"><a href="#cb48-268" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-269"><a href="#cb48-269" aria-hidden="true" tabindex="-1"></a>Remember, you want a ***complete mess*** in your residual plot—no pattern is good pattern. We generally look for two things: heteroscedasticity and trend. We can see in the plot above that the residuals appear to have quite a constant variance, so no worries about the heteroscedasticity there. However, there is a hint of a trend—there are more points above zero at low and high fitted values, and more below the line at middle fitted values. This is not too severe, but it warrants further consideration.</span>
-<span id="cb48-270"><a href="#cb48-270" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-271"><a href="#cb48-271" aria-hidden="true" tabindex="-1"></a>Using the function <span class="in">`plot()`</span> on an <span class="in">`lm`</span> object gives four very useful diagnostic graphs. You can read about them in the help file by entering the following.</span>
-<span id="cb48-272"><a href="#cb48-272" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-275"><a href="#cb48-275" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-276"><a href="#cb48-276" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chm)</span>
-<span id="cb48-277"><a href="#cb48-277" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-278"><a href="#cb48-278" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-279"><a href="#cb48-279" aria-hidden="true" tabindex="-1"></a>:::{.callout-tip}</span>
-<span id="cb48-280"><a href="#cb48-280" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-281"><a href="#cb48-281" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interpreting R’s diagnostic plots</span></span>
-<span id="cb48-282"><a href="#cb48-282" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-283"><a href="#cb48-283" aria-hidden="true" tabindex="-1"></a>The diagnostic plots are designed to inform the user of any departure from the assumptions of a linear model. </span>
-<span id="cb48-284"><a href="#cb48-284" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-285"><a href="#cb48-285" aria-hidden="true" tabindex="-1"></a>The **Residuals vs Fitted** plot shows the regular residuals, i.e., the difference between the observed and fitted values on the y-axis plotted against the fitted values on the x-axis. Ideally, this would show a complete trend-less mess. Here, there is a little curvature on the plot, which may concern us a little. </span>
-<span id="cb48-286"><a href="#cb48-286" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-287"><a href="#cb48-287" aria-hidden="true" tabindex="-1"></a>The **Normal Q-Q plot** compares the residuals with their expected values if they were normally distributed. When lots of points lie away from this line, then there is evidence that the residuals are non-normally distributed, which violates an assumption of linear models. Here, they look pretty good. A little departure from the line at the very ends is common, and no cause for great concern.</span>
-<span id="cb48-288"><a href="#cb48-288" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-289"><a href="#cb48-289" aria-hidden="true" tabindex="-1"></a>The **Scale-Location** plot shows the square-root of the standardised residuals (i.e. divided by their standard deviation) against the predicted values. This can be used to look for heteroscedasticity—changes in the variance of the residuals for different fitted values—which is also an assumption of linear models. Ideally, there would be no trend in these points and the red line would be perfectly horizontal. It doesn’t look bad here.</span>
-<span id="cb48-290"><a href="#cb48-290" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-291"><a href="#cb48-291" aria-hidden="true" tabindex="-1"></a>Finally, the **Residuals vs Leverage** plot shows the standardised residuals against Leverage. The leverage measures the potential influence a point has given the extremeness of its values for the predictor variable. If a point has large leverage and a large residual, then it will have large influence, meaning that it is having a large effect on the estimated parameters. So, this plot is useful for identifying outliers and influential points. Any points that are outside the red dashed lines have high values of Cook’s D reflecting a large influence on the estimates a and b, and are therefore potentially cause for concern. So, ideally, there would be no points outside the dashed lines.</span>
-<span id="cb48-292"><a href="#cb48-292" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-293"><a href="#cb48-293" aria-hidden="true" tabindex="-1"></a>:::</span>
-<span id="cb48-294"><a href="#cb48-294" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-295"><a href="#cb48-295" aria-hidden="true" tabindex="-1"></a>The only problem we can see in the diagnostic plots is in the residuals-vs-fitted one, where there’s a bit of curvature, as identified by the red smoother line. Otherwise, the residuals are fairly normal (Q-Q) and with constant variance (scale-location). </span>
-<span id="cb48-296"><a href="#cb48-296" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-297"><a href="#cb48-297" aria-hidden="true" tabindex="-1"></a>From the plots above, it looks like there may be little effect of temperature on chirps below, say, 23 degrees. Let’s fit this model again, this time removing the three data points below this temperature.</span>
-<span id="cb48-298"><a href="#cb48-298" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-301"><a href="#cb48-301" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-302"><a href="#cb48-302" aria-hidden="true" tabindex="-1"></a>chmsub <span class="ot">&lt;-</span> <span class="fu">lm</span>(chirps <span class="sc">~</span> degC, <span class="at">data=</span>ch, <span class="at">subset =</span> degC <span class="sc">&gt;</span> <span class="dv">23</span>)</span>
-<span id="cb48-303"><a href="#cb48-303" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-304"><a href="#cb48-304" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chmsub)</span>
-<span id="cb48-305"><a href="#cb48-305" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-306"><a href="#cb48-306" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-307"><a href="#cb48-307" aria-hidden="true" tabindex="-1"></a>We now see that if we exclude those points, thus restricting our model to only those times where the temperature is greater than 23°C, we now explain 81% of the variation. The estimated per-degree increase in chirping has gone from 0.38 to 0.57, indicating a much stronger effect.</span>
-<span id="cb48-308"><a href="#cb48-308" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-309"><a href="#cb48-309" aria-hidden="true" tabindex="-1"></a>Let’s have a look at the diagnostic plots.</span>
-<span id="cb48-310"><a href="#cb48-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-313"><a href="#cb48-313" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-314"><a href="#cb48-314" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chmsub)</span>
-<span id="cb48-315"><a href="#cb48-315" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-316"><a href="#cb48-316" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-317"><a href="#cb48-317" aria-hidden="true" tabindex="-1"></a>The residuals seem to be a bit better behaved now. Certainly the trend identified in the previous model has disappeared. The smoother lines might look a little wild at first glance, but this is probably just because the dataset is small. I see no real cause for concern.</span>
-<span id="cb48-318"><a href="#cb48-318" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-319"><a href="#cb48-319" aria-hidden="true" tabindex="-1"></a>Now plot the new model with confidence intervals. </span>
-<span id="cb48-320"><a href="#cb48-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-233"><a href="#cb48-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-236"><a href="#cb48-236" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-237"><a href="#cb48-237" aria-hidden="true" tabindex="-1"></a>ch <span class="sc">|&gt;</span> </span>
+<span id="cb48-238"><a href="#cb48-238" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb48-239"><a href="#cb48-239" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb48-240"><a href="#cb48-240" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb48-241"><a href="#cb48-241" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>)</span>
+<span id="cb48-242"><a href="#cb48-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-243"><a href="#cb48-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-244"><a href="#cb48-244" aria-hidden="true" tabindex="-1"></a>Or with the <span class="in">`visreg`</span> package.</span>
+<span id="cb48-245"><a href="#cb48-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-248"><a href="#cb48-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-249"><a href="#cb48-249" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
+<span id="cb48-250"><a href="#cb48-250" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-251"><a href="#cb48-251" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(chm, <span class="at">gg=</span>T)</span>
+<span id="cb48-252"><a href="#cb48-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-253"><a href="#cb48-253" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-254"><a href="#cb48-254" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-255"><a href="#cb48-255" aria-hidden="true" tabindex="-1"></a>Note that the mean is most certain (i.e., the interval is tighter) around the centre of the data and less so around the extremes.</span>
+<span id="cb48-256"><a href="#cb48-256" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-257"><a href="#cb48-257" aria-hidden="true" tabindex="-1"></a><span class="fu">### Residual plots</span></span>
+<span id="cb48-258"><a href="#cb48-258" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-259"><a href="#cb48-259" aria-hidden="true" tabindex="-1"></a>The linear regression model looks like it provides a reasonable fit to the data. We should just check the residuals though.</span>
+<span id="cb48-260"><a href="#cb48-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-263"><a href="#cb48-263" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-264"><a href="#cb48-264" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb48-265"><a href="#cb48-265" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(chm<span class="sc">$</span>fitted.values, chm<span class="sc">$</span>residuals) <span class="sc">+</span></span>
+<span id="cb48-266"><a href="#cb48-266" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb48-267"><a href="#cb48-267" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>)</span>
+<span id="cb48-268"><a href="#cb48-268" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-269"><a href="#cb48-269" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-270"><a href="#cb48-270" aria-hidden="true" tabindex="-1"></a>Remember, you want a ***complete mess*** in your residual plot—no pattern is good pattern. We generally look for two things: heteroscedasticity and trend. We can see in the plot above that the residuals appear to have quite a constant variance, so no worries about the heteroscedasticity there. However, there is a hint of a trend—there are more points above zero at low and high fitted values, and more below the line at middle fitted values. This is not too severe, but it warrants further consideration.</span>
+<span id="cb48-271"><a href="#cb48-271" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-272"><a href="#cb48-272" aria-hidden="true" tabindex="-1"></a>Using the function <span class="in">`plot()`</span> on an <span class="in">`lm`</span> object gives four very useful diagnostic graphs. You can read about them in the help file by entering the following.</span>
+<span id="cb48-273"><a href="#cb48-273" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-276"><a href="#cb48-276" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-277"><a href="#cb48-277" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chm)</span>
+<span id="cb48-278"><a href="#cb48-278" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-279"><a href="#cb48-279" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-280"><a href="#cb48-280" aria-hidden="true" tabindex="-1"></a>:::{.callout-tip}</span>
+<span id="cb48-281"><a href="#cb48-281" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-282"><a href="#cb48-282" aria-hidden="true" tabindex="-1"></a><span class="fu">### Interpreting R’s diagnostic plots</span></span>
+<span id="cb48-283"><a href="#cb48-283" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-284"><a href="#cb48-284" aria-hidden="true" tabindex="-1"></a>The diagnostic plots are designed to inform the user of any departure from the assumptions of a linear model. </span>
+<span id="cb48-285"><a href="#cb48-285" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-286"><a href="#cb48-286" aria-hidden="true" tabindex="-1"></a>The **Residuals vs Fitted** plot shows the regular residuals, i.e., the difference between the observed and fitted values on the y-axis plotted against the fitted values on the x-axis. Ideally, this would show a complete trend-less mess. Here, there is a little curvature on the plot, which may concern us a little. </span>
+<span id="cb48-287"><a href="#cb48-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-288"><a href="#cb48-288" aria-hidden="true" tabindex="-1"></a>The **Normal Q-Q plot** compares the residuals with their expected values if they were normally distributed. When lots of points lie away from this line, then there is evidence that the residuals are non-normally distributed, which violates an assumption of linear models. Here, they look pretty good. A little departure from the line at the very ends is common, and no cause for great concern.</span>
+<span id="cb48-289"><a href="#cb48-289" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-290"><a href="#cb48-290" aria-hidden="true" tabindex="-1"></a>The **Scale-Location** plot shows the square-root of the standardised residuals (i.e. divided by their standard deviation) against the predicted values. This can be used to look for heteroscedasticity—changes in the variance of the residuals for different fitted values—which is also an assumption of linear models. Ideally, there would be no trend in these points and the red line would be perfectly horizontal. It doesn’t look bad here.</span>
+<span id="cb48-291"><a href="#cb48-291" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-292"><a href="#cb48-292" aria-hidden="true" tabindex="-1"></a>Finally, the **Residuals vs Leverage** plot shows the standardised residuals against Leverage. The leverage measures the potential influence a point has given the extremeness of its values for the predictor variable. If a point has large leverage and a large residual, then it will have large influence, meaning that it is having a large effect on the estimated parameters. So, this plot is useful for identifying outliers and influential points. Any points that are outside the red dashed lines have high values of Cook’s D reflecting a large influence on the estimates a and b, and are therefore potentially cause for concern. So, ideally, there would be no points outside the dashed lines.</span>
+<span id="cb48-293"><a href="#cb48-293" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-294"><a href="#cb48-294" aria-hidden="true" tabindex="-1"></a>:::</span>
+<span id="cb48-295"><a href="#cb48-295" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-296"><a href="#cb48-296" aria-hidden="true" tabindex="-1"></a>The only problem we can see in the diagnostic plots is in the residuals-vs-fitted one, where there’s a bit of curvature, as identified by the red smoother line. Otherwise, the residuals are fairly normal (Q-Q) and with constant variance (scale-location). </span>
+<span id="cb48-297"><a href="#cb48-297" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-298"><a href="#cb48-298" aria-hidden="true" tabindex="-1"></a>From the plots above, it looks like there may be little effect of temperature on chirps below, say, 23 degrees. Let’s fit this model again, this time removing the three data points below this temperature.</span>
+<span id="cb48-299"><a href="#cb48-299" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-302"><a href="#cb48-302" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-303"><a href="#cb48-303" aria-hidden="true" tabindex="-1"></a>chmsub <span class="ot">&lt;-</span> <span class="fu">lm</span>(chirps <span class="sc">~</span> degC, <span class="at">data=</span>ch, <span class="at">subset =</span> degC <span class="sc">&gt;</span> <span class="dv">23</span>)</span>
+<span id="cb48-304"><a href="#cb48-304" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-305"><a href="#cb48-305" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(chmsub)</span>
+<span id="cb48-306"><a href="#cb48-306" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-307"><a href="#cb48-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-308"><a href="#cb48-308" aria-hidden="true" tabindex="-1"></a>We now see that if we exclude those points, thus restricting our model to only those times where the temperature is greater than 23°C, we now explain 81% of the variation. The estimated per-degree increase in chirping has gone from 0.38 to 0.57, indicating a much stronger effect.</span>
+<span id="cb48-309"><a href="#cb48-309" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-310"><a href="#cb48-310" aria-hidden="true" tabindex="-1"></a>Let’s have a look at the diagnostic plots.</span>
+<span id="cb48-311"><a href="#cb48-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-314"><a href="#cb48-314" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-315"><a href="#cb48-315" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(chmsub)</span>
+<span id="cb48-316"><a href="#cb48-316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-317"><a href="#cb48-317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-318"><a href="#cb48-318" aria-hidden="true" tabindex="-1"></a>The residuals seem to be a bit better behaved now. Certainly the trend identified in the previous model has disappeared. The smoother lines might look a little wild at first glance, but this is probably just because the dataset is small. I see no real cause for concern.</span>
+<span id="cb48-319"><a href="#cb48-319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-320"><a href="#cb48-320" aria-hidden="true" tabindex="-1"></a>Now plot the new model with confidence intervals. </span>
 <span id="cb48-321"><a href="#cb48-321" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-324"><a href="#cb48-324" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-325"><a href="#cb48-325" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-326"><a href="#cb48-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
-<span id="cb48-327"><a href="#cb48-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
-<span id="cb48-328"><a href="#cb48-328" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ch, </span>
-<span id="cb48-329"><a href="#cb48-329" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">colour =</span> degC <span class="sc">&gt;</span> <span class="dv">23</span>)</span>
-<span id="cb48-330"><a href="#cb48-330" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
-<span id="cb48-331"><a href="#cb48-331" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
-<span id="cb48-332"><a href="#cb48-332" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>, </span>
-<span id="cb48-333"><a href="#cb48-333" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ch <span class="sc">|&gt;</span> <span class="fu">filter</span>(degC <span class="sc">&gt;</span> <span class="dv">23</span>),</span>
-<span id="cb48-334"><a href="#cb48-334" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="dv">1</span></span>
-<span id="cb48-335"><a href="#cb48-335" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb48-336"><a href="#cb48-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-337"><a href="#cb48-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-338"><a href="#cb48-338" aria-hidden="true" tabindex="-1"></a>This looks like a much better model overall. Perhaps we can conclude that above approximately 23 degrees, chirping increases linearly with temperature.</span>
-<span id="cb48-339"><a href="#cb48-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-340"><a href="#cb48-340" aria-hidden="true" tabindex="-1"></a>It is important to note that subsetting the data in this way changes the inference space to which the model applies. The <span class="in">`chmsub`</span> model should not be used to predict chirps for temperatures less than 23°C (or greater than 34°C, for that matter). **A model should only be used within the range of values spanned by the data used to create it.** Beyond this range, it will very likely be wrong. Our exclusion of the sub-23° data therefore further restricts the range of values for which this model may be used.</span>
-<span id="cb48-341"><a href="#cb48-341" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-322"><a href="#cb48-322" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-325"><a href="#cb48-325" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-326"><a href="#cb48-326" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb48-327"><a href="#cb48-327" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(degC, chirps) <span class="sc">+</span></span>
+<span id="cb48-328"><a href="#cb48-328" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(</span>
+<span id="cb48-329"><a href="#cb48-329" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ch, </span>
+<span id="cb48-330"><a href="#cb48-330" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(<span class="at">colour =</span> degC <span class="sc">&gt;</span> <span class="dv">23</span>)</span>
+<span id="cb48-331"><a href="#cb48-331" aria-hidden="true" tabindex="-1"></a>    ) <span class="sc">+</span></span>
+<span id="cb48-332"><a href="#cb48-332" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(</span>
+<span id="cb48-333"><a href="#cb48-333" aria-hidden="true" tabindex="-1"></a>    <span class="at">method =</span> <span class="st">"lm"</span>, </span>
+<span id="cb48-334"><a href="#cb48-334" aria-hidden="true" tabindex="-1"></a>    <span class="at">data =</span> ch <span class="sc">|&gt;</span> <span class="fu">filter</span>(degC <span class="sc">&gt;</span> <span class="dv">23</span>),</span>
+<span id="cb48-335"><a href="#cb48-335" aria-hidden="true" tabindex="-1"></a>    <span class="at">colour =</span> <span class="dv">1</span></span>
+<span id="cb48-336"><a href="#cb48-336" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb48-337"><a href="#cb48-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-338"><a href="#cb48-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-339"><a href="#cb48-339" aria-hidden="true" tabindex="-1"></a>This looks like a much better model overall. Perhaps we can conclude that above approximately 23 degrees, chirping increases linearly with temperature.</span>
+<span id="cb48-340"><a href="#cb48-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-341"><a href="#cb48-341" aria-hidden="true" tabindex="-1"></a>It is important to note that subsetting the data in this way changes the inference space to which the model applies. The <span class="in">`chmsub`</span> model should not be used to predict chirps for temperatures less than 23°C (or greater than 34°C, for that matter). **A model should only be used within the range of values spanned by the data used to create it.** Beyond this range, it will very likely be wrong. Our exclusion of the sub-23° data therefore further restricts the range of values for which this model may be used.</span>
 <span id="cb48-342"><a href="#cb48-342" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-343"><a href="#cb48-343" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset **`Prestige`**</span></span>
-<span id="cb48-344"><a href="#cb48-344" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-345"><a href="#cb48-345" aria-hidden="true" tabindex="-1"></a>We will continue to use dataset <span class="in">`Prestige`</span> from the <span class="in">`car`</span>   R package. </span>
-<span id="cb48-346"><a href="#cb48-346" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear model</span></span>
-<span id="cb48-347"><a href="#cb48-347" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-348"><a href="#cb48-348" aria-hidden="true" tabindex="-1"></a>Fit a linear model of <span class="in">`prestige`</span> against <span class="in">`education`</span>. Show the fitted line on a scatterplot of <span class="in">`prestige ~ education`</span>. Check the assumptions using diagnostic plots.</span>
-<span id="cb48-349"><a href="#cb48-349" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-352"><a href="#cb48-352" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-353"><a href="#cb48-353" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb48-354"><a href="#cb48-354" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Prestige"</span>)</span>
-<span id="cb48-355"><a href="#cb48-355" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-356"><a href="#cb48-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-343"><a href="#cb48-343" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-344"><a href="#cb48-344" aria-hidden="true" tabindex="-1"></a><span class="fu"># Dataset **`Prestige`**</span></span>
+<span id="cb48-345"><a href="#cb48-345" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-346"><a href="#cb48-346" aria-hidden="true" tabindex="-1"></a>We will continue to use dataset <span class="in">`Prestige`</span> from the <span class="in">`car`</span>   R package. </span>
+<span id="cb48-347"><a href="#cb48-347" aria-hidden="true" tabindex="-1"></a><span class="fu">## Linear model</span></span>
+<span id="cb48-348"><a href="#cb48-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-349"><a href="#cb48-349" aria-hidden="true" tabindex="-1"></a>Fit a linear model of <span class="in">`prestige`</span> against <span class="in">`education`</span>. Show the fitted line on a scatterplot of <span class="in">`prestige ~ education`</span>. Check the assumptions using diagnostic plots.</span>
+<span id="cb48-350"><a href="#cb48-350" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-353"><a href="#cb48-353" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-354"><a href="#cb48-354" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb48-355"><a href="#cb48-355" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">"Prestige"</span>)</span>
+<span id="cb48-356"><a href="#cb48-356" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-357"><a href="#cb48-357" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-360"><a href="#cb48-360" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-361"><a href="#cb48-361" aria-hidden="true" tabindex="-1"></a>lmp <span class="ot">&lt;-</span> <span class="fu">lm</span>(prestige <span class="sc">~</span> education, <span class="at">data =</span> Prestige)</span>
-<span id="cb48-362"><a href="#cb48-362" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-363"><a href="#cb48-363" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmp)</span>
-<span id="cb48-364"><a href="#cb48-364" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-365"><a href="#cb48-365" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-366"><a href="#cb48-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-358"><a href="#cb48-358" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-361"><a href="#cb48-361" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-362"><a href="#cb48-362" aria-hidden="true" tabindex="-1"></a>lmp <span class="ot">&lt;-</span> <span class="fu">lm</span>(prestige <span class="sc">~</span> education, <span class="at">data =</span> Prestige)</span>
+<span id="cb48-363"><a href="#cb48-363" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-364"><a href="#cb48-364" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lmp)</span>
+<span id="cb48-365"><a href="#cb48-365" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-366"><a href="#cb48-366" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-367"><a href="#cb48-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-370"><a href="#cb48-370" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-371"><a href="#cb48-371" aria-hidden="true" tabindex="-1"></a>PrestigeReg <span class="ot">&lt;-</span> Prestige <span class="sc">|&gt;</span> </span>
-<span id="cb48-372"><a href="#cb48-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb48-373"><a href="#cb48-373" aria-hidden="true" tabindex="-1"></a>    <span class="at">Residuals =</span> <span class="fu">residuals</span>(lmp), </span>
-<span id="cb48-374"><a href="#cb48-374" aria-hidden="true" tabindex="-1"></a>    <span class="at">Fits =</span> <span class="fu">fitted</span>(lmp)</span>
-<span id="cb48-375"><a href="#cb48-375" aria-hidden="true" tabindex="-1"></a>    )</span>
-<span id="cb48-376"><a href="#cb48-376" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-377"><a href="#cb48-377" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-368"><a href="#cb48-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-371"><a href="#cb48-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-372"><a href="#cb48-372" aria-hidden="true" tabindex="-1"></a>PrestigeReg <span class="ot">&lt;-</span> Prestige <span class="sc">|&gt;</span> </span>
+<span id="cb48-373"><a href="#cb48-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb48-374"><a href="#cb48-374" aria-hidden="true" tabindex="-1"></a>    <span class="at">Residuals =</span> <span class="fu">residuals</span>(lmp), </span>
+<span id="cb48-375"><a href="#cb48-375" aria-hidden="true" tabindex="-1"></a>    <span class="at">Fits =</span> <span class="fu">fitted</span>(lmp)</span>
+<span id="cb48-376"><a href="#cb48-376" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb48-377"><a href="#cb48-377" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-378"><a href="#cb48-378" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-381"><a href="#cb48-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-382"><a href="#cb48-382" aria-hidden="true" tabindex="-1"></a>PrestigeReg <span class="sc">|&gt;</span> </span>
-<span id="cb48-383"><a href="#cb48-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb48-384"><a href="#cb48-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>education, <span class="at">y=</span>prestige) <span class="sc">+</span> </span>
-<span id="cb48-385"><a href="#cb48-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
-<span id="cb48-386"><a href="#cb48-386" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>education, <span class="at">y=</span>Fits))</span>
-<span id="cb48-387"><a href="#cb48-387" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-388"><a href="#cb48-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-379"><a href="#cb48-379" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-382"><a href="#cb48-382" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-383"><a href="#cb48-383" aria-hidden="true" tabindex="-1"></a>PrestigeReg <span class="sc">|&gt;</span> </span>
+<span id="cb48-384"><a href="#cb48-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb48-385"><a href="#cb48-385" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aes</span>(<span class="at">x=</span>education, <span class="at">y=</span>prestige) <span class="sc">+</span> </span>
+<span id="cb48-386"><a href="#cb48-386" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span> </span>
+<span id="cb48-387"><a href="#cb48-387" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">x=</span>education, <span class="at">y=</span>Fits))</span>
+<span id="cb48-388"><a href="#cb48-388" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-389"><a href="#cb48-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-392"><a href="#cb48-392" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-393"><a href="#cb48-393" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lmp)</span>
-<span id="cb48-394"><a href="#cb48-394" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-395"><a href="#cb48-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-396"><a href="#cb48-396" aria-hidden="true" tabindex="-1"></a><span class="fu">## Robust regression</span></span>
-<span id="cb48-397"><a href="#cb48-397" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-398"><a href="#cb48-398" aria-hidden="true" tabindex="-1"></a>Fit a robust regression using a function in the <span class="in">`MASS`</span> package.</span>
-<span id="cb48-399"><a href="#cb48-399" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-400"><a href="#cb48-400" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show='hide',results='hide'}</span></span>
-<span id="cb48-401"><a href="#cb48-401" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
-<span id="cb48-402"><a href="#cb48-402" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb48-403"><a href="#cb48-403" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb48-404"><a href="#cb48-404" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-405"><a href="#cb48-405" aria-hidden="true" tabindex="-1"></a>rlmp <span class="ot">&lt;-</span> <span class="fu">rlm</span>(prestige <span class="sc">~</span> education, <span class="at">data =</span> Prestige)</span>
-<span id="cb48-406"><a href="#cb48-406" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-407"><a href="#cb48-407" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-408"><a href="#cb48-408" aria-hidden="true" tabindex="-1"></a>Plot using the <span class="in">`visreg`</span> package.</span>
-<span id="cb48-409"><a href="#cb48-409" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-412"><a href="#cb48-412" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb48-413"><a href="#cb48-413" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(rlmp)</span>
-<span id="cb48-414"><a href="#cb48-414" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb48-415"><a href="#cb48-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-390"><a href="#cb48-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-393"><a href="#cb48-393" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-394"><a href="#cb48-394" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lmp)</span>
+<span id="cb48-395"><a href="#cb48-395" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-396"><a href="#cb48-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-397"><a href="#cb48-397" aria-hidden="true" tabindex="-1"></a><span class="fu">## Robust regression</span></span>
+<span id="cb48-398"><a href="#cb48-398" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-399"><a href="#cb48-399" aria-hidden="true" tabindex="-1"></a>Fit a robust regression using a function in the <span class="in">`MASS`</span> package.</span>
+<span id="cb48-400"><a href="#cb48-400" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-401"><a href="#cb48-401" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, fig.show='hide',results='hide'}</span></span>
+<span id="cb48-402"><a href="#cb48-402" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(visreg)</span>
+<span id="cb48-403"><a href="#cb48-403" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb48-404"><a href="#cb48-404" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb48-405"><a href="#cb48-405" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-406"><a href="#cb48-406" aria-hidden="true" tabindex="-1"></a>rlmp <span class="ot">&lt;-</span> <span class="fu">rlm</span>(prestige <span class="sc">~</span> education, <span class="at">data =</span> Prestige)</span>
+<span id="cb48-407"><a href="#cb48-407" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb48-408"><a href="#cb48-408" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-409"><a href="#cb48-409" aria-hidden="true" tabindex="-1"></a>Plot using the <span class="in">`visreg`</span> package.</span>
+<span id="cb48-410"><a href="#cb48-410" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-413"><a href="#cb48-413" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb48-414"><a href="#cb48-414" aria-hidden="true" tabindex="-1"></a><span class="fu">visreg</span>(rlmp)</span>
+<span id="cb48-415"><a href="#cb48-415" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 <span id="cb48-416"><a href="#cb48-416" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-417"><a href="#cb48-417" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-418"><a href="#cb48-418" aria-hidden="true" tabindex="-1"></a>**Note:**</span>
-<span id="cb48-419"><a href="#cb48-419" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-420"><a href="#cb48-420" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>More R code examples are <span class="co">[</span><span class="ot">here</span><span class="co">](../exercises/Chap6more.R)</span></span>
+<span id="cb48-418"><a href="#cb48-418" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-419"><a href="#cb48-419" aria-hidden="true" tabindex="-1"></a>**Note:**</span>
+<span id="cb48-420"><a href="#cb48-420" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-421"><a href="#cb48-421" aria-hidden="true" tabindex="-1"></a><span class="ss">+ </span>More R code examples are <span class="co">[</span><span class="ot">here</span><span class="co">](../exercises/Chap6more.R)</span></span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
