@@ -45,7 +45,7 @@ b=2
 a/b
 ```
 
-# Exercise 1.1 {-}
+## Exercise 1.1 {-}
 There are many built-in functions. Try the following.
 
 `27^3` `sqrt(10)` `round(sqrt(10),2)` `abs(-4)` `log(10)` `exp(10)`
@@ -62,7 +62,8 @@ There are a few exceptions. The command `?if` wont work but `?"if"` will. In oth
 
 In RStudio, use the R Editor (menu *File > New Script*) to type the commands and submit them (shortcut: *CNTRL+R*).`
 
-# Exercise 1.2 {-}
+## Exercise 1.2 {-}
+
 Why does this code not work?
 ```{r}
 #| eval: false
@@ -72,14 +73,22 @@ my_varıable
 
 ```
 
-# Exercise 1.3 {-}
+::: {#answer}
+
+:::
+
+## Exercise 1.3 {-}
 Make a variable with a sequence of numbers between 1 and 10. Look up the function `seq()` in the help menu for tips.
+
+::: {#answer}
 
 ```{r}
 # your code goes here
 ```
 
-*Default examples*
+:::
+
+# *Default examples*
 
 The command `example()` will produce the available HELP examples, and will work for most functions. For example, try `example(boxplot)`. You will see many boxplot examples such as the following:
 
@@ -88,23 +97,29 @@ example("boxplot")
 ```
 
 
-# Exercise 1.4 {-}
+## Exercise 1.4 {-}
 Explore the help menu for the function `plot` Generic X-Y Plotting. What line of code can you use to access this file?
 
+::: {#answer}
+
 ```{r}
 # your code goes here
 ```
 
+:::
 
-# Exercise 1.5 {-}
+## Exercise 1.5 {-}
 Write code to generate an example of the function `plot` using a built in dataset `InsectSprays`. You can use `?InsectSprays` to find out more about this data.
 
+::: {#answer}
+
 ```{r}
 # your code goes here
 ```
 
+:::
 
-# Exercise 1.6 {-}
+## Exercise 1.6 {-}
 How would you generate a plot with lines for your data? Use the help menu to find the argument you might need to change and what you would change it to. Explain in words and then in code.
 
 ::: {#answer}
@@ -115,19 +130,19 @@ How would you generate a plot with lines for your data? Use the help menu to fin
 
 :::
 
-# Exercise 1.7 {-}
+## Exercise 1.7 {-}
 Use your answers to the previous three exercises to write a short description of what the function `plot` does. Include what information you need to put into the function and what you might expect it to return.
 
 ::: {#answer}
 
 :::
 
-## Libraries and packages
+# Libraries and packages
 
 So far we have seen base R. These are the built in functions available on R. Since R is a free computing resource people have developed additional functions which they package in a library. Majority of libraries are housed on CRAN and you can install them using the function `install.packages()`.
 
 
-# `tidyverse`
+## `tidyverse`
 So we will be largely using the `tidyverse` suite of packages; see <https://www.tidyverse.org/>.
 
 Let's load that package now:
@@ -160,9 +175,6 @@ You might have to install quite a few packages as you work through this course.
 
 # Loading/Importing Data {.unnumbered}
 
-Change this to load in data stored on their computer
-Can I have a folder of data on the github?
-
 If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., `mydata.csv` rather than `C:/Users/anhsmith/Work/Project1/data/mydata.csv`). Better yet, [Projects](https://r4ds.hadley.nz/workflow-scripts#projects) make this much easier.
 
 
@@ -188,14 +200,14 @@ Now the data are available in R as an object.
 glimpse(rangitikei)
 ```
 
-## File types
+# File types
 
 The above example uses a file that says .csv this is called a file extension. CSV stands for comma seperated values. The data is stored on the computer as a series of values (numbers or text) with commas in between. The file extension tells the computer how to read the document, it then puts each value in a cell of a table.
 
 Other common file types include .txt or .xlxs. Txt stands for a tab delineated file and xlxs are for files generated with excel. 
 
 
-# Exercise 1.8 {-}
+## Exercise 1.8 {-}
 In R you can use multiple functions to read in data including `read.csv`, `read_csv`, `read.table` and `read_excel`. `read_csv` is in the readr library and  `read_excel` is in the readxl library. Load these library, then explore the help menu for each of these four function, what are the differences?
 
 Note: that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them. Is there anything in the help menu you can do to help avoid this?
@@ -209,7 +221,7 @@ Note: that Excel files usually contain blanks for missing or unreported data or 
 :::
 
 
-# Exercise 1.9 {-}
+## Exercise 1.9 {-}
 Try importing the Telomeres data file (in Excel format)
 available at
 
@@ -252,19 +264,27 @@ The description of the variables is given below:
 `people` - number of people at that location and time\
 `vehicle`- number of vehicles at that location at that time\
 
-# Exercise 1.10 {-}
+## Exercise 1.10 {-}
 How many rows are in `my.data`? How many columns? How can you find that in R?
 
-```{r}
-
-```
-
-# Exercise 1.11 {-}
-Find the mean of `vehicle` and the median of `people` using built in R functions.
+::: {#answer}
 
 ```{r}
 # your code goes here
 ```
+
+:::
+
+## Exercise 1.11 {-}
+Find the mean of `vehicle` and the median of `people` using built in R functions.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
 
 
 One of the simplest manipulations on a batch of data we may do is to
@@ -296,7 +316,7 @@ The argument `col_types = "nfcc"` stands for \{`numeric`, `factor`, `character`,
 
 ## Quarto
 
-Demonstrate how to open a new Quarto document.
+Explore quarto documents by copying the code from the website and putting it into a new quarto document in your R. 
 
 
 

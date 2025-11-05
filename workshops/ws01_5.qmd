@@ -26,7 +26,7 @@ Remember if you have not installed it you will need to use `install.packages()` 
 library(tidyverse)
 ```
 
-# Datset
+# Dataset
 For this workshop we will use some tidyverse built in datasets. Each dataset below shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way. Take a look at these datasets by typing their names into a code chunk or directly into the console. You can also try your hand at the functions `head()` and `summary()`. 
 
 ```{r}
@@ -40,7 +40,7 @@ table3
 
 ```
 
-# Exercise 1.1 {-}
+## Exercise 1.1 {-}
 
 For each of the sample tables, describe what each observation and each column represents. Which is the most `tidy`?
 
@@ -49,7 +49,7 @@ For each of the sample tables, describe what each observation and each column re
 :::
 
 
-## Piping
+# Piping
 
 ::: {.callout-tip}
 
@@ -199,7 +199,7 @@ rangitikei |>
 The `count()` is useful to check the balanced nature of the data when
 many subgroups are involved.
 
-# Exercise 1.2 {-}
+## Exercise 1.2 {-}
 
 Generate a summary table to show the average number of people observed at each of the three rivers.
 
@@ -212,7 +212,7 @@ Generate a summary table to show the average number of people observed at each o
 :::
 
 
-# Exercise 1.3 {-}
+## Exercise 1.3 {-}
 
 Generate a summary table to show the average number of vehicles observed at each of the three wind levels.
 
@@ -224,7 +224,7 @@ Generate a summary table to show the average number of vehicles observed at each
 
 :::
 
-# Exercise 1.4 {-}
+## Exercise 1.4 {-}
 Repeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river.
 
 ::: {#answer}
@@ -234,7 +234,8 @@ Repeat the above exercise 1.2 but now calculate the median number of people and 
 ```
 
 :::
-# Exercise 1.5 {-}
+
+## Exercise 1.5 {-}
 
 Use the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?
 
@@ -245,7 +246,7 @@ Use the above three tables you generate to describe the Rangitikei dataset. What
 
 Now let's practice using these functions using the TB data.
 
-# Exercise 1.6 {-}
+## Exercise 1.6 {-}
 
 Using `table1`, compute rate of TB cases per 10,000 and the total cases per year
 
@@ -258,7 +259,7 @@ Using `table1`, compute rate of TB cases per 10,000 and the total cases per year
 :::
 
 
-# Exercise 1.7 {-}
+## Exercise 1.7 {-}
 
 Generate a summary table to show the total cases in each country. Your table should have 6 rows.
 
@@ -270,7 +271,7 @@ Generate a summary table to show the total cases in each country. Your table sho
 
 :::
 
-# Exercise 1.8 {-}
+## Exercise 1.8 {-}
 
 For `table2`, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. 
 
@@ -304,7 +305,7 @@ d) Store back in the appropriate place.
 
 
 
-# Exercise 1.9 {-}
+## Exercise 1.9 {-}
 What does `na.rm = TRUE` do in the functions mean() and sum()?
 
 ::: {#answer}
@@ -315,7 +316,7 @@ What does `na.rm = TRUE` do in the functions mean() and sum()?
 
 :::
 
-# Exercise 1.10 {-}
+## Exercise 1.10 {-}
 
 What does the function `na.omit()` do? Why would you add it to a piping sequence of code when tidying data?
 

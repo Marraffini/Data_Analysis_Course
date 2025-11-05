@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8 Workshop"
+title: "ANOVA and ANCOVA"
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -276,7 +276,7 @@ We will analyse a dataset (which I invented) from an experiment that manipulated
 ## Load data
 
 ```{r}
-oys <- read_csv("https://www.massey.ac.nz/~anhsmith/data/oystergrowth.csv")
+oys <- read_csv("../data/oystergrowth.csv")
 
 str(oys)
 ```
@@ -475,7 +475,7 @@ Here, we will use a dataset[^1] containing the weights of 40 goats before and af
 ## Load the data
  
 ```{r}
-goat <- read_table("https://www.massey.ac.nz/~anhsmith/data/goats.txt")
+goat <- read.csv("../data/goats.txt" , sep="")
 
 str(goat)
 ```

@@ -1,10 +1,292 @@
 ---
-title: "Chapter 5 Workshop"
+title: "Tabulated Counts"
 ---
 
 ```{r, echo=FALSE, message=FALSE}
 knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, comment=NA, fig.show="hide")
 ```
+
+# Summarising data
+
+```{r}
+library(tidyverse)
+my.tv.data <- read_csv(
+  "../data/tv.csv", 
+  col_types = "nfcc"
+  )
+```
+
+The argument `col_types = "nfcc"` stands for \{`numeric`, `factor`, `character`, `character`\}, to match the order of the columns.
+
+```{r}
+my.tv.data
+```
+
+We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands
+
+```{r, fig.show="hide", results='hide'}
+
+by(my.tv.data$TELETIME, my.tv.data$SCHOOL, summary)
+```
+
+We employed the `by()` command above and instead, we may also use
+`tapply()` `aggregate()` functions:
+
+`tapply(my.data$TELETIME, my.data$SCHOOL, summary)`
+
+`aggregate(my.data$TELETIME, list(my.data$SCHOOL), summary)`
+
+A tabulated summary of categorical data is obtained using the `table()`
+command. You can also use the tidyverse employing functions like filter, group_by, and summarise.
+
+```{r, fig.show="hide", results='hide'}
+rangitikei <- read.csv(
+  "../data/rangitikei.csv",
+  header=TRUE, 
+  row.names = 1
+  )
+
+wind <- rangitikei |> pull(wind)
+river <- rangitikei |> pull(river)
+
+table(wind, river)
+```
+## Exercise 5.1 {-}
+Describe the table generated above. What does it tell you?
+
+::: {#answer}
+
+:::
+
+## Exercise 5.2 {-}
+Generate a table that summarizes the mean number of vehicles at each level of wind and temperature.
+What does this table tell you about the data?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 5.3 {-}
+Now repeat this for the average people observed. What does this tell you about the data? 
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 5.4 {-}
+Given the two tables you produced describe patterns of people and vehicles at Rangitikei rivers.
+
+::: {#answer}
+
+
+:::
+
+# Tidying data
+
+Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.
+
+The `billboard` dataset records the billboard rank of songs in the year 2000:
+
+```{r}
+billboard
+```
+
+In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).
+
+
+We can use the `dplyr` function `pivot_longer()` to change this data into `long format`. 
+
+The command `pivot_wider()` does the opposite to `pivot_longer()`
+
+## Exercise 5.5 {-}
+Use `pivot_longer()` to tidy this data
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+# Combining datasets
+Sometimes you may want to analyse information that is in multiple tables.
+
+We will introduce a series of functions for joining tables together.
+
+Two tables can be connected through a pair of keys, within each table.
+
+Every join involves a pair of keys: a primary key and a foreign key. A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound key. 
+
+
+## Types of join
+
+There are four types of mutating join, which differ in their behaviour when a match is not found.
+
+-   `inner_join(x, y)` only includes observations that match in both x and y.
+
+-   `left_join(x, y)` includes all observations in `x`, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table.
+
+-   `right_join(x, y)` includes all observations in `y`. It’s equivalent to `left_join(y, x)`, but the columns and rows will be ordered differently.
+
+-   `full_join()` includes all observations from x and y.
+
+The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.
+
+## We will illustrate them using a simple example:
+
+First lets make some data:
+```{r}
+df1 <- tibble(x = c(1, 2), y = 2:1)
+df1
+df2 <- tibble(x = c(3, 1), a = 10, b = "a")
+df2
+```
+
+Now join the two datasets using the different join functions:
+
+```{r}
+df1 %>% inner_join(df2) 
+```
+
+```{r}
+df1 %>% left_join(df2)
+```
+
+```{r}
+df1 %>% right_join(df2)
+df2 %>% left_join(df1)
+```
+
+```{r}
+df1 %>% full_join(df2)
+```
+
+What are the differences between the join functions?
+
+## Joining data: Example
+For another example, consider the flights and airlines data from the nycflights13 package. 
+
+In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. 
+
+You can use a join to add the carrier names to the flight data:
+
+```{r, echo=TRUE}
+library(nycflights13)
+# Drop unimportant variables so it's easier to understand the join results.
+flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
+
+flights2 %>% 
+  left_join(airlines)
+```
+
+As well as x and y, each mutating join takes an argument `by` that controls which variables are used to match observations in the two tables. 
+
+## Specifying join keys
+
+By default, left_join() will use all variables that appear in both data frames as the join key, but it doesn’t always work.
+
+For example lets look at some airline data:
+
+```{r}
+flights2 <- flights |> 
+  select(year, time_hour, origin, dest, tailnum, carrier)
+flights2
+
+planes
+```
+
+We are going to try to going flight data to data about types of planes
+
+```{r}
+flights2 |> 
+  left_join(planes)
+
+```
+
+We get a lot of missing matches because our join is trying to use tailnum and year as a compound key. Both flights and planes have a year column but they mean different things: `flights$year` is the year the flight occurred and `planes$year` is the year the plane was built.
+
+Since these represent different types of data and we might want to keep both, we can be explicit about how to join the two data tables:
+
+```{r}
+flights2 |> 
+  left_join(planes, join_by(tailnum))
+```
+
+Now by default there is a year.x and year.y coming from the flights and planes data respectively. You can change this using the `suffix` argument in join or by renaming the columns after the join.
+
+## Exercise 5.6 {-}
+Imagine you’ve found the top 10 most popular destinations using this code:
+```{r}
+top_dest <- flights2 |>
+  count(dest, sort = TRUE) |>
+  head(10)
+```
+
+How can you find all flights to those destinations?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 5.7 {-}
+What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# case_when()
+Sometimes you want to add a new variable to your data based on existing variables. 
+
+dplyr’s case_when() is inspired by SQL’s CASE statement and provides a flexible way of performing different computations for different conditions. It has a special syntax that unfortunately looks like nothing else you’ll use in the tidyverse. It takes pairs that look like condition ~ output. condition must be a logical vector; when it’s TRUE, output will be used.
+
+This can take the place of if_else() statements.
+
+For example:
+```{r}
+flights |> 
+  mutate(
+    status = case_when( # make a new variable status based on the flights arrival delay
+      is.na(arr_delay)      ~ "cancelled",
+      arr_delay < -30       ~ "very early",
+      arr_delay < -15       ~ "early",
+      abs(arr_delay) <= 15  ~ "on time",
+      arr_delay < 60        ~ "late",
+      arr_delay < Inf       ~ "very late",
+    ),
+    .keep = "used"
+  )
+```
+
+## Exercise 5.8 {-}
+
+Write a case_when() statement that uses the month and day columns from flights to label a selection of important US holidays (e.g., New Years Day, 4th of July, Thanksgiving, and Christmas). First create a logical column that is either TRUE or FALSE, and then create a character column that either gives the name of the holiday or is NA.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
 
 # Dataset `Toxaemia`
 
@@ -22,7 +304,7 @@ The dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the fo
 
 `Freq` - frequency in each cell, a numeric vector
 
-# Exercise 5.1 {-}
+## Exercise 5.9 {-}
 
 Obtain relevant graphical displays for this dataset.
 
@@ -124,7 +406,7 @@ tox_display
 # total counts 13384
 ```
 
-# Exercise 5.2 {-}
+## Exercise 5.10 {-}
 
 The genetic information of an organism is stored in its Deoxyribonucleic acid (DNA). DNA is a double stranded helix made up of four different nucleotides. These nucleotides differ in which of the four bases Adenine (A), Guanine (G), Cytosine (C), or Thymine (T) they contain. Nucleotides combine to form amino acids which are the building blocks of proteins. Simply put, three nucleotides form an amino acid and the specific order of a combination dictates what amino acid is formed. A simple pattern that we may want to detect in a DNA sequence is that of the nucleotide at position `i+1` based on the nucleotide at position `i`. The nucleotide positional data collected by a researcher in a particular case is given in the following table:
 
@@ -160,6 +442,7 @@ library(MASS)
 corresp(tabledata)
 
 ```
+
 ```{r}
 plot(corresp(tabledata, nf=2))
 abline(v=0)
@@ -173,12 +456,10 @@ CA(tabledata)
 ```
 
 
-
-# Exercise 5.3 {-}
+# Data `diamonds`
 
 The `diamonds` dataset contains the prices and other attributes of almost 54,000 diamonds. Use `?diamonds` to see information for each variable.
 
-We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot.
 
 ```{r}
 data("diamonds")
@@ -191,47 +472,19 @@ ggplot(diamonds, aes(color))+geom_bar(aes(fill=cut))+ facet_wrap(~clarity)
 
 ```
 
+## Exercise 5.11 {-}
+We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot. Write your hypotheses, perform the test, make a decision based on the results of the test, and report a conclusion in context.
 
-```{r contingency table}
-# alternative coding for making a table of data to count observations of each category
-cont.table <- table(diamonds$cut, diamonds$color)
-
-# EDA 
-tab.data <- xtabs( ~ cut+color, data = diamonds)
-
-
-plot(tab.data)
-```
-
-```{r chi sq}
-# A test of association
-# 
-chisq.test(tab.data)
-
-chisq.test(tab.data)$expected
-chisq.test(tab.data)$stdres
-
-chisq.test(tab.data, simulate.p.value = TRUE)
-
-```
-
+::: {#answer}
 
 ```{r}
-# plots below are expecting an xtabs object, additional arguments would have to be added for other data formats
-mosaic(tab.data, shade=TRUE, legend=TRUE)
-
-assoc(tab.data, shade=TRUE) 
-strucplot(tab.data, core = struc_assoc, )
-
-sieve(tab.data)
-
-library(gplots)
-gplots::balloonplot(tab.data, main ="Balloon Plot", xlab ="", ylab="",
-                    label = FALSE, show.margins = FALSE)
+# your code goes here
 ```
 
+:::
 
-```{r, echo=FALSE}
-options(warn=0) 
-```
+
+
+
+
 -   More R code examples are  [here](../exercises/Chap5more.R)

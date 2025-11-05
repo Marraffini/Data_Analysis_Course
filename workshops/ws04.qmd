@@ -1,5 +1,5 @@
 ---
-title: "Chapter 4 Workshop"
+title: "Statistical Inference"
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -9,7 +9,9 @@ knitr::opts_chunk$set(echo = TRUE,
                       comment=NA, 
                       fig.align='center', 
                       out.width='50%')
+options(warn=-1) 
 ```
+
 
 ```{r}
 #| message : false
@@ -23,11 +25,9 @@ library(tidyverse)
 Load a dataset on elephants.
 
 ```{r}
-ele <- read_table(
-  "https://www.massey.ac.nz/~anhsmith/data/elephant.txt"
-  ) |> 
-  rename("Height" = `Shoulder.height`) # renames the variable
-
+ele <- read.csv(
+  "../data/elephant.txt", sep = ""
+  ) 
 str(ele)
 ```
 
@@ -38,9 +38,230 @@ There are three variables:
 - `Height`: shoulder height in cm
 
 
-## Explore the distribution of heights
+# EDA
 
-Examine the distribution of the heights.
+## Exercise 4.1 {-} 
+Examine the distribution of the heights. Does that look normally distributed to you? Is it symmetrical and bell-shaped?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+## Exercise 4.2 {-} 
+The data have both male and female elephants, so we should probably look at the sexes separately. Update your plot from the last exercise to include sex so we can see each distribution.
+
+
+## Exercise 4.3 {-} 
+Have a look at the values of age.
+
+```{r}
+ggplot(ele) + 
+  aes(Age, Height) + 
+  geom_point()
+```
+```{r}
+ggplot(ele) + 
+  aes(Age) + 
+  geom_bar()
+```
+
+There is a wide range of ages, from 0 to 15 years old. Many elephants (49, to be exact) are 0 or 1 year old. Are the data normal if we remove these? First make a new copy of the data (named `ele2`) with the baby elephants removed and then repeat our tests for normality.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Confidence interval for the sample
+
+Let's now estimate the population mean (with a 95% confidence interval) of `Heights` in the dataset with the baby elephants removed.
+
+```{r, eval=FALSE}
+# note this code depends on an answer shown below. You should answer the previous question before running this code
+
+t.test(ele2$Height)
+```
+
+
+The `t.test()` function is very flexible. When given a single sample, it will provide the mean and 95% confidence interval. How would you interpret this confidence interval? 
+
+It also provides a test of whether the mean of the sample is significantly different from zero. If the *p*-value is less than 0.05, then we can say that there is evidence against the null hypothesis of a mean of zero. Now, in this case, of course this isn't useful. Elephants can never have zero or negative height, so a mean height of zero is nonsensical. 
+
+Note that we can extract the estimate of the population mean and its confidence interval in the following way.
+
+```{r, eval=FALSE}
+# note this code depends on an answer shown below. You should answer the previous question before running this code
+
+t.test(ele2$Height)$estimate
+t.test(ele2$Height)$conf.int
+```
+How was this confidence interval calculated? 
+
+The standard error (the standard deviation over multiple samples) for a sample mean can be estimated by $s / \sqrt n$, where $s$ is the sample standard deviation and $n$ is the sample size.
+
+```{r}
+# note this code depends on an answer shown below. You should answer the previous question then you can remove the numbers and uncomment the functions
+n = 263# length(ele2$Height)
+s = 29.08 #sd(ele2$Height)
+
+( se = s / sqrt(n) )
+```
+
+Once you have estimated the standard error, a confidence interval for a sample mean $\bar x$ is simply
+
+$$ 
+\bar x \pm t \times \text{se}
+$$
+
+The $t$ value is the 0.975 quantile of the $t$ distribution with the degrees of freedom given by $n-1$. 
+
+```{r}
+qt(p = 0.975, df = n - 1)
+```
+
+So, the sample mean and confidence interval is:
+
+```{r}
+( xbar <- 181.5741 ) # mean(ele2$Height)
+( xbar - qt(p = 0.975, df = n - 1) * se )
+( xbar + qt(p = 0.975, df = n - 1) * se )
+```
+
+# t-test for difference of two sample means
+
+Let's say we are interested in testing whether the mean heights of male and female elephants are different. First, we can test for differences in the variances in the two sexes using Levene's test, which is an important assumption of the t-test. In other words, if the assumption is violated, the results of the test may be misleading.
+
+## Exercise 4.4 {-}
+Preform the Levene's test. What are the results? Should we continue with the t test?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Dataset **`Prestige`**
+
+We will again be using a well-known dataset called `Prestige` from the `car`	R package.  This dataset deals with prestige ratings of Canadian Occupations. The `Prestige` dataset has 102 rows and 6 columns. The observations are occupations.
+
+This data frame contains the following columns:
+
+* **`education`** - Average education of occupational incumbents, years, in 1971.
+
+* **`income`** - Average income of incumbents, dollars, in 1971.
+
+* **`women`** - Percentage of incumbents who are women.
+
+*  **`prestige`** - Pineo-Porter prestige score for occupation, from a social survey conducted in the mid-1960s.
+
+* **`census`** - Canadian Census occupational code.
+
+*  **`type`** - Type of occupation. A factor with levels: `bc`, Blue Collar; `prof`, Professional, Managerial, and Technical; `wc`, White Collar. (includes four missing values).
+
+
+
+```{r, message=FALSE}
+library(tidyverse)
+library(car)
+data(Prestige)
+```
+
+
+# One-sample t-tests
+
+## Exercise 4.5 {-}
+Perform a one-sample t-test to test the hypothesis that the true mean `prestige` is exactly 50.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 4.6 {-}
+Test whether the true mean `prestige` score for professionals is 50% more than the true mean `prestige` score for white collar occupations. 
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+# Skewness
+
+Explore the skewness in the `income` variable using a boxplot. 
+
+```{r, fig.show="hide", results='hide'}
+Prestige |> 
+  ggplot() +
+  aes(income) + 
+  geom_boxplot() 
+
+# or
+boxplot(Prestige$income, horizontal = TRUE)
+```
+
+## Exercise 4.6 {-}
+Describe the skewness of `income` variable and why we examine it. 
+
+::: {#answer}
+
+
+:::
+
+# Transformation
+
+Find a suitable power transformation to correct the skewness. 
+
+```{r, fig.show='hide'}
+library(lindia)
+
+gg_boxcox(lm(income ~ 1, data = Prestige))
+
+```
+
+## Exercise 4.7 {-}
+Which power transformation might correct the skewness? Make a boxplot of the transformed data. Compare the skewness seen in this plot with the one used for Exercise 4.6. Did the transformation improve the skewness?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Confidence interval
+
+## Exercise 4.8 {-}
+Compute the 95% confidence interval for the true mean income using the raw and log-transformed data.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Select answers
+
+## Exercise 4.1 {-}
 
 ```{r}
 ggplot(ele) + 
@@ -52,8 +273,6 @@ ggplot(ele) +
   geom_density()
 ```
 
-Does that look normally distributed to you? Is it symmetrical and bell-shaped?
-
 We can test whether these data conform to a normal distribution model with a Shipiro-Wilk test for normality. The null hypothesis is that the data came from a population that is normal. 
 
 ```{r}
@@ -62,7 +281,7 @@ shapiro.test(ele$Height)
 
 The very low p-value says that we can reject the null hypothesis, and conclude that these data are very unlikely to have come from a normal distribution. 
 
-The data have both male and female elephants, so we should probably look at the sexes separately. 
+## Exercise 4.2 {-} 
 
 ```{r}
 
@@ -83,7 +302,8 @@ ggplot(ele) +
 
 It doesn't look like there's a major difference between the sexes in terms of the distribution of heights. Males might be a bit more variable than females (seeing the thicker tails).
 
-Have a look at the values of age.
+
+## Exercise 4.3 {-} 
 
 ```{r}
 ggplot(ele) + aes(Age) + geom_bar()
@@ -111,62 +331,7 @@ shapiro.test(ele2$Height)
 
 Of elephants 2 years or older, there is no evidence that the heights do not come from a normal distribution (W = 1.0, p = 0.37). So, the heights of non-baby elephants appear approximately normally distributed.
 
-## Confidence interval for the sample
-
-Let's now estimate the population mean (with a 95% confidence interval) of `Heights` in the dataset with the baby elephants removed.
-
-```{r}
-t.test(ele2$Height)
-```
-
-
-The `t.test()` function is very flexible. When given a single sample, it will provide the mean and 95% confidence interval. How would you interpret this confidence interval? 
-
-It also provides a test of whether the mean of the sample is significantly different from zero. If the *p*-value is less than 0.05, then we can say that there is evidence against the null hypothesis of a mean of zero. Now, in this case, of course this isn't useful. Elephants can never have zero or negative height, so a mean height of zero is nonsensical. 
-
-Note that we can extract the estimate of the population mean and its confidence interval in the following way.
-
-```{r}
-t.test(ele2$Height)$estimate
-t.test(ele2$Height)$conf.int
-```
-How was this confidence interval calculated? 
-
-The standard error (the standard deviation over multiple samples) for a sample mean can be estimated by $s / \sqrt n$, where $s$ is the sample standard deviation and $n$ is the sample size.
-
-```{r}
-n = length(ele2$Height)
-s = sd(ele2$Height)
-
-( se = s / sqrt(n) )
-```
-
-Once you have estimated the standard error, a confidence interval for a sample mean $\bar x$ is simply
-
-$$ 
-\bar x \pm t \times \text{se}
-$$
-
-The $t$ value is the 0.975 quantile of the $t$ distribution with the degrees of freedom given by $n-1$. 
-
-```{r}
-qt(p = 0.975, df = n - 1)
-```
-
-So, the sample mean and confidence interval is:
-
-```{r}
-( xbar <- mean(ele2$Height) )
-( xbar - qt(p = 0.975, df = n - 1) * se )
-( xbar + qt(p = 0.975, df = n - 1) * se )
-```
-
-## t-test for difference of two sample means
-
-Let's say we are interested in testing whether the mean heights of male and female elephants are different. First, we can test for differences in the variances in the two sexes using Levene's test, which is an important assumption of the t-test. In other words, if the assumption is violated, the results of the test may be misleading.
-
-Let's do the Levene's test.
-
+## Exercise 4.4 {-} 
 ```{r}
 car::leveneTest(Height ~ Sex, data = ele2)
 ```
@@ -189,46 +354,9 @@ t.test(formula = Height ~ Sex, var.equal = T,  data = ele2)
 
 The result is essentially the same in this case. 
 
-
-# Dataset **`Prestige`**
-
-We will again be using a well-known dataset called `Prestige` from the `car`	R package.  This dataset deals with prestige ratings of Canadian Occupations. The `Prestige` dataset has 102 rows and 6 columns. The observations are occupations.
-
-This data frame contains the following columns:
-
-* **`education`** - Average education of occupational incumbents, years, in 1971.
-
-* **`income`** - Average income of incumbents, dollars, in 1971.
-
-* **`women`** - Percentage of incumbents who are women.
-
-*  **`prestige`** - Pineo-Porter prestige score for occupation, from a social survey conducted in the mid-1960s.
-
-* **`census`** - Canadian Census occupational code.
-
-*  **`type`** - Type of occupation. A factor with levels: `bc`, Blue Collar; `prof`, Professional, Managerial, and Technical; `wc`, White Collar. (includes four missing values).
-
-
-```{r, echo=FALSE}
-options(warn=-1) 
-```
-
-
-```{r, echo=FALSE, message=FALSE}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE, comment=NA, fig.show = "hide")
-```
-
-
-
-## One-sample t-tests
-
-Perform a one-sample t-test to test the hypothesis that the true mean `prestige` is exactly 50.
+## Exercise 4.5 {-}
 
 ```{r, results='hide'}
-library(tidyverse)
-library(car)
-data(Prestige)
-
 # Alternative hyp: greater or less than 50
 t.test(Prestige$prestige, mu=50)
 
@@ -236,7 +364,7 @@ t.test(Prestige$prestige, mu=50)
 t.test(Prestige$prestige, mu=50, alternative="greater")
 ```
 
-Test whether the true mean `prestige` score for professionals is 50% more than the true mean `prestige` score for white collar occupations. 
+## Exercise 4.6 {-}
 
 ```{r, results='hide'}
 prof.data <- Prestige |> 
@@ -253,34 +381,7 @@ t.test(prof.data,
        alternative = 'greater')
 ```
 
-## Skewness
-
-Explore the skewness in the `income` variable using a boxplot. 
-
-```{r, fig.show="hide", results='hide'}
-Prestige |> 
-  ggplot() +
-  aes(income) + 
-  geom_boxplot() 
-
-# or
-boxplot(Prestige$income, horizontal = TRUE)
-```
-
-## Transformation
-
-Find a suitable power transformation to correct the skewness. 
-
-```{r, fig.show='hide'}
-library(lindia)
-
-gg_boxcox(lm(income ~ 1, data = Prestige))
-
-```
-
-## Confidence interval
-
-Compute the 95% confidence interval for the true mean income using the raw and log-transformed data.
+## Exercise 4.8 {-}
 
 ```{r, results="hide"}
 t.test(Prestige$income)

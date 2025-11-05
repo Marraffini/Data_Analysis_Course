@@ -1,9 +1,88 @@
 ---
-title: "Chapter 2 Workshop"
+title: "Exploratory Data Analysis"
 ---
 
 
-# Graphing with ggplot2
+## Graphing with `ggplot2` {.unnumbered}
+
+The R library `ggplot2` is very powerful for plotting but
+you may find the syntax little strange. There are plenty of examples at the [`ggplot2` online help website](https://ggplot2.tidyverse.org/reference/). The `ggplot2` package is loaded as part of the `tidyverse` set of packages.
+
+::::{.columns}
+
+:::{.column}
+Advantages of `ggplot2` are the following:
+
+-   employs the "grammar of graphics" of [@Wilkinson]
+-   plotting involves a high level of abstraction
+-   very flexible and complete graphics system
+-   theme system for getting attractive plots
+-   Fast growing and actively developed
+
+:::
+
+:::{.column}
+
+Some disadvantages of `ggplot2` are the following:
+
+-   3-dimensional graphics (opt for `rgl` package instead)
+-   Graph-theory type graphs (nodes/edges layout; opt for `igraph` and
+    other packages)
+-   Interactive graphics (opt for `plotly`, `ggvis` and other packages)
+
+:::
+
+::::
+
+## Grammar of Graphics
+
+The main idea behind the grammar of graphics of [@Wilkinson] is to mimic
+the manual graphing approach by defining building blocks and combining them
+to create the figure. 
+
+The building blocks of a graph are:
+
+-   data
+-   aesthetic mapping
+-   geometric object
+-   transformation or re-expression of data
+-   scales
+-   coordinate system
+-   position adjustments
+-   faceting
+
+## Aesthetic Mapping (`aes`)
+
+In ggplot land *aesthetic* means visualisation features or aesthetics.
+These are
+
+-   position (i.e., on the x and y axes)
+-   color ("outside" color)
+-   fill ("inside" color)
+-   shape (of points)
+-   linetype
+-   size
+
+Aesthetic mappings are set with the `aes()` function.
+
+## Geometric Objects (`geom`)
+
+Geometric objects or `geoms` are the actual marking or inking on a plot
+such as:
+
+-   points (`geom_point`, for scatter plots, dot plots, etc)
+-   lines (`geom_line`, for time series, trend lines, etc)
+-   boxplot (`geom_boxplot`, for boxplots)
+
+*A plot must have at least one `geom` but there is no upper limit.* In
+order to add a `geom` to a plot, the `+` operator is employed. A list of
+available geometric objects can be obtained by typing `geom_<tab>` in
+Rstudio. The following command can also be used which will open a Help
+window.
+
+    help.search("geom_", package = "ggplot2")
+
+# ggplot2 in the tidyverse
 `ggplot2` is now part of the `tidyverse`. We have installed `tidyverse` in a previous workshop so you will not need to install it again. 
 
 We can now load the `ggplot2` library with the commands:
@@ -72,9 +151,13 @@ Note that *labs()* allows captions and subtitles. Check out `?labs()` for all th
 # Exercise 2.2 {-}
 Remake the above graph, adjusting the x axis to say `Vehicles` using the `labs()` function. 
 
-```{r}
+::: {#answer}
 
+```{r}
+# your code goes here
 ```
+
+:::
 
 
 `geom_smooth` is additionally used to show trends.
@@ -226,6 +309,8 @@ ggplot(rangitikei) +
 
 Note that a desired graph can be obtained in more than one way.
 
+In both of the above graphs adding color adds a third layer of data that can be plotted.
+
 ## Themes
 Themes can help adjust different pieces of your graphs to make them publication or presentation ready. Here you can adjust font, size, axis features, etc.
 
@@ -350,23 +435,31 @@ data(Prestige)
 
 # Exercise 2.5 {-}
 
+
 Draw a bar chart for `type`. These plots show the count or relative frequency of blue collar (`bc`), professional (`prof`), and white collar (`wc`) professions in the dataset. 
 
+::: {#answer}
+
 ```{r}
-library(tidyverse)
-
-p <- Prestige |> 
-  ggplot() +
-  aes(type) + 
-  geom_bar()
-
-p
+# your code goes here
 ```
+
+:::
 
 
 # Exercise 2.6 {-}
 
 Draw a histogram of `prestige`. 
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
 
 Below demonstrates the flexibility of `ggplot` code. You can specify the `data` argument by piping it into `ggplot`, or by putting it as an argument to `ggplot` or a `geom_`. Likewise, the `mapping` or `aes` information, which determines which variables are used where, can be added as an extra line or specified inside the `ggplot` or `geom_` function.
 
@@ -462,49 +555,35 @@ Prestige |>
 
 a) Obtain some summary statistics for `prestige`. There are a few options for this.
 
-```{r}
-summary(Prestige)
-
-library(psych)
-
-describe(Prestige)
-
-describeBy(education + income + women + prestige ~ type, 
-           data = Prestige)
-```
-
-b) Make a summary dataset, average variable for each type of occupation.
+::: {#answer}
 
 ```{r}
 # your code goes here
 ```
 
+:::
+
+b) Make a summary dataset, average variable for each type of occupation.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
 
 # Exercise 2.8 {-}
 
 Make a boxplot of `prestige ~ type`:
 
+::: {#answer}
+
 ```{r}
-Prestige |> 
-  ggplot() +
-  aes(y=prestige, x=type) +
-  geom_boxplot()
-
-# as violin plots
-Prestige |> 
-  ggplot() +
-  aes(y=prestige, x=type) +
-  geom_violin()
-
-# Or put it all together
-Prestige |> 
-  ggplot() +
-  aes(y=prestige, x=type) +
-  geom_violin() + 
-  geom_boxplot(col = 2, alpha = .2) +
-  geom_jitter(alpha = .2, width = .2, height = 0, colour = 4)
-
+# your code goes here
 ```
+
+:::
 
 
 # Exercise 2.9 {-}
@@ -543,10 +622,109 @@ Prestige |>
 
 With which plot – the ECDF or the density plot – is it easier to compare the distributions of prestige scores among these groups?
 
+::: {#answer}
+
+:::
 # Exercise 2.10 {-}
 
 Obtain the \{0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95\} quantiles of `prestige`:
 
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Exercise 2.11 {-}
+
+Obtain the scatter plot (with and without marginal boxplots) **prestige vs. education **: How can you describe the relationship implied by the pattern?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+# Exercise 2.12 {-}
+
+Make a bubble or balloon plot  **prestige vs. education vs. income** with income forming the bubble size.
+
+Make a different scatter plot using the same three variables. Keep `x = education, y = prestige` but use a different option to illustrate the influence of income.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+# Exercise 2.13 {-}
+
+Create `prestige ~ education | type` graphs.  That is, `prestige ~ education` grouped by `type` as colours and/or panels.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+Select answers:
+# Answer: Exercise 2.5 {-}
+
+```{r}
+p <- Prestige |> 
+  ggplot() +
+  aes(type) + 
+  geom_bar()
+
+p
+```
+
+# Answer: Exercise 2.7a {-}
+```{r}
+summary(Prestige)
+
+library(psych)
+
+describe(Prestige)
+
+describeBy(education + income + women + prestige ~ type, 
+           data = Prestige)
+```
+
+# Answer: Exercise 2.8 {-}
+```{r}
+Prestige |> 
+  ggplot() +
+  aes(y=prestige, x=type) +
+  geom_boxplot()
+
+# as violin plots
+Prestige |> 
+  ggplot() +
+  aes(y=prestige, x=type) +
+  geom_violin()
+
+# Or put it all together
+Prestige |> 
+  ggplot() +
+  aes(y=prestige, x=type) +
+  geom_violin() + 
+  geom_boxplot(col = 2, alpha = .2) +
+  geom_jitter(alpha = .2, width = .2, height = 0, colour = 4)
+
+```
+
+# Answer: Exercise 2.10 {-}
 ```{r, results="hide"}
 pr <- c(0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)
 
@@ -560,12 +738,7 @@ Prestige |>
 quantile(Prestige$prestige, pr)
 ```
 
-
-# Exercise 2.11 {-}
-
-Obtain the scatter plot (with and without marginal boxplots) **prestige vs. education **: How can you describe the relationship implied by the pattern?
-
-
+# Answer: Exercise 2.11 {-}
 ```{r}
 library(ggExtra)
 
@@ -588,10 +761,8 @@ scatterplot(education ~ prestige, data = Prestige)
 
 The later plot will show prediction interval ribbon while the first plot will show the confidence interval ribbon.
 
-# Exercise 2.12 {-}
 
-Obtain the bubble or balloon plot  **prestige vs. education vs. income** (income forming the bubble size):
-
+# Answer: Exercise 2.12 {-}
 ```{r}
 library(ggplot2)
 
@@ -601,17 +772,8 @@ Prestige |>
   geom_point()
 
 ```
-Make a different scatter plot using the same three variables. Keep `x = education, y = prestige` but use a different option to illustrate the influence of income.
 
-```{r}
-# your code goes here
-```
-
-
-
-# Exercise 2.13 {-}
-
-Create `prestige ~ education | type` graphs.  That is, `prestige ~ education` grouped by `type` as colours and/or panels.
+# Answer: Exercise 2.13 {-}
 
 
 ```{r}
@@ -633,5 +795,4 @@ p <- Prestige |>
 p
 
 ```
-
 More graphing examples are [here](../exercises/Chap2more.R) (R code file).

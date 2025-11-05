@@ -1,5 +1,5 @@
 ---
-title: "Chapter 6 Workshop"
+title: "Models with a singular predictor"
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -30,7 +30,7 @@ The aim is to examine the relationship between these two variables. Specifically
 Let's load the data and create a new variable, which is the temperature in Celsius.
 
 ```{r}
-ch <- read_csv("https://www.massey.ac.nz/~anhsmith/data/chirps.csv") |> 
+ch <- read_csv("../data/chirps.csv") |> 
   mutate(degC = (degF-32)*5/9) # mutate makes a new column
 ```
 
@@ -43,7 +43,7 @@ Plot the data, with temperature on the x-axis and chirps on the y-axis.
 ```{r}
 ch |> 
   ggplot() + 
-  aes(degC, chirps) +
+  aes(x = degC, y = chirps) +
   geom_point()
 
 ```
@@ -53,7 +53,7 @@ Add a 'smoother' line.
 ```{r}
 ch |> 
   ggplot() + 
-  aes(degC, chirps) +
+  aes(x = degC, y = chirps) +
   geom_point() +
   geom_smooth()
 
@@ -64,11 +64,12 @@ Well… it’s sort-of linear… ish… not really.
 ```{r}
 ch |> 
   ggplot() + 
-  aes(degC, chirps) +
+  aes(x = degC, y = chirps) +
   geom_point() +
   geom_smooth(method = 'lm')
 
 ```
+
 ## Linear model
 
 Now let’s fit a linear model and print it. (Just typing an object’s name is the same as applying the function `print`.)

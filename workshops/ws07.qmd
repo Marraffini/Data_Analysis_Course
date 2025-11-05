@@ -1,5 +1,5 @@
 ---
-title: "Chapter 7 Workshop"
+title: "Models with Multiple Predictors"
 ---
 
 ```{r, echo=FALSE, message=FALSE}
@@ -29,7 +29,7 @@ We will build a multiple regression model to predict the weights of hearts using
 ## Load data
 
 ```{r}
-hh <- read_csv("https://www.massey.ac.nz/~anhsmith/data/horsehearts.csv")
+hh <- read_csv("../data/horsehearts.csv")
 ```
 
 
