@@ -936,12 +936,7 @@ The normal Q-Q plot is presented as a **normal probability plot** in some softwa
 #| label: fig-normqqP
 #| echo: true
 #| fig-cap: 'Normal Quantile-Quantile Plot for Checking Normality'
-
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/rangitikei.RData",
-  destfile = "rangitikei.RData")
-
-load("rangitikei.RData")
+load("../data/rangitikei.RData")
 
 p1 <- ggplot(rangitikei) +
   aes(sample = people) + 

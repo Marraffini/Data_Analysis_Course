@@ -100,11 +100,7 @@ theme_set(theme_minimal())
 ```
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/rangitikei.RData",
-  destfile = "rangitikei.RData")
-
-load("rangitikei.RData")
+load("../data/rangitikei.RData")
 ```
 
 
@@ -149,11 +145,7 @@ The data set **tv** consists of the time that 46 school children spent watching 
 
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/tv.RData", 
-  destfile = "tv.RData")
-
-load("tv.RData")
+load("../data/tv.RData")
 ```
 
 ```{r}
@@ -565,12 +557,9 @@ Note that the two-sample data may be simply paired observations. For instance, a
 Consider the maths and English test scores of students available in the data set **testmarks**. These test scores are paired being the scores of the same student. The correlation or linear relationship between the maths and English scores is high; see @fig-pairg.
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/testmarks.RData",
-  destfile = "testmarks.RData")
-
-load("testmarks.RData")
+load("../data/testmarks.RData")
 ```
+
 ```{r}
 #| echo: true
 #| message: false

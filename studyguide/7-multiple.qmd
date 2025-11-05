@@ -44,10 +44,7 @@ theme_set(theme_minimal())
 ```
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/horsehearts.RData",
-  destfile = "horsehearts.RData")
-load("horsehearts.RData")
+load("../data/horsehearts.RData")
 ```
 
 ```{r}
@@ -667,11 +664,7 @@ Variable selection procedures can be a valuable tool in data analysis, particula
 Consider the **pinetree** data set which contains the circumference measurements of pine trees at four positions. The simple regression of the top circumference on the first (bottom) circumference, the fit is ${\text {Top = -6.33 + 0.763 First}}$. This fit is satisfactory on many counts (highly significant $t$ and $F$ values, high $R^{2}$ etc); see @tbl-poly1tidy and @tbl-poly1glance.
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/pinetree.RData", 
-  destfile = "pinetree.RData")
-
-load("pinetree.RData")
+load("../data/pinetree.RData")
 ```
 
 

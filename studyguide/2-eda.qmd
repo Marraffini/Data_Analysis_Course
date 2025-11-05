@@ -728,18 +728,9 @@ Note that the distribution of two variables $X$ and $Y$ can be compared in a num
 
 Consider data which can be written as pairs ($X$, $Y$). The two groups of data ($X$ and $Y$) need not be in the same units but they are assumed to be related in some way. Scatterplots are useful in exploring the type of relationship between $X$ and $Y$.
 
-```{r}
-if( !file.exists("testmarks.RData") ) {
-
-  download.file(
-    url = "http://www.massey.ac.nz/~anhsmith/data/testmarks.RData", 
-    destfile = "testmarks.RData")
-
-}
-```
 
 ```{r}
-load("testmarks.RData")
+load("../data/testmarks.RData")
 ```
 
 
@@ -782,18 +773,10 @@ Finally, does the variability in English marks change as the Maths mark changes,
 
 The **Rangitikei** data gives the number of people making recreational use of the Rangitikei River and the number of vehicles seen at a particular location and time. The data were collected at two locations (location being a categorical variable).
 
-```{r}
-if( !file.exists("rangitikei.RData") ) {
 
-  download.file(
-    url = "http://www.massey.ac.nz/~anhsmith/data/rangitikei.RData",
-    destfile = "rangitikei.RData")
-
-}
-```
 
 ```{r}
-load("rangitikei.RData")
+load("../data/rangitikei.RData")
 ```
 
 
@@ -851,19 +834,10 @@ Look again at @fig-marginbp - there is one student with a high Maths mark but a 
 
 Now let's load the `horsehearts` dataset, which contains the weights of horses' hearts along with some other heart measurements. 
 
-```{r}
-if( !file.exists("horsehearts.RData") ) {
-
-  download.file(
-    url = "http://www.massey.ac.nz/~anhsmith/data/horsehearts.RData",
-    destfile = "horsehearts.RData")
-
-}
-```
 
 
 ```{r}
-load("horsehearts.RData")
+load("../data/horsehearts.RData")
 ```
 
 
@@ -1008,19 +982,9 @@ To see why the sign of $r$ indicates the direction of the relationship, consider
 
 When there are more than two variables of interest, it is possible to draw scatterplots of each pair of variables but this becomes a bewildering exercise as the number of variables increases. One way to keep track of these plots is to set them out in a scatterplot matrix as in @fig-matplt2 which is based on the `pinetree` data set, which  contains the circumference measurements of pine trees at four positions (`Top`, `Third`, `Second` and `First`) and in three areas of a forest. This plot also shows the simple correlation coefficients on the upper diagonal and smoothed density plots on the main diagonal of the matrix. This plot clearly shows that the variables are strongly related to each other. In particular, the Top circumference can be predicted reasonably well based on the bottom circumference. Even though the correlations are high, a quadratic model may fit better. @fig-matplt2 seems to show a non-random pattern in the way points appear on the plot. This may be due to the Area effect because the circumference data were collected from three different areas. @fig-matplt2 confirms that this is indeed the case.
 
-```{r}
-if( !file.exists("pinetree.RData") ) {
-
-  download.file(
-    url = "http://www.massey.ac.nz/~anhsmith/data/pinetree.RData", 
-    destfile = "pinetree.RData")
-
-}
-```
-
 
 ```{r}
-load("pinetree.RData")
+load("../data/pinetree.RData")
 ```
 
 

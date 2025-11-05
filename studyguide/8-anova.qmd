@@ -45,11 +45,7 @@ theme_set(theme_minimal())
 ```
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/fabric.RData",
-  destfile = "fabric.RData")
-
-load("fabric.RData")
+load("../data/fabric.RData")
 ```
 
 
@@ -260,7 +256,7 @@ A single testing was done for each cement and each aggregate, producing the bala
 ```{r}
 #| message: false
 
-concrete <- read_csv("http://www.massey.ac.nz/~anhsmith/data/concrete.txt",
+concrete <- read_csv("../data/concrete.txt",
                      col_types = "dff") # double, factor, factor
 ```
 
@@ -615,11 +611,7 @@ Consider the pine tree data discussed earlier. Let us model the Top circumferenc
 
 ```{r}
 #| message: false
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/pinetree.RData",
-  destfile = "pinetree.RData")
-
-load("pinetree.RData")
+load("../data/pinetree.RData")
 ```
 
 ```{r}
@@ -739,7 +731,7 @@ A study for a chain of fast-food restaurants examined the relationship between r
 ```{r}
 #| results: hide
 restaurant <- 
-  read_table("http://www.massey.ac.nz/~anhsmith/data/restaurant.txt",
+  read_table("../data/restaurant.txt",
              col_types = "fddf") |> 
   mutate(Restaurant = factor(Restaurant),
          I1 = as.numeric(Location=="Mall"),

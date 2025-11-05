@@ -32,10 +32,7 @@ theme_set(theme_minimal())
 ```
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/horsehearts.RData",
-  destfile = "horsehearts.RData")
-load("horsehearts.RData")
+load("../data/horsehearts.RData")
 ```
 
 ```{r}
@@ -784,11 +781,7 @@ As a rule of thumb, points with $D_{i} >0.7$ can be deemed as being influential 
 We prefer to examine plots of $D_{i}$ (and $h_{ii}$) against the residuals, standardised residuals, explanatory variables, fitted values or time order etc for a visual identification of any observation with markedly higher influence than the other observations in the data. As an example, consider the data set **Rangitikei**. @fig-rangiHi shows that the 26th observation is clearly anomalous.
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/rangitikei.RData",
-  destfile = "rangitikei.RData")
-
-load("rangitikei.RData")
+load("../data/rangitikei.RData")
 ```
 
 
@@ -852,10 +845,7 @@ The median--median line is an alternative to the least squares regression and is
 The R function `line()` will fit a resistant line using a method proposed by Tukey, and hence this fit is called **Tukey Line**.
 
 ```{r}
-download.file(
-  url = "http://www.massey.ac.nz/~anhsmith/data/testmarks.RData", 
-  destfile = "testmarks.RData")
-load("testmarks.RData")
+load("../data/testmarks.RData")
 ```
 
 ```{r, echo= TRUE, results= FALSE}

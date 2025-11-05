@@ -229,7 +229,7 @@ mtcars |> pull(wt)
 -   `select(.data, ...)`: Extract columns as a table.
 
 ```{r}
-mtcars |> select(mpg, wt)
+mtcars |> select(mpg, wt) |> head() # head here means only show the first 6 entries
 ```
 
 Use these helpers with select()
@@ -251,7 +251,7 @@ starwars |>
     height > 200 | mass > 200 ~ "large",
     species == "Droid" ~ "robot",
     TRUE ~ "other"
-  ))
+  )) |> head() # again using head to save space on the website, remove this and see the full data
 ```
 
 # Alter data
@@ -277,14 +277,14 @@ df |>
 -   `mutate(.data, ..., .keep = "all", .before = NULL, .after = NULL)`: Compute new column(s). Also add_column().
 
 ```{r}
-mtcars |> mutate(gpm = 1 / mpg)
-mtcars |> mutate(mtcars, gpm = 1 / mpg, .keep = "none")
+mtcars |> mutate(gpm = 1 / mpg) |> head()
+mtcars |> mutate(mtcars, gpm = 1 / mpg, .keep = "none") |> head()
 ```
 
 -   `rename(.data, ...)`: Rename columns. Use rename_with() to rename with a function.
 
 ```{r}
-mtcars |> rename(miles_per_gallon = mpg)
+mtcars |> rename(miles_per_gallon = mpg) |> head()
 # also see colnames() and names()
 
 ```
@@ -483,7 +483,7 @@ The`lattice` package contains extra graphing facilities but such graphs can be p
 
 ```{r}
 my.data <-read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/tv.csv", 
+  "../data/tv.csv", 
   header=TRUE)
 
 library(lattice)
@@ -522,130 +522,8 @@ p1/(p2+p3)
 
 ::: {.callout-tip}
 
-It is optional to work through the activities that follow to gain an appreciation of how R works. Do not try to remember how to do everything right now. For your assignment work, we will be given the R codes to load data, graphing and modelling. These codes will give you a head-start. Note that we often often learn R by doing and sometime making mistakes.
+It is optional to work through the activities that follow to gain an appreciation of how R works. Do not try to remember how to do everything right now. For your workshops, you will be given the R codes to load data, graphing and modelling. These codes will give you a head-start. Note that we often often learn R by doing and sometime making mistakes.
 
 :::
 
-
-*R default options for Hypothesis tests and modelling*
-
-The `stats` default package in R has a number of functions for
-performing hypothesis tests. However you will only use the following for
-this course:
-
-`ks.test` - Kolmogorov-Smirnov Tests
-
-`shapiro.test` - Shapiro-Wilk Normality Test
-
-`t.test` - Student's t-Test (one & two samples, paired t-test etc)
-
-`pairwise.t.test` - Pairwise t tests (for multiple comparison)
-
-`oneway.test` - Test for Equal Means in a One-Way Layout
-
-`TukeyHSD` - To Compute Tukey's Honest Significant Differences
-
-`var.test` - F Test to Compare Two Variances
-
-`bartlett.test` - Bartlett Test of Homogeneity of Variances
-
-`fisher.test` - Fisher's Exact Test for Count Data
-
-`chisq.test` - Pearson's Chi-squared Test for Count Data
-
-`cor.test` - Test for Association/Correlation Between Paired Samples
-
-The `car` package is needed for the following:
-
-`durbinWatsonTest ` Durbin-Watson Test for autocorrelated Errors
-
-`leveneTest` Levene's Test
-
-We will largely use the R function `lm` in this course. The syntax for specifying a model under `lm` command (and various other model related commands) is explained below:
-
-The structure of the model is that the response variable is modelled as a function of the response variables. The symbol `~` (tilde) is used to say "a function of". The simple regression of `y` on `x` is therefore specified as
-
-`lm(y ~ x)`
-
-The same applies to a one-way ANOVA in which `x` is a categorical factor. For example, consider `tv.txt` dataset and the one-way ANOVA model of `TELETIME` for `SCHOOL` is specified as follows:
-
-```{r, results='hide'}
-mydata <- read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/tv.csv", 
-  header=TRUE
-  )
-
-mymodel <- lm(TELETIME ~ factor(SCHOOL), 
-              data = mydata) # replace lm by aov and try
-
-summary(mymodel)
-```
-
-The function `summary()` gives the summary of the model (F statistics, residual SD etc). The model summary output can be stored into a text file using the function `sink()` or copy and paste in the windows version. Graphs associated with a model can be obtained using the command
-
-`plot(mymodel)`
-
-In the above context, we may also use the specific test command which will give the same result but this test can also be performed without assuming equal variances.
-
-```{r, fig.show="hide", results='hide'}
-oneway.test(TELETIME ~ SCHOOL, 
-            var.equal = TRUE, 
-            data = mydata) 
-```
-
-For the `lm` command, note the following:
-
-`+` indicates inclusion (not addition) of an explanatory variable in the model
-
-`-` indicates deletion (not subtraction) of an explanatory variable from the model
-
-`*` indicates the inclusion of the explanatory variables and their
-interaction (not multiplication) between explanatory variables
-
-`:` (colon) means only interaction between explanatory variables
-
-`/` indicates the nesting (not division) of explanatory variables
-
-`|` indicates the conditioning (for example `y ~ x|z` means that y is a function of x for given z).
-
-For our course, you will not use the last two types. Some model examples are given below:
-
-`lm(y ~ x + z)` \#regression of y on x and z (flat surface fit)
-
-`lm(y ~ x*z)` \#includes the interaction term ie `lm(y ~ x + z + x:z)`
-
-`lm(y ~ x + I(x^2)` \# fits a quadratic model or use `poly(x,2)`
-
-`lm(log(y) ~ sqrt(x) + log(z))` \#all variables are transformed
-
-As a further example, consider a study guide dataset. The following
-commands fit a simple regression model and then plot the fitted line on a scatter plot. Note that commands can be shortened but deliberately shown this way.
-
-```{r, fig.show="hide", results='hide'}
-mydata <- read.csv(
-  "https://www.massey.ac.nz/~anhsmith/data/horsehearts.csv", 
-  header=TRUE
-  )
-
-x <- mydata$EXTDIA
-y <- mydata$WEIGHT
-
-simplereg <- lm(y ~ x)
-```
-
-Note that our model object `simplereg` can be queried in many ways. The command `summary()` gives the following output.
-
-```{r, fig.show="hide", results='hide'}
-summary(simplereg)
-# or
-# library(broom)
-# tidy(simplereg)
-# glance(simplereg)
-```
-
-The command `names(simplereg)` will gives the names of many individual components of the object `simplereg` we created. For example, a plot of the residuals against the fitted values can be obtained as
-
-```{r, fig.show="hide", results='hide'}
-plot(residuals(simplereg) ~ fitted.values(simplereg))
-```
 
