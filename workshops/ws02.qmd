@@ -172,7 +172,7 @@ ggplot(rangitikei) +
 # Exercise 2.3 {-}
 Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
 
-```{r}
+```{r, eval=FALSE}
 ggplot(rangitikei) +
   aes(x = vehicle, y = people) +
   geom_point()+
@@ -206,7 +206,7 @@ ggplot(rangitikei) +
 # Exercise 2.4 {-}
 Will these two graphs look different? Why/why not? What happens when you run the code? 
 
-```{r}
+```{r, eval=FALSE}
 ggplot(
   data = rangitikei,
   mapping = aes(x = vehicle, y = people)
@@ -380,7 +380,7 @@ dependent on it.
 
 ## Multiple plots
  
-Sometimes you want to creat a figure with multiple plots. Rather than trying to combine the data and then faceting, you may need to save each as an object and combine with a helper library. The library *patchwork* allows complex composition arbitrary plots, which are not produced using the faceting option. Try
+Sometimes you want to create a figure with multiple plots. Rather than trying to combine the data and then faceting, you may need to save each as an object and combine with a helper library. The library *patchwork* allows complex composition arbitrary plots, which are not produced using the faceting option. Try
 
 ```{r}
 library(patchwork)
