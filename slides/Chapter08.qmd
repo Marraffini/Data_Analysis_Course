@@ -842,7 +842,7 @@ Many non-parametric methods rely on replacing the observed data by their *ranks*
 
 ```{r}
 #| echo: false
-tv = read_csv("https://www.massey.ac.nz/~anhsmith/data/tv.csv")
+tv = read_csv("../data/tv.csv")
 ```
 
 ## Spearman's Rank Correlation

@@ -1,7 +1,7 @@
 ---
 title: "Chapter 0:<br> Introduction: R, quarto, tidyverse"
-image: img/abacus.jpg
-format: 
+image: img/data_analysis.jpg
+format:
   revealjs:
     width: 1050
     height:	700
@@ -408,11 +408,9 @@ Most data sets we shall consider in this course are in a tabular form. This mean
 If the data file is stored locally, you should put the data into the same directory as your Quarto or R markdown script. That way, you can (usually) load it easily without having to type the full pathway (e.g., `mydata.csv` rather than `C:/Users/anhsmith/Work/Project1/data/mydata.csv`). 
 
 
-You can also load data from the web using a URL. For example,
-
 ```{r, echo=TRUE}
 #| code-fold: show
-rangitikei <- read_csv("https://www.massey.ac.nz/~anhsmith/data/rangitikei.csv")
+rangitikei <- read_csv("../data/rangitikei.csv")
 ```
 
 We usually store the data in an R object, here named `rangitikei`.
@@ -527,85 +525,6 @@ The `R` package `magrittr` introduced the pipe operator `%>%` and can be pronoun
 We often pipe the `dplyr` functions, and the advantage is that we show the flow of data manipulation and subsequent graphing. This approach also helps to save memory, and dataframes are not unnecessarily created, a necessity for a big data framework.
 
 
-## Graphing with `ggplot2` {.unnumbered}
-
-The R library `ggplot2` is very powerful for plotting but
-you may find the syntax little strange. There are plenty of examples at the [`ggplot2` online help website](https://ggplot2.tidyverse.org/reference/). The `ggplot2` package is loaded as part of the `tidyverse` set of packages.
-
-::::{.columns}
-
-:::{.column}
-Advantages of `ggplot2` are the following:
-
--   employs the "grammar of graphics" of [@Wilkinson]
--   plotting involves a high level of abstraction
--   very flexible and complete graphics system
--   theme system for getting attractive plots
--   Fast growing and actively developed
-
-:::
-
-:::{.column}
-
-Some disadvantages of `ggplot2` are the following:
-
--   3-dimensional graphics (opt for `rgl` package instead)
--   Graph-theory type graphs (nodes/edges layout; opt for `igraph` and
-    other packages)
--   Interactive graphics (opt for `plotly`, `ggvis` and other packages)
-
-:::
-
-::::
-
-## Grammar of Graphics
-
-The main idea behind the grammar of graphics of [@Wilkinson] is to mimic
-the manual graphing approach by defining building blocks and combining them
-to create the figure. 
-
-The building blocks of a graph are:
-
--   data
--   aesthetic mapping
--   geometric object
--   transformation or re-expression of data
--   scales
--   coordinate system
--   position adjustments
--   faceting
-
-## Aesthetic Mapping (`aes`)
-
-In ggplot land *aesthetic* means visualisation features or aesthetics.
-These are
-
--   position (i.e., on the x and y axes)
--   color ("outside" color)
--   fill ("inside" color)
--   shape (of points)
--   linetype
--   size
-
-Aesthetic mappings are set with the `aes()` function.
-
-## Geometric Objects (`geom`)
-
-Geometric objects or `geoms` are the actual marking or inking on a plot
-such as:
-
--   points (`geom_point`, for scatter plots, dot plots, etc)
--   lines (`geom_line`, for time series, trend lines, etc)
--   boxplot (`geom_boxplot`, for boxplots)
-
-*A plot must have at least one `geom` but there is no upper limit.* In
-order to add a `geom` to a plot, the `+` operator is employed. A list of
-available geometric objects can be obtained by typing `geom_<tab>` in
-Rstudio. The following command can also be used which will open a Help
-window.
-
-    help.search("geom_", package = "ggplot2")
-
 ## Tidying data
 
 The principles of tidy data might seem so obvious that you wonder if you’ll ever encounter a dataset that isn’t tidy. Unfortunately, however, most real data is (very) untidy. There are two main reasons:
@@ -623,7 +542,7 @@ columns for a variable.
 
 ```{r, echo=TRUE}
 hospital <- read.table(
-  "https://www.massey.ac.nz/~anhsmith/data/hospital.txt",
+  "../data/hospital.txt",
   header=TRUE, sep=",")
   
 head(hospital)
@@ -631,62 +550,9 @@ head(hospital)
 
 
 
-This format is also called `wide format` which can be made into a tidy `long format`. 
-
-## Tidying data example (cont.)
-
-We can use the `dplyr` function `pivot_longer()` to change this data into `long format`. Try-
-
-```{r, echo=TRUE}
-#| results: hide
-
-hospital |> 
-  pivot_longer(cols = NORTH1:SOUTH3, 
-               names_to = "location", 
-               values_to = "Admissions")
-```
+This format is also called `wide format` which can be made into a tidy `long format`. We will discuss this more later in the course.
 
 
-
-The command `pivot_wider()` does the opposite to `pivot_longer()`
-
-## Joining data
-
-Sometimes you may want to analyse information that is in multiple tables.
-
-We will introduce a series of functions for joining tables together.
-
-## Joining data: Example
-For example, consider the flights and airlines data from the nycflights13 package. 
-
-In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. 
-
-You can use a join to add the carrier names to the flight data:
-
-```{r, echo=TRUE}
-library(nycflights13)
-# Drop unimportant variables so it's easier to understand the join results.
-flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
-
-flights2 %>% 
-  left_join(airlines)
-```
-
-As well as x and y, each mutating join takes an argument `by` that controls which variables are used to match observations in the two tables. 
-
-## Types of join
-
-There are four types of mutating join, which differ in their behaviour when a match is not found.
-
--   `inner_join(x, y)` only includes observations that match in both x and y.
-
--   `left_join(x, y)` includes all observations in `x`, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table.
-
--   `right_join(x, y)` includes all observations in `y`. It’s equivalent to `left_join(y, x)`, but the columns and rows will be ordered differently.
-
--   `full_join()` includes all observations from x and y.
-
-The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.
 
 ## Importance of Data Quality Control Process 
 
@@ -789,11 +655,11 @@ single value without actually measuring the variable of interest.
 ## Data Quality Checks: Example
 
 It is a good idea to check the quality of secondary data sourced from elsewhere. For example, there could be missing values in the dataset. Consider the Telomeres data downloaded from
-<http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx>
+<https://rs.figshare.com/ndownloader/files/22850096>
 
 ```{r}
 # #| eval: false
-# url <- "http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"
+# url <- "https://rs.figshare.com/ndownloader/files/22850096"
 # destfile <- "rsos192136_si_001.xlsx"
 # # 
 # download.file(url, destfile)
@@ -801,7 +667,7 @@ It is a good idea to check the quality of secondary data sourced from elsewhere.
 ```
 
 ```{r, echo=TRUE}
-url <- "http://www.massey.ac.nz/~anhsmith/data/rsos192136_si_001.xlsx"
+url <- "https://rs.figshare.com/ndownloader/files/22850096"
 destfile <- "rsos192136_si_001.xlsx"
 
 curl::curl_download(url, destfile)

@@ -1050,7 +1050,7 @@ We can test the null hypothesis that the variances are equal using either a Bart
 
 ```{r}
 #| echo: true
-tv = read_csv("https://www.massey.ac.nz/~anhsmith/data/tv.csv")
+tv = read_csv("../data/tv.csv")
 car::leveneTest(TELETIME~factor(SEX), data=tv)
 ```
 
@@ -1177,7 +1177,7 @@ Like all tests, they can give the wrong answer. Try with `set.seed(1234)`.
 
 ```{r, warning=FALSE, fig.height=3, fig.width=4}
 #| echo: true
-tv = read_csv("https://www.massey.ac.nz/~anhsmith/data/tv.csv")
+tv = read_csv("../data/tv.csv")
 
 ggplot(tv, aes(sample = TELETIME)) + 
   stat_qq() + stat_qq_line() +

@@ -291,7 +291,7 @@ library(patchwork); p1+p2+p3
 ## Frequency polygon & kernel density plots
 
 ```{r}
-vital <- read.table( "https://www.massey.ac.nz/~anhsmith/data/vital.txt", header=TRUE, sep=",")
+vital <- read.table( "../data/vital.txt", header=TRUE, sep=",")
 ```
 
 ::::{.columns}
@@ -401,7 +401,7 @@ summary(my.data)
 ```{r}
 # # Figure 2.27 two boxplots
 vital1 <- read.table(
-  "https://www.massey.ac.nz/~anhsmith/data/vital1.txt", 
+  "../data/vital1.txt", 
   header=TRUE, 
   sep=","
   ) |> 
@@ -454,16 +454,6 @@ ggplot(d) +
   stat_ecdf()
 ```
 
-## Shiny apps
-
-Lots of examples are available
-
--   In the study guide and workshops for this course (though not all of them are working currently)
--   On the web
-
-<https://shiny.massey.ac.nz/anhsmith/demos/explore.univariate.graphs/>
-
-<https://shiny.massey.ac.nz/anhsmith/demos/get.univariate.plots/>
 
 
 ## Quantile-Quantile (Q-Q) plot
@@ -478,7 +468,7 @@ Q-Q plots compare the distributions of two data sets by plotting their quantiles
 #| fig-height: 5
 
 vital <- read.table(
-  "https://www.massey.ac.nz/~anhsmith/data/vital.txt", 
+  "../data/vital.txt", 
   header=TRUE, sep=",")
 
 quants <- seq(0, 1, 0.05)
@@ -514,8 +504,6 @@ vital |>
 A scatter plot shows the relationship between two quantitative variables. It can highlight linear or non-linear relationships, gaps/subgroups, outliers, etc. A `lowess` smoother or 2D density can help show the relationship.
 
 ```{r}
-# url1 <- "https://www.massey.ac.nz/~anhsmith/data/horsehearts.RData"
-# download.file(url = url1, destfile = "horsehearts.RData")
 load("../data/horsehearts.RData")
 ```
 
@@ -581,8 +569,6 @@ p1 +
 Shows both bivariate relationships and univariate (marginal) distributions
 
 ```{r}
-# url1 <- "https://www.massey.ac.nz/~anhsmith/data/rangitikei.RData"
-# download.file(url = url1, destfile = "rangitikei.RData")
 load("../data/rangitikei.RData")
 ```
 
@@ -606,8 +592,6 @@ ggMarginal(p1, type="boxplot")
 ## Pairs plot / scatterplot matrix
 
 ```{r}
-# url1 <- "https://www.massey.ac.nz/~anhsmith/data/pinetree.RData"
-# download.file(url = url1, destfile = "pinetree.RData")
 load("../data/pinetree.RData")
 ```
 
@@ -874,8 +858,6 @@ gg_coplot(
 Build plots in a single layout (R packages `patchwork` or `gridExtra`)
 
 ```{r, }
-# url1 <- "https://www.massey.ac.nz/~anhsmith/data/testmarks.RData"
-# download.file(url = url1, destfile = "testmarks.RData")
 load("../data/testmarks.RData")
 ```
 
