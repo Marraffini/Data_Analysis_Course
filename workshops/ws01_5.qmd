@@ -175,7 +175,7 @@ rangitikei |>
 ```
 
 There are many more commands such as the `transmute` function which
-conserves the only the needed columns. Try
+conserves only the needed columns. Try
 
 ```{r}
 rangitikei |> 
