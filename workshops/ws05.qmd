@@ -394,7 +394,7 @@ Set our alpha = 0.05
 ```{r}
 chisq.test(tox_display)
 ```
-Since our p-value is less than our alpha level we reject the null hypothesis and conclude that the two variables (hyper & urea) are not independent. We found evidence of an association between hypertension levels and protein in urine levels in our sample of expectant mothers in in Bradford, England.
+Since our p-value is less than our alpha level we reject the null hypothesis and conclude that the two variables (hyper & urea) are not independent. We found evidence of an association between hypertension levels and protein in urine levels in our sample of expectant mothers in Bradford, England.
 
 We can see the expected counts
 ```{r}
@@ -421,10 +421,10 @@ Perform a test of association and then obtain the symmetric plot.
 
 ```{r}
 tabledata <- data.frame(
-  A = c(622, 428, 354, 396),
-  C = c(316, 262, 294, 330),
-  G = c(328, 204, 174, 382),
-  T = c(536, 306, 266, 648), 
+  A_1 = c(622, 428, 354, 396),
+  C_1 = c(316, 262, 294, 330),
+  G_1 = c(328, 204, 174, 382),
+  T_1 = c(536, 306, 266, 648), 
   row.names = c("A", "C", "G", "T")
   )
 ```

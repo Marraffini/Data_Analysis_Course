@@ -903,8 +903,7 @@ We can therefore reject the null hypothesis at the conventional 5% level, and co
 
 This is an example of a paired *t* test. They two samples (year 1 and year 2) are not independent of one another because we have the same paddocks in both years. So, we take the differences, treat them like a single sample, and do a one-sample *t* test for the mean difference being zero.
 
-$p$-values are random variables too.\
-<https://shiny.massey.ac.nz/anhsmith/demos/demo.p.is.rv/>
+$p$-values are random variables too.
 
 :::{.absolute bottom=0 right=0}
 
@@ -1072,15 +1071,7 @@ t.test(TELETIME ~ factor(SEX), var.equal = TRUE, data=tv)
 t.test(TELETIME ~ factor(SEX), data=tv)
 ```
 
-## Shiny apps (some not currently working)
 
-<https://shiny.massey.ac.nz/anhsmith/demos/demo.2sample.t.test/>
-
-<https://shiny.massey.ac.nz/anhsmith/demos/explore.2sample.t-test/>
-
-<https://shiny.massey.ac.nz/anhsmith/demos/explore.paired.t-test/>
-
-For more on non-parametric tests, see Study Guide.
 
 ## Test of proportions
 
@@ -1273,7 +1264,7 @@ gg_boxcox(lm(rangitikei$vehicle ~ 1))
 -   For hypothesis test, apply the same transformation on the value
     hypothesised under the null
 
--   Explore <https://shiny.massey.ac.nz/anhsmith/demos/explore.transformations/> app (not currently working)
+
 
 ## Example 
 
