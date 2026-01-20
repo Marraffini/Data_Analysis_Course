@@ -304,15 +304,16 @@ But if have issues with normality and unequal variance try transformations
 Whenever you perform a hypothesis test, there is always a chance of committing a type I error aka 'false positive'.
 
 
-When we perform one hypothesis test, the type I error rate is equal to the significance level (\alpha), however, when we conduct multiple hypothesis tests at once, the probability of getting a false positive increases.
+When we perform one hypothesis test, the type I error rate is equal to the significance level ($\alpha$), however, when we conduct multiple hypothesis tests at once, the probability of getting a false positive increases.
 
 When we conduct multiple hypothesis tests at once, we have to deal with something known as a family-wise error rate, which is the probability that at least one of the tests produces a false positive. This can be calculated as:
 
-Family-wise error rate = $1 – (1-\alpha)n$
+Family-wise error rate = $1 – (1-\alpha)^n$
 
 where:
 
-\alpha: The significance level for a single hypothesis test
+$\alpha$: The significance level for a single hypothesis test
+
 n: The total number of tests
 
 ## Multiple comparisons
@@ -348,13 +349,13 @@ Which fabric types have different burn times? (remember the
   alternative hypothesis of a one-way ANOVA is *at least* one of the
     means are different)
 
-```{r}
+```{r, echo=TRUE}
 TukeyHSD(aov(burntime~fabric, data=fabric))
 ```
 
 ## Tukey HSD (Interval Plot)
 
-```{r}
+```{r, echo=TRUE}
 par(las=1, mar=c(5, 8, 4, 2))
 plot(TukeyHSD(aov(burntime~fabric, data=fabric)))
 ```
@@ -370,7 +371,7 @@ $\alpha_{new} = \alpha_{original} / n$
 
 where:
 
-$\alpha_{original}$: The original \alpha level set *a priori*
+$\alpha_{original}$: The original $\alpha$ level set *a priori*
 
 n: The total number of comparisons or tests being performed
 
@@ -378,8 +379,8 @@ n: The total number of comparisons or tests being performed
 General procedure:
 
 -   check that all anova assumptions are satisfied
--   specify \alpha, the overall significance level
--   specify the significance level for each comparison as \alpha / n
+-   specify $\alpha$, the overall significance level
+-   specify the significance level for each comparison as $\alpha / n $
 -   summaries the results as confidence intervals for each pair of means and associated significance in tables or plots
 
 ## Bonferroni Correction: Fabric Example
@@ -395,7 +396,7 @@ pvals <- c(
   t.test(burntime ~ fabric, data = fabric |> filter(fabric == "Fabric 1" | fabric == "Fabric 4" ))$p.value,
     t.test(burntime ~ fabric,  data = fabric |> filter(fabric == "Fabric 2" | fabric == "Fabric 3" ))$p.value,
     t.test(burntime ~ fabric, data = fabric |> filter(fabric == "Fabric 2" | fabric == "Fabric 4" ))$p.value,
-  t.test(burntime ~ fabric,  data = fabric |> filter(fabric == "Fabric 2" | fabric == "Fabric 4" ))$p.value
+  t.test(burntime ~ fabric,  data = fabric |> filter(fabric == "Fabric 3" | fabric == "Fabric 4" ))$p.value
 )
 
 # adjust the pvalues using bonferroni 
@@ -413,7 +414,7 @@ Should be used when making multiple comparisons
 
 The Tukey post-hoc test should be used when you would like to make pairwise comparisons between group means when the sample sizes for each group are equal.
 
-Note: If the sample sizes are not equal, you can use a modified version of the test known as the Tukey-Kramer test.
+Note: If the sample sizes are not equal, you can use a modified version of the test known as the Tukey-Kramer test. We won't cover this modification.
 
 The Bonferroni post-hoc test should be used when you have a set of planned comparisons you would like to make beforehand. 
 
@@ -511,7 +512,7 @@ TukeyHSD(teeth)
 -   ANOVA: 1 and 2 factor
 -   ANOVA table
 -   Assumptions
--   Tukey's HSD
+-   Multiple comparisons/post-hoc
 
 ## Learning Objectives: Part 2
 

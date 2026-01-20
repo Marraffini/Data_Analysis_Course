@@ -850,11 +850,12 @@ W = 0.88926, p-value = 0.02606</code></pre>
 <section id="multiple-comparisons" class="slide level2">
 <h2>Multiple comparisons</h2>
 <p>Whenever you perform a hypothesis test, there is always a chance of committing a type I error aka ‘false positive’.</p>
-<p>When we perform one hypothesis test, the type I error rate is equal to the significance level (), however, when we conduct multiple hypothesis tests at once, the probability of getting a false positive increases.</p>
+<p>When we perform one hypothesis test, the type I error rate is equal to the significance level (<span class="math inline">\(\alpha\)</span>), however, when we conduct multiple hypothesis tests at once, the probability of getting a false positive increases.</p>
 <p>When we conduct multiple hypothesis tests at once, we have to deal with something known as a family-wise error rate, which is the probability that at least one of the tests produces a false positive. This can be calculated as:</p>
-<p>Family-wise error rate = <span class="math inline">\(1 – (1-\alpha)n\)</span></p>
+<p>Family-wise error rate = <span class="math inline">\(1 – (1-\alpha)^n\)</span></p>
 <p>where:</p>
-<p>: The significance level for a single hypothesis test n: The total number of tests</p>
+<p><span class="math inline">\(\alpha\)</span>: The significance level for a single hypothesis test</p>
+<p>n: The total number of tests</p>
 </section>
 <section id="multiple-comparisons-1" class="slide level2">
 <h2>Multiple comparisons</h2>
@@ -882,6 +883,7 @@ W = 0.88926, p-value = 0.02606</code></pre>
 <h2>Tukey HSD: Fabric Example</h2>
 <p>Which fabric types have different burn times? (remember the alternative hypothesis of a one-way ANOVA is <em>at least</em> one of the means are different)</p>
 <div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(burntime<span class="sc">~</span>fabric, <span class="at">data=</span>fabric))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -901,7 +903,11 @@ Fabric 4-Fabric 3  1.74 -1.33676  4.81676 0.3968476</code></pre>
 </section>
 <section id="tukey-hsd-interval-plot" class="slide level2">
 <h2>Tukey HSD (Interval Plot)</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">par</span>(<span class="at">las=</span><span class="dv">1</span>, <span class="at">mar=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">8</span>, <span class="dv">4</span>, <span class="dv">2</span>))</span>
+<span id="cb15-2"><a href="#cb15-2"></a><span class="fu">plot</span>(<span class="fu">TukeyHSD</span>(<span class="fu">aov</span>(burntime<span class="sc">~</span>fabric, <span class="at">data=</span>fabric)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
+</div>
 <img data-src="Chapter08_files/figure-revealjs/unnamed-chunk-12-1.png" width="960" class="r-stretch quarto-figure-center"></section>
 <section id="bonferroni-correction" class="slide level2">
 <h2>Bonferroni Correction</h2>
@@ -909,7 +915,7 @@ Fabric 4-Fabric 3  1.74 -1.33676  4.81676 0.3968476</code></pre>
 <p>The formula for a Bonferroni Correction is as follows:</p>
 <p><span class="math inline">\(\alpha_{new} = \alpha_{original} / n\)</span></p>
 <p>where:</p>
-<p><span class="math inline">\(\alpha_{original}\)</span>: The original level set <em>a priori</em></p>
+<p><span class="math inline">\(\alpha_{original}\)</span>: The original <span class="math inline">\(\alpha\)</span> level set <em>a priori</em></p>
 <p>n: The total number of comparisons or tests being performed</p>
 </section>
 <section id="bonferroni-correction-1" class="slide level2">
@@ -917,8 +923,8 @@ Fabric 4-Fabric 3  1.74 -1.33676  4.81676 0.3968476</code></pre>
 <p>General procedure:</p>
 <ul>
 <li>check that all anova assumptions are satisfied</li>
-<li>specify , the overall significance level</li>
-<li>specify the significance level for each comparison as / n</li>
+<li>specify <span class="math inline">\(\alpha\)</span>, the overall significance level</li>
+<li>specify the significance level for each comparison as $/ n $</li>
 <li>summaries the results as confidence intervals for each pair of means and associated significance in tables or plots</li>
 </ul>
 </section>
@@ -926,22 +932,22 @@ Fabric 4-Fabric 3  1.74 -1.33676  4.81676 0.3968476</code></pre>
 <h2>Bonferroni Correction: Fabric Example</h2>
 <p>Do the different fabric types have different burn times?</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1"></a><span class="co"># make an object to hold all the pvalues from each ttest</span></span>
-<span id="cb14-2"><a href="#cb14-2"></a>pvals <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb14-3"><a href="#cb14-3"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, </span>
-<span id="cb14-4"><a href="#cb14-4"></a>         <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 1"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> ))<span class="sc">$</span>p.value,</span>
-<span id="cb14-5"><a href="#cb14-5"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 1"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 3"</span> ))<span class="sc">$</span>p.value,</span>
-<span id="cb14-6"><a href="#cb14-6"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 1"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 4"</span> ))<span class="sc">$</span>p.value,</span>
-<span id="cb14-7"><a href="#cb14-7"></a>    <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric,  <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 3"</span> ))<span class="sc">$</span>p.value,</span>
-<span id="cb14-8"><a href="#cb14-8"></a>    <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 4"</span> ))<span class="sc">$</span>p.value,</span>
-<span id="cb14-9"><a href="#cb14-9"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric,  <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 4"</span> ))<span class="sc">$</span>p.value</span>
-<span id="cb14-10"><a href="#cb14-10"></a>)</span>
-<span id="cb14-11"><a href="#cb14-11"></a></span>
-<span id="cb14-12"><a href="#cb14-12"></a><span class="co"># adjust the pvalues using bonferroni </span></span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="fu">p.adjust</span>(pvals, <span class="at">method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="co"># make an object to hold all the pvalues from each ttest</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>pvals <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb16-3"><a href="#cb16-3"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, </span>
+<span id="cb16-4"><a href="#cb16-4"></a>         <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 1"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> ))<span class="sc">$</span>p.value,</span>
+<span id="cb16-5"><a href="#cb16-5"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 1"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 3"</span> ))<span class="sc">$</span>p.value,</span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 1"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 4"</span> ))<span class="sc">$</span>p.value,</span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric,  <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 3"</span> ))<span class="sc">$</span>p.value,</span>
+<span id="cb16-8"><a href="#cb16-8"></a>    <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric, <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 2"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 4"</span> ))<span class="sc">$</span>p.value,</span>
+<span id="cb16-9"><a href="#cb16-9"></a>  <span class="fu">t.test</span>(burntime <span class="sc">~</span> fabric,  <span class="at">data =</span> fabric <span class="sc">|&gt;</span> <span class="fu">filter</span>(fabric <span class="sc">==</span> <span class="st">"Fabric 3"</span> <span class="sc">|</span> fabric <span class="sc">==</span> <span class="st">"Fabric 4"</span> ))<span class="sc">$</span>p.value</span>
+<span id="cb16-10"><a href="#cb16-10"></a>)</span>
+<span id="cb16-11"><a href="#cb16-11"></a></span>
+<span id="cb16-12"><a href="#cb16-12"></a><span class="co"># adjust the pvalues using bonferroni </span></span>
+<span id="cb16-13"><a href="#cb16-13"></a><span class="fu">p.adjust</span>(pvals, <span class="at">method =</span> <span class="st">"bonferroni"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.0316363138 0.0001161675 0.0120110577 1.0000000000 1.0000000000
-[6] 1.0000000000</code></pre>
+[6] 0.7229981650</code></pre>
 </div>
 </div>
 <p>The first three comparisons are significant. Fabric one is different from all the other fabrics in terms of burn time.</p>
@@ -951,7 +957,7 @@ Fabric 4-Fabric 3  1.74 -1.33676  4.81676 0.3968476</code></pre>
 <h2>Bonferroni or Tukeys</h2>
 <p>Should be used when making multiple comparisons</p>
 <p>The Tukey post-hoc test should be used when you would like to make pairwise comparisons between group means when the sample sizes for each group are equal.</p>
-<p>Note: If the sample sizes are not equal, you can use a modified version of the test known as the Tukey-Kramer test.</p>
+<p>Note: If the sample sizes are not equal, you can use a modified version of the test known as the Tukey-Kramer test. We won’t cover this modification.</p>
 <p>The Bonferroni post-hoc test should be used when you have a set of planned comparisons you would like to make beforehand.</p>
 <p>All of this should be decided <em>before</em> conducting an experiment/analysis.</p>
 </section>
@@ -984,7 +990,7 @@ Fabric 4-Fabric 3  1.74 -1.33676  4.81676 0.3968476</code></pre>
 <section id="run-a-two-way-anova" class="slide level2">
 <h2>Run a Two-way ANOVA</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(len<span class="sc">~</span>dose<span class="sc">+</span>supp, <span class="at">data=</span>ToothGrowth))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">summary</span>(<span class="fu">aov</span>(len<span class="sc">~</span>dose<span class="sc">+</span>supp, <span class="at">data=</span>ToothGrowth))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 dose         2 2426.4  1213.2   82.81  &lt; 2e-16 ***
@@ -1031,8 +1037,8 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="tukey-hsd-1" class="slide level2">
 <h2>Tukey HSD</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1"></a>teeth <span class="ot">&lt;-</span> <span class="fu">aov</span>(len<span class="sc">~</span>supp<span class="sc">+</span>dose, <span class="at">data=</span>ToothGrowth)</span>
-<span id="cb20-2"><a href="#cb20-2"></a><span class="fu">TukeyHSD</span>(teeth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a>teeth <span class="ot">&lt;-</span> <span class="fu">aov</span>(len<span class="sc">~</span>supp<span class="sc">+</span>dose, <span class="at">data=</span>ToothGrowth)</span>
+<span id="cb22-2"><a href="#cb22-2"></a><span class="fu">TukeyHSD</span>(teeth)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  Tukey multiple comparisons of means
     95% family-wise confidence level
@@ -1057,7 +1063,7 @@ D2-D1    6.365  3.450909  9.279091 7e-06</code></pre>
 <li>ANOVA: 1 and 2 factor</li>
 <li>ANOVA table</li>
 <li>Assumptions</li>
-<li>Tukey’s HSD</li>
+<li>Multiple comparisons/post-hoc</li>
 </ul>
 </section>
 <section id="learning-objectives-part-2" class="slide level2">
@@ -1112,19 +1118,19 @@ D2-D1    6.365  3.450909  9.279091 7e-06</code></pre>
 <section id="interaction-plot-for-zooplankton-data" class="slide level2">
 <h2>Interaction Plot for Zooplankton data</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb22-2"><a href="#cb22-2"></a>p1<span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len, <span class="at">group=</span>dose, <span class="at">colour=</span>dose)) <span class="sc">+</span></span>
-<span id="cb22-3"><a href="#cb22-3"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>)<span class="sc">+</span></span>
-<span id="cb22-4"><a href="#cb22-4"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"line"</span>)<span class="sc">+</span></span>
-<span id="cb22-5"><a href="#cb22-5"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">mean</span>(ToothGrowth<span class="sc">$</span>len), <span class="at">slope=</span><span class="dv">0</span>)<span class="sc">+</span> </span>
-<span id="cb22-6"><a href="#cb22-6"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Dose*Supplement Interaction effect"</span>)</span>
-<span id="cb22-7"><a href="#cb22-7"></a></span>
-<span id="cb22-8"><a href="#cb22-8"></a>p2<span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> dose, <span class="at">y =</span> len, <span class="at">group=</span>supp, <span class="at">colour=</span>supp)) <span class="sc">+</span><span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>)<span class="sc">+</span></span>
-<span id="cb22-9"><a href="#cb22-9"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"line"</span>)<span class="sc">+</span></span>
-<span id="cb22-10"><a href="#cb22-10"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">mean</span>(ToothGrowth<span class="sc">$</span>len), <span class="at">slope=</span><span class="dv">0</span>)<span class="sc">+</span> </span>
-<span id="cb22-11"><a href="#cb22-11"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Dose*Supplement Interaction effect"</span>)</span>
-<span id="cb22-12"><a href="#cb22-12"></a><span class="fu">library</span>(patchwork)</span>
-<span id="cb22-13"><a href="#cb22-13"></a>p1<span class="sc">+</span>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>p1<span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> supp, <span class="at">y =</span> len, <span class="at">group=</span>dose, <span class="at">colour=</span>dose)) <span class="sc">+</span></span>
+<span id="cb24-3"><a href="#cb24-3"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>)<span class="sc">+</span></span>
+<span id="cb24-4"><a href="#cb24-4"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"line"</span>)<span class="sc">+</span></span>
+<span id="cb24-5"><a href="#cb24-5"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">mean</span>(ToothGrowth<span class="sc">$</span>len), <span class="at">slope=</span><span class="dv">0</span>)<span class="sc">+</span> </span>
+<span id="cb24-6"><a href="#cb24-6"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Dose*Supplement Interaction effect"</span>)</span>
+<span id="cb24-7"><a href="#cb24-7"></a></span>
+<span id="cb24-8"><a href="#cb24-8"></a>p2<span class="ot">=</span> <span class="fu">ggplot</span>(<span class="at">data =</span> ToothGrowth, <span class="fu">aes</span>(<span class="at">x =</span> dose, <span class="at">y =</span> len, <span class="at">group=</span>supp, <span class="at">colour=</span>supp)) <span class="sc">+</span><span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"point"</span>)<span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9"></a>  <span class="fu">stat_summary</span>(<span class="at">fun=</span>mean, <span class="at">geom=</span><span class="st">"line"</span>)<span class="sc">+</span></span>
+<span id="cb24-10"><a href="#cb24-10"></a>  <span class="fu">geom_abline</span>(<span class="at">intercept =</span> <span class="fu">mean</span>(ToothGrowth<span class="sc">$</span>len), <span class="at">slope=</span><span class="dv">0</span>)<span class="sc">+</span> </span>
+<span id="cb24-11"><a href="#cb24-11"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span><span class="fu">ggtitle</span>(<span class="st">"Dose*Supplement Interaction effect"</span>)</span>
+<span id="cb24-12"><a href="#cb24-12"></a><span class="fu">library</span>(patchwork)</span>
+<span id="cb24-13"><a href="#cb24-13"></a>p1<span class="sc">+</span>p2</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
 <img data-src="Chapter08_files/figure-revealjs/unnamed-chunk-19-1.png" width="960" class="r-stretch quarto-figure-center"><ul>
@@ -1144,9 +1150,9 @@ D2-D1    6.365  3.450909  9.279091 7e-06</code></pre>
 <section id="two-way-model-fit-2" class="slide level2">
 <h2>Two-way model fit</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1"></a>ToothGrowth <span class="sc">|&gt;</span> </span>
-<span id="cb23-2"><a href="#cb23-2"></a>  <span class="fu">aov</span>(<span class="at">formula =</span> len <span class="sc">~</span> supp <span class="sc">*</span> dose) <span class="sc">|&gt;</span> </span>
-<span id="cb23-3"><a href="#cb23-3"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a>ToothGrowth <span class="sc">|&gt;</span> </span>
+<span id="cb25-2"><a href="#cb25-2"></a>  <span class="fu">aov</span>(<span class="at">formula =</span> len <span class="sc">~</span> supp <span class="sc">*</span> dose) <span class="sc">|&gt;</span> </span>
+<span id="cb25-3"><a href="#cb25-3"></a>  <span class="fu">summary</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>            Df Sum Sq Mean Sq F value   Pr(&gt;F)    
 supp         1  205.4   205.4  15.572 0.000231 ***
@@ -1170,7 +1176,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <li><p>Posthoc tests to examine different level combinations</p></li>
 </ul>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1"></a><span class="fu">TukeyHSD</span>(modl)<span class="sc">$</span><span class="st">`</span><span class="at">supp:dose</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1"></a><span class="fu">TukeyHSD</span>(modl)<span class="sc">$</span><span class="st">`</span><span class="at">supp:dose</span><span class="st">`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                 diff        lwr        upr        p adj
 VC:D0.5-OJ:D0.5 -5.25 -10.048124 -0.4518762 2.425209e-02
@@ -1319,7 +1325,7 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <section id="regression-and-anova-1" class="slide level2">
 <h2>Regression and ANOVA</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1"></a>fabric <span class="sc">|&gt;</span> <span class="fu">lm</span>(<span class="at">formula =</span> burntime<span class="sc">~</span>I1<span class="sc">+</span>I2<span class="sc">+</span>I3) <span class="sc">|&gt;</span> <span class="fu">anova</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1"></a>fabric <span class="sc">|&gt;</span> <span class="fu">lm</span>(<span class="at">formula =</span> burntime<span class="sc">~</span>I1<span class="sc">+</span>I2<span class="sc">+</span>I3) <span class="sc">|&gt;</span> <span class="fu">anova</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Variance Table
 
@@ -1586,9 +1592,9 @@ grp3-grp2 -1.966667 -2.331995 -1.6013381     0</code></pre>
 <section id="ancova-fit-2" class="slide level2">
 <h2>ANCOVA fit</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1"></a>modl <span class="ot">=</span> <span class="fu">lm</span>(Sales<span class="sc">~</span>Households<span class="sc">*</span>Location, <span class="at">data =</span> restaurant)</span>
-<span id="cb42-2"><a href="#cb42-2"></a>outs <span class="ot">&lt;-</span> <span class="fu">summary</span>(modl)<span class="sc">$</span>coefficients</span>
-<span id="cb42-3"><a href="#cb42-3"></a><span class="fu">round</span>(outs[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb44-1"><a href="#cb44-1"></a>modl <span class="ot">=</span> <span class="fu">lm</span>(Sales<span class="sc">~</span>Households<span class="sc">*</span>Location, <span class="at">data =</span> restaurant)</span>
+<span id="cb44-2"><a href="#cb44-2"></a>outs <span class="ot">&lt;-</span> <span class="fu">summary</span>(modl)<span class="sc">$</span>coefficients</span>
+<span id="cb44-3"><a href="#cb44-3"></a><span class="fu">round</span>(outs[, <span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>], <span class="at">digits =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                          Estimate Std. Error t value Pr(&gt;|t|)
 (Intercept)                 -6.203     11.818  -0.525    0.611
@@ -1637,13 +1643,13 @@ Households:LocationStreet   -0.012      0.101  -0.120    0.907</code></pre>
 <p>Rank the <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> variables, and then obtain usual Pearson correlation coefficient.</p>
 <p>The plot shows non-parametric Spearman in the the upper triangle and parametric Pearson in the bottom triangle.</p>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb46-1"><a href="#cb46-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb46-2"><a href="#cb46-2"></a></span>
-<span id="cb46-3"><a href="#cb46-3"></a>p <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
-<span id="cb46-4"><a href="#cb46-4"></a>  trees, </span>
-<span id="cb46-5"><a href="#cb46-5"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">'cor'</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)),</span>
-<span id="cb46-6"><a href="#cb46-6"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">'cor'</span>) </span>
-<span id="cb46-7"><a href="#cb46-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb48-1"><a href="#cb48-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb48-2"><a href="#cb48-2"></a></span>
+<span id="cb48-3"><a href="#cb48-3"></a>p <span class="ot">&lt;-</span> <span class="fu">ggpairs</span>(</span>
+<span id="cb48-4"><a href="#cb48-4"></a>  trees, </span>
+<span id="cb48-5"><a href="#cb48-5"></a>  <span class="at">upper =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="fu">wrap</span>(<span class="st">'cor'</span>, <span class="at">method =</span> <span class="st">"spearman"</span>)),</span>
+<span id="cb48-6"><a href="#cb48-6"></a>  <span class="at">lower =</span> <span class="fu">list</span>(<span class="at">continuous =</span> <span class="st">'cor'</span>) </span>
+<span id="cb48-7"><a href="#cb48-7"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
@@ -1667,7 +1673,7 @@ Households:LocationStreet   -0.012      0.101  -0.120    0.907</code></pre>
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1"></a><span class="fu">wilcox.test</span>(tv<span class="sc">$</span>TELETIME, <span class="at">mu=</span><span class="dv">1680</span>, <span class="at">conf.int=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">wilcox.test</span>(tv<span class="sc">$</span>TELETIME, <span class="at">mu=</span><span class="dv">1680</span>, <span class="at">conf.int=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Wilcoxon signed rank exact test
@@ -1684,7 +1690,7 @@ sample estimates:
 </div>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1"></a><span class="fu">t.test</span>(tv<span class="sc">$</span>TELETIME, <span class="at">mu=</span><span class="dv">1680</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="fu">t.test</span>(tv<span class="sc">$</span>TELETIME, <span class="at">mu=</span><span class="dv">1680</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     One Sample t-test
@@ -1722,9 +1728,9 @@ mean of x
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1"></a><span class="co"># Mann Whitney is often referred to as the Wilcoxon Rank-Sum Test, hence the function.</span></span>
-<span id="cb51-2"><a href="#cb51-2"></a><span class="fu">load</span>(<span class="st">"../data/rangitikei.Rdata"</span>)</span>
-<span id="cb51-3"><a href="#cb51-3"></a><span class="fu">wilcox.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time, <span class="at">conf.int=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="co"># Mann Whitney is often referred to as the Wilcoxon Rank-Sum Test, hence the function.</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a><span class="fu">load</span>(<span class="st">"../data/rangitikei.Rdata"</span>)</span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="fu">wilcox.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time, <span class="at">conf.int=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Wilcoxon rank sum test with continuity correction
@@ -1741,7 +1747,7 @@ difference in location
 </div>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1"></a><span class="fu">t.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">t.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Welch Two Sample t-test
@@ -1764,7 +1770,7 @@ mean in group 1 mean in group 2
 <div class="columns">
 <div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1"></a><span class="fu">kruskal.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">kruskal.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Kruskal-Wallis rank sum test
@@ -1775,7 +1781,7 @@ Kruskal-Wallis chi-squared = 7.2171, df = 1, p-value = 0.007221</code></pre>
 </div>
 </div><div class="column">
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1"></a><span class="fu">wilcox.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1"></a><span class="fu">wilcox.test</span>(rangitikei<span class="sc">$</span>people<span class="sc">~</span>rangitikei<span class="sc">$</span>time)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Wilcoxon rank sum test with continuity correction
