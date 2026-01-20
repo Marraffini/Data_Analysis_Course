@@ -299,22 +299,125 @@ But if have issues with normality and unequal variance try transformations
 
     -  Kruskal-Wallis Test is the non-parametric version of a one-way ANOVA
 
+## Multiple comparisons
+
+Whenever you perform a hypothesis test, there is always a chance of committing a type I error aka 'false positive'.
+
+
+When we perform one hypothesis test, the type I error rate is equal to the significance level (\alpha), however, when we conduct multiple hypothesis tests at once, the probability of getting a false positive increases.
+
+When we conduct multiple hypothesis tests at once, we have to deal with something known as a family-wise error rate, which is the probability that at least one of the tests produces a false positive. This can be calculated as:
+
+Family-wise error rate = $1 – (1-\alpha)n$
+
+where:
+
+\alpha: The significance level for a single hypothesis test
+n: The total number of tests
+
+## Multiple comparisons
+
+There are several procedures available that allow use to make multiple comparisons of a set of treatment means while still, under some assumptions, assuring that the overall confidence level associated with all the comparisons remain at or above the specified $100(1-\alpha) \%$ level.
+
+We will discuss two such methods:
+
+-   Tukey's method
+-   Bonferroni's procedure
+
 ## Tukey HSD
 
--   Tukey HSD (Honest Significant Differences) plot allows pairwise
-    comparison of treatment means.
--   Which fabric types have different burn times? (remember the
-    alternative hypothesis of a one-way ANOVA is *at least* one of the
+-   Tukey HSD (Honest Significant Differences) allows pairwise
+    comparison of treatment means 
+-   Tukey's test is essentially a t-test, except that it corrects for family-wise error rate.
+-   HSD is the least amount that means must vary from each other to be significantly different
+-   often called a post-hoc test
+
+
+
+$HSD = q * \sqrt{\frac{MSE}{n}}$
+
+q is a constant from studentized range q table
+
+MSE is the mean square error within
+
+n = the number in each category 
+
+## Tukey HSD: Fabric Example
+
+Which fabric types have different burn times? (remember the
+  alternative hypothesis of a one-way ANOVA is *at least* one of the
     means are different)
 
 ```{r}
 TukeyHSD(aov(burntime~fabric, data=fabric))
 ```
+
 ## Tukey HSD (Interval Plot)
+
 ```{r}
 par(las=1, mar=c(5, 8, 4, 2))
 plot(TukeyHSD(aov(burntime~fabric, data=fabric)))
 ```
+
+
+## Bonferroni Correction 
+
+Refers to the process of adjusting the alpha ($\alpha$) level for a family of statistical tests so that we control for the probability of committing a type I error.
+
+The formula for a Bonferroni Correction is as follows:
+
+$\alpha_{new} = \alpha_{original} / n$
+
+where:
+
+$\alpha_{original}$: The original \alpha level set *a priori*
+
+n: The total number of comparisons or tests being performed
+
+## Bonferroni Correction 
+General procedure:
+
+-   check that all anova assumptions are satisfied
+-   specify \alpha, the overall significance level
+-   specify the significance level for each comparison as \alpha / n
+-   summaries the results as confidence intervals for each pair of means and associated significance in tables or plots
+
+## Bonferroni Correction: Fabric Example
+
+Do the different fabric types have different burn times?
+
+```{r, echo=TRUE}
+# make an object to hold all the pvalues from each ttest
+pvals <- c(
+  t.test(burntime ~ fabric, 
+         data = fabric |> filter(fabric == "Fabric 1" | fabric == "Fabric 2" ))$p.value,
+  t.test(burntime ~ fabric, data = fabric |> filter(fabric == "Fabric 1" | fabric == "Fabric 3" ))$p.value,
+  t.test(burntime ~ fabric, data = fabric |> filter(fabric == "Fabric 1" | fabric == "Fabric 4" ))$p.value,
+    t.test(burntime ~ fabric,  data = fabric |> filter(fabric == "Fabric 2" | fabric == "Fabric 3" ))$p.value,
+    t.test(burntime ~ fabric, data = fabric |> filter(fabric == "Fabric 2" | fabric == "Fabric 4" ))$p.value,
+  t.test(burntime ~ fabric,  data = fabric |> filter(fabric == "Fabric 2" | fabric == "Fabric 4" ))$p.value
+)
+
+# adjust the pvalues using bonferroni 
+p.adjust(pvals, method = "bonferroni")
+
+```
+
+The first three comparisons are significant. Fabric one is different from all the other fabrics in terms of burn time.
+
+This is a similar results to the Tukey's procedure but this my not always be the case.
+
+## Bonferroni or Tukeys
+
+Should be used when making multiple comparisons
+
+The Tukey post-hoc test should be used when you would like to make pairwise comparisons between group means when the sample sizes for each group are equal.
+
+Note: If the sample sizes are not equal, you can use a modified version of the test known as the Tukey-Kramer test.
+
+The Bonferroni post-hoc test should be used when you have a set of planned comparisons you would like to make beforehand. 
+
+All of this should be decided *before* conducting an experiment/analysis.
 
 ## Two way (two factor) ANOVA
 
@@ -918,7 +1021,7 @@ t.test(tv$TELETIME, mu=1680)
 
 Kruskal-Wallis test: allows to compare three or more groups
 
-Mann-Whitney test: allows to compare 2 groups under the non-normality assumption.
+Mann-Whitney test: allows to compare 2 groups under the non-normality assumption. Often referred to as the Wilcoxon Rank-Sum Test.
 
 
 ## Kruskal-Wallis test
@@ -933,8 +1036,7 @@ In this sense, if the null hypothesis is rejected, it means that at least one gr
 
 ## Mann-Whitney test
 
-For two group comparison, pool the two group responses and then rank the
-pooled data
+For two group comparison, pool the two group responses and then rank the pooled data
 
 Ranks for the first group are compared to the ranks for the second group
 
@@ -948,6 +1050,7 @@ The null hypothesis is that the two group medians are the same:     $H_0: \eta_1
 
 ```{r}
 #| echo: true
+# Mann Whitney is often referred to as the Wilcoxon Rank-Sum Test, hence the function.
 load("../data/rangitikei.Rdata")
 wilcox.test(rangitikei$people~rangitikei$time, conf.int=T)
 ```

@@ -676,7 +676,7 @@ curl::curl_download(url, destfile)
 
 ```{r, echo=TRUE}
 library(readxl)
-rsos192136_si_001 <- read_excel("rsos192136_si_001.xlsx")
+rsos192136_si_001 <- read_excel("../data/rsos192136_si_001.xlsx")
 ```
 
 The missingness of data can be quickly explored using many R packages. The downloaded Telomeres dataset contain many missing values.
