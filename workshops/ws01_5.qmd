@@ -237,7 +237,7 @@ Repeat the above exercise 1.2 but now calculate the median number of people and 
 
 ## Exercise 1.5 {-}
 
-Use the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?
+Use the above three tables you generated to describe the Rangitikei dataset. What other information or tables might be useful?
 
 ::: {#answer}
 
@@ -325,6 +325,25 @@ What does the function `na.omit()` do? Why would you add it to a piping sequence
 ```{r}
 # your code goes here
 ```
+
+:::
+
+## Exercise 1.11 {-}
+
+Try the following example
+
+```{r}
+data.na <-data.frame(a=c(1,NA,5),b=c(3,2,2))
+
+colMeans(data.na,na.rm=TRUE)
+
+colMeans(na.omit(data.na))
+
+```
+Why is there a difference between colMeans(data.na, na.rm=TRUE) and colMeans(na.omit(data.na)) for column b?
+
+::: {#answer}
+
 
 :::
 

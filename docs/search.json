@@ -207,98 +207,154 @@
     "href": "workshops/ws01.html",
     "title": "Getting Started With R",
     "section": "",
-    "text": "If you have not installed R and RStudio, refer to the study guide for some instructions.\nTo start this workshop download the source from the class website. You can now save this to your computer and make notes in this document."
+    "text": "R is a software created in the 90s as an alternative to S, a propietary statsitical software. It was developed at the University of Auckland.\nRstudio is a Graphic User Interface (GUI) for R developed by Posit.\nBoth software are approved by the Libre software foundation",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.1",
     "href": "workshops/ws01.html#exercise-1.1",
     "title": "Getting Started With R",
     "section": "Exercise 1.1",
-    "text": "Exercise 1.1\nThere are many built-in functions. Try the following.\n27^3 sqrt(10) round(sqrt(10),2) abs(-4) log(10) exp(10) rnorm(100) mean(rnorm(100)) sd(rnorm(100))\n\n\nCode\n# your code goes here\n# make yourself notes about what each of these functions does\n\n\nYou may wonder what was the base used for log(10). A help on this can be obtained by placing a question mark (?) before log as ?log or by help(log)\nThere are a few exceptions. The command ?if wont work but ?\"if\" will. In other words, ?\"log\" or help(\"log\") are safer ways of getting help on “built-in” functions.\nIn RStudio, use the R Editor (menu File &gt; New Script) to type the commands and submit them (shortcut: CNTRL+R).`"
+    "text": "Exercise 1.1\nThere are many built-in functions. Try the following.\n27^3 sqrt(10) round(sqrt(10),2) abs(-4) log(10) exp(10) rnorm(100) mean(rnorm(100)) sd(rnorm(100))\n\n\nCode\n# your code goes here\n# make yourself notes about what each of these functions does\n\n\nYou may wonder what was the base used for log(10). A help on this can be obtained by placing a question mark (?) before log as ?log or by help(log)\nThere are a few exceptions. The command ?if wont work but ?\"if\" will. In other words, ?\"log\" or help(\"log\") are safer ways of getting help on “built-in” functions.\nIn RStudio, use the R Editor (menu File &gt; New Script) to type the commands and submit them (shortcut: CNTRL+R).`",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.2",
     "href": "workshops/ws01.html#exercise-1.2",
     "title": "Getting Started With R",
     "section": "Exercise 1.2",
-    "text": "Exercise 1.2\nWhy does this code not work?\n\n\nCode\nmy_variable &lt;- 10\nmy_varıable"
+    "text": "Exercise 1.2\nWhy does this code not work?\n\n\nCode\nmy_variable &lt;- 10\nmy_varıable",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.3",
     "href": "workshops/ws01.html#exercise-1.3",
     "title": "Getting Started With R",
     "section": "Exercise 1.3",
-    "text": "Exercise 1.3\nMake a variable with a sequence of numbers between 1 and 10. Look up the function seq() in the help menu for tips.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.3\nMake a variable with a sequence of numbers between 1 and 10. Look up the function seq() in the help menu for tips.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.4",
     "href": "workshops/ws01.html#exercise-1.4",
     "title": "Getting Started With R",
     "section": "Exercise 1.4",
-    "text": "Exercise 1.4\nExplore the help menu for the function plot Generic X-Y Plotting. What line of code can you use to access this file?\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.4\nExplore the help menu for the function boxplot. What line of code can you use to access this file?\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.5",
     "href": "workshops/ws01.html#exercise-1.5",
     "title": "Getting Started With R",
     "section": "Exercise 1.5",
-    "text": "Exercise 1.5\nWrite code to generate an example of the function plot using a built in dataset InsectSprays. You can use ?InsectSprays to find out more about this data.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.5\nWrite code to generate an example of the function boxplot using a built in dataset InsectSprays. You can use ?InsectSprays to find out more about this data.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.6",
     "href": "workshops/ws01.html#exercise-1.6",
     "title": "Getting Started With R",
     "section": "Exercise 1.6",
-    "text": "Exercise 1.6\nHow would you generate a plot with lines for your data? Use the help menu to find the argument you might need to change and what you would change it to. Explain in words and then in code.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.6\nHow would you generate a horizontal boxplot? Use the help menu to find the argument you might need to change and what you would change it to. Explain in words and then in code.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.7",
     "href": "workshops/ws01.html#exercise-1.7",
     "title": "Getting Started With R",
     "section": "Exercise 1.7",
-    "text": "Exercise 1.7\nUse your answers to the previous three exercises to write a short description of what the function plot does. Include what information you need to put into the function and what you might expect it to return."
+    "text": "Exercise 1.7\nUse your answers to the previous three exercises to write a short description of what the function boxplot does. Include what information you need to put into the function and what you might expect it to return.",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#tidyverse",
     "href": "workshops/ws01.html#tidyverse",
     "title": "Getting Started With R",
     "section": "tidyverse",
-    "text": "tidyverse\nSo we will be largely using the tidyverse suite of packages; see https://www.tidyverse.org/.\nLet’s load that package now:\n\n\nCode\ninstall.packages('tidyverse') # if you do not have tidyverse you will need to install it first\n# you only have to install packages once per machine (computer)\n# notice eval= FALSE in the chunk so this code does not run everytime this document is rendered\n\n\n\n\nCode\nlibrary(tidyverse) # you need to load a library every R session\n\n\nA huge number of other dedicated packages are available to improve the power of R. Many R packages are hosted at a repository called CRAN (Comprehensive R Archive Network). The package install option within RStudio can download and install these optional packages under the menu Packages &gt;&gt; Install. You can also do this using the command install.packages. For example\ninstall.packages(c(\"tidyverse\", \"car\"), dependencies = TRUE)\nThis command installs two packages tidyverse and car in one go.\nContributed R packages are grouped in various headings at https://cran.r-project.org/web/views/. They can be installed in bulk using the ctv package command install.views().\nYou might have to install quite a few packages as you work through this course."
+    "text": "tidyverse\nSo we will be largely using the tidyverse suite of packages; see https://www.tidyverse.org/.\nLet’s load that package now:\n\n\nCode\ninstall.packages('tidyverse') # if you do not have tidyverse you will need to install it first\n# you only have to install packages once per machine (computer)\n# notice eval= FALSE in the chunk so this code does not run everytime this document is rendered\n\n\n\n\nCode\nlibrary(tidyverse) # you need to load a library every R session\n\n\nWarning: package 'tidyverse' was built under R version 4.5.3\n\n\nWarning: package 'ggplot2' was built under R version 4.5.3\n\n\nWarning: package 'tibble' was built under R version 4.5.3\n\n\nWarning: package 'tidyr' was built under R version 4.5.3\n\n\nWarning: package 'readr' was built under R version 4.5.3\n\n\nWarning: package 'purrr' was built under R version 4.5.3\n\n\nWarning: package 'dplyr' was built under R version 4.5.3\n\n\nWarning: package 'stringr' was built under R version 4.5.3\n\n\nWarning: package 'forcats' was built under R version 4.5.3\n\n\nWarning: package 'lubridate' was built under R version 4.5.3\n\n\nA huge number of other dedicated packages are available to improve the power of R. Many R packages are hosted at a repository called CRAN (Comprehensive R Archive Network). The package install option within RStudio can download and install these optional packages under the menu Packages &gt;&gt; Install. You can also do this using the command install.packages. For example\ninstall.packages(c(\"tidyverse\", \"car\"), dependencies = TRUE)\nThis command installs two packages tidyverse and car in one go.\nContributed R packages are grouped in various headings at https://cran.r-project.org/web/views/. They can be installed in bulk using the ctv package command install.views().\nYou might have to install quite a few packages as you work through this course.",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.8",
     "href": "workshops/ws01.html#exercise-1.8",
     "title": "Getting Started With R",
     "section": "Exercise 1.8",
-    "text": "Exercise 1.8\nIn R you can use multiple functions to read in data including read.csv, read_csv, read.table and read_excel. read_csv is in the readr library and read_excel is in the readxl library. Load these library, then explore the help menu for each of these four function, what are the differences?\nNote: that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them. Is there anything in the help menu you can do to help avoid this?\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.8\nIn R you can use multiple functions to read in data including read.csv, read_csv, read.table and read_excel. read_csv is in the readr library and read_excel is in the readxl library. Load these library, then explore the help menu for each of these four function, what are the differences?\nNote: that Excel files usually contain blanks for missing or unreported data or allocate many rows for variable description, which can cause issues while importing them. Is there anything in the help menu you can do to help avoid this?\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.9",
     "href": "workshops/ws01.html#exercise-1.9",
     "title": "Getting Started With R",
     "section": "Exercise 1.9",
-    "text": "Exercise 1.9\nTry importing the Telomeres data file (in Excel format) available at\nhttps://rs.figshare.com/ndownloader/files/22850096\nFirst download the data, put it in a directory with this quarto document. Then write code to import the file into R and save it as telomers.\n\n\n\nCode\n# your code goes here\n\n\n\nConsider the study guide dataset rangitikei.csv (Recreational Use of the Rangitikei river) again. The first 10 rows of this dataset are shown below:\n\n\n    X id loc time w.e cl wind temp river people vehicle\n1   1  1   1    2   1  1    2    2     1     37      15\n2   2  2   1    1   1  1    2    1     2     23       6\n3   3  3   1    2   1  1    2    2     3     87      31\n4   4  4   2    2   1  1    2    1     1     86      27\n5   5  5   2    1   1  1    2    2     2     19       2\n6   6  6   2    2   1  2    1    3     3    136      23\n7   7  7   1    2   2  2    2    2     3     14       8\n8   8  8   1    2   1  2    2    2     3     67      26\n9   9  9   1    1   2  1    3    1     2      4       3\n10 10 10   2    2   1  2    2    2     3    127      45\n\n\nThe description of the variables is given below:\nloc - two locations were surveyed, coded 1, 2\ntime - time of day, 1 for morning, 2 for afternoon\nw.e - coded 1 for weekend, 2 for weekday\ncl- cloud cover, 1 for &gt;50%, 2 for &lt;50%\nwind- coded 1 through 4 for increasing wind speed\ntemp - temperature, 1, 2 or 3 increasing temp\nriver- murkiness of river in 3 increasing categories\npeople - number of people at that location and time\nvehicle- number of vehicles at that location at that time"
+    "text": "Exercise 1.9\nTry importing the Telomeres data file (in Excel format) available at\nhttps://rs.figshare.com/ndownloader/files/22850096\nFirst download the data, put it in a directory with this quarto document. Then write code to import the file into R and save it as telomers.\n\n\n\nCode\n# your code goes here\n\n\n\nConsider the study guide dataset rangitikei.csv (Recreational Use of the Rangitikei river) again. The first 10 rows of this dataset are shown below:\n\n\n    X id loc time w.e cl wind temp river people vehicle\n1   1  1   1    2   1  1    2    2     1     37      15\n2   2  2   1    1   1  1    2    1     2     23       6\n3   3  3   1    2   1  1    2    2     3     87      31\n4   4  4   2    2   1  1    2    1     1     86      27\n5   5  5   2    1   1  1    2    2     2     19       2\n6   6  6   2    2   1  2    1    3     3    136      23\n7   7  7   1    2   2  2    2    2     3     14       8\n8   8  8   1    2   1  2    2    2     3     67      26\n9   9  9   1    1   2  1    3    1     2      4       3\n10 10 10   2    2   1  2    2    2     3    127      45\n\n\nThe description of the variables is given below:\nloc - two locations were surveyed, coded 1, 2\ntime - time of day, 1 for morning, 2 for afternoon\nw.e - coded 1 for weekend, 2 for weekday\ncl- cloud cover, 1 for &gt;50%, 2 for &lt;50%\nwind- coded 1 through 4 for increasing wind speed\ntemp - temperature, 1, 2 or 3 increasing temp\nriver- murkiness of river in 3 increasing categories\npeople - number of people at that location and time\nvehicle- number of vehicles at that location at that time",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.10",
     "href": "workshops/ws01.html#exercise-1.10",
     "title": "Getting Started With R",
     "section": "Exercise 1.10",
-    "text": "Exercise 1.10\nHow many rows are in my.data? How many columns? How can you find that in R?\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.10\nHow many rows are in my.data? How many columns? How can you find that in R?\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#exercise-1.11",
     "href": "workshops/ws01.html#exercise-1.11",
     "title": "Getting Started With R",
     "section": "Exercise 1.11",
-    "text": "Exercise 1.11\nFind the mean of vehicle and the median of people using built in R functions.\n\n\n\nCode\n# your code goes here\n\n\n\nOne of the simplest manipulations on a batch of data we may do is to change the data type say numeric to character. For example, the television viewing time data in the text file tv.csv is read into a dataframe by the command line\n\n\nCode\nmy.tv.data &lt;- read.csv(\n  \"../data/tv.csv\", \n  header =TRUE\n  )\n\n\nWe can improve the read.csv command to recognise the data type while reading the table as follows, using the read_csv command from the readr package:\n\n\nCode\nmy.tv.data2 &lt;- read_csv(\n  \"~/Documents/Classes/161.250/tv.csv\", \n  col_types = \"nfcc\"\n  )\n\n# check if it worked\nglimpse(my.tv.data2)\n\n\nRows: 46\nColumns: 4\n$ TELETIME &lt;dbl&gt; 1482, 2018, 1849, 857, 2027, 2368, 1783, 1769, 2534, 2366, 15…\n$ SEX      &lt;fct&gt; 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2…\n$ SCHOOL   &lt;chr&gt; \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"…\n$ STANDARD &lt;chr&gt; \"4\", \"4\", \"4\", \"4\", \"4\", \"4\", \"4\", \"4\", \"3\", \"3\", \"3\", \"3\", \"…\n\n\nThe argument col_types = \"nfcc\" stands for {numeric, factor, character, character}, to match the order of the columns."
+    "text": "Exercise 1.11\nFind the mean of vehicle and the median of people using built in R functions.\n\n\n\nCode\n# your code goes here\n\n\n\nOne of the simplest manipulations on a batch of data we may do is to change the data type say numeric to character. For example, the television viewing time data in the text file tv.csv is read into a dataframe by the command line\n\n\nCode\n my.tv.data &lt;- read.csv(\n   \"../data/tv.csv\",\n   header =TRUE\n   )\n\n\nWe can improve the read.csv command to recognise the data type while reading the table as follows, using the read_csv command from the readr package:\n\n\nCode\nmy.tv.data2 &lt;- read_csv(\n  \"../data/tv.csv\",\n  col_types = \"nfcc\"\n  )\n\n# check if it worked\nglimpse(my.tv.data2)\n\n\nRows: 46\nColumns: 4\n$ TELETIME &lt;dbl&gt; 1482, 2018, 1849, 857, 2027, 2368, 1783, 1769, 2534, 2366, 15…\n$ SEX      &lt;fct&gt; 1, 1, 1, 1, 2, 2, 2, 2, 1, 1, 1, 1, 1, 2, 2, 1, 1, 2, 2, 2, 2…\n$ SCHOOL   &lt;chr&gt; \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"1\", \"…\n$ STANDARD &lt;chr&gt; \"4\", \"4\", \"4\", \"4\", \"4\", \"4\", \"4\", \"4\", \"3\", \"3\", \"3\", \"3\", \"…\n\n\nThe argument col_types = \"nfcc\" stands for {numeric, factor, character, character}, to match the order of the columns.",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/ws01.html#quarto",
     "href": "workshops/ws01.html#quarto",
     "title": "Getting Started With R",
     "section": "Quarto",
-    "text": "Quarto\nExplore quarto documents by copying the code from the website and putting it into a new quarto document in your R."
+    "text": "Quarto\nExplore quarto documents by copying the code from the website and putting it into a new quarto document in your R.",
+    "crumbs": [
+      "Workshops",
+      "Getting Started With R"
+    ]
   },
   {
     "objectID": "workshops/references.html",
@@ -480,84 +536,132 @@
     "href": "workshops/ws01_5.html",
     "title": "Tidy data",
     "section": "",
-    "text": "Copy this code and paste it into a new quarto document in R. We will be using quarto for assignments, it is good to practice using it with each workshop."
+    "text": "Copy this code and paste it into a new quarto document in R. We will be using quarto for assignments, it is good to practice using it with each workshop.",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#tidyr",
     "href": "workshops/ws01_5.html#tidyr",
     "title": "Tidy data",
     "section": "tidyr",
-    "text": "tidyr\nBy the phrase tidy data, it is meant the preferred way of arranging data that is easy to analyse. The principles of tidy data are:\n\nEach variable forms a column.\nEach observation forms a row.\nEach type of observational unit forms a table."
+    "text": "tidyr\nBy the phrase tidy data, it is meant the preferred way of arranging data that is easy to analyse. The principles of tidy data are:\n\nEach variable forms a column.\nEach observation forms a row.\nEach type of observational unit forms a table.",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.1",
     "href": "workshops/ws01_5.html#exercise-1.1",
     "title": "Tidy data",
     "section": "Exercise 1.1",
-    "text": "Exercise 1.1\nFor each of the sample tables, describe what each observation and each column represents. Which is the most tidy?"
+    "text": "Exercise 1.1\nFor each of the sample tables, describe what each observation and each column represents. Which is the most tidy?",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.2",
     "href": "workshops/ws01_5.html#exercise-1.2",
     "title": "Tidy data",
     "section": "Exercise 1.2",
-    "text": "Exercise 1.2\nGenerate a summary table to show the average number of people observed at each of the three rivers.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.2\nGenerate a summary table to show the average number of people observed at each of the three rivers.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.3",
     "href": "workshops/ws01_5.html#exercise-1.3",
     "title": "Tidy data",
     "section": "Exercise 1.3",
-    "text": "Exercise 1.3\nGenerate a summary table to show the average number of vehicles observed at each of the three wind levels.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.3\nGenerate a summary table to show the average number of vehicles observed at each of the three wind levels.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.4",
     "href": "workshops/ws01_5.html#exercise-1.4",
     "title": "Tidy data",
     "section": "Exercise 1.4",
-    "text": "Exercise 1.4\nRepeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river in a single table.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.4\nRepeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river in a single table.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.5",
     "href": "workshops/ws01_5.html#exercise-1.5",
     "title": "Tidy data",
     "section": "Exercise 1.5",
-    "text": "Exercise 1.5\nUse the above three tables you generate to describe the Rangitikei dataset. What other information or tables might be useful?\n\n\n\nNow let’s practice using these functions using the TB data."
+    "text": "Exercise 1.5\nUse the above three tables you generated to describe the Rangitikei dataset. What other information or tables might be useful?\n\n\n\nNow let’s practice using these functions using the TB data.",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.6",
     "href": "workshops/ws01_5.html#exercise-1.6",
     "title": "Tidy data",
     "section": "Exercise 1.6",
-    "text": "Exercise 1.6\nUsing table1, compute rate of TB cases per 10,000 and the total cases per year\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.6\nUsing table1, compute rate of TB cases per 10,000 and the total cases per year\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.7",
     "href": "workshops/ws01_5.html#exercise-1.7",
     "title": "Tidy data",
     "section": "Exercise 1.7",
-    "text": "Exercise 1.7\nGenerate a summary table to show the total cases in each country. Your table should have 3 rows.\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.7\nGenerate a summary table to show the total cases in each country. Your table should have 3 rows.\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.8",
     "href": "workshops/ws01_5.html#exercise-1.8",
     "title": "Tidy data",
     "section": "Exercise 1.8",
-    "text": "Exercise 1.8\nFor table2, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these.\n\nExtract the number of TB cases per country per year.\n\n\n\n\n\nExtract the matching population per country per year.\n\n\n\n\n\nDivide cases by population, and multiply by 10000.\n\n\n\n\n\nStore back in the appropriate place."
+    "text": "Exercise 1.8\nFor table2, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these.\n\nExtract the number of TB cases per country per year.\n\n\n\n\n\nExtract the matching population per country per year.\n\n\n\n\n\nDivide cases by population, and multiply by 10000.\n\n\n\n\n\nStore back in the appropriate place.",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.9",
     "href": "workshops/ws01_5.html#exercise-1.9",
     "title": "Tidy data",
     "section": "Exercise 1.9",
-    "text": "Exercise 1.9\nWhat does na.rm = TRUE do in the functions mean() and sum()?\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.9\nWhat does na.rm = TRUE do in the functions mean() and sum()?\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws01_5.html#exercise-1.10",
     "href": "workshops/ws01_5.html#exercise-1.10",
     "title": "Tidy data",
     "section": "Exercise 1.10",
-    "text": "Exercise 1.10\nWhat does the function na.omit() do? Why would you add it to a piping sequence of code when tidying data?\n\n\n\nCode\n# your code goes here"
+    "text": "Exercise 1.10\nWhat does the function na.omit() do? Why would you add it to a piping sequence of code when tidying data?\n\n\n\nCode\n# your code goes here",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   },
   {
     "objectID": "workshops/ws07.html",
@@ -4457,5 +4561,16 @@
     "title": "Chapter 7: Models with Multiple Continuous Predictors",
     "section": "Best Subsets Selection",
     "text": "Best Subsets Selection\nAn exhaustive screening of all possible regression models (and hence the name best subsets regression) can also be done using software. For example, there are 6 predictor variables in the horses’ hearts data. If we fix the number of predictors as 3, then \\(\\small {\\left(\\begin{array}{c} {6} \\\\ {3} \\end{array}\\right)} = 20\\) regression models are possible. One may select the ‘best’ 3-variable model based on criteria such as AIC, \\(C_{p}\\), \\(R_{adj}^{2}\\) etc. Software must be employed to perform the conventional stepwise regression procedures. Software algorithms give one or more best candidate models fixing the number of variables in each step.\nOn the basis of our analysis on the horses’ hear data, we might decide to recommend the model with predictor variables EXTDIA, EXTSYS, INNERDIA and OUTERSYS. In particular if the model is to be used for describing relationships then we would tend to include more variables. For prediction purposes, however, a simpler feasible model is preferred and in this case we may opt for the smaller model with only INNERDIA and OUTERSYS. See Table 4 produced using the following R codes:\n\n\nCode\nlibrary(leaps)\nlibrary(HH)\nlibrary(kableExtra)\n\nb.model &lt;- regsubsets(WEIGHT ~ ., data = horsehearts) |&gt;\n  summaryHH() \n\nb.model |&gt; \n  kable(digits = 3) |&gt; \n  kable_styling(bootstrap_options = \"basic\", full_width = F)\n\n\n\n\nTable 4: Subset selection\n\n\nmodel\np\nrsq\nrss\nadjr2\ncp\nbic\nstderr\n\n\n\n\nINNERD\n2\n0.658\n19.450\n0.650\n11.923\n-41.677\n0.665\n\n\nINNERD-OUTERS\n3\n0.715\n16.173\n0.702\n4.838\n-46.335\n0.613\n\n\nINNERD-OUTERS-OUTERD\n4\n0.718\n16.043\n0.698\n6.477\n-42.878\n0.618\n\n\nINNERD-OUTERS-EXTS-EXTD\n5\n0.741\n14.739\n0.715\n4.862\n-42.949\n0.600\n\n\nINNERD-OUTERS-OUTERD-EXTS-EXTD\n6\n0.749\n14.272\n0.718\n5.566\n-40.602\n0.597\n\n\nINNERS-INNERD-OUTERS-OUTERD-EXTS-EXTD\n7\n0.753\n14.067\n0.714\n7.000\n-37.437\n0.601\n\n\n\n\n\n\n\n\nSometimes theory may indicate that a certain explanatory variable should be included in the model (e.g. due to small sample size). If this variable is found to make an insignificant contribution to the model, then one should exclude the variable when the model is to be used for prediction but if the model is to be used for explanation purposes only then the variable should be included. Other considerations such as cost and time may also be taken into account. For every method or algorithm, one could find peculiar data sets where it fouls up. The moral – be alert and don’t automatically accept models thrown up by a program. Note there is never one right answer as different methods and different criteria lead to different models.\nVariable selection procedures can be a valuable tool in data analysis, particularly in the early stages of building a model. At the same time, they present certain dangers. There are several reasons for this:\n\nThese procedures automatically snoop though many models and may select ones which, by chance, happen to fit well.\nThese forward or backward stepwise procedures are heuristic (i.e., shortcut) algorithms, which often work very well but which may not always select the best model for a given number of predictors (here best may refer to adjusted \\(R^2\\)-values, or AIC or some other criterion).\nAutomatic procedures cannot take into account special knowledge the analyst may have about the data. Therefore, the model selected may not be the best (or make sense) from a practical point of view.\nMethods are available that shrink coefficients towards zero. The least squares approach minimises the residual sums of squares or RSS without placing any constraint on the coefficients. The shrinkage methods, which place a constraint on the coefficients, work well when there are large numbers of predictors. A ridge regression shrinks the coefficients towards zero but in relation each other. On the other hand, (Least Absolute Selection and Shrinkage Operator) lasso regression shrinks some of coefficients to zero which means these predictors can be dropped. Note that the ridge regression does not completely remove predictors. By shrinking large coefficients, we obtain a model with higher bias but lower variance. This process is known as regularisation in the literature (not covered in this course)."
+  },
+  {
+    "objectID": "workshops/ws01_5.html#exercise-1.11",
+    "href": "workshops/ws01_5.html#exercise-1.11",
+    "title": "Tidy data",
+    "section": "Exercise 1.11",
+    "text": "Exercise 1.11\nTry the following example\n\n\nCode\ndata.na &lt;-data.frame(a=c(1,NA,5),b=c(3,2,2))\n\ncolMeans(data.na,na.rm=TRUE)\n\n\n       a        b \n3.000000 2.333333 \n\n\nCode\ncolMeans(na.omit(data.na))\n\n\n  a   b \n3.0 2.5 \n\n\nWhy is there a difference between colMeans(data.na, na.rm=TRUE) and colMeans(na.omit(data.na)) for column b?",
+    "crumbs": [
+      "Workshops",
+      "Tidy data"
+    ]
   }
 ]

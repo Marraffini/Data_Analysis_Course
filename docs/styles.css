@@ -1,1 +1,6 @@
 /* css styles */
+
+#quarto-embedded-source-code-modal .code-copy-button {
+  position: sticky;
+  top: 0;
+}

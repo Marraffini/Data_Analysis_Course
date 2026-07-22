@@ -554,7 +554,7 @@ A two-way ANOVA with interaction tests three null hypotheses at the same time:
 
 ![](img/interaction.png)
 
-## Interaction Plot for Zooplankton data
+## Interaction Plot for ToothGrowth data
 
 ```{r, echo=TRUE, warning=FALSE, comment=FALSE}
 library(ggplot2)

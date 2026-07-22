@@ -231,7 +231,7 @@ ggplot() +
 
 :::
 
-Explore multiple `geom`s and thing about how different types of data might be displayed in each.
+Explore multiple `geom`s and think about how different types of data might be displayed in each.
 
 ## Panels
 
@@ -563,7 +563,7 @@ a) Obtain some summary statistics for `prestige`. There are a few options for th
 
 :::
 
-b) Make a summary dataset, average variable for each type of occupation.
+b) Make a summary dataset, present the average `prestige` for each type of occupation.
 
 ::: {#answer}
 

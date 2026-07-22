@@ -56,6 +56,10 @@ Describe the table generated above. What does it tell you?
 
 ::: {#answer}
 
+```{r}
+# your code goes here
+```
+
 :::
 
 ## Exercise 5.2 {-}
