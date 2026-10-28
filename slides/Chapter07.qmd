@@ -1,5 +1,5 @@
 ---
-title: "Chapter 7:<br>Models with Multiple Predictors"
+title: "Models with Multiple Predictors"
 image: img/3d.png
 format: 
   revealjs:

@@ -1,5 +1,5 @@
 ---
-title: "Chapter 6:<br>Models with a Single Predictor"
+title: "Models with a Single Predictor"
 image: img/reg.png
 format: 
   revealjs:

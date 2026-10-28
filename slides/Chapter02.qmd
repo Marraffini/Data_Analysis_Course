@@ -1,5 +1,5 @@
 ---
-title: "Chapter 2:<br>Exploratory Data Analysis (EDA)"
+title: "Exploratory Data Analysis (EDA)"
 image: img/pairs.png
 format: 
   revealjs:

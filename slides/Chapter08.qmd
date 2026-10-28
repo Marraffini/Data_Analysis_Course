@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8:<br>Analysis of Variance (ANOVA) and Analysis of Covariance (ANCOVA)"
+title: "Analysis of Variance (ANOVA) and Analysis of Covariance (ANCOVA)"
 image: img/ano.png
 format: 
   revealjs:

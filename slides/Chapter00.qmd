@@ -1,5 +1,5 @@
 ---
-title: "Chapter 0:<br> Introduction: R, quarto, tidyverse"
+title: "Introduction: R, quarto, tidyverse"
 image: img/data_analysis.jpg
 format:
   revealjs:

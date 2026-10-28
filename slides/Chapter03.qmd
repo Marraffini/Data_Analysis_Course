@@ -1,5 +1,5 @@
 ---
-title: "Chapter 3:<br>Probability Concepts & Distributions"
+title: "Probability Concepts & Distributions"
 image: img/norms.png
 format: 
   revealjs:
