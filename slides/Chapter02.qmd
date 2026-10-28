@@ -474,7 +474,8 @@ vital <- read.table(
 quants <- seq(0, 1, 0.05)
 
 vital |> 
-  summarise(
+    dplyr::reframe(
+    quantile = quants,
     Female = quantile(Life_female, quants),
     Male = quantile(Life_male, quants)
   ) |> 
