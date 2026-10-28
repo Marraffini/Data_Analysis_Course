@@ -1075,11 +1075,20 @@ A short-cut to explore three numerical variables is to obtain a contour plot. In
 
 ```{r} 
 #| message: false
+
 library(plotly)
-plot_ly(type = 'contour', 
+
+p <- plot_ly(type = 'contour', 
         x=pinetree$First, 
         y=pinetree$Second, 
         z=pinetree$Top)
+if (knitr::is_html_output()) {
+  # Generate interactive HTML table/plot for HTML output
+  p
+} else {
+  print("Plot not rendered in PDF, see html version")
+}
+
 ```
 
 
@@ -1105,8 +1114,15 @@ cloud(Top ~ First+Second, group=Area, data=pinetree)
 `plotly` is great for interactive 3d plots (though they only work with HTML, not PDF).
 
 ```{r}
-plot_ly(Snodgrass, x = ~East, y = ~South, z = ~Area) |> 
+
+p1 <- plot_ly(Snodgrass, x = ~East, y = ~South, z = ~Area) |> 
   add_markers()
+if (knitr::is_html_output()) {
+  # Generate interactive HTML table/plot for HTML output
+  p1
+} else {
+  print("Plot not rendered in PDF, see html version")
+}
 ```
 
 

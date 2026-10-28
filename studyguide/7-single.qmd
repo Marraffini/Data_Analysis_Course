@@ -891,23 +891,23 @@ Unusual observations of $Y$ tend to have more influence on the line than we woul
 
 The advantage of robust estimation is that a few peculiar values of data do not have a large influence on the estimates. However the theory behind the statistical tests done on the estimated coefficients is more complicated when compared to the traditional methods. Two further R based robust methods of fitting lines are discussed below.
 
-The `R` package function `rlm()` fits a robust linear model using an iterative procedure method, and we will not cover the theory behind this method in this course.
+The `MASS` package function `rlm()` fits a robust linear model using an iterative procedure method, and we will not cover the theory behind this method in this course.
 
 ```{r}
 #| echo: true
 #| fig-show: hide
 
+library(MASS, exclude = "select")
+
 ggplot(testmarks) +
   aes(x = Maths, y = English) + 
   geom_point() + 
-  geom_smooth(method="rlm")
+  geom_smooth(method = MASS::rlm)
 ```
 
 ```{r}
 #| echo: false
 #| fig-cap: 'Graph showing robust linear fit'
-
-library(MASS, exclude = "select")
 
 rlm.line <- rlm(English ~ Maths, data = testmarks)
 intercept  <-  rlm.line$coefficients[1]
@@ -926,16 +926,17 @@ The `R` package `robustbase` function `lmrob()` is another option; see @fig-robb
 #| echo: true
 #| label: fig-robbaseline
 #| fig-cap: 'Graph showing robust regression'
+
+library(robustbase)
+
 ggplot(testmarks) + 
   aes(x = Maths, y = English) + 
   geom_point() + 
-  geom_smooth(method="lmrob")
+  geom_smooth(method = robustbase::lmrob)
 ```
 
 
 ```{r}
-library(robustbase)
-
 lmrob(English ~ Maths, data = testmarks) |> summary()
 ```
 
@@ -952,7 +953,6 @@ This technique is commonly employed for validating models for prediction purpose
 #| fig-cap: 'Comparison of Residual Mean Square Error (RMSE) of lm() vs rlm() fits'
 
 library(caret)
-library(MASS, exclude = "select")
 
 set.seed(123)
 
