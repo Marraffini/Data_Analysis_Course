@@ -1,5 +1,6 @@
 ---
 title: "Statistical Inference"
+order: 5
 image: img/inference.png
 format: 
   revealjs:

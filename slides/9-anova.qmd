@@ -1,5 +1,6 @@
 ---
 title: "Analysis of Variance (ANOVA) and Analysis of Covariance (ANCOVA)"
+order: 9
 image: img/ano.png
 format: 
   revealjs:

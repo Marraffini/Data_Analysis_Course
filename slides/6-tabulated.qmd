@@ -1,5 +1,6 @@
 ---
 title: "Tabulated Counts"
+order: 6
 image: img/mendel1.png
 format: 
   revealjs:

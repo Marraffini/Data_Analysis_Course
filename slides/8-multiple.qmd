@@ -1,5 +1,6 @@
 ---
 title: "Models with Multiple Predictors"
+order: 8
 image: img/3d.png
 format: 
   revealjs:

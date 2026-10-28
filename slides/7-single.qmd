@@ -1,5 +1,6 @@
 ---
 title: "Models with a Single Predictor"
+order: 7
 image: img/reg.png
 format: 
   revealjs:

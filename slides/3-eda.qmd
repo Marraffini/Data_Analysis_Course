@@ -1,5 +1,6 @@
 ---
 title: "Exploratory Data Analysis (EDA)"
+order: 3
 image: img/pairs.png
 format: 
   revealjs:

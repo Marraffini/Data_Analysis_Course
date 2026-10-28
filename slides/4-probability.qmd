@@ -1,5 +1,6 @@
 ---
 title: "Probability Concepts & Distributions"
+order: 4
 image: img/norms.png
 format: 
   revealjs:

@@ -1,5 +1,6 @@
 ---
 title: "Data Collection"
+order: 2
 image: img/abacus.jpg
 format: 
   revealjs:

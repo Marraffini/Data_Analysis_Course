@@ -1,5 +1,6 @@
 ---
 title: "Introduction: R, quarto, tidyverse"
+order: 1
 image: img/data_analysis.jpg
 format:
   revealjs:
