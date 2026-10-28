@@ -366,8 +366,8 @@ about 81% are Rh+ and about 8% are K+.</p>
 <div class="left-code-wide">
 <div class="cell" data-layout-align="center">
 <div class="cell-output-display">
-<div class="grViz html-widget html-fill-item" id="htmlwidget-80bb0d97e099a6b5c58b" style="width:576px;height:384px;"></div>
-<script type="application/json" data-for="htmlwidget-80bb0d97e099a6b5c58b">{"x":{"diagram":"digraph {\n  \n  # horizontal alignment\n  graph [rankdir = LR]\n  \n  # Nodes with labels\n  node [shape = oval]\n  Start [label = \"Start\", shape = box]\n  Healthy [label = \"Healthy\"]\n  Disease [label = \"Disease\"]\n  PosH [label = \"Positive\"]\n  NegH [label = \"Negative\"]\n  PosD [label = \"Positive\"]\n  NegD [label = \"Negative\"]\n  pPosH [label = \"P(H & T+) = 0.0485\", shape = none]\n  pNegH [label = \"P(H & T-) = 0.9215\", shape = none]\n  pPosD [label = \"P(D & T+) = 0.0294\", shape = none]\n  pNegD [label = \"P(D & T-) = 0.0006\", shape = none]\n  \n  # Edges with labels\n  Start -> Healthy [label = \"0.97\"]\n  Start -> Disease [label = \"0.03\"]\n  Healthy -> PosH [label = \"0.05\"]\n  Healthy -> NegH [label = \"0.95\"]\n  Disease -> PosD [label = \"0.98\"]\n  Disease -> NegD [label = \"0.02\"]\n  PosH -> pPosH \n  NegH -> pNegH \n  PosD -> pPosD \n  NegD -> pNegD \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div class="grViz html-widget html-fill-item" id="htmlwidget-e224e57938635749ac19" style="width:576px;height:384px;"></div>
+<script type="application/json" data-for="htmlwidget-e224e57938635749ac19">{"x":{"diagram":"digraph {\n  \n  # horizontal alignment\n  graph [rankdir = LR]\n  \n  # Nodes with labels\n  node [shape = oval]\n  Start [label = \"Start\", shape = box]\n  Healthy [label = \"Healthy\"]\n  Disease [label = \"Disease\"]\n  PosH [label = \"Positive\"]\n  NegH [label = \"Negative\"]\n  PosD [label = \"Positive\"]\n  NegD [label = \"Negative\"]\n  pPosH [label = \"P(H & T+) = 0.0485\", shape = none]\n  pNegH [label = \"P(H & T-) = 0.9215\", shape = none]\n  pPosD [label = \"P(D & T+) = 0.0294\", shape = none]\n  pNegD [label = \"P(D & T-) = 0.0006\", shape = none]\n  \n  # Edges with labels\n  Start -> Healthy [label = \"0.97\"]\n  Start -> Disease [label = \"0.03\"]\n  Healthy -> PosH [label = \"0.05\"]\n  Healthy -> NegH [label = \"0.95\"]\n  Disease -> PosD [label = \"0.98\"]\n  Disease -> NegD [label = \"0.02\"]\n  PosH -> pPosH \n  NegH -> pNegH \n  PosD -> pPosD \n  NegD -> pNegD \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 </div>
 </div>
 <p><strong>Rules of the Probability Tree</strong></p>
@@ -488,7 +488,7 @@ P(H \mid T_{-}) &amp;= \frac {P(T_{-} \mid H)P(H)} {P(T_{-})} \\
 <h2>Discrete probability distributions</h2>
 <p>Consider the number of eggs <span class="math inline">\((X)\)</span> in an Adelie penguin’s nest. The values range from <span class="math inline">\(1\)</span> to <span class="math inline">\(5\)</span>, each with a certain probability (or relative frequency) of occurrence.</p>
 
-<img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="384"><ul>
+<img data-src="4-probability_files/figure-revealjs/unnamed-chunk-6-1.png" class="quarto-figure quarto-figure-center r-stretch" width="384"><ul>
 <li>Note the probabilities add to <span class="math inline">\(1\)</span> because <span class="math inline">\({1,2,3,4,5}\)</span> is a complete sample space.</li>
 </ul>
 <p>The population mean <span class="math inline">\(\mu_X\)</span> is simply the sum of each outcome multiplied by its probability.</p>
@@ -549,7 +549,7 @@ is given by <span class="math display">\[P(x)={n \choose x}p^{x}(1-p)^{n-x}\]</s
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-9-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -618,7 +618,7 @@ is given by <span class="math display">\[P(x)={n \choose x}p^{x}(1-p)^{n-x}\]</s
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -674,7 +674,7 @@ population mean of <span class="math inline">\(\lambda=kt\)</span>, where<br>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -703,7 +703,7 @@ population mean of <span class="math inline">\(\lambda=kt\)</span>, where<br>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
 </figure>
 </div>
 </div>
@@ -734,7 +734,7 @@ population mean of <span class="math inline">\(\lambda=kt\)</span>, where<br>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
 </figure>
 </div>
 </div>
@@ -771,7 +771,7 @@ population mean of <span class="math inline">\(\lambda=kt\)</span>, where<br>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-18-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
 </figure>
 </div>
 </div>
@@ -831,7 +831,7 @@ population mean of <span class="math inline">\(\lambda=kt\)</span>, where<br>
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-20-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -860,7 +860,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-21-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -893,7 +893,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-23-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -922,7 +922,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-25-1.png" class="quarto-figure quarto-figure-center" width="480"></p>
 </figure>
 </div>
 </div>
@@ -934,7 +934,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <h2>Areas (probabilities) under the standard normal</h2>
 <p>Under standard normal, the areas under the PDF curve are shown below for various situations.</p>
 
-<img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
+<img data-src="4-probability_files/figure-revealjs/unnamed-chunk-26-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"><div class="footer">
 <p>Continuous probability distributions</p>
 </div>
 </section>
@@ -973,7 +973,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-27-1.png" class="quarto-figure quarto-figure-center" width="576"></p>
 </figure>
 </div>
 </div>
@@ -991,7 +991,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-28-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>
@@ -1001,7 +1001,7 @@ is normally distributed with a mean of <span class="math inline">\(40g\)</span> 
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="Chapter03_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
+<p><img data-src="4-probability_files/figure-revealjs/unnamed-chunk-29-1.png" class="quarto-figure quarto-figure-center" width="960"></p>
 </figure>
 </div>
 </div>

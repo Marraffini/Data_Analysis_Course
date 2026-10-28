@@ -2,15 +2,15 @@
   {
     "listing": "/slides.html",
     "items": [
-      "/slides/Chapter08.html",
-      "/slides/Chapter01.html",
-      "/slides/Chapter02.html",
-      "/slides/Chapter00.html",
-      "/slides/Chapter07.html",
-      "/slides/Chapter06.html",
-      "/slides/Chapter03.html",
-      "/slides/Chapter04.html",
-      "/slides/Chapter05.html"
+      "/slides/1-R-tidyverse.html",
+      "/slides/2-data-collection.html",
+      "/slides/3-eda.html",
+      "/slides/4-probability.html",
+      "/slides/5-inference.html",
+      "/slides/6-tabulated.html",
+      "/slides/7-single.html",
+      "/slides/8-multiple.html",
+      "/slides/9-anova.html"
     ]
   }
 ]
