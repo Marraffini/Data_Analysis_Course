@@ -1,5 +1,5 @@
 ---
-title: "Chapter 8: Analysis of Variance (ANOVA) and Covariance (ANCOVA)"
+title: "Analysis of Variance (ANOVA) and Covariance (ANCOVA)"
 ---
 
 > "*To consult a statistician after an experiment is finished is often merely to ask him to conduct a post mortem examination. He can perhaps say what the experiment died of.*"

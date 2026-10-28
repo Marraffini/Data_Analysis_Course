@@ -1,5 +1,5 @@
 ---
-title: "Chapter 7: Models with Multiple Continuous Predictors"
+title: "Models with Multiple Continuous Predictors"
 ---
 
 

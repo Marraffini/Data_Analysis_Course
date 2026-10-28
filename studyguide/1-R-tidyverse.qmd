@@ -1,5 +1,5 @@
 ---
-title: "Chapter 0 R quarto and Tidy data"
+title: "R quarto and Tidy data"
 ---
 # Installing `R` and RStudio
 

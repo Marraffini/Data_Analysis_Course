@@ -1,5 +1,5 @@
 ---
-title: "Chapter 1: Data Collection and Quality Issues"
+title: "Data Collection and Quality Issues"
 ---
 
 > "*Data! data! he cried impatiently, I can't make bricks without clay.*"

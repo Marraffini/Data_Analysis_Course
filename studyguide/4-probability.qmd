@@ -1,5 +1,5 @@
 ---
-title: "Chapter 3: Probability Concepts and Distributions"
+title: "Probability Concepts and Distributions"
 ---
 
 > “_Misunderstanding of probability may be the greatest of all impediments to scientific literacy_” 
