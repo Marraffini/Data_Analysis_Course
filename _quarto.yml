@@ -45,21 +45,20 @@ website:
         - section: "Study Guide"
           href: studyguide/index.qmd
           contents:
-            - studyguide/0-R-tidyverse.qmd
-            - studyguide/1-data-collection.qmd
-            - studyguide/2-eda.qmd
-            - studyguide/3-probability.qmd
-            - studyguide/4-inference.qmd
-            - studyguide/5-tabulated.qmd
-            - studyguide/6-single.qmd
-            - studyguide/7-multiple.qmd
-            - studyguide/8-anova.qmd
+            - studyguide/1-R-tidyverse.qmd
+            - studyguide/2-data-collection.qmd
+            - studyguide/3-eda.qmd
+            - studyguide/4-probability.qmd
+            - studyguide/5-inference.qmd
+            - studyguide/6-tabulated.qmd
+            - studyguide/7-single.qmd
+            - studyguide/8-multiple.qmd
+            - studyguide/9-anova.qmd
         
     - id: workshops
       collapse-level: 2
       contents: 
         - workshops/ws01.qmd
-        - workshops/ws01_5.qmd
         - workshops/ws02.qmd
         - workshops/ws03.qmd
         - workshops/ws04.qmd
@@ -67,6 +66,7 @@ website:
         - workshops/ws06.qmd
         - workshops/ws07.qmd
         - workshops/ws08.qmd
+        - workshops/ws09.qmd
 format:
   html:
     theme: cosmo
