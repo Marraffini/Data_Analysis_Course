@@ -1,798 +1,350 @@
 ---
-title: "Exploratory Data Analysis"
+title: "Tidy data"
 ---
 
+Copy this code and paste it into a new quarto document in R. We will be using quarto for assignments, it is good to practice using it with each workshop.
 
-## Graphing with `ggplot2` {.unnumbered}
+## `tidyr` {.unnumbered}
 
-The R library `ggplot2` is very powerful for plotting but
-you may find the syntax little strange. There are plenty of examples at the [`ggplot2` online help website](https://ggplot2.tidyverse.org/reference/). The `ggplot2` package is loaded as part of the `tidyverse` set of packages.
+By the phrase `tidy data`, it is meant the preferred way of arranging
+data that is easy to analyse. The principles of tidy data are:
 
-::::{.columns}
+-   Each variable forms a column.
+-   Each observation forms a row.
+-   Each type of observational unit forms a table.
 
-:::{.column}
-Advantages of `ggplot2` are the following:
 
--   employs the "grammar of graphics" of [@Wilkinson]
--   plotting involves a high level of abstraction
--   very flexible and complete graphics system
--   theme system for getting attractive plots
--   Fast growing and actively developed
+# Introduction to the tidyverse
 
-:::
+We will be largely using the `tidyverse` suite of packages for data organisation, summarizing, and plotting; see <https://www.tidyverse.org/>.
 
-:::{.column}
-
-Some disadvantages of `ggplot2` are the following:
-
--   3-dimensional graphics (opt for `rgl` package instead)
--   Graph-theory type graphs (nodes/edges layout; opt for `igraph` and
-    other packages)
--   Interactive graphics (opt for `plotly`, `ggvis` and other packages)
-
-:::
-
-::::
-
-## Grammar of Graphics
-
-The main idea behind the grammar of graphics of [@Wilkinson] is to mimic
-the manual graphing approach by defining building blocks and combining them
-to create the figure. 
-
-The building blocks of a graph are:
-
--   data
--   aesthetic mapping
--   geometric object
--   transformation or re-expression of data
--   scales
--   coordinate system
--   position adjustments
--   faceting
-
-## Aesthetic Mapping (`aes`)
-
-In ggplot land *aesthetic* means visualisation features or aesthetics.
-These are
-
--   position (i.e., on the x and y axes)
--   color ("outside" color)
--   fill ("inside" color)
--   shape (of points)
--   linetype
--   size
-
-Aesthetic mappings are set with the `aes()` function.
-
-## Geometric Objects (`geom`)
-
-Geometric objects or `geoms` are the actual marking or inking on a plot
-such as:
-
--   points (`geom_point`, for scatter plots, dot plots, etc)
--   lines (`geom_line`, for time series, trend lines, etc)
--   boxplot (`geom_boxplot`, for boxplots)
-
-*A plot must have at least one `geom` but there is no upper limit.* In
-order to add a `geom` to a plot, the `+` operator is employed. A list of
-available geometric objects can be obtained by typing `geom_<tab>` in
-Rstudio. The following command can also be used which will open a Help
-window.
-
-    help.search("geom_", package = "ggplot2")
-
-# ggplot2 in the tidyverse
-`ggplot2` is now part of the `tidyverse`. We have installed `tidyverse` in a previous workshop so you will not need to install it again. 
-
-We can now load the `ggplot2` library with the commands:
-
-```{r, warninng=FALSE}
-library(tidyverse)
-```
-
-In order to work with `ggplot2`, we must have a `data frame` or a `tibble`
-containing our data. We need to specify the `aesthetics` or how the
-columns of our data frame can be translated into positions, colours,
-sizes, and shapes of graphical elements.
-
-Let's start with the rangitikei data we used in an earlier workshop
-
-```{r load in rangitikei data}
-rangitikei <- read.csv(
-  "../data/rangitikei.csv",
-  header=TRUE, 
-  row.names = 1
-  )
-```
-
-```{r}
-ggplot(rangitikei) +
-  aes(x = vehicle, y = people) +
-  geom_point()
-```
-
-The `aes` part defines the "aesthetics", which is how columns of the dataframe map to graphical attributes such as x and y position, colour, size, etc. An aesthetic can be either numeric or categorical and an appropriate scale will be used. After this, we add layers of graphics called `geom_`s. `geom_point` layer is employed to map x and y and we need not specify all the options for `geom_point`.
-
-
-# Exercise 2.1 {-}
-Why does the following give an error and how would you fix it?
-
-```{r}
-#| eval: false
-ggplot(data = rangitikei) + 
-  geom_point()
-```
-
-## Adding layers
-
-ggplot works by adding layers to your plots. Your plots must include `aes()` and a `geom_`; after that we can add extras.
-
-We can add a title using *labs()* or *ggtitle()* functions. Try-
-
-```{r, fig.show="hide"}
-ggplot(rangitikei) +
-  aes(x = vehicle, y = people, color = river) +
-  geom_point() + 
-  ggtitle("No. of people vs No. of vehicles")
-```
-
-or
-
-```{r, fig.show="hide"}
-ggplot(rangitikei)+
-  aes(x = vehicle, y = people) +
-  geom_point() + 
-  labs(title = "No. of people vs No. of vehicles")
-```
-
-Note that *labs()* allows captions and subtitles. Check out `?labs()` for all the options.
-
-# Exercise 2.2 {-}
-Remake the above graph, adjusting the x axis to say `Vehicles` using the `labs()` function. 
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-
-`geom_smooth` is additionally used to show trends.
-
-```{r}
-ggplot(rangitikei) +
-  aes(x = vehicle, y = people) +
-  geom_point() + 
-  geom_smooth()
-```
-
-# Exercise 2.3 {-}
-Run this code in your head and predict what the output will look like. Then, run the code in R and check your predictions.
-
-```{r, eval=FALSE}
-ggplot(rangitikei) +
-  aes(x = vehicle, y = people) +
-  geom_point()+
-  geom_smooth(se = FALSE)
-```
-
-::: {#answer}
-
-
-:::
-
-
-Similar to `geom_smooth`, a variety of other `geoms` are available. For example, `geom_boxplot()`:
-
-```{r}
-ggplot(rangitikei) + 
-  aes(x = factor(wind), y = people) +
-  geom_boxplot()
-```
-
-You can add additional information to your graph by using multiple `geom`s. Each `geom` accepts a particular set of mappings; for example `geom_text()` accepts a `labels` mapping. Try-
-
-```{r, fig.show="hide"}
-ggplot(rangitikei) +
-  aes(x = vehicle, y = people) +
-  geom_point() + 
-  geom_text(aes(label = w.e), 
-            size = 5)
-```
-
-# Exercise 2.4 {-}
-Will these two graphs look different? Why/why not? What happens when you run the code? 
-
-```{r, eval=FALSE}
-ggplot(
-  data = rangitikei,
-  mapping = aes(x = vehicle, y = people)
-) +
-  geom_point() +
-  geom_smooth()
-
-ggplot() +
-  geom_point(
-    data = rangitikei,
-    mapping = aes(x = vehicle, y = people)
-  ) +
-  geom_smooth(
-    data = rangitikei,
-    mapping = aes(x = vehicle, y = people)
-  )
-```
-
-
-::: {#answer}
-
-
-:::
-
-Explore multiple `geom`s and think about how different types of data might be displayed in each.
-
-## Panels
-
-The faceting option allows a collection of small plots with the same
-scales. Try-
-
-```{r}
-ggplot(rangitikei) +
-  aes(x=vehicle, y=people) + 
-  geom_point() +
-  facet_wrap(~ river) 
-```
-
-Faceting is the `ggplot2` option to create separate graphs for subsets
-of data. `ggplot2` offers two functions for creating small multiples:
-
-1. `facet_wrap()`: define subsets as the levels of a single grouping variable
-2. `facet_grid()`: define subsets as the crossing of two grouping variables
-
-The following arguments are common to most scales in `ggplot2`:
-
--   **name:** the first argument gives the axis or legend title
--   **limits:** the minimum and maximum of the scale
--   **breaks:** the points along the scale where labels should appear
--   **labels:** the labels that appear at each break
-
-## Adjusting scales 
-
-Specific scale functions may have additional arguments. Some of the
-available Scales are:
-
-| **Scale**         | **Examples**              |
-|-------------------|---------------------------|
-| `scale_color_`    | `scale_color_discrete`    |
-| `scale_fill_`     | `scale_fill_continuous`   |
-| `scale_size_`     | `scale_size_manual`       |
-|                   | `scale_size_discrete`     |
-|                   |                           |
-| `scale_shape_`    | `scale_shape_discrete`    |
-|                   | `scale_shape_manual`      |
-| `scale_linetype_` | `scale_linetype_discrete` |
-|                   |                           |
-| `scale_x_`        | `scale_x_continuous`      |
-|                   | `scale_x_log`             |
-|                   | `scale_x_date`            |
-| `scale_y_`        | `scale_y_reverse`         |
-|                   | `scale_y_discrete`        |
-|                   | `scale_y_datetime`        |
-
-In RStudio, we can type `scale_` followed by TAB to get the whole list
-of available scales.
-
-Try-
-
-```{r}
-ggplot(rangitikei) + 
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point() + 
-  scale_x_continuous(name = "No. of Vehicles") + 
-  scale_y_continuous(name = "No. of people") + 
-  scale_color_discrete(name = "Temperature")
-
-```
-
-The other coding option is shown below:
-
-```{r, fig.show = 'hide'}
-ggplot(rangitikei) +
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point() + 
-  xlab("No. of Vehicles") + 
-  ylab("No. of people") + 
-  labs(colour="Temperature") 
-```
-
-Note that a desired graph can be obtained in more than one way.
-
-In both of the above graphs adding color adds a third layer of data that can be plotted.
-
-## Themes
-Themes can help adjust different pieces of your graphs to make them publication or presentation ready. Here you can adjust font, size, axis features, etc.
-
-The `ggplot2` theme system handles plot elements (not data based) such
-as
-
--   Axis labels
--   Plot background
--   Facet label background
--   Legend appearance
-
-Built-in themes include:
-
--   `theme_gray()` (default)
--   `theme_bw()`
--   `theme_minimal()`
--   `theme_classic()`
-
-
-```{r}
-p1 <- ggplot(rangitikei) + 
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point()
-```
-
-Note that the graph is assigned an object name `p1` and nothing will be
-printed unless we then print the object `p1`. Here, the plot is assigned to an object to make applying and comparing different themes simple.
-
-```{r}
-p1 <- ggplot(rangitikei) + 
-  aes(x = vehicle, y = people, color = factor(temp)) + 
-  geom_point()
-
-p1
-```
-
-Try-
-
-```{r}
-p1 + theme_light()
-```
-
-```{r}
-p1 + theme_bw()
-```
-
-Specific theme elements can be overridden using `theme()`. For example:
-
-```{r}
-p1 + theme_minimal() +
-  theme(text = element_text(color = "red"))
-```
-
-All theme options can be seen with `?theme`.
-
-To specify a theme for a whole document, use
-
-```{r}
-theme_set(theme_minimal())
-```
-
-
-A cheat sheet for `ggplot2` is available at
-<https://www.rstudio.com/resources/cheatsheets/> (optional to download).
-There are many other packages which incorporate `ggplot2` based graphs or
-dependent on it.
-
-## Multiple plots
- 
-Sometimes you want to create a figure with multiple plots. Rather than trying to combine the data and then faceting, you may need to save each as an object and combine with a helper library. The library *patchwork* allows complex composition arbitrary plots, which are not produced using the faceting option. Try
-
-```{r}
-library(patchwork)
-
-p1 <- qplot(people, data = rangitikei, geom = "dotplot") # change this to a ggplot
-p2 <- qplot(people, data = rangitikei, geom = "boxplot")
-p3 <- ggplot(rangitikei, aes(x = vehicle, y = people)) + geom_point()
-
-(p1 + p2) / p3 + 
-  plot_annotation("My title", caption = "My caption")
-```
-
-Have a quick google of the library `ggpubr` for the function `ggarrange` as another option for combining plots.
-
-# Dataset **`Prestige`**
-
-As you work through this workshop, you can copy the code and paste it into a code chunk. Write notes and observations to your self as you go. 
-
-We will be using a well-known dataset called `Prestige` from the `car`	R package. This dataset deals with prestige ratings of Canadian occupations. The `Prestige` dataset has 102 rows and 6 columns. Each row (or 'observation') is an occupation.
-
-This data frame contains the following columns:
-
-* `education` - Average education of occupational incumbents, years, in 1971.
-
-* `income` - Average income of incumbents, dollars, in 1971.
-
-* `women` - Percentage of incumbents who are women.
-
-*  `prestige` - Pineo-Porter prestige score for occupation, from a social survey conducted in the mid-1960s.
-
-* `census` - Canadian Census occupational code.
-
-*  `type` - Type of occupation. A factor with levels: bc, Blue Collar; prof, Professional, Managerial, and Technical; wc, White Collar. (includes four missing values).
-
-```{r, echo=FALSE}
-options(warn=-1) 
-```
-
-
-```{r, echo=FALSE, message=FALSE}
-knitr::opts_chunk$set(warning=FALSE, message=FALSE, comment=NA, fig.show = "hide")
-```
-
-First we'll load the data. The dataset sits in the `car` package, so you need to load the `car` package first.
+Let's load that package now:
+Remember if you have not installed it you will need to use `install.packages()` first. We installed it in the first workshop so you can return to that code to see how we did it.
 
 ```{r}
 #| message: false
-library(car)
-data(Prestige)
+library(tidyverse)
 ```
 
-
-# Exercise 2.5 {-}
-
-
-Draw a bar chart for `type`. These plots show the count or relative frequency of blue collar (`bc`), professional (`prof`), and white collar (`wc`) professions in the dataset. 
-
-::: {#answer}
+# Dataset
+For this workshop we will use some tidyverse built in datasets. Each dataset below shows the same values of four variables: country, year, population, and number of documented cases of TB (tuberculosis), but each dataset organizes the values in a different way. Take a look at these datasets by typing their names into a code chunk or directly into the console. You can also try your hand at the functions `head()` and `summary()`. 
 
 ```{r}
-# your code goes here
-```
-
-:::
+table1
 
 
-# Exercise 2.6 {-}
-
-Draw a histogram of `prestige`. 
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
+table2
 
 
-
-Below demonstrates the flexibility of `ggplot` code. You can specify the `data` argument by piping it into `ggplot`, or by putting it as an argument to `ggplot` or a `geom_`. Likewise, the `mapping` or `aes` information, which determines which variables are used where, can be added as an extra line or specified inside the `ggplot` or `geom_` function.
-
-
-```{r}
-Prestige |> 
-  ggplot() +
-  aes(x = prestige) +
-  geom_histogram()
-```
-
-Now, this histogram, where the number of bins has been chosen for us, looks a bit "spiky" to my eye. You can control the number of bins by adding an argument `bins = 10`. 
-
-```{r}
-Prestige |> 
-  ggplot() +
-  aes(x = prestige) +
-  geom_histogram(bins=10)
-```
-
-`ggplot` is very flexible as to where you put the data and the `aes` information; all of these methods give the same result.
-
-```{r}
-
-Prestige |> 
-  ggplot() +
-  aes(x = prestige) +
-  geom_histogram(bins=10)
-
-ggplot(
-  data = Prestige,
-  mapping = aes(x = prestige)
-  ) +
-  geom_histogram(bins=10)
-
-ggplot(Prestige) +
-  aes(x = prestige) +
-  geom_histogram(bins=10) 
-
-ggplot() +
-  geom_histogram(
-    data = Prestige,
-    mapping = aes(x = prestige),
-    bins = 10
-    )
-
-
-# or
-# hist(Prestige$prestige)
-```
-
-Now let's display the prestige scores for each profession as a dot plot.
-
-Note that I'm including the code-chunk option `#| fig-height: 12` at the beginning of my code chunk so that the plot is big enough to show all the professions without overlap. 
-
-```{r}
-#| fig-height: 12
-#| output: true
-#| fig-show: asis
-
-Prestige |>
-  ggplot() + 
-  aes(x = rownames(Prestige), y = prestige) +
-  geom_point() +
-  coord_flip()
+table3
 
 ```
 
-What a mess! 
+## Exercise 1.1 {-}
 
-We can tidy it up by ordering the professions on the plot according to `prestige`. First, we move the professions from rownames to a variable. Then, we `fct_reorder` the professions using the `prestige` scores. Then, the resulting data gets piped into `ggplot`.
-
-
-```{r}
-#| fig-height: 12
-#| fig-width: 6
-#| output: true
-#| fig-show: asis
-
-Prestige |> 
-  rownames_to_column(var = "profession") |> 
-  mutate(
-    profession = fct_reorder(profession, prestige)
-    ) |>
-  ggplot() + 
-  aes(x = profession, y = prestige, colour = type) +
-  geom_point() +
-  coord_flip()
-```
-
-
-# Exercise 2.7 {-}
-
-a) Obtain some summary statistics for `prestige`. There are a few options for this.
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-b) Make a summary dataset, present the average `prestige` for each type of occupation.
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-# Exercise 2.8 {-}
-
-Make a boxplot of `prestige ~ type`:
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-
-# Exercise 2.9 {-}
-
-Obtain the Empirical Cumulative Distribution Function (ECDF) graphs of `prestige ~ type`:
-
-```{r}
-Prestige |> 
-  ggplot() + 
-  aes(prestige, colour=type) +
-  stat_ecdf()
-
-Prestige |> 
-  ggplot() + 
-  aes(prestige) +
-  stat_ecdf() + 
-  facet_wrap(~type)
-
-```
-
-
-```{r}
-Prestige |> 
-  ggplot() + 
-  aes(
-    x = prestige, # these aes settings are used
-    col = type    # by both geoms
-    ) +
-  geom_density(
-    aes(fill = type), # the 'fill' aes goes here because 
-    alpha = .2        # geom_rug doesn't use 'fill'
-    ) +
-  geom_rug()
-
-```
-
-With which plot – the ECDF or the density plot – is it easier to compare the distributions of prestige scores among these groups?
+For each of the sample tables, describe what each observation and each column represents. Which is the most `tidy`?
 
 ::: {#answer}
 
 :::
-# Exercise 2.10 {-}
 
-Obtain the \{0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95\} quantiles of `prestige`:
 
-::: {#answer}
+# Piping
 
-```{r}
-# your code goes here
-```
+::: {.callout-tip}
 
-:::
-
-# Exercise 2.11 {-}
-
-Obtain the scatter plot (with and without marginal boxplots) **prestige vs. education **: How can you describe the relationship implied by the pattern?
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
+**The piping operation is a fundamental aspect of computer programming. The semantics of pipes is taking the output from the left-hand side and passing it as input to the right-hand side.**
 
 :::
 
 
-# Exercise 2.12 {-}
+`R` has its own pipe, `|>`. In RStudio windows/Linux versions, press `Ctrl+Shift+M` to insert the pipe operator. On a Mac, use `Cmd+Shift+M`. 
 
-Make a bubble or balloon plot  **prestige vs. education vs. income** with income forming the bubble size.
+If you want to change the pipe inserted automatically with `Ctrl+Shift+M`, find on the menu **Tools > Global Options**, then click on **Code** and check the box that says "**Use Native Pipe Operator**". 
 
-Make a different scatter plot using the same three variables. Keep `x = education, y = prestige` but use a different option to illustrate the influence of income.
 
-::: {#answer}
+Consider the study guide dataset `rangitikei.csv` (Recreational Use of
+the Rangitikei river). The first 10 rows of this dataset are shown
+below:
 
-```{r}
-# your code goes here
+```{r, echo=FALSE}
+rangitikei <- read.csv(
+  "../data/rangitikei.csv",
+  header=TRUE, 
+  row.names = 1 # when you save data from R it keeps row names by default, this line tells R that they are row names not data 
+  )
+
+head(rangitikei, 10) # shows the first ten rows
 ```
 
-:::
+Try the following examples after loading the `rangitikei` dataset.
 
-
-# Exercise 2.13 {-}
-
-Create `prestige ~ education | type` graphs.  That is, `prestige ~ education` grouped by `type` as colours and/or panels.
-
-::: {#answer}
+`select()`
 
 ```{r}
-# your code goes here
+new.data <- rangitikei |> 
+  select(people, vehicle)
+
+names(new.data)
 ```
 
-:::
-
-Select answers:
-# Answer: Exercise 2.5 {-}
+What does `select()` do?
 
 ```{r}
-p <- Prestige |> 
-  ggplot() +
-  aes(type) + 
-  geom_bar()
-
-p
-```
-
-# Answer: Exercise 2.7a {-}
-```{r}
-summary(Prestige)
-
-library(psych)
-
-describe(Prestige)
-
-describeBy(education + income + women + prestige ~ type, 
-           data = Prestige)
-```
-
-# Answer: Exercise 2.8 {-}
-```{r}
-Prestige |> 
-  ggplot() +
-  aes(y=prestige, x=type) +
-  geom_boxplot()
-
-# as violin plots
-Prestige |> 
-  ggplot() +
-  aes(y=prestige, x=type) +
-  geom_violin()
-
-# Or put it all together
-Prestige |> 
-  ggplot() +
-  aes(y=prestige, x=type) +
-  geom_violin() + 
-  geom_boxplot(col = 2, alpha = .2) +
-  geom_jitter(alpha = .2, width = .2, height = 0, colour = 4)
-
-```
-
-# Answer: Exercise 2.10 {-}
-```{r, results="hide"}
-pr <- c(0.01, 0.05, 0.1, 0.25, 0.5, 0.75, 0.9, 0.95, 0.99)
-
-Prestige |> 
-  summarise(
-    probs = pr,
-    quants = quantile(prestige, pr)
-    )
-
-# or simply
-quantile(Prestige$prestige, pr)
-```
-
-# Answer: Exercise 2.11 {-}
-```{r}
-library(ggExtra)
-
-p1 <- Prestige |> 
-  ggplot() + 
-  aes(x = education, y = prestige) +
-  geom_point() + 
-  geom_smooth(col = 2) + 
-  geom_smooth(method = "lm", se = FALSE)
-
-ggMarginal(p1, type="boxplot")
-```
-
-
-```{r}
-library(car)
-
-scatterplot(education ~ prestige, data = Prestige)
-```
-
-The later plot will show prediction interval ribbon while the first plot will show the confidence interval ribbon.
-
-
-# Answer: Exercise 2.12 {-}
-```{r}
-library(ggplot2)
-
-Prestige |> 
-  ggplot() + 
-  aes(x = education, y = prestige, size = income) +
+rangitikei |> 
+  select(people, vehicle) |> # select columns
+  ggplot() + # make a plot using those columns
+  aes(x=people, y=vehicle) + 
   geom_point()
-
 ```
 
-# Answer: Exercise 2.13 {-}
+We select two columns and create a scatter plot with the above commands.
 
+Now try another function:
 
-```{r}
-Prestige |> 
-  ggplot() + 
-  aes(x = education, y = prestige, colour = type) +
-  geom_point() + 
-  facet_wrap(~ type)
-
-```
-
+`filter()`
 
 ```{r}
-p <- Prestige |> 
-  ggplot() + 
-  aes(x = education, y = prestige, color = type) +
+rangitikei |> 
+  filter(wind==1) |> 
+  select(people, vehicle) |> 
+  ggplot() +
+  aes(x=people, y=vehicle) +
   geom_point()
+```
 
-p
+What does `filter()` do? 
+
+The above commands filter the data for the low wind days and plots
+vehicle against people. `filter()` subsets the data for all observations matching a specified criteria.
+
+`arrange()`
+
+```{r}
+rangitikei |> 
+  filter(wind==1) |> 
+  arrange(w.e) |> 
+  select(w.e, people, vehicle)
+```
+
+`mutate()`
+
+Assume that a \$10 levy is collected for each vehicle. We can create
+this new `levy` column as follows.
+
+```{r}
+rangitikei |> 
+  mutate(levy = vehicle*10) |> 
+  select(people, levy) |> 
+  ggplot() +
+  aes(x = people, y=levy) +
+  geom_point()
+```
+
+Note that the pipe operation was used to create a scatter plot using the
+newly created column.
+
+`summarise()`
+
+```{r}
+rangitikei |> 
+  summarise(total = n(), 
+            avg = mean(people)
+            )
+```
+
+We obtain the selected summary measures namely the total and the mean
+number of people. Try-
+
+```{r}
+rangitikei |> 
+  filter(wind == 1) |> 
+  summarise(total = n(), 
+            avg = mean(people)
+            )
+```
+
+`group_by()`
+
+We obtain the wind group-wise summaries below:
+
+```{r}
+rangitikei |> 
+  group_by(wind) |> 
+  summarise(total=n(), 
+            avg=mean(people))
+```
+
+There are many more commands such as the `transmute` function which
+conserves only the needed columns. Try
+
+```{r}
+rangitikei |> 
+  group_by(wind, w.e) |> 
+  transmute(total=n(), 
+            avg=mean(people))
+```
+
+A simple frequency table is found using `count()`. Try-
+
+```{r}
+rangitikei |> 
+  group_by(wind, w.e) |> 
+  count(temp)
+
+rangitikei |> 
+  group_by(wind, w.e) |> 
+  count(temp, river)
+```
+
+The `count()` is useful to check the balanced nature of the data when
+many subgroups are involved.
+
+## Exercise 1.2 {-}
+
+Generate a summary table to show the average number of people observed at each of the three rivers.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+## Exercise 1.3 {-}
+
+Generate a summary table to show the average number of vehicles observed at each of the three wind levels.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 1.4 {-}
+Repeat the above exercise 1.2 but now calculate the median number of people and the median number of vehicles at each river in a single table.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 1.5 {-}
+
+Use the above three tables you generated to describe the Rangitikei dataset. What other information or tables might be useful?
+
+::: {#answer}
+
+:::
+
+
+Now let's practice using these functions using the TB data.
+
+## Exercise 1.6 {-}
+
+Using `table1`, compute rate of TB cases per 10,000 and the total cases per year
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+## Exercise 1.7 {-}
+
+Generate a summary table to show the total cases in each country. Your table should have 3 rows.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 1.8 {-}
+
+For `table2`, write pseudo-code for how you would perform the following actions. Sketch/describe how you would do these. 
+
+a) Extract the number of TB cases per country per year.
+
+::: {#answer}
+
+
+:::
+
+b) Extract the matching population per country per year.
+
+::: {#answer}
+
+
+:::
+
+c) Divide cases by population, and multiply by 10000.
+
+::: {#answer}
+
+
+:::
+
+d) Store back in the appropriate place.
+
+::: {#answer}
+
+
+:::
+
+
+
+## Exercise 1.9 {-}
+What does `na.rm = TRUE` do in the functions mean() and sum()?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 1.10 {-}
+
+What does the function `na.omit()` do? Why would you add it to a piping sequence of code when tidying data?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 1.11 {-}
+
+Try the following example
+
+```{r}
+data.na <-data.frame(a=c(1,NA,5),b=c(3,2,2))
+
+colMeans(data.na,na.rm=TRUE)
+
+colMeans(na.omit(data.na))
 
 ```
-More graphing examples are [here](../exercises/Chap2more.R) (R code file).
+Why is there a difference between colMeans(data.na, na.rm=TRUE) and colMeans(na.omit(data.na)) for column b?
+
+::: {#answer}
+
+
+:::
+

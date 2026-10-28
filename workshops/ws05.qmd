@@ -1,58 +1,259 @@
 ---
-title: "Tabulated Counts"
+title: "Statistical Inference"
 ---
 
 ```{r, echo=FALSE, message=FALSE}
-knitr::opts_chunk$set(echo = TRUE, warning=FALSE, message=FALSE, comment=NA, fig.show="hide")
+knitr::opts_chunk$set(echo = TRUE, 
+                      warning=FALSE, 
+                      message=FALSE, 
+                      comment=NA, 
+                      fig.align='center', 
+                      out.width='50%')
+options(warn=-1) 
 ```
 
-# Summarising data
 
 ```{r}
+#| message : false
 library(tidyverse)
-my.tv.data <- read_csv(
-  "../data/tv.csv", 
-  col_types = "nfcc"
-  )
 ```
 
-The argument `col_types = "nfcc"` stands for \{`numeric`, `factor`, `character`, `character`\}, to match the order of the columns.
+# Elephants
+
+## Load the data
+
+Load a dataset on elephants.
 
 ```{r}
-my.tv.data
+ele <- read.csv(
+  "../data/elephant.txt", sep = ""
+  ) 
+str(ele)
 ```
 
-We often do a summary of a numerical variable for a given categorical variable. For example, we like to see obtain the summary statistics of TV viewing times for various schools. The commands
+There are three variables: 
+
+- `Sex`: M or F
+- `Age`: in years
+- `Height`: shoulder height in cm
+
+
+# EDA
+
+## Exercise 4.1 {-} 
+Examine the distribution of the heights. Does that look normally distributed to you? Is it symmetrical and bell-shaped?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+## Exercise 4.2 {-} 
+The data have both male and female elephants, so we should probably look at the sexes separately. Update your plot from the last exercise to include sex so we can see each distribution.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 4.3 {-} 
+Have a look at the values of age.
+
+```{r}
+ggplot(ele) + 
+  aes(Age, Height) + 
+  geom_point()
+```
+```{r}
+ggplot(ele) + 
+  aes(Age) + 
+  geom_bar()
+```
+
+There is a wide range of ages, from 0 to 15 years old. Many elephants (49, to be exact) are 0 or 1 year old. Is the data normal if we remove these? First make a new copy of the data (named `ele2`) with the baby elephants removed and then repeat our tests for normality.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Confidence interval for the sample
+
+Let's now estimate the population mean (with a 95% confidence interval) of `Heights` in the dataset with the baby elephants removed.
+
+```{r, eval=FALSE}
+# note this code depends on an answer shown below. You should answer the previous question before running this code
+
+t.test(ele2$Height)
+```
+
+
+The `t.test()` function is very flexible. When given a single sample, it will provide the mean and 95% confidence interval. How would you interpret this confidence interval? 
+
+It also provides a test of whether the mean of the sample is significantly different from zero. If the *p*-value is less than 0.05, then we can say that there is evidence against the null hypothesis of a mean of zero. Now, in this case, of course this isn't useful. Elephants can never have zero or negative height, so a mean height of zero is nonsensical. 
+
+Note that we can extract the estimate of the population mean and its confidence interval in the following way.
+
+```{r, eval=FALSE}
+# note this code depends on an answer shown below. You should answer the previous question before running this code
+
+t.test(ele2$Height)$estimate
+t.test(ele2$Height)$conf.int
+```
+How was this confidence interval calculated? 
+
+The standard error (the standard deviation over multiple samples) for a sample mean can be estimated by $s / \sqrt n$, where $s$ is the sample standard deviation and $n$ is the sample size.
+
+```{r}
+# note this code depends on an answer shown below. You should answer the previous question then you can remove the numbers and uncomment the functions
+n = 263# length(ele2$Height)
+s = 29.08 #sd(ele2$Height)
+
+( se = s / sqrt(n) )
+```
+
+Once you have estimated the standard error, a confidence interval for a sample mean $\bar x$ is simply
+
+$$ 
+\bar x \pm t \times \text{se}
+$$
+
+The $t$ value is the 0.975 quantile of the $t$ distribution with the degrees of freedom given by $n-1$. 
+
+```{r}
+qt(p = 0.975, df = n - 1)
+```
+
+So, the sample mean and confidence interval is:
+
+```{r}
+( xbar <- 181.5741 ) # mean(ele2$Height)
+( xbar - qt(p = 0.975, df = n - 1) * se )
+( xbar + qt(p = 0.975, df = n - 1) * se )
+```
+
+# t-test for difference of two sample means
+
+Let's say we are interested in testing whether the mean heights of male and female elephants are different. First, we can test for differences in the variances in the two sexes using Levene's test, which is an important assumption of the t-test. In other words, if the assumption is violated, the results of the test may be misleading.
+
+## Exercise 4.4 {-}
+Preform the Levene's test. What are the results? Should we continue with the t test? Justify and, if yes, perform the test.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+How would the answer change if you use the full dataset `ele`?
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+# Dataset **`Prestige`**
+
+We will again be using a well-known dataset called `Prestige` from the `car`	R package.  This dataset deals with prestige ratings of Canadian Occupations. The `Prestige` dataset has 102 rows and 6 columns. The observations are occupations.
+
+This data frame contains the following columns:
+
+* **`education`** - Average education of occupational incumbents, years, in 1971.
+
+* **`income`** - Average income of incumbents, dollars, in 1971.
+
+* **`women`** - Percentage of incumbents who are women.
+
+*  **`prestige`** - Pineo-Porter prestige score for occupation, from a social survey conducted in the mid-1960s.
+
+* **`census`** - Canadian Census occupational code.
+
+*  **`type`** - Type of occupation. A factor with levels: `bc`, Blue Collar; `prof`, Professional, Managerial, and Technical; `wc`, White Collar. (includes four missing values).
+
+
+
+```{r, message=FALSE}
+library(tidyverse)
+library(car)
+data(Prestige)
+```
+
+
+# One-sample t-tests
+
+## Exercise 4.5 {-}
+Perform a one-sample t-test to test the hypothesis that the true mean `prestige` is exactly 50.
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+## Exercise 4.6 {-}
+Test whether the true mean `prestige` score for professionals is 50% more than the true mean `prestige` score for white collar occupations. 
+
+::: {#answer}
+
+```{r}
+# your code goes here
+```
+
+:::
+
+
+# Skewness
+
+Explore the skewness in the `income` variable using a boxplot. 
 
 ```{r, fig.show="hide", results='hide'}
+Prestige |> 
+  ggplot() +
+  aes(income) + 
+  geom_boxplot() 
 
-by(my.tv.data$TELETIME, my.tv.data$SCHOOL, summary)
+# or
+boxplot(Prestige$income, horizontal = TRUE)
 ```
 
-We employed the `by()` command above and instead, we may also use
-`tapply()` `aggregate()` functions:
+## Exercise 4.6 {-}
+Describe the skewness of `income` variable and why we examine it. 
 
-`tapply(my.data$TELETIME, my.data$SCHOOL, summary)`
+::: {#answer}
 
-`aggregate(my.data$TELETIME, list(my.data$SCHOOL), summary)`
 
-A tabulated summary of categorical data is obtained using the `table()`
-command. You can also use the tidyverse employing functions like filter, group_by, and summarise.
+:::
 
-```{r, fig.show="hide", results='hide'}
-rangitikei <- read.csv(
-  "../data/rangitikei.csv",
-  header=TRUE, 
-  row.names = 1
-  )
+# Transformation
 
-wind <- rangitikei |> pull(wind)
-river <- rangitikei |> pull(river)
+Find a suitable power transformation to correct the skewness. 
 
-table(wind, river)
+```{r, fig.show='hide'}
+library(lindia)
+
+gg_boxcox(lm(income ~ 1, data = Prestige))
+
 ```
-## Exercise 5.1 {-}
-Describe the table generated above. What does it tell you?
+
+## Exercise 4.7 {-}
+Which power transformation might correct the skewness? Make a boxplot of the transformed data. Compare the skewness seen in this plot with the one used for Exercise 4.6. Did the transformation improve the skewness?
 
 ::: {#answer}
 
@@ -62,9 +263,10 @@ Describe the table generated above. What does it tell you?
 
 :::
 
-## Exercise 5.2 {-}
-Generate a table that summarizes the mean number of vehicles at each level of wind and temperature.
-What does this table tell you about the data?
+# Confidence interval
+
+## Exercise 4.8 {-}
+Compute the 95% confidence interval for the true mean income using the raw and log-transformed data.
 
 ::: {#answer}
 
@@ -74,421 +276,135 @@ What does this table tell you about the data?
 
 :::
 
-## Exercise 5.3 {-}
-Now repeat this for the average people observed. What does this tell you about the data? 
+# Select answers
 
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-## Exercise 5.4 {-}
-Given the two tables you produced describe patterns of people and vehicles at Rangitikei rivers.
-
-::: {#answer}
-
-
-:::
-
-# Tidying data
-
-Most real analyses will require at least a little tidying. You’ll begin by figuring out what the underlying variables and observations are. Sometimes this is easy; other times you’ll need to consult with the people who originally generated the data. Next, you’ll pivot your data into a tidy form, with variables in the columns and observations in the rows.
-
-The `billboard` dataset records the billboard rank of songs in the year 2000:
+## Exercise 4.1 {-}
 
 ```{r}
-billboard
+ggplot(ele) + 
+  aes(x = Height) +
+  geom_histogram(
+    aes(y = after_stat(density)) # this aes goes here because 
+                                 # it only applies to geom_histogram
+    ) + 
+  geom_density()
 ```
 
-In this dataset, each observation is a song. The first three columns (artist, track and date.entered) are variables that describe the song. Then we have 76 columns (wk1-wk76) that describe the rank of the song in each week. Here, the column names are one variable (the week) and the cell values are another (the rank).
-
-
-We can use the `dplyr` function `pivot_longer()` to change this data into `long format`. 
-
-The command `pivot_wider()` does the opposite to `pivot_longer()`
-
-## Exercise 5.5 {-}
-Use `pivot_longer()` to tidy this data
-
-::: {#answer}
+We can test whether these data conform to a normal distribution model with a Shipiro-Wilk test for normality. The null hypothesis is that the data came from a population that is normal. 
 
 ```{r}
-# your code goes here
+shapiro.test(ele$Height)
 ```
 
-:::
+The very low p-value says that we can reject the null hypothesis, and conclude that these data are very unlikely to have come from a normal distribution. 
 
-
-# Combining datasets
-Sometimes you may want to analyse information that is in multiple tables.
-
-We will introduce a series of functions for joining tables together.
-
-Two tables can be connected through a pair of keys, within each table.
-
-Every join involves a pair of keys: a primary key and a foreign key. A primary key is a variable or set of variables that uniquely identifies each observation. When more than one variable is needed, the key is called a compound key. 
-
-
-## Types of join
-
-There are four types of mutating join, which differ in their behaviour when a match is not found.
-
--   `inner_join(x, y)` only includes observations that match in both x and y.
-
--   `left_join(x, y)` includes all observations in `x`, regardless of whether they match or not. This is the most commonly used join because it ensures that you don’t lose observations from your primary table.
-
--   `right_join(x, y)` includes all observations in `y`. It’s equivalent to `left_join(y, x)`, but the columns and rows will be ordered differently.
-
--   `full_join()` includes all observations from x and y.
-
-The left, right and full joins are collectively know as outer joins. When a row doesn’t match in an outer join, the new variables are filled in with missing values.
-
-## We will illustrate them using a simple example:
-
-First lets make some data:
-```{r}
-df1 <- tibble(x = c(1, 2), y = 2:1)
-df1
-df2 <- tibble(x = c(3, 1), a = 10, b = "a")
-df2
-```
-
-Now join the two datasets using the different join functions:
+## Exercise 4.2 {-} 
 
 ```{r}
-df1 %>% inner_join(df2) 
+
+ggplot(ele) + 
+   aes(x = Height) +
+   geom_histogram(
+     aes(y = after_stat(density)) # this aes goes here because 
+                                  # it only applies to geom_histogram
+     ) + 
+   geom_density() + 
+   facet_grid( ~ Sex)
+
+ggplot(ele) + 
+  aes(x = Height, fill = Sex, colour = Sex) +
+  geom_density(alpha = .3)
+
 ```
+
+It doesn't look like there's a major difference between the sexes in terms of the distribution of heights. Males might be a bit more variable than females (seeing the thicker tails).
+
+
+## Exercise 4.3 {-} 
 
 ```{r}
-df1 %>% left_join(df2)
+ggplot(ele) + aes(Age) + geom_bar()
 ```
+
+There is a wide range of ages, from 0 to 15 years old. Many elephants (49, to be exact) are 0 or 1 year old. Are the data normal if we remove these? We'll first make a new copy of the data with the baby elephants removed and then repeat our tests for normality.
 
 ```{r}
-df1 %>% right_join(df2)
-df2 %>% left_join(df1)
+ele2 <- ele |> filter(Age > 1) # make new dataset with babies removed
+
+ggplot(ele2) +
+  aes(x = Height) +
+   geom_histogram(
+     aes(y = after_stat(density)) 
+                                  
+     ) + 
+   geom_density() 
 ```
+
+That looks a bit more normal. 
 
 ```{r}
-df1 %>% full_join(df2)
+shapiro.test(ele2$Height)
 ```
 
-What are the differences between the join functions?
+Of elephants 2 years or older, there is no evidence that the heights do not come from a normal distribution (W = 1.0, p = 0.37). So, the heights of non-baby elephants appear approximately normally distributed.
 
-## Joining data: Example
-For another example, consider the flights and airlines data from the nycflights13 package. 
-
-In one table we have flight information with an abbreviation for carrier, and in another we have a mapping between abbreviations and full names. 
-
-You can use a join to add the carrier names to the flight data:
-
-```{r, echo=TRUE}
-library(nycflights13)
-# Drop unimportant variables so it's easier to understand the join results.
-flights2 <- flights %>% select(year:day, hour, origin, dest, tailnum, carrier)
-
-flights2 %>% 
-  left_join(airlines)
+## Exercise 4.4 {-} 
+```{r}
+car::leveneTest(Height ~ Sex, data = ele2)
 ```
 
-As well as x and y, each mutating join takes an argument `by` that controls which variables are used to match observations in the two tables. 
+A p-value of 0.1 is not huge, but it's not enough evidence to reject the null hypothesis that the variance of male heights is equal to the variance of female heights (at the 5% level).
 
-## Specifying join keys
-
-By default, left_join() will use all variables that appear in both data frames as the join key, but it doesn’t always work.
-
-For example lets look at some airline data:
+The default option for a t-test using the `t.test()` function is to *not* assume equal variances. 
 
 ```{r}
-flights2 <- flights |> 
-  select(year, time_hour, origin, dest, tailnum, carrier)
-flights2
-
-planes
+t.test(formula = Height ~ Sex, data = ele2) 
 ```
 
-We are going to try to going flight data to data about types of planes
+By this test, there is no strong evidence against the null hypothesis that the mean heights of male and female elephants are equal. 
+
+Welch Test does not assume equal variances. If we wanted to make this assumption (and therefore get more power):
 
 ```{r}
-flights2 |> 
-  left_join(planes)
-
+t.test(formula = Height ~ Sex, var.equal = T,  data = ele2) 
 ```
 
-We get a lot of missing matches because our join is trying to use tailnum and year as a compound key. Both flights and planes have a year column but they mean different things: `flights$year` is the year the flight occurred and `planes$year` is the year the plane was built.
+The result is essentially the same in this case. 
 
-Since these represent different types of data and we might want to keep both, we can be explicit about how to join the two data tables:
+## Exercise 4.5 {-}
 
-```{r}
-flights2 |> 
-  left_join(planes, join_by(tailnum))
+```{r, results='hide'}
+# Alternative hyp: greater or less than 50
+t.test(Prestige$prestige, mu=50)
+
+# Alternative hyp: greater than 50
+t.test(Prestige$prestige, mu=50, alternative="greater")
 ```
 
-Now by default there is a year.x and year.y coming from the flights and planes data respectively. You can change this using the `suffix` argument in join or by renaming the columns after the join.
+## Exercise 4.6 {-}
 
-## Exercise 5.6 {-}
-Imagine you’ve found the top 10 most popular destinations using this code:
-```{r}
-top_dest <- flights2 |>
-  count(dest, sort = TRUE) |>
-  head(10)
+```{r, results='hide'}
+prof.data <- Prestige |> 
+  filter(type=="prof") |> 
+  pull(prestige)
+
+wc.data <- Prestige |> 
+  filter(type=="wc") |> 
+  pull(prestige) 
+
+t.test(prof.data, 
+       wc.data, 
+       mu = 0.5 * mean(wc.data),
+       alternative = 'greater')
 ```
 
-How can you find all flights to those destinations?
+## Exercise 4.8 {-}
 
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-## Exercise 5.7 {-}
-What do the tail numbers that don’t have a matching record in planes have in common? (Hint: one variable explains ~90% of the problems.)
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-# case_when()
-Sometimes you want to add a new variable to your data based on existing variables. 
-
-dplyr’s case_when() is inspired by SQL’s CASE statement and provides a flexible way of performing different computations for different conditions. It has a special syntax that unfortunately looks like nothing else you’ll use in the tidyverse. It takes pairs that look like condition ~ output. condition must be a logical vector; when it’s TRUE, output will be used.
-
-This can take the place of if_else() statements.
-
-For example:
-```{r}
-flights |> 
-  mutate(
-    status = case_when( # make a new variable status based on the flights arrival delay
-      is.na(arr_delay)      ~ "cancelled",
-      arr_delay < -30       ~ "very early",
-      arr_delay < -15       ~ "early",
-      abs(arr_delay) <= 15  ~ "on time",
-      arr_delay < 60        ~ "late",
-      arr_delay < Inf       ~ "very late",
-    ),
-    .keep = "used"
-  )
-```
-
-## Exercise 5.8 {-}
-
-Write a case_when() statement that uses the month and day columns from flights to label a selection of important US holidays (e.g., New Years Day, 4th of July, Thanksgiving, and Christmas). First create a logical column that is either TRUE or FALSE, and then create a character column that either gives the name of the holiday or is NA.
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-# Dataset `Toxaemia`
-
-This dataset is from the `vcdExtra` package. Two signs of *toxaemia*, an abnormal condition during pregnancy characterized by high blood pressure (hypertension) and high levels of protein in the urine. If untreated, both the mother and baby are at risk of complications or death. The dataset `Toxaemia` represents 13384 expectant mothers in Bradford, England in their first pregnancy, who were also classified according to social class and the number of cigarettes smoked per day.
-
-The dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables:
-
-`class` - Social class of mother, a factor with levels: 1, 2, 3, 4, 5
-
-`smoke` - Cigarettes smoked per day during pregnancy, a factor with levels: 0, 1-19, 20+
-
-`hyper` - Hypertension level, a factor with levels: Low, High
-
-`urea` - Protein urea level, a factor with levels: Low, High
-
-`Freq` - frequency in each cell, a numeric vector
-
-## Exercise 5.9 {-}
-
-Obtain relevant graphical displays for this dataset.
-
-Bar charts-
-
-```{r}
-library(tidyverse)
-
-library(vcdExtra)
-data(Toxaemia)
-
-Toxaemia |> 
-  ggplot() + 
-  aes(x=smoke, y=Freq, fill=hyper) + 
-  geom_bar(stat='identity')
-```
-
-```{r}
-Toxaemia |> 
-  ggplot() + 
-  aes(x=smoke, y=Freq, fill=hyper) + 
-  geom_bar(stat='identity', 
-           position = "dodge"
-           )
-
-
-```
-```{r}
-Toxaemia |> 
-  ggplot() + 
-  aes(x=smoke, y=Freq, fill=hyper) + 
-  geom_bar(stat ='identity', 
-           position = "dodge") + 
-  facet_grid(urea ~ ., scales = "free")
-```
-
-Mosaic type charts
-
-```{r, fig.show='hide', results='hide'}
-tab.data <- xtabs(Freq ~ smoke + hyper + urea, data=Toxaemia)
-
-plot(tab.data)
-
-mosaic(tab.data, shade=TRUE, legend=TRUE)
-
-assoc(tab.data, shade=TRUE) 
-
-strucplot(tab.data)
-
-sieve(tab.data)
-```
-
-The full dataset is a 5 x 3 x 2 x 2 contingency table, with 60 observations on the following 5 variables.
-For this question we will focus on two categorical variables from this dataset, `hyper` and `urea`. This forms a 2 x 2 contingency table since these variables each have two levels. 
-
-```{r}
-# subset the data
-tox_2 <- Toxaemia |> 
-  dplyr::select(hyper, urea, Freq)
+```{r, results="hide"}
+t.test(Prestige$income)
+t.test(log(Prestige$income))
 ```
 
 
-```{r}
-# the tidyverse way
-tox_display <- tox_2 |> 
-  pivot_wider(names_from = urea, 
-              values_from = Freq,
-              values_fn = sum) |>
-  column_to_rownames( var = "hyper") # make values of hyper column row names
 
-tox_display
-
-# xtabs() 
-```
-
-Two signs of *toxaemia*, are high blood pressure (hypertension) and high levels of protein in the urine. We want to ask if in our sample of expectant mothers in Bradford, England, is high blood pressure related to high protein levels? If these two variables are associated this may indicate the presence of toxaemia in the sample, if they are independent toxaemia may not be present. 
-
-We can test this question using a Chi-squared test.
-
-The null hypothesis of the chi-squared these is that the two variables are independent and the alternative hypothesis is that the two variables are not independent.
-
-Our null hypothesis is that Hypertension level and the Protein urea level in expectant mothers in Bradford, England are independent. 
-
-Our alternative hypothesis that Hypertension level and the Protein urea level in expectant mothers in Bradford, England are *not* independent. 
-
-Set our alpha = 0.05
-```{r}
-chisq.test(tox_display)
-```
-Since our p-value is less than our alpha level we reject the null hypothesis and conclude that the two variables (hyper & urea) are not independent. We found evidence of an association between hypertension levels and protein in urine levels in our sample of expectant mothers in Bradford, England.
-
-We can see the expected counts
-```{r}
-chisq.test(tox_display)$expected
-
-# compared to our observed
-tox_display
-
-# total counts 13384
-```
-
-## Exercise 5.10 {-}
-
-The genetic information of an organism is stored in its Deoxyribonucleic acid (DNA). DNA is a double stranded helix made up of four different nucleotides. These nucleotides differ in which of the four bases Adenine (A), Guanine (G), Cytosine (C), or Thymine (T) they contain. Nucleotides combine to form amino acids which are the building blocks of proteins. Simply put, three nucleotides form an amino acid and the specific order of a combination dictates what amino acid is formed. A simple pattern that we may want to detect in a DNA sequence is that of the nucleotide at position `i+1` based on the nucleotide at position `i`. The nucleotide positional data collected by a researcher in a particular case is given in the following table:
-
-| `i\(i+1)` | A   | C   | G   | T   |
-|-----------|-----|-----|-----|-----|
-| A         | 622 | 316 | 328 | 536 |
-| C         | 428 | 262 | 204 | 306 |
-| G         | 354 | 294 | 174 | 266 |
-| T         | 396 | 330 | 382 | 648 |
-
-Perform a test of association and then obtain the symmetric plot.
-
-```{r}
-tabledata <- data.frame(
-  A_1 = c(622, 428, 354, 396),
-  C_1 = c(316, 262, 294, 330),
-  G_1 = c(328, 204, 174, 382),
-  T_1 = c(536, 306, 266, 648), 
-  row.names = c("A", "C", "G", "T")
-  )
-```
-
-```{r}
-chisq.test(tabledata)$exp
-chisq.test(tabledata)
-chisq.test(tabledata, simulate.p.value = T)
-
-```
-
-```{r}
-# if there is an association we can examine patterns 
-library(MASS)
-corresp(tabledata)
-
-```
-
-```{r}
-plot(corresp(tabledata, nf=2))
-abline(v=0)
-abline(h=0)
-```
-
-```{r}
-#or
-library(FactoMineR)
-CA(tabledata)
-```
-
-
-# Data `diamonds`
-
-The `diamonds` dataset contains the prices and other attributes of almost 54,000 diamonds. Use `?diamonds` to see information for each variable.
-
-
-```{r}
-data("diamonds")
-names(diamonds)
-
-## Some EDA plots
-ggplot(diamonds, aes(color))+geom_bar() + facet_wrap(~cut)
-ggplot(diamonds, aes(color))+geom_bar(aes(fill=cut))
-ggplot(diamonds, aes(color))+geom_bar(aes(fill=cut))+ facet_wrap(~clarity)
-
-```
-
-## Exercise 5.11 {-}
-We are interested in whether there is an association between cut and color. Perform a test of association and then obtain the symmetric plot. Write your hypotheses, perform the test, make a decision based on the results of the test, and report a conclusion in context.
-
-::: {#answer}
-
-```{r}
-# your code goes here
-```
-
-:::
-
-
-
-
-
--   More R code examples are  [here](../exercises/Chap5more.R)
+More R code examples are  [here](../exercises/Chap4more.R)
